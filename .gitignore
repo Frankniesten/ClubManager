@@ -5,6 +5,8 @@
 /public/bundles/
 /var/
 /vendor/
+.DS_STORE
+/.DS_STORE
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
