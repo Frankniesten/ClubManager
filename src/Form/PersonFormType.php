@@ -26,7 +26,7 @@ class PersonFormType extends AbstractType
 			        'Man' => 'Man',
 			        'Vrouw' => 'Vrouw')])
 			->add('telephone', TextType::class, ['label' => 'Telefoon', 'required' => false])
-			->add('mobilePhone', TextType::class, ['label' => 'Mobiel', 'required' => true]);
+			->add('mobilePhone', TextType::class, ['label' => 'Mobiel', 'required' => false]);
 	}  
 }
 

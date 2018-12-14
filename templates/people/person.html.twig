@@ -13,6 +13,7 @@
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<a href="{{ path('app_person_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+	        	<a href="{{ path('app_person_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
 				<a href="{{ path('app_people') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>

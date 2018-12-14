@@ -107,10 +107,9 @@ class Person
     private $telephone;
 
     /**
-     * @var string
+     * @var string|null the mobile phone number
      *
-     * @ORM\Column(type="text")
-     * @Assert\NotNull
+     * @ORM\Column(type="text", nullable=true))
      */
     private $mobilePhone;
 
@@ -279,12 +278,12 @@ class Person
         return $this->telephone;
     }
 
-    public function setMobilePhone(string $mobilePhone): void
+    public function setMobilePhone(?string $mobilePhone): void
     {
         $this->mobilePhone = $mobilePhone;
     }
 
-    public function getMobilePhone(): string
+    public function getMobilePhone(): ?string
     {
         return $this->mobilePhone;
     }
