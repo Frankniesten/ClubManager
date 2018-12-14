@@ -1,6 +1,113 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
 app_dashboard:
     path: /
     controller: App\Controller\DashboardController::homepage
+
+# ---People--- #
+app_people:
+    path: /people
+    controller: App\Controller\PeopleController::list
+    
+app_person:
+    path: /person/{id}
+    controller: App\Controller\PeopleController::show
+
+app_person_create:
+    path: /person/create
+    controller: App\Controller\PeopleController::new
+    
+app_person_edit:
+    path: /person/{id}/edit
+    controller: App\Controller\PeopleController::edit
+    
+app_person_delete:
+    path: /person/{id}/delete
+    controller: App\Controller\PeopleController::delete
+
+
+# Person - Parents:
+
+# Person - Memberships:
+
+# Person - MusicalInstrument:
+
+# Person - Education:
+
+# Person - Products:
+
+# Person - Knows:
+
+# Person - Reviews:
+app_person_reviews:
+    path: /person{slug}/reviews
+    controller: App\Controller\PeopleController::show
+
+
+
+# ---Organizations--- #
+app_organizations:
+    path: /organizations
+    controller: App\Controller\OrganizationsController::list
+
+app_events:
+    path: /events
+    controller: App\Controller\EventsController::list
+
+app_products:
+    path: /products
+    controller: App\Controller\ProductsController::list
+
+app_services:
+    path: /services
+    controller: App\Controller\ServicesController::list
+
+
+# ---Categories--- #
+app_settings_categories:
+    path: /settings/categories
+    controller: App\Controller\CategoriesController::list
+
+app_settings_categorie_create:
+    path: /settings/categorie/create
+    controller: App\Controller\CategoriesController::new
+    
+app_settings_categorie_edit:
+    path: /settings/categorie/{id}/edit
+    controller: App\Controller\CategoriesController::edit
+
+app_settings_categorie_delete:
+    path: /settings/categorie/{id}/delete
+    controller: App\Controller\CategoriesController::show
+
+# ---ProgramMemberships--- #
+app_settings_program_memberships:
+    path: /settings/programmemberships
+    controller: App\Controller\ProgramMembershipController::list
+
+app_settings_program_membership_create:
+    path: /settings/programmembership/create
+    controller: App\Controller\ProgramMembershipController::new
+    
+app_settings_program_membership_edit:
+    path: /settings/programmembership/{id}/edit
+    controller: App\Controller\ProgramMembershipController::edit
+    
+app_settings_program_membership_delete:
+    path: /settings/programmembership/{id}/delete
+    controller: App\Controller\ProgramMembershipController::delete
+
+# ---MusicalInstruments--- #
+app_settings_musical_instruments:
+    path: /settings/musicalinstruments
+    controller: App\Controller\MusicalInstrumentsController::list
+    
+app_settings_app_settings_musical_instrument_create:
+    path: /settings/musicalinstrument/create
+    controller: App\Controller\MusicalInstrumentsController::new
+    
+app_settings_program_settings_musical_instrument_edit:
+    path: /settings/musicalinstrument/{id}/edit
+    controller: App\Controller\MusicalInstrumentsController::edit
+    
+app_settings_program_settings_musical_instrument_delete:
+    path: /settings/musicalinstrument/{id}/delete
+    controller: App\Controller\MusicalInstrumentsController::delete

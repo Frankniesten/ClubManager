@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personen{% endblock %}
+
+
+{% block body %}
+
+	<div class="row align-items-center">
+        <div class="col">
+	        <h2>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</h2>
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	<a href="{{ path('app_person_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+				<a href="{{ path('app_people') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        </div>
+        </div>
+        
+	</div>
+	
+    <!-- Card Box -->
+    <div class="card-box table-responsive">
+	    
+	    <!-- Tab Navigation -->
+		        <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                            Persoonsgegevens
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#profile1" data-toggle="tab" aria-expanded="true" class="nav-link">
+                            Ouder(s)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#messages1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            Lidmaatschap
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            Muziekinstrument
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            Opleiding
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            Rollen
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            Producten
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            Relaties
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            Notities
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade show active" id="home1">
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+        <table class="table table-bordered table-striped">
+			                <tbody>
+			                <tr>
+			                    <td width="30%"><b>Voornaam</b></td>
+			                    <td width="70%">{{data.givenName}}</td>
+			                </tr>
+			                <tr>
+			                    <td width="30%"><b>Achternaam</b></td>
+			                    <td width="70%">{{data.familyName}}</td>
+			                </tr>
+			                <tr>
+			                    <td width="30%"><b>Email</b></td>
+			                    <td width="70%">{{data.email}}</td>
+			                </tr>
+			                <tr>
+			                    <td width="30%"><b>Geboortedatum</b></td>
+			                    <td width="70%"></td>
+			                </tr>
+			                <tr>
+			                    <td width="30%"><b>Geslacht</b></td>
+			                    <td width="70%">{{data.gender}}</td>
+			                </tr>
+			                <tr>
+			                    <td width="30%"><b>Adres</b></td>
+			                    <td width="70%"></td>
+			                </tr>
+			                <tr>
+			                    <td width="30%"><b>Telefoon</b></td>
+			                    <td width="70%">{{data.telephone}}</td>
+			                </tr>
+			                <tr>
+			                    <td width="30%"><b>Mobiel</b></td>
+			                    <td width="70%">{{data.mobilePhone}}</td>
+			                </tr>
+
+			                
+			
+			                </tbody>
+			            </table>
+            
+    </div>      </div>
+
+{% endblock %}

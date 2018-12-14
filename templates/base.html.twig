@@ -91,31 +91,31 @@
                             </li>
 
                             <li>
-                                <a href="" class="waves-effect"><i class="mdi mdi-account-multiple"></i> <span> Personen </span> </a>
+                                <a href="{{ path('app_people') }}" class="waves-effect"><i class="mdi mdi-account-multiple"></i> <span> Personen </span> </a>
                             </li>
                             
                             <li>
-                                <a href="" class="waves-effect"><i class="mdi mdi-domain"></i> <span> Organisaties </span> </a>
+                                <a href="{{ path('app_organizations') }}" class="waves-effect"><i class="mdi mdi-domain"></i> <span> Organisaties </span> </a>
                             </li>
                             
                             <li>
-                                <a href="" class="waves-effect"><i class="mdi mdi mdi-calendar-clock"></i> <span> Events </span> </a>
+                                <a href="{{ path('app_events') }}" class="waves-effect"><i class="mdi mdi mdi-calendar-clock"></i> <span> Events </span> </a>
                             </li>
                             
                             <li>
-                                <a href="" class="waves-effect"><i class="mdi mdi-wrench"></i> <span> Producten </span> </a>
+                                <a href="{{ path('app_products') }}" class="waves-effect"><i class="mdi mdi-wrench"></i> <span> Producten </span> </a>
                             </li>
                             
                             <li>
-                                <a href="" class="waves-effect"><i class="mdi mdi mdi-cart"></i> <span> Diensten </span> </a>
+                                <a href="{{ path('app_services') }}" class="waves-effect"><i class="mdi mdi mdi-cart"></i> <span> Diensten </span> </a>
                             </li>
                             
                             <li class="has_sub">
                                 <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-settings"></i> <span> Instellingen </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="">Categoriën</a></li>
-                                    <li><a href="">Rollen</a></li>
-                                    <li><a href="">Muziekinstrumenten</a></li>
+                                    <li><a href="{{ path('app_settings_categories') }}">Categoriën</a></li>
+                                    <li><a href="{{ path('app_settings_program_memberships') }}">Rollen</a></li>
+                                    <li><a href="{{ path('app_settings_musical_instruments') }}">Muziekinstrumenten</a></li>
                                 </ul>
                             </li>
 

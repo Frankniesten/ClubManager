@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personen{% endblock %}
+
+
+{% block body %}
+
+ 	{{ form_start(form) }}
+	<div class="row align-items-center">
+        <div class="col">
+	        <h2>Persoon Toevoegen</h2>
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
+				<a href="{{ path('app_people') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        </div>
+        </div>
+        
+	</div>
+	
+    <!-- Card Box -->
+    <div class="card-box table-responsive">
+        
+		{{ form_widget(form) }}
+		
+		{{ form_end(form) }}
+            
+    </div>      
+
+{% endblock %}

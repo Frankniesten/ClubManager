@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Instellingen > Muziekinstrumenten{% endblock %}
+
+
+{% block body %}
+
+ 	{{ form_start(form) }}
+	<div class="row align-items-center">
+        <div class="col">
+	        <h2>Muziekinstrument Bewerken</h2>
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
+				<a href="{{ path('app_settings_program_settings_musical_instrument_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+				<a href="{{ path('app_settings_musical_instruments') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        </div>
+        </div>
+        
+	</div>
+	
+    <!-- Card Box -->
+    <div class="card-box table-responsive">
+        
+		{{ form_widget(form) }}
+		
+		{{ form_end(form) }}
+        
+    	<div>
+	    	<small style="padding-right:10px;"><i class="fa fa-calendar-plus-o"></i> {{ data.dateCreated |date("d-m-Y  - H:i")}}</small>
+	    	<small style="padding-right:10px;"> <i class="fa fa-calendar-check-o"></i> {{ data.dateModified |date("d-m-Y  - H:i")}}</small>
+    	</div>    
+    </div>      
+
+{% endblock %}
