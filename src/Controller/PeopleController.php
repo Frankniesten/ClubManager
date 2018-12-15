@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Person;
-use App\Entity\PostalAddress;
 use App\Form\PersonFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -45,7 +44,7 @@ class PeopleController extends AbstractController
 			$em->flush();
 			$id = $person->getId();
            
-			$this->addFlash('success', 'Weer een nieuwe persoon aangemaakt!');
+			$this->addFlash('success', $person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' is aangemaakt!');
 			
 			return $this->redirectToRoute('app_person', array('id' => $id));			
 		}
@@ -88,14 +87,31 @@ class PeopleController extends AbstractController
 			$em->persist($person);
 			$em->flush();
            
-			$this->addFlash('success', 'Persoonsgegevens zijn bijgewerkt!');
+			$this->addFlash('success', $person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' is bijgewerkt!');
 			
-			return $this->redirectToRoute('app_people');			
+			return $this->redirectToRoute('app_person', array('id' => $id));			
 		}
 		
 		return $this->render('people/personEdit.html.twig', [
         	'form' => $form->createView(),
         	'data' => $person
 		]);
+	}
+	
+	
+	/**
+     * @Route("/person/{id}/delete", name="person_delete")
+     */
+	public function del(EntityManagerInterface $em, Request $request, $id)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$person = $em->getRepository(Person::class)->find($id);
+
+			$em->remove($person);
+			$em->flush();
+           
+			$this->addFlash('success', 'Persoon is verwijderd!');
+			
+			return $this->redirectToRoute('app_people');			
 	}
 }

@@ -48,6 +48,32 @@ app_organizations:
     path: /organizations
     controller: App\Controller\OrganizationsController::list
 
+app_organization_create:
+    path: /organization/create
+    controller: App\Controller\OrganizationsController::new
+     
+app_organization:
+    path: /organization/{id}
+    controller: App\Controller\OrganizationsController::show
+    
+app_organization_edit:
+    path: /organization/{id}/edit
+    controller: App\Controller\OrganizationsController::edit
+    
+app_organization_delete:
+    path: /organization/{id}/delete
+    controller: App\Controller\OrganizationsController::delete
+
+
+
+
+
+
+
+
+
+
+
 app_events:
     path: /events
     controller: App\Controller\EventsController::list

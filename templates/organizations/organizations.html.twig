@@ -12,19 +12,19 @@
 {% endblock %}       
         
 
-{% block title %}Instellingen > Categorieën{% endblock %}
+{% block title %}Organisaties{% endblock %}
 
 
 {% block body %}
 
 <div class="row align-items-center">
         <div class="col">
-	        <h2>Categorieën</h2>
+	        <h2>Organisaties</h2>
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
-	        	<a href="{{ path('app_settings_categorie_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
+	        	<a href="{{ path('app_organization_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
 	        </div>
         </div>
         
@@ -38,18 +38,17 @@
 	            <table id="datatable" class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Categorie</th>
-                        <th>Omschrijving</th>
-                        <th>Type</th>
+                        <th>Organisatie</th>
+                        <th>Email</th>
                     </tr>
                     </thead>
 
 
                     <tbody>
-                    {% for categorie in data %}
+                    {% for data in data %}
 						<tr>
 						    <td style="padding-bottom: 0px;">
-							    <a href="{{ path('app_settings_categorie_edit', {'id': categorie.id}) }}" class="waves-effect">{{ categorie.name }}
+							    <a href="{{ path('app_organization', {'id': data.id}) }}" class="waves-effect">{{ data.legalName }}
 							    	
 							    	<!-- Dropdown -->
 								    <div class="dropdown pull-right">
@@ -59,17 +58,16 @@
 	                                    
 	                                    <div class="dropdown-menu dropdown-menu-right">
 	                                        <!-- item-->
-	                                        <a href="{{ path('app_settings_categorie_edit', {'id': categorie.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        <a href="{{ path('app_organization_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
 	                                        <!-- item-->
-	                                        <a href="{{ path('app_settings_categorie_delete', {'id': categorie.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        <a href="{{ path('app_organization_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
 	                                    </div>
 	                                </div>
 	                               
 							    </a>
 							    
 						    </td>
-						    <td>{{ categorie.description }}</td>
-						    <td>{{ categorie.additionalType }}</td>
+						    <td>{{ data.email }}</td>
 						</tr>
 
 					{% endfor %}
@@ -139,6 +137,5 @@
                 .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
         });
     </script>
-
     
 {% endblock %}

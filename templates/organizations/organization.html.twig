@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Personen{% endblock %}
+{% block title %}Organisatie{% endblock %}
 
 
 {% block body %}
 
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</h2>
+	        <h2>{{ data.legalName }}
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
-	        	<a href="{{ path('app_person_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
-	        	<a href="{{ path('app_person_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
-				<a href="{{ path('app_people') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        	<a href="{{ path('app_organization_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+	        	<a href="{{ path('app_organization_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+				<a href="{{ path('app_organizations') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>
         
@@ -74,37 +74,20 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade show active" id="home1">
 	    
-	    
-	    
-	    
-	    
-	    
-	    
+
         <table class="table table-bordered table-striped">
             <tbody>
             <tr>
-                <td width="30%"><b>Voornaam</b></td>
-                <td width="70%">{{data.givenName}}</td>
+                <td width="30%"><b>Organisatie</b></td>
+                <td width="70%">{{data.legalName}}</td>
             </tr>
             <tr>
-                <td width="30%"><b>Achternaam</b></td>
-                <td width="70%">{{data.additionalName}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Achternaam</b></td>
-                <td width="70%">{{data.familyName}}</td>
+                <td width="30%"><b>Omschrijving</b></td>
+                <td width="70%">{{data.description}}</td>
             </tr>
             <tr>
                 <td width="30%"><b>Email</b></td>
                 <td width="70%">{{data.email}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Geboortedatum</b></td>
-                <td width="70%">{{data.birthDate |date("d-m-Y")}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Geslacht</b></td>
-                <td width="70%">{{data.gender}}</td>
             </tr>
             <tr>
                 <td width="30%"><b>Telefoon</b></td>
@@ -114,13 +97,25 @@
                 <td width="30%"><b>Mobiel</b></td>
                 <td width="70%">{{data.telephone2}}</td>
             </tr>
+            <tr>
+                <td width="30%"><b>K.v.K. Nummer</b></td>
+                <td width="70%">{{data.leiCode}}</td>
+            </tr>
+            <tr>
+                <td width="30%"><b>Belasting Nummer</b></td>
+                <td width="70%">{{data.vatID}}</td>
+            </tr>
+            <tr>
+                <td width="30%"><b>Website</b></td>
+                <td width="70%">{{data.url}}</td>
+            </tr>
 
             
 
             </tbody>
         </table>
-        
-    </div>     
+      
+    </div> 
 </div>
 
 <br>
@@ -129,5 +124,6 @@
 	<small style="padding-right:10px;"><i class="fa fa-calendar-plus-o"></i> {{ data.createdAt |date("d-m-Y  - H:i")}}</small>
 	<small style="padding-right:10px;"> <i class="fa fa-calendar-check-o"></i> {{ data.updatedAt |date("d-m-Y  - H:i")}}</small>
 </div>  
+    	     
 
 {% endblock %}

@@ -140,6 +140,13 @@
                 <div class="content">
                     <div class="container-fluid">
 	                    
+	                    {% for message in app.flashes('success') %}
+							<div class="alert alert-success" role="alert">
+							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							  <strong>Success!</strong> {{ message }}
+							</div>
+						{% endfor %}
+	                    
 	                    {% block body %}
 	                    
 	                    {% endblock %}
@@ -187,6 +194,14 @@
 	        <!-- App js -->
 	        <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
 	        <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
+	        
+	        <script type="text/javascript">
+				window.setTimeout(function() {
+				    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+				        $(this).remove(); 
+				    });
+				}, 4000);
+		    </script> 
             
             
         {% endblock %}
