@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Person;
+use App\Entity\PostalAddress;
 use App\Form\PersonFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,17 +39,7 @@ class PeopleController extends AbstractController
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			
-			$data = $form->getData();
-				
-			$person = new Person();
-			$person->SetGivenName($data['givenName']);
-			$person->SetAdditionalName($data['additionalName']);
-			$person->SetFamilyName($data['familyName']);
-			$person->SetEmail($data['email']);
-			$person->SetBirthDate($data['birthDate']);
-			$person->SetGender($data['gender']);
-			$person->SetTelephone($data['telephone']);
-			$person->SetMobilePhone($data['mobilePhone']);
+			$person = $form->getData();
 			
 			$em->persist($person);
 			$em->flush();

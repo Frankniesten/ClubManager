@@ -8,14 +8,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181214213012 extends AbstractMigration
+final class Version20181215124927 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE person CHANGE mobile_phone mobile_phone LONGTEXT DEFAULT NULL');
+        $this->addSql('CREATE TABLE person (id INT AUTO_INCREMENT NOT NULL, given_name LONGTEXT DEFAULT NULL, additional_name LONGTEXT DEFAULT NULL, family_name LONGTEXT NOT NULL, birth_date DATE DEFAULT NULL, gender LONGTEXT DEFAULT NULL, email LONGTEXT DEFAULT NULL, telephone LONGTEXT DEFAULT NULL, telephone_2 LONGTEXT DEFAULT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
     }
 
     public function down(Schema $schema) : void
@@ -23,6 +23,6 @@ final class Version20181214213012 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE person CHANGE mobile_phone mobile_phone LONGTEXT NOT NULL COLLATE utf8mb4_unicode_ci');
+        $this->addSql('DROP TABLE person');
     }
 }

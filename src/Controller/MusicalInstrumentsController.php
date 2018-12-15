@@ -38,11 +38,8 @@ class MusicalInstrumentsController extends AbstractController
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			
-			$data = $form->getData();
+			$musicalInstrument = $form->getData();
 						
-			$musicalInstrument = new MusicalInstrument();
-			$musicalInstrument->setmusicalInstrument($data['musicalInstrument']);
-		 
 			$em->persist($musicalInstrument);
 			$em->flush();
            

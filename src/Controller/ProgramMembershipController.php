@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
  
 class ProgramMembershipController extends AbstractController
 {
+	
     /**
      * @Route("/programmemberships", name="program_memberships")
      */
@@ -27,6 +28,7 @@ class ProgramMembershipController extends AbstractController
 		]);
 	}
 	
+	
 	/**
      * @Route("/settings/programmembership/create", name="program_memberships_create")
      */
@@ -38,12 +40,8 @@ class ProgramMembershipController extends AbstractController
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			
-			$data = $form->getData();
+			$programMembership = $form->getData();
 						
-			$programMembership = new ProgramMembership();
-			$programMembership->setProgramName($data['programName']);
-			$programMembership->setDescription($data['description']);
-		 
 			$em->persist($programMembership);
 			$em->flush();
            
@@ -56,6 +54,7 @@ class ProgramMembershipController extends AbstractController
         	'form' => $form->createView()
 		]);
 	}
+	
 	
 	/**
      * @Route("/settings/programmembership/{id}/edit", name="programmembership_edit")
@@ -86,6 +85,7 @@ class ProgramMembershipController extends AbstractController
         	'data' => $programMembership
 		]);
 	}
+	
 	
 	/**
      * @Route("/settings/programmembership/{id}/delete", name="programmembership_delete")

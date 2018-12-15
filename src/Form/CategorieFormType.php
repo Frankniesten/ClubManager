@@ -2,10 +2,13 @@
 	
 namespace App\Form;
 
+use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class CategorieFormType extends AbstractType
 {
@@ -13,17 +16,23 @@ class CategorieFormType extends AbstractType
     {
 	    $builder
 	    	->add('name', TextType::class, ['label' => 'Categorie'])
-	    	->add('description', TextType::class, ['label' => 'Omschrijving', 'required' => false])
+	    	->add('description', TextType::class, ['label' => 'Omschrijving'])
 	    	->add('additionalType', ChoiceType::class, array(
-    'choices'  => array(
-        '' => '',
-        'Personen' => 'Personen',
-        'Organisaties' => 'Organisaties',
-        'Events' => 'Events',
-        'Producten' => 'Products',
-        'Diensten' => 'Diensten'
-    ),
-));    }
+				'choices'  => array(
+					'' => '',
+					'Personen' => 'Personen',
+					'Organisaties' => 'Organisaties',
+					'Events' => 'Events',
+					'Producten' => 'Products',
+					'Diensten' => 'Diensten')));    
+	}
+
+	public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Categorie::class
+        ]);
+    }
     
 }
 

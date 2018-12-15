@@ -37,18 +37,12 @@ class CategoriesController extends AbstractController
      */
 	public function new(EntityManagerInterface $em, Request $request)
 	{
-		
 		$form = $this->createForm(CategorieFormType::class);
 		
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			
-			$data = $form->getData();
-						
-			$categorie = new Categorie();
-			$categorie->setName($data['name']);
-			$categorie->setDescription($data['description']);
-			$categorie->setAdditionalType($data['additionalType']);
+			$categorie = $form->getData();
 		 
 			$em->persist($categorie);
 			$em->flush();
@@ -63,6 +57,7 @@ class CategoriesController extends AbstractController
 		]);
 	}
 	
+	
 	/**
      * @Route("/settings/categorie/{id}/edit", name="categorie_edit")
      */
@@ -71,7 +66,6 @@ class CategoriesController extends AbstractController
 		$em = $this->getDoctrine()->getManager();
 		$categorie = $em->getRepository(Categorie::class)->find($id);
 		        
-        
 		$form = $this->createForm(CategorieFormType::class, $categorie);
 		
 		$form->handleRequest($request);

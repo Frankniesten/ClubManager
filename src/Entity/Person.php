@@ -1,221 +1,81 @@
 <?php
 
-/*
- * This file is part of ClubManager API.
- *
- * (c) Frank Niesten <f.niesten@me.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-declare(strict_types=1);
-
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
- * A person (alive, dead, undead, or fictional).
- *
- * @see http://schema.org/Person Documentation on Schema.org
- *
- * @ORM\Entity
- * @ApiResource(iri="http://schema.org/Person")
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  */
 class Person
 {
+	use TimestampableEntity;
+	
     /**
-     * @var int|null
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-     * @var string|null Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the name property.
-     *
      * @ORM\Column(type="text", nullable=true)
-     * @ApiProperty(iri="http://schema.org/familyName")
-     */
-    private $familyName;
-
-    /**
-     * @var string Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the name property.
-     *
-     * @ORM\Column(type="text")
-     * @ApiProperty(iri="http://schema.org/givenName")
-     * @Assert\NotNull
      */
     private $givenName;
 
     /**
-     * @var string|null an additional name for a Person, can be used for a middle name
-     *
      * @ORM\Column(type="text", nullable=true)
-     * @ApiProperty(iri="http://schema.org/additionalName")
      */
     private $additionalName;
 
     /**
-     * @var \DateTimeInterface|null date of birth
-     *
+     * @ORM\Column(type="text")
+     */
+    private $familyName;
+
+    /**
      * @ORM\Column(type="date", nullable=true)
-     * @ApiProperty(iri="http://schema.org/birthDate")
-     * @Assert\Date
      */
     private $birthDate;
 
     /**
-     * @var Collection<PostalAddress>|null physical address of the item
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\PostalAddress")
-     * @ApiProperty(iri="http://schema.org/address")
-     */
-    private $addresses;
-
-    /**
-     * @var string|null Gender of the person. While http://schema.org/Male and http://schema.org/Female may be used, text strings are also acceptable for people who do not identify as a binary gender.
-     *
      * @ORM\Column(type="text", nullable=true)
-     * @ApiProperty(iri="http://schema.org/gender")
      */
     private $gender;
 
     /**
-     * @var string|null email address
-     *
      * @ORM\Column(type="text", nullable=true)
-     * @ApiProperty(iri="http://schema.org/email")
-     * @Assert\Email
      */
     private $email;
 
     /**
-     * @var string|null the telephone number
-     *
      * @ORM\Column(type="text", nullable=true)
-     * @ApiProperty(iri="http://schema.org/telephone")
      */
     private $telephone;
 
     /**
-     * @var string|null the mobile phone number
-     *
-     * @ORM\Column(type="text", nullable=true))
+     * @ORM\Column(type="text", nullable=true)
      */
-    private $mobilePhone;
-
-    /**
-     * @var Collection<Person>|null the most generic bi-directional social/work relation
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person")
-     * @ORM\JoinTable(name="Person_knows")
-     * @ApiProperty(iri="http://schema.org/knows")
-     */
-    private $knows;
-
-    /**
-     * @var Collection<Person>|null a parents of the person
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person")
-     * @ORM\JoinTable(name="Person_parents")
-     * @ApiProperty(iri="http://schema.org/parents")
-     */
-    private $parents;
-
-    /**
-     * @var Collection<MusicalInstrument>|null
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\MusicalInstrument")
-     */
-    private $musicalInstruments;
-
-    /**
-     * @var Collection<Education>|null
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Education")
-     */
-    private $education;
-
-    /**
-     * @var Collection<Categorie>|null
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Categorie")
-     */
-    private $categories;
-
-    /**
-     * @var Collection<ProgramMembership>|null an Organization (or ProgramMembership) to which this Person or Organization belongs
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\ProgramMembership")
-     * @ApiProperty(iri="http://schema.org/memberOf")
-     */
-    private $memberOfs;
-
-    /**
-     * @var Collection<OwnershipInfo>|null products owned by the organization or person
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\OwnershipInfo")
-     * @ApiProperty(iri="http://schema.org/owns")
-     */
-    private $owns;
-
-    /**
-     * @var Collection<Review>|null
-     *
-     * @ORM\ManyToMany(targetEntity="App\Entity\Review")
-     */
-    private $reviews;
-
-    public function __construct()
-    {
-        $this->addresses = new ArrayCollection();
-        $this->knows = new ArrayCollection();
-        $this->parents = new ArrayCollection();
-        $this->musicalInstruments = new ArrayCollection();
-        $this->education = new ArrayCollection();
-        $this->categories = new ArrayCollection();
-        $this->memberOfs = new ArrayCollection();
-        $this->owns = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
-    }
+    private $telephone_2;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function setFamilyName(?string $familyName): void
-    {
-        $this->familyName = $familyName;
-    }
-
-    public function getFamilyName(): ?string
-    {
-        return $this->familyName;
-    }
-
-    public function setGivenName(string $givenName): void
-    {
-        $this->givenName = $givenName;
-    }
-
-    public function getGivenName(): string
+    public function getGivenName(): ?string
     {
         return $this->givenName;
     }
 
-    public function setAdditionalName(?string $additionalName): void
+    public function setGivenName(?string $givenName): self
     {
-        $this->additionalName = $additionalName;
+        $this->givenName = $givenName;
+
+        return $this;
     }
 
     public function getAdditionalName(): ?string
@@ -223,9 +83,23 @@ class Person
         return $this->additionalName;
     }
 
-    public function setBirthDate(?\DateTimeInterface $birthDate): void
+    public function setAdditionalName(?string $additionalName): self
     {
-        $this->birthDate = $birthDate;
+        $this->additionalName = $additionalName;
+
+        return $this;
+    }
+
+    public function getFamilyName(): ?string
+    {
+        return $this->familyName;
+    }
+
+    public function setFamilyName(string $familyName): self
+    {
+        $this->familyName = $familyName;
+
+        return $this;
     }
 
     public function getBirthDate(): ?\DateTimeInterface
@@ -233,24 +107,11 @@ class Person
         return $this->birthDate;
     }
 
-    public function addAddress(PostalAddress $address): void
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
     {
-        $this->addresses[] = $address;
-    }
+        $this->birthDate = $birthDate;
 
-    public function removeAddress(PostalAddress $address): void
-    {
-        $this->addresses->removeElement($address);
-    }
-
-    public function getAddresses(): Collection
-    {
-        return $this->addresses;
-    }
-
-    public function setGender(?string $gender): void
-    {
-        $this->gender = $gender;
+        return $this;
     }
 
     public function getGender(): ?string
@@ -258,9 +119,11 @@ class Person
         return $this->gender;
     }
 
-    public function setEmail(?string $email): void
+    public function setGender(?string $gender): self
     {
-        $this->email = $email;
+        $this->gender = $gender;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -268,9 +131,11 @@ class Person
         return $this->email;
     }
 
-    public function setTelephone(?string $telephone): void
+    public function setEmail(?string $email): self
     {
-        $this->telephone = $telephone;
+        $this->email = $email;
+
+        return $this;
     }
 
     public function getTelephone(): ?string
@@ -278,133 +143,22 @@ class Person
         return $this->telephone;
     }
 
-    public function setMobilePhone(?string $mobilePhone): void
+    public function setTelephone(?string $telephone): self
     {
-        $this->mobilePhone = $mobilePhone;
+        $this->telephone = $telephone;
+
+        return $this;
     }
 
-    public function getMobilePhone(): ?string
+    public function getTelephone2(): ?string
     {
-        return $this->mobilePhone;
+        return $this->telephone_2;
     }
 
-    public function addKnow(Person $know): void
+    public function setTelephone2(?string $telephone_2): self
     {
-        $this->knows[] = $know;
-    }
+        $this->telephone_2 = $telephone_2;
 
-    public function removeKnow(Person $know): void
-    {
-        $this->knows->removeElement($know);
-    }
-
-    public function getKnows(): Collection
-    {
-        return $this->knows;
-    }
-
-    public function addParent(Person $parent): void
-    {
-        $this->parents[] = $parent;
-    }
-
-    public function removeParent(Person $parent): void
-    {
-        $this->parents->removeElement($parent);
-    }
-
-    public function getParents(): Collection
-    {
-        return $this->parents;
-    }
-
-    public function addMusicalInstrument(MusicalInstrument $musicalInstrument): void
-    {
-        $this->musicalInstruments[] = $musicalInstrument;
-    }
-
-    public function removeMusicalInstrument(MusicalInstrument $musicalInstrument): void
-    {
-        $this->musicalInstruments->removeElement($musicalInstrument);
-    }
-
-    public function getMusicalInstruments(): Collection
-    {
-        return $this->musicalInstruments;
-    }
-
-    public function addEducation(Education $education): void
-    {
-        $this->education[] = $education;
-    }
-
-    public function removeEducation(Education $education): void
-    {
-        $this->education->removeElement($education);
-    }
-
-    public function getEducation(): Collection
-    {
-        return $this->education;
-    }
-
-    public function addCategory(Categorie $category): void
-    {
-        $this->categories[] = $category;
-    }
-
-    public function removeCategory(Categorie $category): void
-    {
-        $this->categories->removeElement($category);
-    }
-
-    public function getCategories(): Collection
-    {
-        return $this->categories;
-    }
-
-    public function addMemberOf(ProgramMembership $memberOf): void
-    {
-        $this->memberOfs[] = $memberOf;
-    }
-
-    public function removeMemberOf(ProgramMembership $memberOf): void
-    {
-        $this->memberOfs->removeElement($memberOf);
-    }
-
-    public function getMemberOfs(): Collection
-    {
-        return $this->memberOfs;
-    }
-
-    public function addOwn(OwnershipInfo $own): void
-    {
-        $this->owns[] = $own;
-    }
-
-    public function removeOwn(OwnershipInfo $own): void
-    {
-        $this->owns->removeElement($own);
-    }
-
-    public function getOwns(): Collection
-    {
-        return $this->owns;
-    }
-
-    public function addReview(Review $review): void
-    {
-        $this->reviews[] = $review;
-    }
-
-    public function removeReview(Review $review): void
-    {
-        $this->reviews->removeElement($review);
-    }
-
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
+        return $this;
     }
 }

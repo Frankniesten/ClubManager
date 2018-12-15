@@ -29,8 +29,8 @@
 		{{ form_end(form) }}
         
     	<div>
-	    	<small style="padding-right:10px;"><i class="fa fa-calendar-plus-o"></i> {{ data.dateCreated |date("d-m-Y  - H:i")}}</small>
-	    	<small style="padding-right:10px;"> <i class="fa fa-calendar-check-o"></i> {{ data.dateModified |date("d-m-Y  - H:i")}}</small>
+	    	<small style="padding-right:10px;"><i class="fa fa-calendar-plus-o"></i> {{ data.createdAt |date("d-m-Y  - H:i")}}</small>
+	    	<small style="padding-right:10px;"> <i class="fa fa-calendar-check-o"></i> {{ data.updatedAt |date("d-m-Y  - H:i")}}</small>
     	</div>    
     </div>      
 
