@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Organization;
+use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class OrganizationFormType extends AbstractType
 {
@@ -24,7 +27,18 @@ class OrganizationFormType extends AbstractType
 			->add('telephone_2', TextType::class, ['label' => 'Mobiel', 'required' => false])
 			->add('leiCode', TextType::class, ['label' => 'K.v.K. Nummer', 'required' => false])
 			->add('vatID', TextType::class, ['label' => 'Belasting Nummer', 'required' => false])
-			->add('url', UrlType::class, ['label' => 'Website', 'required' => false]);
+			->add('url', UrlType::class, ['label' => 'Website', 'required' => false])
+			->add('categorie', EntityType::class, array(
+					    'class' => Categorie::class,
+					    'query_builder' => function (EntityRepository $er) {
+					        return $er->createQueryBuilder('u')
+					        	->andWhere('u.additionalType = :additionalType')
+					        	->setParameter('additionalType', 'organisaties')
+					            ->orderBy('u.name', 'ASC');
+					    },
+					    'choice_label' => 'name',
+					    'required' => true
+					));
 	} 
 	
 	public function configureOptions(OptionsResolver $resolver)

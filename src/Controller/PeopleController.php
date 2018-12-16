@@ -21,11 +21,6 @@ class PeopleController extends AbstractController
 		$people = $this->getDoctrine()
         ->getRepository(Person::class)
         ->findAll();
-        
-        
-     
-        
-        
 				
 		return $this->render('people/people.html.twig', [
         	'data' => $people,

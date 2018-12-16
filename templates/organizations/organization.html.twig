@@ -22,6 +22,13 @@
 	
     <!-- Card Box -->
     <div class="card-box table-responsive">
+    
+    <div>
+    	<h6 style="padding-right:10px;"><i class="fa fa-tag"></i> {{ data.categorie.name }}&nbsp;&nbsp;&nbsp;&nbsp;  
+		<i class="fa fa-calendar-plus-o"></i> {{ data.createdAt |date("d-m-Y  - H:i")}}&nbsp;&nbsp;&nbsp;&nbsp; 
+		<i class="fa fa-calendar-check-o"></i> {{ data.updatedAt |date("d-m-Y  - H:i")}}</h6>
+	</div> 
+	<br> 
 	    
 	    <!-- Tab Navigation -->
 		        <ul class="nav nav-tabs">
