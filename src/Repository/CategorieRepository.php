@@ -18,6 +18,23 @@ class CategorieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Categorie::class);
     }
+    
+    // /**
+    //  * @return Categorie[] Returns an array of Categorie objects
+    //  */
+    public function findByAdditionalType($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.additionalType = :additionalType')
+            ->setParameter('additionalType', $value)
+            ->orderBy('a.id', 'ASC')
+            ->getQuery()
+        ;
+    }
+    
+    
+
+ 
 
     // /**
     //  * @return Categorie[] Returns an array of Categorie objects

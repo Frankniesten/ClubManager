@@ -21,10 +21,14 @@ class PeopleController extends AbstractController
 		$people = $this->getDoctrine()
         ->getRepository(Person::class)
         ->findAll();
-		
+        
+        
+     
+        
+        
 				
 		return $this->render('people/people.html.twig', [
-        	'data' => $people
+        	'data' => $people,
 		]);
 	}
 
@@ -61,9 +65,10 @@ class PeopleController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
-		        
+		
+        
 		return $this->render('people/person.html.twig', [
-        	'data' => $person
+        	'data' => $person,
 		]);
 	}
 	

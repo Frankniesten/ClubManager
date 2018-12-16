@@ -3,13 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Person;
+use App\Entity\Categorie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Doctrine\ORM\EntityRepository;
 
 class PersonFormType extends AbstractType
 {
@@ -28,7 +31,19 @@ class PersonFormType extends AbstractType
 			        'Man' => 'Man',
 			        'Vrouw' => 'Vrouw')])
 			->add('telephone', TextType::class, ['label' => 'Telefoon', 'required' => false])
-			->add('telephone_2', TextType::class, ['label' => 'Mobiel', 'required' => false]);
+			->add('telephone_2', TextType::class, ['label' => 'Mobiel', 'required' => false])
+			->add('categorie', EntityType::class, array(
+					    'class' => Categorie::class,
+					    'query_builder' => function (EntityRepository $er) {
+					        return $er->createQueryBuilder('u')
+					        	->andWhere('u.additionalType = :additionalType')
+					        	->setParameter('additionalType', 'personen')
+					            ->orderBy('u.name', 'ASC');
+					    },
+					    'choice_label' => 'name',
+					    'required' => true
+					));
+	
 	} 
 	
 	public function configureOptions(OptionsResolver $resolver)

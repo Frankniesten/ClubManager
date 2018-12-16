@@ -61,6 +61,11 @@ class Person
      */
     private $telephone_2;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie")
+     */
+    private $categorie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -158,6 +163,18 @@ class Person
     public function setTelephone2(?string $telephone_2): self
     {
         $this->telephone_2 = $telephone_2;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): self
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
