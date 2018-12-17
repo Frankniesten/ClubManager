@@ -81,25 +81,12 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade show active" id="home1">
 	    
-	    
-	    
-	    
-	    
-	    
-	    
+        <h3>Persoonsgegevens</h3>
         <table class="table table-bordered table-striped">
             <tbody>
             <tr>
-                <td width="30%"><b>Voornaam</b></td>
-                <td width="70%">{{data.givenName}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Achternaam</b></td>
-                <td width="70%">{{data.additionalName}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Achternaam</b></td>
-                <td width="70%">{{data.familyName}}</td>
+                <td width="30%"><b>Naam</b></td>
+                <td width="70%">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</td>
             </tr>
             <tr>
                 <td width="30%"><b>Email</b></td>
@@ -113,6 +100,29 @@
                 <td width="30%"><b>Geslacht</b></td>
                 <td width="70%">{{data.gender}}</td>
             </tr>
+            
+            </tbody>
+        </table>
+        
+        <h3>Contactgegevens</h3>
+        <table class="table table-bordered table-striped">
+            <tbody>
+            <tr>
+                <td width="30%"><b>Straat</b></td>
+                <td width="70%">{{data.streetAddress}}</td>
+            </tr>
+            <tr>
+                <td width="30%"><b>Postcode</b></td>
+                <td width="70%">{{data.postalCode}}</td>
+            </tr>
+            <tr>
+                <td width="30%"><b>Woonplaats</b></td>
+                <td width="70%">{{data.addressLocality}}</td>
+            </tr>
+            <tr>
+                <td width="30%"><b>Land</b></td>
+                <td width="70%">{{data.addressCountry}}</td>
+            </tr>
             <tr>
                 <td width="30%"><b>Telefoon</b></td>
                 <td width="70%">{{data.telephone}}</td>
@@ -122,10 +132,9 @@
                 <td width="70%">{{data.telephone2}}</td>
             </tr>
 
-            
-
             </tbody>
         </table>
+
         
     </div>     
 </div>

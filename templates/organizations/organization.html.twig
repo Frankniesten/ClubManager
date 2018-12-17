@@ -31,106 +31,108 @@
 	<br> 
 	    
 	    <!-- Tab Navigation -->
-		        <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                            Persoonsgegevens
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#profile1" data-toggle="tab" aria-expanded="true" class="nav-link">
-                            Ouder(s)
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#messages1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Lidmaatschap
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Muziekinstrument
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Opleiding
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Rollen
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Producten
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Relaties
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Notities
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade show active" id="home1">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                    Persoonsgegevens
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#profile1" data-toggle="tab" aria-expanded="true" class="nav-link">
+                    Medewerkers
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#messages1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                    Producten
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                    Diensten
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
+                    Notities
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade show active" id="home1">
 	    
-
+		<h3>Organisatiegegevens</h3>			
         <table class="table table-bordered table-striped">
             <tbody>
-            <tr>
-                <td width="30%"><b>Organisatie</b></td>
-                <td width="70%">{{data.legalName}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Omschrijving</b></td>
-                <td width="70%">{{data.description}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Email</b></td>
-                <td width="70%">{{data.email}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Telefoon</b></td>
-                <td width="70%">{{data.telephone}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Mobiel</b></td>
-                <td width="70%">{{data.telephone2}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>K.v.K. Nummer</b></td>
-                <td width="70%">{{data.leiCode}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Belasting Nummer</b></td>
-                <td width="70%">{{data.vatID}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Website</b></td>
-                <td width="70%">{{data.url}}</td>
-            </tr>
-
-            
-
+	            <tr>
+	                <td width="30%"><b>Organisatie</b></td>
+	                <td width="70%">{{data.legalName}}</td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>Omschrijving</b></td>
+	                <td width="70%">{{data.description}}</td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>K.v.K. Nummer</b></td>
+	                <td width="70%">{{data.leiCode}}</td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>Belasting Nummer</b></td>
+	                <td width="70%">{{data.vatID}}</td>
+	            </tr>
             </tbody>
         </table>
-      
+        
+        <h3>Contactgegevens</h3>			
+        <table class="table table-bordered table-striped">
+            <tbody>
+	            <tr>
+	                <td width="30%"><b>Email</b></td>
+	                <td width="70%"><a href="mailto:{{data.email}}" target="_blank">{{data.email}}</a></td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>Telefoon</b></td>
+	                <td width="70%">{{data.telephone}}</td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>Mobiel</b></td>
+	                <td width="70%">{{data.telephone2}}</td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>Website</b></td>
+	                <td width="70%"><a href="{{data.url}}" target="_blank">{{data.url}}</a></td>
+	            </tr>
+            </tbody>
+        </table>
+        
+        <h3>Adresgegevens</h3>
+        <table class="table table-bordered table-striped">
+            <tbody>
+	            <tr>
+	                <td width="30%"><b>Straat</b></td>
+	                <td width="70%">{{data.streetAddress}}</td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>Postbus</b></td>
+	                <td width="70%">{{data.postOfficeBoxNumber}}</td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>Postcode</b></td>
+	                <td width="70%">{{data.postalCode}}</td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>Woonplaats</b></td>
+	                <td width="70%">{{data.addressLocality}}</td>
+	            </tr>
+	            <tr>
+	                <td width="30%"><b>Land</b></td>
+	                <td width="70%">{{data.addressCountry}}</td>
+	            </tr>
+            </tbody>
+        </table>
+        
+        
     </div> 
 </div>
-
-<br>
-
-<div>
-	<small style="padding-right:10px;"><i class="fa fa-calendar-plus-o"></i> {{ data.createdAt |date("d-m-Y  - H:i")}}</small>
-	<small style="padding-right:10px;"> <i class="fa fa-calendar-check-o"></i> {{ data.updatedAt |date("d-m-Y  - H:i")}}</small>
-</div>  
-    	     
 
 {% endblock %}

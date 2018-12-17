@@ -32,6 +32,18 @@ class PersonFormType extends AbstractType
 			        'Vrouw' => 'Vrouw')])
 			->add('telephone', TextType::class, ['label' => 'Telefoon', 'required' => false])
 			->add('telephone_2', TextType::class, ['label' => 'Mobiel', 'required' => false])
+			
+			->add('streetAddress', TextType::class, ['label' => 'Straat', 'required' => false])
+			->add('postalCode', TextType::class, ['label' => 'Postcode', 'required' => false])
+			->add('addressLocality', TextType::class, ['label' => 'Woonplaats', 'required' => false])
+			->add('addressCountry', ChoiceType::class, [
+	    		'label' => 'Land', 
+	    		'required' => false,
+	    		 'choices'  => array(
+			        'Nederland' => 'Nederland',
+			        'België' => 'België',
+			        'Duitsland' => 'Duitsland')])
+			
 			->add('categorie', EntityType::class, array(
 					    'class' => Categorie::class,
 					    'query_builder' => function (EntityRepository $er) {

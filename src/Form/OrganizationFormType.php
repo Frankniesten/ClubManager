@@ -25,6 +25,20 @@ class OrganizationFormType extends AbstractType
 	    	->add('email', EmailType::class, ['label' => 'Email', 'required' => false])
 			->add('telephone', TextType::class, ['label' => 'Telefoon', 'required' => false])
 			->add('telephone_2', TextType::class, ['label' => 'Mobiel', 'required' => false])
+			
+			->add('streetAddress', TextType::class, ['label' => 'Straat', 'required' => false])
+			->add('postOfficeBoxNumber', TextType::class, ['label' => 'Postbus', 'required' => false])
+			->add('postalCode', TextType::class, ['label' => 'Postcode', 'required' => false])
+			->add('addressLocality', TextType::class, ['label' => 'Woonplaats', 'required' => false])
+			->add('addressCountry', ChoiceType::class, [
+	    		'label' => 'Land', 
+	    		'required' => false,
+	    		 'choices'  => array(
+			        'Nederland' => 'Nederland',
+			        'België' => 'België',
+			        'Duitsland' => 'Duitsland')])
+			        
+			        
 			->add('leiCode', TextType::class, ['label' => 'K.v.K. Nummer', 'required' => false])
 			->add('vatID', TextType::class, ['label' => 'Belasting Nummer', 'required' => false])
 			->add('url', UrlType::class, ['label' => 'Website', 'required' => false])
