@@ -37,10 +37,25 @@ app_person_delete:
 # Person - Knows:
 
 # Person - Reviews:
-app_person_reviews:
-    path: /person{slug}/reviews
-    controller: App\Controller\PeopleController::show
+# ---Review--- #
+app_person_review:
+    path: /person/{id}/review
+    controller: App\Controller\PeopleController::list
 
+
+
+# ---Review--- #
+app_review_create_person:
+    path: /person/{id}/review/create
+    controller: App\Controller\ReviewController::newPersonReview
+
+app_review_edit:
+    path: /{entity}/{entityID}/review/{reviewID}/edit
+    controller: App\Controller\ReviewController::editReview
+
+app_review_delete:
+    path: /{entity}/{entityID}/review/{reviewID}/delete
+    controller: App\Controller\ReviewController::deleteReview
 
 
 # ---Organizations--- #

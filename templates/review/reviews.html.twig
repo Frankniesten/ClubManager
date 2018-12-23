@@ -1,0 +1,45 @@
+<div class="row align-items-center">
+	<div class="col">
+	    <h3>Notities</h3>
+    </div>
+        
+    <div class="col-4  ">
+	    <div class="btn-group float-right">
+	    	<a href="{{ path( createPath, {'id': data.id}) }}" class="btn btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    </div>
+    </div>
+        
+</div>
+
+{% for review in data.review %}
+	<div class="card m-b-20 text-xs-center">
+        
+        <div class="card-header">
+	        <div class="row align-items-center"> 
+		        <div class="col">
+			        <h4 class="m-0">{{review.reviewAspect}}</h4>
+	        	</div>
+	        
+				<div class="col-4  ">
+					<div class="btn-group float-right">
+					    <a href="{{ path( editPath, {'entity':entity, 'entityID': data.id, 'reviewID': review.id}) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-pencil"></i></a>
+					    <a href="{{ path( deletePath, {'entity':entity, 'entityID': data.id, 'reviewID': review.id}) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-trash"></i></a>
+					</div>
+				</div>
+	        </div>
+		</div>
+	                
+        <div class="card-body">
+            <p class="card-text">{{review.reviewBody | raw }}</p>
+        </div>
+                
+        <div class="card-footer text-muted">
+            <small class="text-muted">
+            	<i class="fa fa-user"></i>&nbsp;&nbsp; Frank Niesten&nbsp;&nbsp;|&nbsp;&nbsp; 
+            	<i class="fa fa-calendar-plus-o"></i>&nbsp;&nbsp; {{ review.createdAt |date("d-m-Y  - H:i")}}&nbsp;&nbsp;|&nbsp;&nbsp; 
+				<i class="fa fa-calendar-check-o"></i>&nbsp;&nbsp; {{ review.updatedAt |date("d-m-Y  - H:i")}}
+			</small>
+        </div>
+    </div>
+
+{% endfor %} 

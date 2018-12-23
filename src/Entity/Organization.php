@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -92,6 +94,16 @@ class Organization
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $addressCountry;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="organization")
+     */
+    private $review;
+
+    public function __construct()
+    {
+        $this->review = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -262,6 +274,37 @@ class Organization
     public function setAddressCountry(?string $addressCountry): self
     {
         $this->addressCountry = $addressCountry;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReview(): Collection
+    {
+        return $this->review;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->review->contains($review)) {
+            $this->review[] = $review;
+            $review->setOrganization($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->review->contains($review)) {
+            $this->review->removeElement($review);
+            // set the owning side to null (unless already changed)
+            if ($review->getOrganization() === $this) {
+                $review->setOrganization(null);
+            }
+        }
 
         return $this;
     }

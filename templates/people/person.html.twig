@@ -7,136 +7,177 @@
 
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</h2>
+	        <h2>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span></h2>
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<a href="{{ path('app_person_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
 	        	<a href="{{ path('app_person_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
-				<a href="{{ path('app_people') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				<a href="{{ path('app_people') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>
         
 	</div>
 	
-    <!-- Card Box -->
-    <div class="card-box table-responsive">
+	<!-- Person details -->
+	<div id="accordion">
+		<div class="card">
+	        <div class="card-header" id="headingOne">
+	            <h4 class="m-0">
+	                <a href="#collapseOne" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+	                    Persoonsgegevens
+	                </a>
+	            </h4>
+	        </div>
+	
+	        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+	            <div class="card-body">
+	                <table class="table table-bordered table-striped">   
+			            <tbody>
+				            <tr>
+				                <td width="20%"><b>Naam</b></td>
+				                <td width="70%">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Geboortedatum</b></td>
+				                <td>{{data.birthDate |date("d-m-Y")}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Geslacht</b></td>
+				                <td>{{data.gender}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Email</b></td>
+				                <td><a href="mailto:{{data.email}}" target="_blank">{{data.email}}</a></td>
+				            </tr>
+				            <tr>
+				                <td><b>Telefoon</b></td>
+				                <td>{{data.telephone}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Mobiel</b></td>
+				                <td>{{data.telephone2}}</td>
+				            </tr>
+			
+				            <tr>
+				                <td><b>Straat</b></td>
+				                <td>{{data.streetAddress}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Postcode</b></td>
+				                <td>{{data.postalCode}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Woonplaats</b></td>
+				                <td>{{data.addressLocality}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Land</b></td>
+				                <td>{{data.addressCountry}}</td>
+				            </tr>
+			            </tbody>
+			        </table>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+    <br>
+	
+	<!-- Details -->
     
-    <div>
-    	<h6 style="padding-right:10px;"><i class="fa fa-tag"></i> {{ data.categorie.name }}&nbsp;&nbsp;&nbsp;&nbsp;  
-		<i class="fa fa-calendar-plus-o"></i> {{ data.createdAt |date("d-m-Y  - H:i")}}&nbsp;&nbsp;&nbsp;&nbsp; 
-		<i class="fa fa-calendar-check-o"></i> {{ data.updatedAt |date("d-m-Y  - H:i")}}</h6>
-	</div> 
-	<br> 
-	    
-	    <!-- Tab Navigation -->
-		        <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                            Persoonsgegevens
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#profile1" data-toggle="tab" aria-expanded="true" class="nav-link">
-                            Ouder(s)
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#messages1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Lidmaatschap
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Muziekinstrument
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Opleiding
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Rollen
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Producten
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Relaties
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            Notities
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane fade show active" id="home1">
-	    
-        <h3>Persoonsgegevens</h3>
-        <table class="table table-bordered table-striped">
-            <tbody>
-            <tr>
-                <td width="30%"><b>Naam</b></td>
-                <td width="70%">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Email</b></td>
-                <td width="70%">{{data.email}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Geboortedatum</b></td>
-                <td width="70%">{{data.birthDate |date("d-m-Y")}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Geslacht</b></td>
-                <td width="70%">{{data.gender}}</td>
-            </tr>
-            
-            </tbody>
-        </table>
+    <ul class="nav nav-tabs nav-justified">
+        <li class="nav-item">
+            <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link active">
+                Lidmaatschap
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#musicalInstrument" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Muzieksintrument
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Opleiding
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Rollen
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Producten
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Diensten
+            </a>
+        </li>
         
-        <h3>Contactgegevens</h3>
-        <table class="table table-bordered table-striped">
-            <tbody>
-            <tr>
-                <td width="30%"><b>Straat</b></td>
-                <td width="70%">{{data.streetAddress}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Postcode</b></td>
-                <td width="70%">{{data.postalCode}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Woonplaats</b></td>
-                <td width="70%">{{data.addressLocality}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Land</b></td>
-                <td width="70%">{{data.addressCountry}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Telefoon</b></td>
-                <td width="70%">{{data.telephone}}</td>
-            </tr>
-            <tr>
-                <td width="30%"><b>Mobiel</b></td>
-                <td width="70%">{{data.telephone2}}</td>
-            </tr>
-
-            </tbody>
-        </table>
-
+        <li class="nav-item">
+            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Notities
+            </a>
+        </li>
+    </ul>
+		    
+		    
+	<div class="card">
+	    <div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade show active" id="membership">
         
-    </div>     
-</div>
-
+				Lidmaatschap            
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade" id="musicalInstrument">
+        
+				Muziekinstrument            
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade" id="education">
+        
+				Opleiding            
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade" id="roles">
+        
+				Rollen            
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade" id="products">
+        
+				Producten            
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade" id="services">
+        
+				Diensten            
+	        
+    		</div>
+			
+			<div role="tabpanel" class="tab-pane fade" id="reviews">
+			
+				{{ include('Review/reviews.html.twig', { 
+					'data': data, 
+					'createPath': 'app_review_create_person',
+					'editPath': 'app_review_edit',
+					'deletePath': 'app_review_delete',
+					'entity': 'person'
+				}) }}
+				
+			</div>
+	    </div>
+	</div>
+    
 {% endblock %}
