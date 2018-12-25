@@ -94,7 +94,7 @@ class Person
     private $review;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Membership", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="App\Entity\Membership", mappedBy="person", orphanRemoval=true)
      */
     private $membership;
 

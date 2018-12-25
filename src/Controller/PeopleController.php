@@ -111,7 +111,7 @@ class PeopleController extends AbstractController
 			$em->remove($person);
 			$em->flush();
            
-			$this->addFlash('success', 'Persoon is verwijderd!');
+			$this->addFlash('warning', 'Persoon is verwijderd!');
 			
 			return $this->redirectToRoute('app_people');			
 	}
