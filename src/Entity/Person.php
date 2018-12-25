@@ -93,9 +93,20 @@ class Person
      */
     private $review;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Membership", mappedBy="person")
+     */
+    private $membership;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $membershipYears;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
+        $this->membership = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -286,6 +297,49 @@ class Person
                 $review->setPerson(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Membership[]
+     */
+    public function getMembership(): Collection
+    {
+        return $this->membership;
+    }
+
+    public function addMembership(Membership $membership): self
+    {
+        if (!$this->membership->contains($membership)) {
+            $this->membership[] = $membership;
+            $membership->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMembership(Membership $membership): self
+    {
+        if ($this->membership->contains($membership)) {
+            $this->membership->removeElement($membership);
+            // set the owning side to null (unless already changed)
+            if ($membership->getPerson() === $this) {
+                $membership->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMembershipYears(): ?int
+    {
+        return $this->membershipYears;
+    }
+
+    public function setMembershipYears(?int $membershipYears): self
+    {
+        $this->membershipYears = $membershipYears;
 
         return $this;
     }

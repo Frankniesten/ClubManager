@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personen{% endblock %}
+
+{% block stylesheets %}
+	
+	{{ parent() }}
+	
+	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+	        
+{% endblock %}
+
+{% block body %}
+
+ 	{{ form_start(form) }}
+	<div class="row align-items-center">
+        <div class="col">
+	        <h2>Lidmaatschap toevoegen</h2>
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
+				<a href="{{ path('app_settings_musical_instruments') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        </div>
+        </div>
+        
+	</div>
+	
+    <!-- Card Box -->
+    <div class="card-box table-responsive">
+	    
+		<div class="row">
+	        <div class="col-6">
+				{{ form_label(form.startDate) }}
+				{{ form_widget(form.startDate, {'id': 'datepicker-autoclose1'}) }}
+	        </div>
+	        
+	        <div class="col-6">
+		       {{ form_label(form.endDate) }}
+			   {{ form_widget(form.endDate, {'id': 'datepicker-autoclose2'}) }}
+	        </div>
+	    </div>
+	    <br>
+	    <br>
+	    <br>
+	    <br>
+	    <br>
+		{{ form_end(form) }}
+            
+    </div>      
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+	<!--form wysiwig js-->
+    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
+    <script type="text/javascript">
+        jQuery('#datepicker-autoclose1').datepicker({
+	        	format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true
+            });
+        jQuery('#datepicker-autoclose2').datepicker({
+	        	format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true
+            });
+    </script>
+    
+{% endblock %}

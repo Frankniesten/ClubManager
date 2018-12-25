@@ -1,0 +1,58 @@
+<div class="row align-items-center">
+	<div class="col">
+	    <h3>Lidmaatschap</h3>
+    </div>
+        
+    <div class="col-4  ">
+	    <div class="btn-group float-right">
+	    	<a href="{{ path('app_person_membership_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    </div>
+    </div>
+        
+</div>
+{%if data.membership is not empty %}
+<table class="table table-bordered table-striped">   
+    <tbody>
+        <thead>
+            <tr>
+            	<td><b>Start Datum</b></td>
+				<td><b>Eind Datum</b></td>
+				<td><b>Aantal Jaren</b></td>
+        	</tr>
+        </thead>
+    {% for membership in data.membership %}
+        <tr>
+            <td>{{ membership.startDate | date("d-m-Y") }}</td>
+            <td>{{ membership.endDate is empty ? "" : membership.endDate|date("d-m-Y") }}
+	            
+	            <!-- Dropdown -->
+			    <div class="dropdown pull-right">
+                    <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                        <i class="mdi mdi-dots-horizontal"></i>
+                    </a>
+                    
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        <a href="{{ path('app_person_membership_edit', {'id': data.id, 'membershipID': membership.id}) }}" class="dropdown-item">Bewerken</a>
+                        <!-- item-->
+                        <a href="{{ path('app_person_membership_delete', {'id': data.id, 'membershipID': membership.id}) }}" class="dropdown-item">Verwijderen</a>
+                    </div>
+                </div>
+            </td>
+            <td>
+	            {% set difference = date(membership.endDate).diff(date(membership.startDate)) %}
+	            {% set leftDays = difference.y %}
+	            {{ leftDays}}
+	         
+            </td>
+        </tr>
+    {% endfor %} 
+    	<tr>
+            <td></td>
+            <td><b>Totaal</b></td>
+            <td><b>{{ data.membershipYears }}</b></td>
+        </tr>
+   
+    </tbody>
+</table>
+{% endif %} 

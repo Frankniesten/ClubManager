@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Person;
+use App\Entity\Membership;
 use App\Form\PersonFormType;
 use App\Form\ReviewFormType;
+use App\Form\MembershipFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,13 +63,11 @@ class PeopleController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
-		
         
 		return $this->render('people/person.html.twig', [
-        	'data' => $person,
+        	'data' => $person
 		]);
 	}
-	
 		
 	/**
      * @Route("/person/{id}/edit", name="app_person_edit")
@@ -115,5 +115,4 @@ class PeopleController extends AbstractController
 			
 			return $this->redirectToRoute('app_people');			
 	}
-	
 }

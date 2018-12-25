@@ -27,6 +27,17 @@ app_person_delete:
 # Person - Parents:
 
 # Person - Memberships:
+app_person_membership_create:
+    path: /person/{id}/membership/create
+    controller: App\Controller\MembershipController::newMembership
+    
+app_person_membership_edit:
+    path: /person/{id}/membership/{membershipID}/edit
+    controller: App\Controller\MembershipController::editMembership
+    
+app_person_membership_delete:
+    path: /person/{id}/membership/{membershipID}/delete
+    controller: App\Controller\MembershipController::deleteMembership
 
 # Person - MusicalInstrument:
 
