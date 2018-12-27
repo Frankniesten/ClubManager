@@ -23,6 +23,7 @@ app_person_delete:
     path: /person/{id}/delete
     controller: App\Controller\PeopleController::delete
 
+
 # Person - Memberships:
 app_person_membership:
     path: /person/{id}/membership
@@ -30,15 +31,15 @@ app_person_membership:
 
 app_person_membership_create:
     path: /person/{id}/membership/create
-    controller: App\Controller\MembershipController::newMembership
+    controller: App\Controller\MembershipController::new
     
 app_person_membership_edit:
     path: /person/{id}/membership/{membershipID}/edit
-    controller: App\Controller\MembershipController::editMembership
+    controller: App\Controller\MembershipController::edit
     
 app_person_membership_delete:
     path: /person/{id}/membership/{membershipID}/delete
-    controller: App\Controller\MembershipController::deleteMembership
+    controller: App\Controller\MembershipController::delete
 
 
 # Person - MusicalInstrument:
@@ -48,15 +49,15 @@ app_person_musicalInstrument:
     
 app_person_musicalInstrument_create:
     path: /person/{id}/musical-instrument/create
-    controller: App\Controller\MusicalInstrumentController::editMusicalInstrument
+    controller: App\Controller\MusicalInstrumentController::edit
 
 app_person_musicalInstrument_edit:
     path: /person/{id}/musical-instrument/edit
-    controller: App\Controller\MusicalInstrumentController::editMusicalInstrument
+    controller: App\Controller\MusicalInstrumentController::edit
 
 app_person_musicalInstrument_delete:
     path: /person/{id}/musical-instrument/delete
-    controller: App\Controller\MusicalInstrumentController::deleteMusicalInstrument
+    controller: App\Controller\MusicalInstrumentController::delete
 
 
 # Person - Education:
@@ -77,23 +78,31 @@ app_person_education_delete:
     controller: App\Controller\EducationController::delete
 
 
+# Person - memberOf:
+app_person_memberOf:
+    path: /person/{id}/memberof
+    controller: App\Controller\PeopleController::show
 
-
-
+app_person_memberOf_create:
+    path: /person/{id}/memberof/create
+    controller: App\Controller\MemberOfController::edit
+    
+app_person_memberOf_edit:
+    path: /person/{id}/memberof/edit
+    controller: App\Controller\MemberOfController::edit
+    
 
 # Person - Products:
 
-# Person - Knows:
+
+# Person - Services:
+
 
 # Person - Reviews:
-# ---Review--- #
 app_person_review:
     path: /person/{id}/review
     controller: App\Controller\PeopleController::list
 
-
-
-# ---Review--- #
 app_review_create_person:
     path: /person/{id}/review/create
     controller: App\Controller\ReviewController::newPersonReview

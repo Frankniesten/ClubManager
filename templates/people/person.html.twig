@@ -107,7 +107,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link">
+            <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'memberof' in app.request.uri  %}active{% endif %}">
                 Rollen
             </a>
         </li>
@@ -157,9 +157,11 @@
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade" id="roles">
+    		<div role="tabpanel" class="tab-pane fade {% if 'memberof' in app.request.uri  %}show active{% endif %}" id="roles">
         
-				Rollen            
+				{{ include('member_of/memberof.html.twig', { 
+					'data': data })
+				}}            
 	        
     		</div>
     		

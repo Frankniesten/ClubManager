@@ -16,7 +16,7 @@ class MusicalInstrumentController extends AbstractController
     /**
     * @Route("/person/{id}/musical-instrument/create", name="app_person_musicalInstrument_create")
     */
-    public function editMusicalInstrument(EntityManagerInterface $em, Request $request, $id)
+    public function edit(EntityManagerInterface $em, Request $request, $id)
     {
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
@@ -50,14 +50,11 @@ class MusicalInstrumentController extends AbstractController
 	/**
      * @Route("/person/{id}/musical-instrument/delete", name="app_person_musicalInstrument_delete")
      */
-	public function deleteMusicalInstrument(EntityManagerInterface $em, Request $request, $id)
+	public function delete(EntityManagerInterface $em, Request $request, $id)
     {
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
-	    
-		
-		
 			
 		$person->setMusicalInstrument(null);
 		
@@ -66,7 +63,7 @@ class MusicalInstrumentController extends AbstractController
        
 		$this->addFlash('warning', 'Muziekinstrument bij: '.$person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' verwijders!');
 				
-		return $this->redirectToRoute('app_person', array('id' => $id));			
+		return $this->redirectToRoute('app_person_musicalInstrument', array('id' => $id));			
 
 		return $this->render('musical_instrument/musicalInstrumentForm.html.twig', [
         	'form' => $form->createView(),

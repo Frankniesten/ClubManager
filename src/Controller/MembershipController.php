@@ -19,7 +19,7 @@ class MembershipController extends AbstractController
     /**
     * @Route("/person/{id}/membership/create", name="app_person_membership_create")
     */
-    public function newMembership(EntityManagerInterface $em, Request $request, $id, MembershipYears $MembershipYears)
+    public function new(EntityManagerInterface $em, Request $request, $id, MembershipYears $MembershipYears)
     {
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
@@ -59,7 +59,7 @@ class MembershipController extends AbstractController
 	/**
 	* @Route("/person/{$id}/membership/{membershipID}/edit", name="app_person_membership_edit")
 	*/
-	public function editMembership(EntityManagerInterface $em, Request $request, $id, $membershipID, MembershipYears $MembershipYears)
+	public function edit(EntityManagerInterface $em, Request $request, $id, $membershipID, MembershipYears $MembershipYears)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$membership = $em->getRepository(Membership::class)->find($membershipID);
@@ -94,7 +94,7 @@ class MembershipController extends AbstractController
 	/**
 	* @Route("/person/{id}/membership/{membershipID}/delete", name="app_person_membership_delete")
 	*/
-	public function deleteMembership(EntityManagerInterface $em, Request $request, $id, $membershipID, MembershipYears $MembershipYears)
+	public function delete(EntityManagerInterface $em, Request $request, $id, $membershipID, MembershipYears $MembershipYears)
 	{
 		
 		$em = $this->getDoctrine()->getManager();
@@ -108,6 +108,6 @@ class MembershipController extends AbstractController
 		//Call function to calculate total years and store it in the DB.
 		$totalYears = $MembershipYears->MembershipYears($id);
 		
-		return $this->redirectToRoute('app_person', array('id' => $id));	
+		return $this->redirectToRoute('app_person_membership', array('id' => $id));	
 	}    
 }
