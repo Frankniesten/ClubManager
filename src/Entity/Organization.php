@@ -100,9 +100,15 @@ class Organization
      */
     private $review;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Education", mappedBy="organization")
+     */
+    private $education;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
+        $this->education = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -303,6 +309,37 @@ class Organization
             // set the owning side to null (unless already changed)
             if ($review->getOrganization() === $this) {
                 $review->setOrganization(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Education[]
+     */
+    public function getEducation(): Collection
+    {
+        return $this->education;
+    }
+
+    public function addEducation(Education $education): self
+    {
+        if (!$this->education->contains($education)) {
+            $this->education[] = $education;
+            $education->setOrganization($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEducation(Education $education): self
+    {
+        if ($this->education->contains($education)) {
+            $this->education->removeElement($education);
+            // set the owning side to null (unless already changed)
+            if ($education->getOrganization() === $this) {
+                $education->setOrganization(null);
             }
         }
 

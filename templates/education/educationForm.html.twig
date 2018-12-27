@@ -1,27 +1,37 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Personen{% endblock %}
+
 
 {% block stylesheets %}
 	
 	{{ parent() }}
-	
 	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 	        
 {% endblock %}
+
 
 {% block body %}
 
  	{{ form_start(form) }}
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>Lidmaatschap toevoegen</h2>
+	       	
+	       	{% if 'create' in app.request.uri  %}
+	       		<h2>Opleiding toevoegen</h2>
+	        {% endif %}
+	        {% if 'edit' in app.request.uri  %}
+	       		<h2>Opleiding bewerken</h2>
+	        {% endif %}
+	        
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_person', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				<a href="{{ path('app_person_education', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>
         
@@ -29,28 +39,27 @@
 	
     <!-- Card Box -->
     <div class="card-box table-responsive">
+	    {{ form_label(form.certificate) }}
+		{{ form_widget(form.certificate) }}
+		
+		<br>
 	    
-		<div class="row">
-	        <div class="col-6">
-				{{ form_label(form.startDate) }}
-				{{ form_widget(form.startDate, {'id': 'datepicker-autoclose1'}) }}
-	        </div>
-	        
-	        <div class="col-6">
-		       {{ form_label(form.endDate) }}
-			   {{ form_widget(form.endDate, {'id': 'datepicker-autoclose2'}) }}
-	        </div>
-	    </div>
-	    <br>
-	    <br>
-	    <br>
-	    <br>
-	    <br>
-		{{ form_end(form) }}
-            
-    </div>      
+	    {{ form_label(form.dataAchieved) }}
+		{{ form_widget(form.dataAchieved, {'id': 'datepicker-autoclose1'}) }}
+		
+		<br>
+	    
+	    {{ form_label(form.organization) }}
+		{{ form_widget(form.organization) }}
+		
+		
 
+                                    
+		{{ form_end(form) }}
+	  
+	</div>      
 {% endblock %}
+
 
 {% block javascripts %}
 
@@ -59,18 +68,26 @@
 	<!--form wysiwig js-->
     <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-
+	<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+	
     <script type="text/javascript">
         jQuery('#datepicker-autoclose1').datepicker({
 	        	format: 'yyyy-mm-dd',
                 autoclose: true,
+                drops: 'down',
                 todayHighlight: true
             });
-        jQuery('#datepicker-autoclose2').datepicker({
-	        	format: 'yyyy-mm-dd',
-                autoclose: true,
-                todayHighlight: true
+            
+        jQuery(document).ready(function() {
+
+            // Select2
+            $(".select2").select2();
+
+            $(".select2-limiting").select2({
+                maximumSelectionLength: 2
             });
+
+        });
     </script>
     
 {% endblock %}

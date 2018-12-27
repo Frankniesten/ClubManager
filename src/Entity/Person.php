@@ -103,10 +103,27 @@ class Person
      */
     private $membershipYears;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\MusicalInstrument")
+     */
+    private $musicalInstrument;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Education", mappedBy="person")
+     */
+    private $education;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\ProgramMembership", inversedBy="people")
+     */
+    private $memberOf;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
         $this->membership = new ArrayCollection();
+        $this->education = new ArrayCollection();
+        $this->memberOf = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -340,6 +357,75 @@ class Person
     public function setMembershipYears(?int $membershipYears): self
     {
         $this->membershipYears = $membershipYears;
+
+        return $this;
+    }
+
+    public function getMusicalInstrument(): ?MusicalInstrument
+    {
+        return $this->musicalInstrument;
+    }
+
+    public function setMusicalInstrument(?MusicalInstrument $musicalInstrument): self
+    {
+        $this->musicalInstrument = $musicalInstrument;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Education[]
+     */
+    public function getEducation(): Collection
+    {
+        return $this->education;
+    }
+
+    public function addEducation(Education $education): self
+    {
+        if (!$this->education->contains($education)) {
+            $this->education[] = $education;
+            $education->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEducation(Education $education): self
+    {
+        if ($this->education->contains($education)) {
+            $this->education->removeElement($education);
+            // set the owning side to null (unless already changed)
+            if ($education->getPerson() === $this) {
+                $education->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProgramMembership[]
+     */
+    public function getMemberOf(): Collection
+    {
+        return $this->memberOf;
+    }
+
+    public function addMemberOf(ProgramMembership $memberOf): self
+    {
+        if (!$this->memberOf->contains($memberOf)) {
+            $this->memberOf[] = $memberOf;
+        }
+
+        return $this;
+    }
+
+    public function removeMemberOf(ProgramMembership $memberOf): self
+    {
+        if ($this->memberOf->contains($memberOf)) {
+            $this->memberOf->removeElement($memberOf);
+        }
 
         return $this;
     }

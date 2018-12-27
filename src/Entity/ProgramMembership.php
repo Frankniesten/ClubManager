@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -32,6 +34,16 @@ class ProgramMembership
      */
     private $description;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", mappedBy="memberOf")
+     */
+    private $people;
+
+    public function __construct()
+    {
+        $this->people = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -57,6 +69,34 @@ class ProgramMembership
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Person[]
+     */
+    public function getPeople(): Collection
+    {
+        return $this->people;
+    }
+
+    public function addPerson(Person $person): self
+    {
+        if (!$this->people->contains($person)) {
+            $this->people[] = $person;
+            $person->addMemberOf($this);
+        }
+
+        return $this;
+    }
+
+    public function removePerson(Person $person): self
+    {
+        if ($this->people->contains($person)) {
+            $this->people->removeElement($person);
+            $person->removeMemberOf($this);
+        }
 
         return $this;
     }

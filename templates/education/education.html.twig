@@ -1,0 +1,52 @@
+<div class="row align-items-center">
+	<div class="col">
+	    <h3>Opleiding</h3>
+    </div>
+        
+    <div class="col-4  ">
+	    <div class="btn-group float-right">
+	    	<a href="{{ path('app_person_education_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    </div>
+    </div>
+        
+</div>
+{%if data.education is not empty %}
+<table class="table table-bordered table-striped">   
+    <tbody>
+        <thead>
+            <tr>
+            	<td><b>Diploma</b></td>
+				<td><b>Datum Behaald</b></td>
+				<td><b>Muziekschool</b></td>
+        	</tr>
+        </thead>
+    {% for education in data.education %}
+        <tr>
+            <td>{{ education.certificate }}
+	            
+	            <!-- Dropdown -->
+			    <div class="dropdown pull-right">
+                    <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                        <i class="mdi mdi-dots-horizontal"></i>
+                    </a>
+                    
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        <a href="{{ path('app_person_education_edit', {'id': data.id, 'educationID': education.id}) }}" class="dropdown-item">Bewerken</a>
+                        <!-- item-->
+                        <a href="{{ path('app_person_education_delete', {'id': data.id, 'educationID': education.id}) }}" class="dropdown-item">Verwijderen</a>
+                    </div>
+                </div>
+                
+            </td>
+            
+            <td>{{ education.dataAchieved |date("d-m-Y") }}</td>
+            
+            <td>{{ education.organization.legalName }}</td>
+            
+        </tr>
+    {% endfor %} 
+   
+    </tbody>
+</table>
+{% endif %} 

@@ -92,17 +92,17 @@
     
     <ul class="nav nav-tabs nav-justified">
         <li class="nav-item">
-            <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link active">
+            <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'membership' in app.request.uri  %}active{% endif %}">
                 Lidmaatschap
             </a>
         </li>
         <li class="nav-item">
-            <a href="#musicalInstrument" data-toggle="tab" aria-expanded="true" class="nav-link">
+            <a href="#musicalInstrument" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'musical-instrument' in app.request.uri  %}active{% endif %}">
                 Muziekinstrument
             </a>
         </li>
         <li class="nav-item">
-            <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link">
+            <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'education' in app.request.uri  %}active{% endif %}">
                 Opleiding
             </a>
         </li>
@@ -133,7 +133,7 @@
 		    
 	<div class="card">
 	    <div class="tab-content">
-			<div role="tabpanel" class="tab-pane fade show active" id="membership">
+			<div role="tabpanel" class="tab-pane fade {% if 'membership' in app.request.uri  %}show active{% endif %}" id="membership">
         
 				{{ include('membership/membership.html.twig', { 
 					'data': data })
@@ -141,15 +141,19 @@
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade" id="musicalInstrument">
+    		<div role="tabpanel" class="tab-pane fade {% if 'musical-instrument' in app.request.uri  %}show active{% endif %}" id="musicalInstrument">
         
-				Muziekinstrument            
+				{{ include('musical_instrument/musicalInstrument.html.twig', { 
+					'data': data })
+				}}            
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade" id="education">
+    		<div role="tabpanel" class="tab-pane fade {% if 'education' in app.request.uri  %}show active{% endif %}" id="education">
         
-				Opleiding            
+				{{ include('education/education.html.twig', { 
+					'data': data })
+				}}             
 	        
     		</div>
     		

@@ -22,8 +22,7 @@
         </thead>
     {% for membership in data.membership %}
         <tr>
-            <td>{{ membership.startDate | date("d-m-Y") }}</td>
-            <td>{{ membership.endDate is empty ? "" : membership.endDate|date("d-m-Y") }}
+            <td>{{ membership.startDate | date("d-m-Y") }}
 	            
 	            <!-- Dropdown -->
 			    <div class="dropdown pull-right">
@@ -38,7 +37,9 @@
                         <a href="{{ path('app_person_membership_delete', {'id': data.id, 'membershipID': membership.id}) }}" class="dropdown-item">Verwijderen</a>
                     </div>
                 </div>
+                
             </td>
+            <td>{{ membership.endDate is empty ? "" : membership.endDate|date("d-m-Y") }}</td>
             <td>
 	            {% set difference = date(membership.endDate).diff(date(membership.startDate)) %}
 	            {% set leftDays = difference.y %}

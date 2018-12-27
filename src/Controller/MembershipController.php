@@ -46,10 +46,10 @@ class MembershipController extends AbstractController
 			//Call function to calculate total years and store it in the DB.
 			$totalYears = $MembershipYears->MembershipYears($id);
 			
-			return $this->redirectToRoute('app_person', array('id' => $id));			
+			return $this->redirectToRoute('app_person_membership', array('id' => $id));			
 		}
 
-		return $this->render('membership/membershipCreate.html.twig', [
+		return $this->render('membership/membershipForm.html.twig', [
         	'form' => $form->createView(),
         	'id' => $id
 		]);	
@@ -80,10 +80,10 @@ class MembershipController extends AbstractController
 			//Call function to calculate total years and store it in the DB.
 			$totalYears = $MembershipYears->MembershipYears($id);
 			
-			return $this->redirectToRoute('app_person', array('id' => $id));			
+			return $this->redirectToRoute('app_person_membership', array('id' => $id));			
 		}
 		
-		return $this->render('membership/membershipEdit.html.twig', [
+		return $this->render('membership/membershipForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $membership,
         	'id' => $id

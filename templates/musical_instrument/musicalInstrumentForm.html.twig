@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personen{% endblock %}
+
+{% block body %}
+
+ 	{{ form_start(form) }}
+	<div class="row align-items-center">
+        <div class="col">
+	       	
+	       	{% if 'create' in app.request.uri  %}
+	       		<h2>Muziekinstrument toevoegen</h2>
+	        {% endif %}
+	        {% if 'edit' in app.request.uri  %}
+	       		<h2>Muziekinstrument bewerken</h2>
+	        {% endif %}
+	        
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
+				<a href="{{ path('app_person_musicalInstrument', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        </div>
+        </div>
+        
+	</div>
+	
+    <!-- Card Box -->
+    <div class="card-box table-responsive">
+	    
+	    {{ form_widget(form) }}
+		{{ form_end(form) }}
+            
+    </div>      
+{% endblock %}

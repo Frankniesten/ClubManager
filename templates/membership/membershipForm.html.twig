@@ -15,13 +15,18 @@
  	{{ form_start(form) }}
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>Lidmaatschap bewerken</h2>
+	        {% if 'create' in app.request.uri  %}
+	       		<h2>Lidmaatschap toevoegen</h2>
+	        {% endif %}
+	        {% if 'edit' in app.request.uri  %}
+	       		<h2>Lidmaatschap bewerken</h2>
+	        {% endif %}
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_person', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				<a href="{{ path('app_person_membership', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>
         
@@ -41,11 +46,7 @@
 			   {{ form_widget(form.endDate, {'id': 'datepicker-autoclose2'}) }}
 	        </div>
 	    </div>
-	    <br>
-	    <br>
-	    <br>
-	    <br>
-	    <br>
+
 		{{ form_end(form) }}
             
     </div>      
