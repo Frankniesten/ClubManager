@@ -1,13 +1,10 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Personen{% endblock %}
 
 
-
 {% block body %}
-
-
-
 	<div class="row align-items-center">
         <div class="col">
 	        <h2>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span></h2>
@@ -191,5 +188,4 @@
 	    </div>
 	</div>
 	<br>
-    
 {% endblock %}

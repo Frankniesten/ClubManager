@@ -31,7 +31,7 @@ class OrganizationsController extends AbstractController
     
     
     /**
-     * @Route("/porganization/create", name="app_organization_create")
+     * @Route("/organization/create", name="app_organization_create")
      */
 	public function new(EntityManagerInterface $em, Request $request)
 	{
@@ -51,7 +51,7 @@ class OrganizationsController extends AbstractController
 			return $this->redirectToRoute('app_organization', array('id' => $id));			
 		}
 		
-		return $this->render('organizations/organizationCreate.html.twig', [
+		return $this->render('organizations/organizationForm.html.twig', [
         	'form' => $form->createView()
 		]);
 	}
@@ -95,7 +95,7 @@ class OrganizationsController extends AbstractController
 			return $this->redirectToRoute('app_organization', array('id' => $id));			
 		}
 		
-		return $this->render('organizations/organizationEdit.html.twig', [
+		return $this->render('organizations/organizationForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $organization
 		]);

@@ -23,7 +23,7 @@ class CategorieFormType extends AbstractType
 					'Personen' => 'Personen',
 					'Organisaties' => 'Organisaties',
 					'Events' => 'Events',
-					'Producten' => 'Products',
+					'Producten' => 'Producten',
 					'Diensten' => 'Diensten')));    
 	}
 

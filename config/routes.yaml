@@ -138,8 +138,40 @@ app_organization_delete:
     controller: App\Controller\OrganizationsController::delete
 
 
+# ---products--- #
+app_products:
+    path: /products
+    controller: App\Controller\ProductsController::list
+
+app_product_create:
+    path: /product/create
+    controller: App\Controller\ProductsController::new
+     
+app_product:
+    path: /product/{id}
+    controller: App\Controller\ProductsController::show
+    
+app_product_edit:
+    path: /product/{id}/edit
+    controller: App\Controller\ProductsController::edit
+    
+app_product_delete:
+    path: /product/{id}/delete
+    controller: App\Controller\ProductsController::delete
 
 
+# Products - isRelatedTo:
+app_product_isRelatedTo:
+    path: /product/{id}/isrelatedto
+    controller: App\Controller\ProductsController::show
+
+app_product_isRelatedTo_create:
+    path: /product/{id}/isrelatedto/create
+    controller: App\Controller\ProductRelatedToController::edit
+    
+app_product_isRelatedTo_edit:
+    path: /product/{id}/isrelatedto/edit
+    controller: App\Controller\ProductRelatedToController::edit
 
 
 
@@ -151,9 +183,7 @@ app_events:
     path: /events
     controller: App\Controller\EventsController::list
 
-app_products:
-    path: /products
-    controller: App\Controller\ProductsController::list
+
 
 app_services:
     path: /services
@@ -177,6 +207,7 @@ app_settings_categorie_delete:
     path: /settings/categorie/{id}/delete
     controller: App\Controller\CategoriesController::show
 
+
 # ---ProgramMemberships--- #
 app_settings_program_memberships:
     path: /settings/programmemberships
@@ -193,6 +224,7 @@ app_settings_program_membership_edit:
 app_settings_program_membership_delete:
     path: /settings/programmembership/{id}/delete
     controller: App\Controller\ProgramMembershipController::delete
+
 
 # ---MusicalInstruments--- #
 app_settings_musical_instruments:

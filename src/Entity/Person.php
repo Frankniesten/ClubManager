@@ -109,12 +109,12 @@ class Person
     private $musicalInstrument;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Education", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="App\Entity\Education", mappedBy="person", orphanRemoval=true)
      */
     private $education;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ProgramMembership", inversedBy="people")
+     * @ORM\ManyToMany(targetEntity="App\Entity\ProgramMembership", inversedBy="people", orphanRemoval=true)
      */
     private $memberOf;
 

@@ -40,9 +40,13 @@
                 
             </td>
             
-            <td>{{ education.dataAchieved |date("d-m-Y") }}</td>
+            <td>{{ education.dataAchieved is empty ? "" : education.dataAchieved |date("d-m-Y") }}</td>
             
-            <td>{{ education.organization.legalName }}</td>
+            <td>
+	            {% if education.organization %}
+					{{ education.organization.legalName }} 
+				{% endif %}
+			</td>
             
         </tr>
     {% endfor %} 

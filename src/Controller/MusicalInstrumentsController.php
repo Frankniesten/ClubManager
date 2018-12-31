@@ -13,6 +13,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class MusicalInstrumentsController extends AbstractController
 {
 	/**
+	     * @Route("/settings/musicalinstruments", name="musical_instruments")
+	     */
+		public function list(EntityManagerInterface $em, Request $request)
+		{
+			$musicalInstrument = $this->getDoctrine()
+	        ->getRepository(MusicalInstrument::class)
+	        ->findAll();
+			
+					
+			return $this->render('musical_instruments/musicalInstruments.html.twig', [
+	        	'data' => $musicalInstrument
+			]);
+		}
+		
+		
+	/**
      * @Route("/settings/musicalinstrument/create", name="musical_instrument")
      */
 	public function new(EntityManagerInterface $em, Request $request)

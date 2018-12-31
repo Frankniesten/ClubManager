@@ -41,6 +41,11 @@ class Review
      */
     private $organization;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Products", inversedBy="review")
+     */
+    private $review;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +95,18 @@ class Review
     public function setOrganization(?Organization $organization): self
     {
         $this->organization = $organization;
+
+        return $this;
+    }
+
+    public function getReview(): ?Products
+    {
+        return $this->review;
+    }
+
+    public function setReview(?Products $review): self
+    {
+        $this->review = $review;
 
         return $this;
     }

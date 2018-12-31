@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Organisation;
+use App\Entity\OwnershipInfo;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Organisation|null find($id, $lockMode = null, $lockVersion = null)
- * @method Organisation|null findOneBy(array $criteria, array $orderBy = null)
- * @method Organisation[]    findAll()
- * @method Organisation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method OwnershipInfo|null find($id, $lockMode = null, $lockVersion = null)
+ * @method OwnershipInfo|null findOneBy(array $criteria, array $orderBy = null)
+ * @method OwnershipInfo[]    findAll()
+ * @method OwnershipInfo[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OrganisationRepository extends ServiceEntityRepository
+class OwnershipInfoRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Organisation::class);
+        parent::__construct($registry, OwnershipInfo::class);
     }
 
     // /**
-    //  * @return Organisation[] Returns an array of Organisation objects
+    //  * @return OwnershipInfo[] Returns an array of OwnershipInfo objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class OrganisationRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Organisation
+    public function findOneBySomeField($value): ?OwnershipInfo
     {
         return $this->createQueryBuilder('o')
             ->andWhere('o.exampleField = :val')

@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Personen{% endblock %}
+{% block title %}Producten{% endblock %}
 
 {% block stylesheets %}
 	
 	{{ parent() }}
 	<link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}"  rel="stylesheet" type="text/css" />
 	
+	
 	<style>
 	.ms-container{
-		width: 100% !important;
+		
+		width: 100%;
 	}
 	</style>
 
@@ -23,10 +25,10 @@
         <div class="col">
 	       	
 	       	{% if 'create' in app.request.uri  %}
-	       		<h2>Rol toevoegen</h2>
+	       		<h2>Gerelateerd product toevoegen</h2>
 	        {% endif %}
 	        {% if 'edit' in app.request.uri  %}
-	       		<h2>Rol bewerken</h2>
+	       		<h2>Gerelateerd product bewerken</h2>
 	        {% endif %}
 	        
         </div>
@@ -34,7 +36,7 @@
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_person_memberOf', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				<a href="{{ path('app_product_isRelatedTo', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>
         
@@ -44,9 +46,8 @@
     <div class="card-box table-responsive">
 	    
 	    <div class="col-12">
-		       {{ form_label(form.memberOf) }}
-			   {{ form_widget(form.memberOf, {'id': 'my_multi_select1', 'attr': {'class': 'multi-select', 'data-plugin': 'multi-select', multiple: 'multiple'}}) }}
-			   
+		       {{ form_label(form.isRelatedTo) }}
+			   {{ form_widget(form.isRelatedTo, {'id': 'my_multi_select1', 'attr': {'class': 'multi-select', 'data-plugin': 'multi-select', multiple: 'multiple'}}) }}
 	        </div>
 		{{ form_end(form) }}
             

@@ -4,135 +4,157 @@
 
 
 {% block body %}
-
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>{{ data.legalName }}
+	        <h2>{{ data.legalName }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span></h2>
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<a href="{{ path('app_organization_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
 	        	<a href="{{ path('app_organization_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
-				<a href="{{ path('app_organizations') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				<a href="{{ path('app_organizations') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>
         
 	</div>
 	
     <!-- Card Box -->
-    <div class="card-box table-responsive">
-    
-    <div>
-    	<h6 style="padding-right:10px;"><i class="fa fa-tag"></i> {{ data.categorie.name }}&nbsp;&nbsp;&nbsp;&nbsp;  
-		<i class="fa fa-calendar-plus-o"></i> {{ data.createdAt |date("d-m-Y  - H:i")}}&nbsp;&nbsp;&nbsp;&nbsp; 
-		<i class="fa fa-calendar-check-o"></i> {{ data.updatedAt |date("d-m-Y  - H:i")}}</h6>
-	</div> 
-	<br> 
-	    
-	    <!-- Tab Navigation -->
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                    Persoonsgegevens
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#profile1" data-toggle="tab" aria-expanded="true" class="nav-link">
-                    Medewerkers
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#messages1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                    Producten
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                    Diensten
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#settings1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                    Notities
-                </a>
-            </li>
-        </ul>
-        <div class="tab-content">
-        <div role="tabpanel" class="tab-pane fade show active" id="home1">
-	    
-		<h3>Organisatiegegevens</h3>			
-        <table class="table table-bordered table-striped">
-            <tbody>
-	            <tr>
-	                <td width="30%"><b>Organisatie</b></td>
-	                <td width="70%">{{data.legalName}}</td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>Omschrijving</b></td>
-	                <td width="70%">{{data.description}}</td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>K.v.K. Nummer</b></td>
-	                <td width="70%">{{data.leiCode}}</td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>Belasting Nummer</b></td>
-	                <td width="70%">{{data.vatID}}</td>
-	            </tr>
-            </tbody>
-        </table>
-        
-        <h3>Contactgegevens</h3>			
-        <table class="table table-bordered table-striped">
-            <tbody>
-	            <tr>
-	                <td width="30%"><b>Email</b></td>
-	                <td width="70%"><a href="mailto:{{data.email}}" target="_blank">{{data.email}}</a></td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>Telefoon</b></td>
-	                <td width="70%">{{data.telephone}}</td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>Mobiel</b></td>
-	                <td width="70%">{{data.telephone2}}</td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>Website</b></td>
-	                <td width="70%"><a href="{{data.url}}" target="_blank">{{data.url}}</a></td>
-	            </tr>
-            </tbody>
-        </table>
-        
-        <h3>Adresgegevens</h3>
-        <table class="table table-bordered table-striped">
-            <tbody>
-	            <tr>
-	                <td width="30%"><b>Straat</b></td>
-	                <td width="70%">{{data.streetAddress}}</td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>Postbus</b></td>
-	                <td width="70%">{{data.postOfficeBoxNumber}}</td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>Postcode</b></td>
-	                <td width="70%">{{data.postalCode}}</td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>Woonplaats</b></td>
-	                <td width="70%">{{data.addressLocality}}</td>
-	            </tr>
-	            <tr>
-	                <td width="30%"><b>Land</b></td>
-	                <td width="70%">{{data.addressCountry}}</td>
-	            </tr>
-            </tbody>
-        </table>
-        
-        
-    </div> 
-</div>
+    <div id="accordion">
+		<div class="card">
+	        <div class="card-header" id="headingOne">
+	            <h4 class="m-0">
+	                <a href="#collapseOne" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+	                    Persoonsgegevens
+	                </a>
+	            </h4>
+	        </div>
+	
+	        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+	            <div class="card-body">
+	                <table class="table table-bordered table-striped">   
+			            <tbody>
+				            <tr>
+				                <td width="20%"><b>Naam</b></td>
+				                <td width="70%">{{ data.legalName }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Omschrijving</b></td>
+				                <td>{{data.description }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>K.v.K. Nummer</b></td>
+				                <td>{{data.leiCode}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Belasting Nummer</b></td>
+				                <td>{{data.vatID}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Email</b></td>
+				                <td><a href="mailto:{{data.email}}" target="_blank">{{data.email}}</a></td>
+				            </tr>
+				            <tr>
+				                <td><b>Telefoon</b></td>
+				                <td>{{data.telephone}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Mobiel</b></td>
+				                <td>{{data.telephone2}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Website</b></td>
+				                <td><a href="{{data.url}}" target="_blank">{{data.url}}</a></td>
+				            </tr>
+				            <tr>
+				                <td><b>Straat</b></td>
+				                <td>{{data.streetAddress}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Postbus</b></td>
+				                <td>{{data.postOfficeBoxNumber}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Postcode</b></td>
+				                <td>{{data.postalCode}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Woonplaats</b></td>
+				                <td>{{data.addressLocality}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Land</b></td>
+				                <td>{{data.addressCountry}}</td>
+				            </tr>
+			            </tbody>
+			        </table>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 
+    <br>
+    
+    <!-- Details -->
+    
+    <ul class="nav nav-tabs nav-justified">
+        <li class="nav-item">
+            <a href="#employees" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'membership' in app.request.uri  %}active{% endif %}">
+                Medewerkers
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Producten
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Diensten
+            </a>
+        </li>
+        
+        <li class="nav-item">
+            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Notities
+            </a>
+        </li>
+    </ul>
+		    
+		    
+	<div class="card">
+	    <div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade {% if 'membership' in app.request.uri  %}show active{% endif %}" id="employees">
+        
+				    Medewerkers   
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade" id="products">
+        
+				Producten            
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade" id="services">
+        
+				Diensten            
+	        
+    		</div>
+    		
+    	
+			
+			<div role="tabpanel" class="tab-pane fade" id="reviews">
+			
+				Reviews
+				
+			</div>
+	    </div>
+	</div>
+	<br>
+    
+    
+    
+    
+    
 {% endblock %}

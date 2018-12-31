@@ -105,10 +105,16 @@ class Organization
      */
     private $education;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OwnershipInfo", mappedBy="aquiredFrom")
+     */
+    private $ownershipInfos;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
         $this->education = new ArrayCollection();
+        $this->ownershipInfos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -340,6 +346,37 @@ class Organization
             // set the owning side to null (unless already changed)
             if ($education->getOrganization() === $this) {
                 $education->setOrganization(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OwnershipInfo[]
+     */
+    public function getOwnershipInfos(): Collection
+    {
+        return $this->ownershipInfos;
+    }
+
+    public function addOwnershipInfo(OwnershipInfo $ownershipInfo): self
+    {
+        if (!$this->ownershipInfos->contains($ownershipInfo)) {
+            $this->ownershipInfos[] = $ownershipInfo;
+            $ownershipInfo->setAquiredFrom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwnershipInfo(OwnershipInfo $ownershipInfo): self
+    {
+        if ($this->ownershipInfos->contains($ownershipInfo)) {
+            $this->ownershipInfos->removeElement($ownershipInfo);
+            // set the owning side to null (unless already changed)
+            if ($ownershipInfo->getAquiredFrom() === $this) {
+                $ownershipInfo->setAquiredFrom(null);
             }
         }
 

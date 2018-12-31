@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Producten{% endblock %}
+
+
+{% block body %}
+	<div class="row align-items-center">
+        <div class="col">
+	        <h2>{{ data.name }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span></h2>
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	<a href="{{ path('app_product_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+	        	<a href="{{ path('app_product_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+				<a href="{{ path('app_products') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        </div>
+        </div>
+        
+	</div>
+	
+    <!-- Card Box -->
+    <div id="accordion">
+		<div class="card">
+	        <div class="card-header" id="headingOne">
+	            <h4 class="m-0">
+	                <a href="#collapseOne" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+	                    Persoonsgegevens
+	                </a>
+	            </h4>
+	        </div>
+	
+	        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+	            <div class="card-body">
+	                <table class="table table-bordered table-striped">   
+			            <tbody>
+				            <tr>
+				                <td width="20%"><b>Naam</b></td>
+				                <td width="70%">{{ data.name }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Serienummer</b></td>
+				                <td>{{data.productID}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Model</b></td>
+				                <td>{{data.model}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Fabrikant</b></td>
+				                <td>{{data.manufacturer}}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Omschrijving</b></td>
+				                <td>{{data.description }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Aankoopdatum</b></td>
+				                <td>{{data.purchaseDate | date("d-m-Y") }}</td>
+				            </tr
+			            </tbody>
+			        </table>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+    <br>
+    
+    <!-- Details -->
+    
+    <ul class="nav nav-tabs nav-justified">
+        <li class="nav-item">
+            <a href="#relatedTo" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'isrelatedto' in app.request.uri  %}active{% endif %}">
+                Gerelateerde producten
+            </a>
+        </li>
+        
+        <li class="nav-item">
+            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Notities
+            </a>
+        </li>
+    </ul>
+		    
+		    
+	<div class="card">
+	    <div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade {% if 'isrelatedto' in app.request.uri  %}show active{% endif %}" id="relatedTo">
+        
+				    {{ include('/product_related_to/isrelatedto.html.twig', {
+					'data': data })
+				}} 
+	        
+    		</div>
+
+			<div role="tabpanel" class="tab-pane fade" id="reviews">
+			
+				Reviews
+				
+			</div>
+	    </div>
+	</div>
+	<br>
+    
+    
+    
+    
+    
+{% endblock %}

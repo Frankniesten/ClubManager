@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Producten{% endblock %}
+
+{% block stylesheets %}
+	
+	{{ parent() }}
+	
+	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+	        
+{% endblock %}
+
+
+{% block body %}
+
+ 	{{ form_start(form) }}
+	<div class="row align-items-center">
+        <div class="col">
+	        {% if 'create' in app.request.uri  %}
+	       		<h2>Product Toevoegen</h2>
+	        {% endif %}
+	        {% if 'edit' in app.request.uri  %}
+	       		<h2>{{ data.name }} - bewerken</h2>
+	        {% endif %}
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
+	        	
+	        	{% if 'create' in app.request.uri  %}
+	       			<a href="{{ path('app_products') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+		        {% endif %}
+		        {% if 'edit' in app.request.uri  %}
+		       		<a href="{{ path('app_product', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+		        {% endif %}
+	        	
+	        </div>
+        </div>
+        
+	</div>
+	
+    <!-- Card Box -->
+    <div class="card-box table-responsive">
+        <div class="row">
+	        <div class="col-12">
+				{{ form_label(form.name) }}
+				{{ form_errors(form.name) }}
+				{{ form_widget(form.name) }}
+	        </div>
+ 		</div>
+	    <br>
+	    <div class="row">
+	        <div class="col-12">
+				{{ form_label(form.description) }}
+				{{ form_errors(form.description) }}
+				{{ form_widget(form.description) }}
+	        </div>
+ 		</div>
+	    <br>
+	    <div class="row">
+	        <div class="col-6">
+				{{ form_label(form.model) }}
+				{{ form_errors(form.model) }}
+				{{ form_widget(form.model) }}
+	        </div>
+	        
+	        <div class="col-6">
+		       {{ form_label(form.productID) }}
+			   {{ form_errors(form.productID) }}
+			   {{ form_widget(form.productID) }}
+	        </div>
+	    </div>
+	    <br>
+	    <div class="row">
+	        <div class="col-6">
+				{{ form_label(form.manufacturer) }}
+				{{ form_errors(form.manufacturer) }}
+				{{ form_widget(form.manufacturer) }}
+	        </div>
+	        
+	        <div class="col-6">
+		       {{ form_label(form.purchaseDate) }}
+			   {{ form_errors(form.purchaseDate) }}
+			   {{ form_widget(form.purchaseDate, {'id': 'datepicker-autoclose1'}) }}	        
+			</div>
+	    </div>
+
+
+		{{ form_end(form) }}        
+    </div>      
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+	<!--form wysiwig js-->
+    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
+    <script type="text/javascript">
+        jQuery('#datepicker-autoclose1').datepicker({
+	        	format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true
+            });
+        jQuery('#datepicker-autoclose2').datepicker({
+	        	format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true
+            });
+    </script>
+    
+{% endblock %}

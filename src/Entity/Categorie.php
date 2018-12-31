@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -35,6 +37,16 @@ class Categorie
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $additionalType;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Products", mappedBy="categorie")
+     */
+    private $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -73,6 +85,37 @@ class Categorie
     public function setAdditionalType(?string $additionalType): self
     {
         $this->additionalType = $additionalType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Products[]
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Products $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products[] = $product;
+            $product->setCategorie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Products $product): self
+    {
+        if ($this->products->contains($product)) {
+            $this->products->removeElement($product);
+            // set the owning side to null (unless already changed)
+            if ($product->getCategorie() === $this) {
+                $product->setCategorie(null);
+            }
+        }
 
         return $this;
     }
