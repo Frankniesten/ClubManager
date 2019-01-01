@@ -49,7 +49,7 @@ class MusicalInstrumentsController extends AbstractController
 			return $this->redirectToRoute('app_settings_musical_instruments');			
 		}
 		
-		return $this->render('musical_instruments/musicalInstrumentsCreate.html.twig', [
+		return $this->render('musical_instruments/musicalInstrumentsForm.html.twig', [
         	'form' => $form->createView()
 		]);
 	}
@@ -78,7 +78,7 @@ class MusicalInstrumentsController extends AbstractController
 			return $this->redirectToRoute('app_settings_musical_instruments');			
 		}
 		
-		return $this->render('musical_instruments/musicalInstrumentsEdit.html.twig', [
+		return $this->render('musical_instruments/musicalInstrumentsForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $musicalInstrument
 		]);

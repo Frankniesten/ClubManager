@@ -1,0 +1,67 @@
+<div class="row align-items-center">
+	<div class="col">
+	    <h3>Producten in bruikleen</h3>
+    </div>
+        
+    <div class="col-4  ">
+	    <div class="btn-group float-right">
+	    	<a href="{{ path('app_person_owns_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    </div>
+    </div>
+        
+</div>
+{%if data.owns is not empty %}
+<table class="table table-bordered table-striped">   
+    <tbody>
+        <thead>
+            <tr>
+            	<td><b>Product</b></td>
+            	<td><b>Model</b></td>
+            	<td><b>Fabrikant</b></td>
+            	<td><b>In bezit vanaf</b></td>
+            	<td><b>In bezit tot</b></td>
+            	<td><b>Eigenaar</b></td>
+        	</tr>
+        </thead>
+    {% for owns in data.owns %}
+        <tr>
+            <td>{{ owns.typeofGood.name }}
+	            
+	            <!-- Dropdown -->
+			    <div class="dropdown pull-right">
+                    <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                        <i class="mdi mdi-dots-horizontal"></i>
+                    </a>
+                    
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        <a href="{{ path('app_person_owns_edit', {'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Bewerken</a>		<!-- item-->
+                        <a href="{{ path('app_person_owns_delete', {'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Verwijderen</a>
+                    </div>
+                </div>
+                
+            </td>
+            <td>
+	            {{ owns.typeofGood.model }}
+            </td>
+            <td>
+	            {{ owns.typeofGood.manufacturer }}
+            </td>
+            <td>
+	            {{ owns.ownedFrom |date("d-m-Y")}}
+            </td>
+			<td>
+	            {{ owns.ownedTrough |date("d-m-Y")}}
+            </td>
+
+            <td>
+	            {{ owns.aquiredFrom.legalName }}
+            </td>
+            
+            
+        </tr>
+    {% endfor %} 
+   
+    </tbody>
+</table>
+{% endif %} 

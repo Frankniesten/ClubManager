@@ -52,7 +52,7 @@ class CategoriesController extends AbstractController
 			return $this->redirectToRoute('app_settings_categories');			
 		}
 		
-		return $this->render('categories/CategorieCreate.html.twig', [
+		return $this->render('categories/CategorieForm.html.twig', [
         	'form' => $form->createView()
 		]);
 	}
@@ -81,7 +81,7 @@ class CategoriesController extends AbstractController
 			return $this->redirectToRoute('app_settings_categories');			
 		}
 		
-		return $this->render('categories/CategorieEdit.html.twig', [
+		return $this->render('categories/CategorieForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $categorie
 		]);

@@ -110,7 +110,7 @@
         </li>
 
         <li class="nav-item">
-            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link">
+            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'owns' in app.request.uri  %}active{% endif %}">
                 Producten
             </a>
         </li>
@@ -162,9 +162,11 @@
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade" id="products">
+    		<div role="tabpanel" class="tab-pane fade {% if 'owns' in app.request.uri  %}show active{% endif %}" id="products">
         
-				Producten            
+				{{ include('owns/owns.html.twig', { 
+					'data': data })
+				}}             
 	        
     		</div>
     		

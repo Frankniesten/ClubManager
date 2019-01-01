@@ -91,8 +91,23 @@ app_person_memberOf_edit:
     path: /person/{id}/memberof/edit
     controller: App\Controller\MemberOfController::edit
     
+    
+# Person - Memberships:
+app_person_owns:
+    path: /person/{id}/owns
+    controller: App\Controller\PeopleController::show
 
-# Person - Products:
+app_person_owns_create:
+    path: /person/{id}/owns/create
+    controller: App\Controller\OwnsController::new
+    
+app_person_owns_edit:
+    path: /person/{id}/owns/{ownershipInfoID}/edit
+    controller: App\Controller\OwnsController::edit
+    
+app_person_owns_delete:
+    path: /person/{id}/owns/{ownershipInfoID}/delete
+    controller: App\Controller\OwnsController::delete
 
 
 # Person - Services:

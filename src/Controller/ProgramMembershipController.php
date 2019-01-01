@@ -50,7 +50,7 @@ class ProgramMembershipController extends AbstractController
 			return $this->redirectToRoute('app_settings_program_memberships');			
 		}
 		
-		return $this->render('programMemberships/programMembershipsCreate.html.twig', [
+		return $this->render('programMemberships/programMembershipsForm.html.twig', [
         	'form' => $form->createView()
 		]);
 	}
@@ -80,7 +80,7 @@ class ProgramMembershipController extends AbstractController
 			return $this->redirectToRoute('app_settings_program_memberships');			
 		}
 		
-		return $this->render('programMemberships/programMembershipsEdit.html.twig', [
+		return $this->render('programMemberships/programMembershipsForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $programMembership
 		]);

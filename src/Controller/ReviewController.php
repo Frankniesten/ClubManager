@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Person;
+use App\Entity\Organization;
+use App\Entity\Product;
 use App\Entity\Review;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,18 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ReviewFormType;
 
 
-
-
-
-
-
 class ReviewController extends AbstractController
 {
     /**
-     * @Route("/person/{id}/review/create", name="app_review_create_person")
-     */
-     public function newPersonReview(EntityManagerInterface $em, Request $request, $id)
-     {
+	* @Route("/person/{id}/review/create", name="app_review_create_person")
+	*/
+	public function newPersonReview(EntityManagerInterface $em, Request $request, $id)
+	{
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
@@ -43,18 +40,19 @@ class ReviewController extends AbstractController
 			$em->persist($review);
 			$em->persist($person);
 			$em->flush();
-
+	
 			$this->addFlash('success', 'Notitie aan: '.$person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' toegevoegd!');
 			
 			return $this->redirectToRoute('app_person', array('id' => $id));			
 		}
-
+	
 		return $this->render('review/ReviewPersonCreate.html.twig', [
-        	'form' => $form->createView(),
-        	'id' => $id
+	    	'form' => $form->createView(),
+	    	'id' => $id
 		]);
-     }
-     
+	}
+	
+	
 	/**
 	* @Route("/{entity}/{$entityID}/review/{id}/edit", name="app_review_edit")
 	*/
@@ -86,6 +84,7 @@ class ReviewController extends AbstractController
         	'entityID' => $entityID
 		]);
 	}
+	
 	
 	/**
 	* @Route("/{entity}/{$entityID}/review/{reviewID}/delete", name="app_review_delete")

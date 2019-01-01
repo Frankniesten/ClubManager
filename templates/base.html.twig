@@ -97,11 +97,11 @@
                             </li>
 
                             <li>
-                                <a href="{{ path('app_people') }}" class="waves-effect"><i class="mdi mdi-account-multiple"></i> <span> Personen </span> </a>
+                                <a href="{{ path('app_people') }}" class="waves-effect {% if 'person' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-account-multiple"></i> <span> Personen </span> </a>
                             </li>
                             
                             <li>
-                                <a href="{{ path('app_organizations') }}" class="waves-effect"><i class="mdi mdi-domain"></i> <span> Organisaties </span> </a>
+                                <a href="{{ path('app_organizations') }}" class="waves-effect {% if 'organization' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-domain"></i> <span> Organisaties </span> </a>
                             </li>
                             
                             <li>
@@ -109,7 +109,7 @@
                             </li>
                             
                             <li>
-                                <a href="{{ path('app_products') }}" class="waves-effect"><i class="mdi mdi-wrench"></i> <span> Producten </span> </a>
+                                <a href="{{ path('app_products') }}" class="waves-effect {% if 'product' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-wrench"></i> <span> Producten </span> </a>
                             </li>
                             
                             <li>
@@ -117,11 +117,11 @@
                             </li>
                             
                             <li class="has_sub">
-                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-settings"></i> <span> Instellingen </span> <span class="menu-arrow"></span></a>
+                                <a class="waves-effect {% if 'settings' in app.request.uri  %}active submenu{% endif %}" href="javascript:void(0);"><i class="mdi mdi-settings"></i> <span> Instellingen </span> <span class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
-                                    <li><a href="{{ path('app_settings_categories') }}">Categoriën</a></li>
-                                    <li><a href="{{ path('app_settings_program_memberships') }}">Rollen</a></li>
-                                    <li><a href="{{ path('app_settings_musical_instruments') }}">Muziekinstrumenten</a></li>
+                                    <li {% if 'categorie' in app.request.uri  %}class="active"{% endif %}><a href="{{ path('app_settings_categories') }}">Categoriën</a></li>
+                                    <li {% if 'programmembership' in app.request.uri  %}class="active"{% endif %}><a href="{{ path('app_settings_program_memberships') }}">Rollen</a></li>
+                                    <li {% if 'musicalinstrument' in app.request.uri  %}class="active"{% endif %}><a href="{{ path('app_settings_musical_instruments') }}">Muziekinstrumenten</a></li>
                                 </ul>
                             </li>
 

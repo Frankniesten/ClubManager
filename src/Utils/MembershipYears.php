@@ -40,10 +40,7 @@
 					
 					$difference = date_diff($endDate, $startDate);
 					$totalYears += $difference = $difference->format('%y');
-				}
-				
-				
-				
+				}				
 			}
 			else {
 				$totalYears = null;

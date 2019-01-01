@@ -118,12 +118,18 @@ class Person
      */
     private $memberOf;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OwnershipInfo", mappedBy="person")
+     */
+    private $owns;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
         $this->membership = new ArrayCollection();
         $this->education = new ArrayCollection();
         $this->memberOf = new ArrayCollection();
+        $this->owns = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -425,6 +431,37 @@ class Person
     {
         if ($this->memberOf->contains($memberOf)) {
             $this->memberOf->removeElement($memberOf);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OwnershipInfo[]
+     */
+    public function getOwns(): Collection
+    {
+        return $this->owns;
+    }
+
+    public function addOwn(OwnershipInfo $own): self
+    {
+        if (!$this->owns->contains($own)) {
+            $this->owns[] = $own;
+            $own->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwn(OwnershipInfo $own): self
+    {
+        if ($this->owns->contains($own)) {
+            $this->owns->removeElement($own);
+            // set the owning side to null (unless already changed)
+            if ($own->getPerson() === $this) {
+                $own->setPerson(null);
+            }
         }
 
         return $this;

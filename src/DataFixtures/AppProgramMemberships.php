@@ -11,7 +11,7 @@ class AppProgramMemberships extends Fixture
     public function load(ObjectManager $manager)
     {
         $memberOf = new ProgramMembership();
-		$memberOf->setProgramName('beheerder');
+		$memberOf->setProgramName('Beheerder');
 		$memberOf->setDescription('Beheerder van cloud Omgeving.');
        	$manager->persist($memberOf);
        	
@@ -43,6 +43,21 @@ class AppProgramMemberships extends Fixture
        	$memberOf = new ProgramMembership();
 		$memberOf->setProgramName('Kernteamlid');
 		$memberOf->setDescription('Lid van het kernteam dat het bestuur van de vereniging vormt.');
+       	$manager->persist($memberOf);
+       	
+       	$memberOf = new ProgramMembership();
+		$memberOf->setProgramName('Fanfare-Orkest');
+		$memberOf->setDescription('Lid van het fanfare-orkest.');
+       	$manager->persist($memberOf);
+       	
+	   	$memberOf = new ProgramMembership();
+		$memberOf->setProgramName('jeugdfanfare-Orkest');
+		$memberOf->setDescription('Lid van het jeugdfanfare-orkest.');
+       	$manager->persist($memberOf);
+       	
+       	$memberOf = new ProgramMembership();
+		$memberOf->setProgramName('Kapel');
+		$memberOf->setDescription('Lid van de kapel.');
        	$manager->persist($memberOf);
 
         $manager->flush();

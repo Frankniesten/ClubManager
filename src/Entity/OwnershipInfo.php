@@ -42,6 +42,11 @@ class OwnershipInfo
      */
     private $typeofGood;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="owns")
+     */
+    private $person;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +96,18 @@ class OwnershipInfo
     public function setTypeofGood(?Products $typeofGood): self
     {
         $this->typeofGood = $typeofGood;
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
 
         return $this;
     }

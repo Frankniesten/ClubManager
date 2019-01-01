@@ -8,13 +8,18 @@
  	{{ form_start(form) }}
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>Rol Toevoegen</h2>
+	        {% if 'create' in app.request.uri  %}
+	       		<h2>Rol Toevoegen</h2>
+	        {% endif %}
+	        {% if 'edit' in app.request.uri  %}
+	       		<h2>{{ data.programName }} - bewerken</h2>
+	        {% endif %}
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_settings_program_memberships') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				<a href="{{ path('app_settings_program_memberships') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>
         

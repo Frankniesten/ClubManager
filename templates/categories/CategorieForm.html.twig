@@ -8,14 +8,18 @@
  	{{ form_start(form) }}
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>Categorie Bewerken</h2>
+	        {% if 'create' in app.request.uri  %}
+	       		<h2>Categorie Toevoegen</h2>
+	        {% endif %}
+	        {% if 'edit' in app.request.uri  %}
+	       		<h2>{{ data.name }} - bewerken</h2>
+	        {% endif %}
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_settings_categorie_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
-				<a href="{{ path('app_settings_categories') }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				<a href="{{ path('app_settings_categories') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>
         
@@ -27,11 +31,7 @@
 		{{ form_widget(form) }}
 		
 		{{ form_end(form) }}
-        
-    	<div>
-	    	<small style="padding-right:10px;"><i class="fa fa-calendar-plus-o"></i> {{ data.createdAt |date("d-m-Y  - H:i")}}</small>
-	    	<small style="padding-right:10px;"> <i class="fa fa-calendar-check-o"></i> {{ data.updatedAt |date("d-m-Y  - H:i")}}</small>
-    	</div>    
+            
     </div>      
 
 {% endblock %}
