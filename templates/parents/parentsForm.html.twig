@@ -1,14 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Personen{% endblock %}
+{% block title %}Producten{% endblock %}
 
 {% block stylesheets %}
 	
 	{{ parent() }}
 	<link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}"  rel="stylesheet" type="text/css" />
-	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
 	
 	
+	<style>
+	.ms-container{
+		
+		width: 100%;
+	}
+	</style>
 
 	        
 {% endblock %}
@@ -20,10 +25,10 @@
         <div class="col">
 	       	
 	       	{% if 'create' in app.request.uri  %}
-	       		<h2>Product toevoegen</h2>
+	       		<h2>Ouders toevoegen</h2>
 	        {% endif %}
 	        {% if 'edit' in app.request.uri  %}
-	       		<h2>Product bewerken</h2>
+	       		<h2>Ouders bewerken</h2>
 	        {% endif %}
 	        
         </div>
@@ -31,7 +36,7 @@
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_person_owns', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				<a href="{{ path('app_person_parents', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>
         
@@ -40,39 +45,10 @@
     <!-- Card Box -->
     <div class="card-box table-responsive">
 	    
-	    <div class="row">
-		    <div class="col-12">
-			       {{ form_label(form.aquiredFrom) }}
-				   {{ form_widget(form.aquiredFrom) }}	   
-		    </div>
-	    </div>
-	    
-	    <br>
-	    
-		<div class="row">
-	        <div class="col-6">
-				{{ form_label(form.ownedFrom) }}
-				{{ form_widget(form.ownedFrom, {'id': 'datepicker-autoclose1'}) }}
+	    <div class="col-12">
+		       {{ form_label(form.parents) }}
+			   {{ form_widget(form.parents, {'id': 'my_multi_select1', 'attr': {'class': 'multi-select', 'data-plugin': 'multi-select', multiple: 'multiple'}}) }}
 	        </div>
-	        
-	        <div class="col-6">
-			   {{ form_label(form.ownedTrough) }}
-			   {{ form_widget(form.ownedTrough, {'id': 'datepicker-autoclose2'}) }}
-	        </div>
-	    </div>
-	    
-	    <br>
-	    
-	    <div class="row">
-		    <div class="col-12">
-			       {{ form_label(form.typeofGood) }}
-				   {{ form_widget(form.typeofGood) }}	   
-		    </div>
-	    </div>
-		
-		
-		
-		
 		{{ form_end(form) }}
             
     </div>    
@@ -86,23 +62,6 @@
 	<!--form wysiwig js-->
 	<script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('assets/plugins/jquery-quicksearch/jquery.quicksearch.js') }}"></script>
-    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-
-    <script type="text/javascript">
-        jQuery('#datepicker-autoclose1').datepicker({
-	        	format: 'yyyy-mm-dd',
-                autoclose: true,
-                todayHighlight: true
-            });
-    </script>
-    
-     <script type="text/javascript">
-        jQuery('#datepicker-autoclose2').datepicker({
-	        	format: 'yyyy-mm-dd',
-                autoclose: true,
-                todayHighlight: false
-            });
-    </script>
 
 
     <script type="text/javascript">

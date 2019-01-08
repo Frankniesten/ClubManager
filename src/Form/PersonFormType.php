@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Doctrine\ORM\EntityRepository;
 
 class PersonFormType extends AbstractType
@@ -43,6 +44,7 @@ class PersonFormType extends AbstractType
 			        'Nederland' => 'Nederland',
 			        'België' => 'België',
 			        'Duitsland' => 'Duitsland')])
+			->add('alumni', CheckboxType::class, ['label' => 'Oud Lid', 'required' => false])
 			
 			->add('categorie', EntityType::class, array(
 					    'class' => Categorie::class,

@@ -127,6 +127,14 @@
 	    <br>
 	    <div class="row">
 		    <div class="col-12">
+			    {{ form_label(form.alumni) }}
+				{{ form_errors(form.alumni) }}
+				{{ form_widget(form.alumni) }}
+		    </div>
+	    </div>
+	    <br>
+	    <div class="row">
+		    <div class="col-12">
 			    {{ form_label(form.categorie) }}
 				{{ form_errors(form.categorie) }}
 				{{ form_widget(form.categorie) }}

@@ -24,6 +24,20 @@ app_person_delete:
     controller: App\Controller\PeopleController::delete
 
 
+# Person - Parents:
+app_person_parents:
+    path: /person/{id}/parents
+    controller: App\Controller\PeopleController::show
+    
+app_person_parents_create:
+    path: /person/{id}/parents/create
+    controller: App\Controller\ParentsController::edit
+
+app_person_parents_edit:
+    path: /person/{id}/parents/edit
+    controller: App\Controller\ParentsController::edit
+    
+
 # Person - Memberships:
 app_person_membership:
     path: /person/{id}/membership
@@ -54,10 +68,6 @@ app_person_musicalInstrument_create:
 app_person_musicalInstrument_edit:
     path: /person/{id}/musical-instrument/edit
     controller: App\Controller\MusicalInstrumentController::edit
-
-app_person_musicalInstrument_delete:
-    path: /person/{id}/musical-instrument/delete
-    controller: App\Controller\MusicalInstrumentController::delete
 
 
 # Person - Education:
@@ -92,7 +102,7 @@ app_person_memberOf_edit:
     controller: App\Controller\MemberOfController::edit
     
     
-# Person - Memberships:
+# Person - Owns:
 app_person_owns:
     path: /person/{id}/owns
     controller: App\Controller\PeopleController::show

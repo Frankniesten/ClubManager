@@ -1,26 +1,28 @@
 <div class="row align-items-center">
 	<div class="col">
-	    <h3>Muziekinstrument</h3>
+	    <h3>Ouders</h3>
     </div>
         
     <div class="col-4  ">
 	    <div class="btn-group float-right">
-	    	<a href="{{ path('app_person_musicalInstrument_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	<a href="{{ path('app_person_parents_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
 	    </div>
     </div>
         
 </div>
-{%if data.musicalInstrument is not empty %}
+{%if data.parents is not empty %}
 <table class="table table-bordered table-striped">   
     <tbody>
         <thead>
             <tr>
-            	<td><b>Muzieksinstrument</b></td>
+            	<td><b>Naam</b></td>
+            	<td><b>Email</b></td>
+            	<td><b>Categorie</b></td>
         	</tr>
         </thead>
-        
+    {% for parents in data.parents %}
         <tr>
-            <td>
+            <td>{{ parents.familyName }}, {{ parents.givenName }} {{ parents.additionalName }}
 	            
 	            <!-- Dropdown -->
 			    <div class="dropdown pull-right">
@@ -30,14 +32,20 @@
                     
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
-                        <a href="{{ path('app_person_musicalInstrument_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+                        <a href="{{ path('app_person_parents_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
                     </div>
                 </div>
-	            
-	            {{data.musicalInstrument.musicalInstrument}}
+                
+            </td>
+            <td>
+	            {{ parents.email }}
+            </td>
+            <td>
+	         	{{ parents.categorie.name }}	
             </td>
         </tr>
+    {% endfor %} 
    
     </tbody>
 </table>
-{% endif %}
+{% endif %} 

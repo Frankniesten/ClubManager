@@ -123,6 +123,16 @@ class Person
      */
     private $owns;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $alumni;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person")
+     */
+    private $parents;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
@@ -130,6 +140,7 @@ class Person
         $this->education = new ArrayCollection();
         $this->memberOf = new ArrayCollection();
         $this->owns = new ArrayCollection();
+        $this->parents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -462,6 +473,44 @@ class Person
             if ($own->getPerson() === $this) {
                 $own->setPerson(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getAlumni(): ?bool
+    {
+        return $this->alumni;
+    }
+
+    public function setAlumni(?bool $alumni): self
+    {
+        $this->alumni = $alumni;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getParents(): Collection
+    {
+        return $this->parents;
+    }
+
+    public function addParent(self $parent): self
+    {
+        if (!$this->parents->contains($parent)) {
+            $this->parents[] = $parent;
+        }
+
+        return $this;
+    }
+
+    public function removeParent(self $parent): self
+    {
+        if ($this->parents->contains($parent)) {
+            $this->parents->removeElement($parent);
         }
 
         return $this;

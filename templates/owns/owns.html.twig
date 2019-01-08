@@ -51,7 +51,7 @@
 	            {{ owns.ownedFrom |date("d-m-Y")}}
             </td>
 			<td>
-	            {{ owns.ownedTrough |date("d-m-Y")}}
+	            {{ owns.ownedTrough ? owns.ownedTrough|date('d-m-Y') }}
             </td>
 
             <td>

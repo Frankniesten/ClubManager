@@ -2,19 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\MusicalInstrument;
 use App\Entity\Person;
-use App\Form\MusicalInstrumentAddFormType;
+use App\Form\ParentsFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MusicalInstrumentController extends AbstractController
+class ParentsController extends AbstractController
 {
     /**
-    * @Route("/person/{id}/musical-instrument/create", name="app_person_musicalInstrument_create")
+    * @Route("/person/{id}/parents/create", name="app_person_parents_create")
     */
     public function edit(EntityManagerInterface $em, Request $request, $id)
     {
@@ -23,7 +22,7 @@ class MusicalInstrumentController extends AbstractController
 		$person = $em->getRepository(Person::class)->find($id);
 	    
 		//generate Form.
-	    $form = $this->createForm(MusicalInstrumentAddFormType::class, $person);
+	    $form = $this->createForm(ParentsFormType::class, $person, array('personId' => $id));
 		
 		//Handle form.
 		$form->handleRequest($request);
@@ -35,14 +34,15 @@ class MusicalInstrumentController extends AbstractController
 			$em->persist($person);
 			$em->flush();
            
-			$this->addFlash('success', 'Muziekinstrument aan: '.$person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' toegevoegd!');
+			$this->addFlash('success', 'Ouder(s) aan: '.$person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' toegevoegd!');
 					
-			return $this->redirectToRoute('app_person_musicalInstrument', array('id' => $id));			
+			return $this->redirectToRoute('app_person_parents', array('id' => $id));			
 		}
 
-		return $this->render('musical_instrument/musicalInstrumentForm.html.twig', [
+		return $this->render('parents/parentsForm.html.twig', [
         	'form' => $form->createView(),
         	'id' => $id
 		]);	
 	}
+	
 }

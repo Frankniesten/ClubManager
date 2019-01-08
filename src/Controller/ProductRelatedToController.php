@@ -22,12 +22,6 @@ class ProductRelatedToController extends AbstractController
 	    $em = $this->getDoctrine()->getManager();
 		$products = $em->getRepository(Products::class)->find($id);
 	    
-	    
-	    
-	    
-	    
-	    
-	    
 		//generate Form.
 	    $form = $this->createForm(ProductIsRelatedToFormType::class, $products, array('productId' => $id));
 		

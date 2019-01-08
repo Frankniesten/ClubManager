@@ -7,7 +7,13 @@
 {% block body %}
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span></h2>
+	        <h2>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}
+		        <span class="badge badge-purple">{{ data.categorie.name }}</span>
+		        
+		        {% if data.alumni == true  %}       
+		        <span class="badge badge-success">Oud Lid</span>
+		        {% endif %}
+		    </h2>
         </div>
         
         <div class="col-4  ">
@@ -41,7 +47,7 @@
 				            </tr>
 				            <tr>
 				                <td><b>Geboortedatum</b></td>
-				                <td>{{data.birthDate |date("d-m-Y")}}</td>
+				                <td>{{ data.birthDate ? data.birthDate | date('d-m-Y') }}</td>
 				            </tr>
 				            <tr>
 				                <td><b>Geslacht</b></td>
@@ -77,7 +83,7 @@
 				                <td>{{data.addressCountry}}</td>
 				            </tr>
 			            </tbody>
-			        </table>
+			        </table>   
 	            </div>
 	        </div>
 	    </div>
@@ -88,6 +94,13 @@
 	<!-- Details -->
     
     <ul class="nav nav-tabs nav-justified">
+	    
+	    {% if data.categorie.id == 80 or data.alumni == true  %}
+	    <li class="nav-item">
+            <a href="#parents" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'parents' in app.request.uri  %}active{% endif %}">
+                Ouders
+            </a>
+        </li>
         <li class="nav-item">
             <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'membership' in app.request.uri  %}active{% endif %}">
                 Lidmaatschap
@@ -103,6 +116,9 @@
                 Opleiding
             </a>
         </li>
+        
+        {% endif %}
+        
         <li class="nav-item">
             <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'memberof' in app.request.uri  %}active{% endif %}">
                 Rollen
@@ -130,6 +146,14 @@
 		    
 	<div class="card">
 	    <div class="tab-content">
+			<div role="tabpanel" class="tab-pane fade {% if 'parents' in app.request.uri  %}show active{% endif %}" id="parents">
+        
+				{{ include('parents/parents.html.twig', { 
+					'data': data })
+				}}         
+	        
+    		</div>
+    		
 			<div role="tabpanel" class="tab-pane fade {% if 'membership' in app.request.uri  %}show active{% endif %}" id="membership">
         
 				{{ include('membership/membership.html.twig', { 
