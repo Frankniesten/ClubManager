@@ -203,11 +203,7 @@
 			<div role="tabpanel" class="tab-pane fade" id="reviews">
 			
 				{{ include('Review/reviews.html.twig', { 
-					'data': data, 
-					'createPath': 'app_review_create_person',
-					'editPath': 'app_review_edit',
-					'deletePath': 'app_review_delete',
-					'entity': 'person'
+					'data': data
 				}) }}
 				
 			</div>

@@ -35,6 +35,10 @@ class ProductsController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$products = $em->getRepository(Products::class)->find($id);
+		
+		if (!$products) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 		        
 		return $this->render('products/product.html.twig', [
         	'data' => $products

@@ -123,22 +123,7 @@ app_person_owns_delete:
 # Person - Services:
 
 
-# Person - Reviews:
-app_person_review:
-    path: /person/{id}/review
-    controller: App\Controller\PeopleController::list
 
-app_review_create_person:
-    path: /person/{id}/review/create
-    controller: App\Controller\ReviewController::newPersonReview
-
-app_review_edit:
-    path: /{entity}/{entityID}/review/{reviewID}/edit
-    controller: App\Controller\ReviewController::editReview
-
-app_review_delete:
-    path: /{entity}/{entityID}/review/{reviewID}/delete
-    controller: App\Controller\ReviewController::deleteReview
 
 
 # ---Organizations--- #
@@ -162,6 +147,20 @@ app_organization_delete:
     path: /organization/{id}/delete
     controller: App\Controller\OrganizationsController::delete
 
+
+# Organization - employee:
+app_organization_employee:
+    path: /organization/{id}/employee
+    controller: App\Controller\OrganizationsController::show
+
+app_organization_employee_create:
+    path: /organization/{id}/employee/create
+    controller: App\Controller\EmployeeController::edit
+    
+app_organization_employee_edit:
+    path: /organization/{id}/employee/edit
+    controller: App\Controller\EmployeeController::edit
+    
 
 # ---products--- #
 app_products:
@@ -190,10 +189,6 @@ app_product_isRelatedTo:
     path: /product/{id}/isrelatedto
     controller: App\Controller\ProductsController::show
 
-app_product_isRelatedTo_create:
-    path: /product/{id}/isrelatedto/create
-    controller: App\Controller\ProductRelatedToController::edit
-    
 app_product_isRelatedTo_edit:
     path: /product/{id}/isrelatedto/edit
     controller: App\Controller\ProductRelatedToController::edit
@@ -267,3 +262,24 @@ app_settings_program_settings_musical_instrument_edit:
 app_settings_program_settings_musical_instrument_delete:
     path: /settings/musicalinstrument/{id}/delete
     controller: App\Controller\MusicalInstrumentsController::delete
+    
+    
+    
+    
+    
+    
+    
+    
+    
+# ---Reviews--- #
+app_review_create:
+    path: /{entity}/{id}/review/create
+    controller: App\Controller\ReviewController::new
+
+app_review_edit:
+    path: /{entity}/{id}/review/{reviewID}/edit
+    controller: App\Controller\ReviewController::edit
+
+app_review_delete:
+    path: /{entity}/{id}/review/{reviewID}/delete
+    controller: App\Controller\ReviewController::delete

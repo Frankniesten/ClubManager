@@ -110,11 +110,17 @@ class Organization
      */
     private $ownershipInfos;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="organizations")
+     */
+    private $employee;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
         $this->education = new ArrayCollection();
         $this->ownershipInfos = new ArrayCollection();
+        $this->employee = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -378,6 +384,32 @@ class Organization
             if ($ownershipInfo->getAquiredFrom() === $this) {
                 $ownershipInfo->setAquiredFrom(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Person[]
+     */
+    public function getEmployee(): Collection
+    {
+        return $this->employee;
+    }
+
+    public function addEmployee(Person $employee): self
+    {
+        if (!$this->employee->contains($employee)) {
+            $this->employee[] = $employee;
+        }
+
+        return $this;
+    }
+
+    public function removeEmployee(Person $employee): self
+    {
+        if ($this->employee->contains($employee)) {
+            $this->employee->removeElement($employee);
         }
 
         return $this;

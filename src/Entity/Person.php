@@ -133,6 +133,11 @@ class Person
      */
     private $parents;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", mappedBy="employee")
+     */
+    private $organizations;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
@@ -141,6 +146,7 @@ class Person
         $this->memberOf = new ArrayCollection();
         $this->owns = new ArrayCollection();
         $this->parents = new ArrayCollection();
+        $this->organizations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -511,6 +517,34 @@ class Person
     {
         if ($this->parents->contains($parent)) {
             $this->parents->removeElement($parent);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Organization[]
+     */
+    public function getOrganizations(): Collection
+    {
+        return $this->organizations;
+    }
+
+    public function addOrganization(Organization $organization): self
+    {
+        if (!$this->organizations->contains($organization)) {
+            $this->organizations[] = $organization;
+            $organization->addEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganization(Organization $organization): self
+    {
+        if ($this->organizations->contains($organization)) {
+            $this->organizations->removeElement($organization);
+            $organization->removeEmployee($this);
         }
 
         return $this;

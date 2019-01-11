@@ -99,7 +99,7 @@
     
     <ul class="nav nav-tabs nav-justified">
         <li class="nav-item">
-            <a href="#employees" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'membership' in app.request.uri  %}active{% endif %}">
+            <a href="#employees" data-toggle="tab" aria-expanded="true" class="nav-link">
                 Medewerkers
             </a>
         </li>
@@ -124,9 +124,11 @@
 		    
 	<div class="card">
 	    <div class="tab-content">
-			<div role="tabpanel" class="tab-pane fade {% if 'membership' in app.request.uri  %}show active{% endif %}" id="employees">
+			<div role="tabpanel" class="tab-pane fade {% if 'employee' in app.request.uri  %}show active{% endif %}" id="employees">
         
-				    Medewerkers   
+				    {{ include('employee/employee.html.twig', { 
+					'data': data })
+				}}   
 	        
     		</div>
     		
@@ -146,7 +148,9 @@
 			
 			<div role="tabpanel" class="tab-pane fade" id="reviews">
 			
-				Reviews
+				{{ include('Review/reviews.html.twig', { 
+					'data': data, 
+				}) }}
 				
 			</div>
 	    </div>

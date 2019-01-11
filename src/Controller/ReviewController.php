@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Person;
 use App\Entity\Organization;
-use App\Entity\Product;
+use App\Entity\Products;
 use App\Entity\Review;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,54 +17,80 @@ use App\Form\ReviewFormType;
 class ReviewController extends AbstractController
 {
     /**
-	* @Route("/person/{id}/review/create", name="app_review_create_person")
+	* @Route("/{entity}/{id}/review/create", name="app_person_review_create")
 	*/
-	public function newPersonReview(EntityManagerInterface $em, Request $request, $id)
+	public function new (EntityManagerInterface $em, Request $request, $entity, $id)
 	{
-	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
-		$person = $em->getRepository(Person::class)->find($id);
 	    
-		//generate Form.
+	    if ($entity == 'person') 
+	    {
+		    $data = $em->getRepository(Person::class)->find($id);    
+	    }
+	    if ($entity == 'organization') 
+	    {
+		    $data = $em->getRepository(Organization::class)->find($id);    
+	    }
+	    if ($entity == 'product') 
+	    {
+		    $data = $em->getRepository(Products::class)->find($id);    
+	    }
+	    if ($entity == 'event') 
+	    {
+		    $data = $em->getRepository(Event::class)->find($id);    
+	    }
+	    
 	    $form = $this->createForm(ReviewFormType::class);
-		
-		//Handle form.
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
 			
 			$review = $form->getData();
-			$person->addReview($review);
+			$data->addReview($review);
 			
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($review);
-			$em->persist($person);
+			$em->persist($data);
 			$em->flush();
-	
-			$this->addFlash('success', 'Notitie aan: '.$person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' toegevoegd!');
 			
-			return $this->redirectToRoute('app_person', array('id' => $id));			
+			$this->addFlash('success', 'Notitie is toegevoegd!');
+			
+			if ($entity == 'person') 
+		    {
+			    return $this->redirectToRoute('app_person', array('id' => $id));    
+		    }
+		    if ($entity == 'organization') 
+		    {
+			    return $this->redirectToRoute('app_organization', array('id' => $id));    
+		    }	
+		    if ($entity == 'product') 
+		    {
+			    return $this->redirectToRoute('app_product', array('id' => $id));    
+		    }
+		    if ($entity == 'event') 
+		    {
+			    return $this->redirectToRoute('app_event', array('id' => $id));    
+		    }					
 		}
-	
-		return $this->render('review/ReviewPersonCreate.html.twig', [
+		
+		return $this->render('review/ReviewForm.html.twig', [
 	    	'form' => $form->createView(),
 	    	'id' => $id
 		]);
 	}
 	
-	
+
 	/**
-	* @Route("/{entity}/{$entityID}/review/{id}/edit", name="app_review_edit")
+	* @Route("/{entity}/{id}/review/{reviewID}/edit", name="app_review_edit")
 	*/
-	public function editReview(EntityManagerInterface $em, Request $request, $entity, $entityID, $reviewID)
+	public function edit(EntityManagerInterface $em, Request $request, $entity, $id, $reviewID)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$review = $em->getRepository(Review::class)->find($reviewID);
 		        
-        
 		$form = $this->createForm(ReviewFormType::class, $review);
-		
 		$form->handleRequest($request);
+		
 		if ($form->isSubmitted() && $form->isValid()) {
 			
 			$review = $form->getData();
@@ -74,22 +100,37 @@ class ReviewController extends AbstractController
            
 			$this->addFlash('success', 'Notitie is bijgewerkt!');
 			
-			return $this->redirectToRoute('app_'.$entity, array('id' => $entityID));			
+			if ($entity == 'person') 
+		    {
+			    return $this->redirectToRoute('app_person', array('id' => $id));    
+		    }
+		    if ($entity == 'organization') 
+		    {
+			    return $this->redirectToRoute('app_organization', array('id' => $id));    
+		    }
+		    if ($entity == 'product') 
+		    {
+			    return $this->redirectToRoute('app_product', array('id' => $id));    
+		    }
+		    if ($entity == 'event') 
+		    {
+			    return $this->redirectToRoute('app_event', array('id' => $id));    
+		    }			
 		}
 		
-		return $this->render('review/reviewEdit.html.twig', [
+		return $this->render('review/reviewForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $review,
-        	'entity' => 'app_'.$entity,
-        	'entityID' => $entityID
+        	'id' => $id,
+        	'entity' => $entity,
+        	'reviewID' => $reviewID
 		]);
 	}
 	
-	
 	/**
-	* @Route("/{entity}/{$entityID}/review/{reviewID}/delete", name="app_review_delete")
+	* @Route("/{entity}/{id}/review/{reviewID}/delete", name="app_review_delete")
 	*/
-	public function deleteReview(EntityManagerInterface $em, Request $request, $entity, $entityID, $reviewID)
+	public function delete(EntityManagerInterface $em, Request $request, $entity, $id, $reviewID)
 	{
 		
 		$em = $this->getDoctrine()->getManager();
@@ -100,6 +141,17 @@ class ReviewController extends AbstractController
 		
 		$this->addFlash('success', 'Notitie is verwijderd!');
 		
-		return $this->redirectToRoute('app_'.$entity, array('id' => $entityID));	
+		if ($entity == 'person') 
+	    {
+		    return $this->redirectToRoute('app_person', array('id' => $id));    
+	    }
+	    if ($entity == 'product') 
+	    {
+		    return $this->redirectToRoute('app_product', array('id' => $id));    
+	    }	
+	    if ($entity == 'organization') 
+	    {
+		    return $this->redirectToRoute('app_organization', array('id' => $id));    
+	    }	
 	}     
 }

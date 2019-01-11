@@ -4407,7 +4407,7 @@ div.hopscotch-bubble .hopscotch-bubble-arrow-container.down .hopscotch-bubble-ar
    Accounts pages
 ============= */
 .account-pages {
-  background: url("../images/big/bg1.jpg") center;
+  background: url("../images/big/bg4.jpg") center;
   position: absolute;
   height: 100%;
   top: 0;
@@ -5416,11 +5416,10 @@ File: Menu
 }
 
 .topbar .topbar-left {
-  background: #ffffff;
-  border-top: 3px solid #71b6f9;
+  background: #4a59b4;
   float: left;
   text-align: center;
-  height: 73px;
+  height: 71px;
   position: relative;
   width: 250px;
   z-index: 1;
@@ -5431,10 +5430,10 @@ File: Menu
 }
 
 .navbar-default {
-  background-color: #ebeff2;
+  background-color: #ffffff;
   border-radius: 0px;
   border: none;
-  border-top: 3px solid #71b6f9;
+  border-bottom: 1px solid #d9d9d9;
   margin-bottom: 0px;
   padding: 0px 10px;
 }
@@ -5466,7 +5465,7 @@ File: Menu
 }
 
 .logo {
-  color: #188ae2 !important;
+  color: #ffffff !important;
   font-size: 32px;
   font-family: 'Rancho', cursive;
 }
@@ -5476,7 +5475,7 @@ File: Menu
 }
 
 .logo span span {
-  color: #10c469;
+  color: #ffffff;
 }
 
 .user-box {
@@ -6202,7 +6201,7 @@ File: Responsive
     height: 75px;
   }
   .navbar-default {
-    background-color: #ffffff;
+    background-color: #f4f4f4;
     box-shadow: 0 0px 24px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
   }
   .navbar-nav {

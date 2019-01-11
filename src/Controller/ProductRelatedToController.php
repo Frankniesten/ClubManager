@@ -35,7 +35,7 @@ class ProductRelatedToController extends AbstractController
 			$em->persist($products);
 			$em->flush();
            
-			//$this->addFlash('success', 'Rol bij: '.$person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().'aangepast!');
+			$this->addFlash('success', 'Gerelateerd product aangepast!');
 					
 			return $this->redirectToRoute('app_product_isRelatedTo', array('id' => $id));			
 		}

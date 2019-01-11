@@ -70,15 +70,16 @@
     <!-- Details -->
     
     <ul class="nav nav-tabs nav-justified">
+        
         <li class="nav-item">
-            <a href="#relatedTo" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'isrelatedto' in app.request.uri  %}active{% endif %}">
-                Gerelateerde producten
+            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {% if ('review' in app.request.uri)  or ('' in app.request.uri) %}active{% endif %}">
+                Notities
             </a>
         </li>
         
         <li class="nav-item">
-            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link">
-                Notities
+            <a href="#relatedTo" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Gerelateerde producten
             </a>
         </li>
     </ul>
@@ -86,7 +87,15 @@
 		    
 	<div class="card">
 	    <div class="tab-content">
-			<div role="tabpanel" class="tab-pane fade {% if 'isrelatedto' in app.request.uri  %}show active{% endif %}" id="relatedTo">
+	    	<div role="tabpanel" class="tab-pane fade {% if ('review' in app.request.uri)  or ('' in app.request.uri) %}show active{% endif %}" id="reviews">
+			
+				{{ include('Review/reviews.html.twig', { 
+					'data': data
+				}) }}
+				
+			</div>
+			
+			<div role="tabpanel" class="tab-pane fade" id="relatedTo">
         
 				    {{ include('/product_related_to/isrelatedto.html.twig', {
 					'data': data })
@@ -94,11 +103,7 @@
 	        
     		</div>
 
-			<div role="tabpanel" class="tab-pane fade" id="reviews">
 			
-				Reviews
-				
-			</div>
 	    </div>
 	</div>
 	<br>
