@@ -98,13 +98,19 @@
     <!-- Details -->
     
     <ul class="nav nav-tabs nav-justified">
+    	
+    	<li class="nav-item">
+            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_organization' ? 'active' }}">
+                Notities
+            </a>
+        </li>
         <li class="nav-item">
-            <a href="#employees" data-toggle="tab" aria-expanded="true" class="nav-link">
+            <a href="#employees" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_organization_employee' ? 'active' }}">
                 Medewerkers
             </a>
         </li>
         <li class="nav-item">
-            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link">
+            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_organization_owns' ? 'active' }}">
                 Producten
             </a>
         </li>
@@ -114,17 +120,21 @@
             </a>
         </li>
         
-        <li class="nav-item">
-            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link">
-                Notities
-            </a>
-        </li>
     </ul>
 		    
 		    
 	<div class="card">
 	    <div class="tab-content">
-			<div role="tabpanel" class="tab-pane fade {% if 'employee' in app.request.uri  %}show active{% endif %}" id="employees">
+	    	
+	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_organization' ? 'show active' }}" id="reviews">
+			
+				{{ include('Review/reviews.html.twig', { 
+					'data': data, 
+				}) }}
+				
+			</div>
+			
+			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_organization_employee' ? 'show active' }}" id="employees">
         
 				    {{ include('employee/employee.html.twig', { 
 					'data': data })
@@ -132,9 +142,11 @@
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade" id="products">
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_organization_owns' ? 'show active' }}" id="products">
         
-				Producten            
+				{{ include('owns/owns.html.twig', { 
+					'data': data })
+				}}             
 	        
     		</div>
     		
@@ -146,13 +158,7 @@
     		
     	
 			
-			<div role="tabpanel" class="tab-pane fade" id="reviews">
 			
-				{{ include('Review/reviews.html.twig', { 
-					'data': data, 
-				}) }}
-				
-			</div>
 	    </div>
 	</div>
 	<br>

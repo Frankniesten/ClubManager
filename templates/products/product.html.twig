@@ -6,7 +6,13 @@
 {% block body %}
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>{{ data.name }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span></h2>
+	        <h2>{{ data.name }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span>
+		    
+	        {% if data.loan == true  %}       
+		        <span class="badge badge-pink">In Bruikleen</span>
+		    {% endif %}
+	        
+	        </h2>
         </div>
         
         <div class="col-4  ">
@@ -57,7 +63,21 @@
 				            <tr>
 				                <td><b>Aankoopdatum</b></td>
 				                <td>{{data.purchaseDate | date("d-m-Y") }}</td>
-				            </tr
+				            </tr>
+				            <tr>
+				                <td><b>Type Product</b></td>
+				                <td>
+					                {% if data.uniqueProduct == true  %}       
+								    	Uniek
+								    {% endif %}
+								    {% if data.uniqueProduct == false  %}       
+								    	Meerdere
+								    {% endif %}
+
+				                
+				                
+				                </td>
+				            </tr>
 			            </tbody>
 			        </table>
 	            </div>
@@ -66,19 +86,26 @@
 	</div>
 
     <br>
-    
     <!-- Details -->
     
     <ul class="nav nav-tabs nav-justified">
         
         <li class="nav-item">
-            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {% if ('review' in app.request.uri)  or ('' in app.request.uri) %}active{% endif %}">
+            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_product' ? 'active' }}">
                 Notities
             </a>
         </li>
         
+        {%if data.ownershipInfos is not empty %}
         <li class="nav-item">
-            <a href="#relatedTo" data-toggle="tab" aria-expanded="true" class="nav-link">
+            <a href="#owns" data-toggle="tab" aria-expanded="true" class="nav-link">
+                Bruikleen
+            </a>
+        </li>
+        {% endif %} 
+        
+        <li class="nav-item">
+            <a href="#relatedTo" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_product_isRelatedTo' ? 'active' }}">
                 Gerelateerde producten
             </a>
         </li>
@@ -87,7 +114,7 @@
 		    
 	<div class="card">
 	    <div class="tab-content">
-	    	<div role="tabpanel" class="tab-pane fade {% if ('review' in app.request.uri)  or ('' in app.request.uri) %}show active{% endif %}" id="reviews">
+	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_product' ? 'show active' }}" id="reviews">
 			
 				{{ include('Review/reviews.html.twig', { 
 					'data': data
@@ -95,7 +122,49 @@
 				
 			</div>
 			
-			<div role="tabpanel" class="tab-pane fade" id="relatedTo">
+			<div role="tabpanel" class="tab-pane fade" id="owns">
+			
+{%if data.ownershipInfos is not empty %}
+<table class="table table-bordered table-striped">   
+    <tbody>
+        <thead>
+            <tr>
+            	<td><b>Gebruiker</b></td>
+            	<td><b>In bezit vanaf</b></td>
+            	<td><b>In bezit tot</b></td>
+        	</tr>
+        </thead>
+			
+			    {% for owns in data.ownershipInfos %}
+			        <tr>
+			            
+			            <td>
+			            {% if owns.person.id is defined %}
+			            	<a href="{{ path('app_person_owns', {'id': owns.person.id}) }}">{{ owns.person.familyName }}, {{ owns.person.givenName }} {{ owns.person.additionalName }}</a>
+                        {% endif %}
+                        {% if owns.organization.id is defined %}
+							<a href="{{ path('app_organization_owns', {'id': owns.organization.id}) }}">{{ owns.organization.legalName }}
+                        {% endif %}
+                        
+				            
+				            
+			            </td>
+			            <td>
+				            {{ owns.ownedFrom |date("d-m-Y")}}
+			            </td>
+						<td>
+				            {{ owns.ownedTrough ? owns.ownedTrough|date('d-m-Y') }}
+			            </td>    
+			        </tr>
+			    {% endfor %} 
+			   
+    </tbody>
+</table>
+{% endif %} 
+					
+			</div>
+			
+			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_product_isRelatedTo' ? 'show active' }}" id="relatedTo">
         
 				    {{ include('/product_related_to/isrelatedto.html.twig', {
 					'data': data })

@@ -5,7 +5,12 @@
         
     <div class="col-4  ">
 	    <div class="btn-group float-right">
-	    	<a href="{{ path('app_person_owns_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	{% if 'person' in app.request.uri %}
+	    		<a href="{{ path( 'app_owns_create', {'entity': 'person', 'id': data.id} ) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	{% endif %}
+	    	{% if 'organization' in app.request.uri %}
+	    		<a href="{{ path( 'app_owns_create', {'entity': 'organization', 'id': data.id} ) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	{% endif %}
 	    </div>
     </div>
         
@@ -20,7 +25,6 @@
             	<td><b>Fabrikant</b></td>
             	<td><b>In bezit vanaf</b></td>
             	<td><b>In bezit tot</b></td>
-            	<td><b>Eigenaar</b></td>
         	</tr>
         </thead>
     {% for owns in data.owns %}
@@ -35,8 +39,15 @@
                     
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
-                        <a href="{{ path('app_person_owns_edit', {'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Bewerken</a>		<!-- item-->
-                        <a href="{{ path('app_person_owns_delete', {'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Verwijderen</a>
+                        {% if 'person' in app.request.uri %}
+                        	<a href="{{ path('app_owns_edit', {'entity': 'person', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Bewerken</a>		<!-- item-->
+							<a href="{{ path('app_owns_delete', {'entity': 'person', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Verwijderen</a>
+                        {% endif %}
+                        
+                        {% if 'organization' in app.request.uri %}
+                        	<a href="{{ path('app_owns_edit', {'entity': 'organization', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Bewerken</a>		<!-- item-->
+							<a href="{{ path('app_owns_delete', {'entity': 'organization', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Verwijderen</a>
+                        {% endif %}
                     </div>
                 </div>
                 
@@ -52,10 +63,6 @@
             </td>
 			<td>
 	            {{ owns.ownedTrough ? owns.ownedTrough|date('d-m-Y') }}
-            </td>
-
-            <td>
-	            {{ owns.aquiredFrom.legalName }}
             </td>
             
             

@@ -18,6 +18,19 @@ class ProductsRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Products::class);
     }
+    
+    /**
+    * @return Products[] Returns an array of unique Products objects
+    */ 
+    public function findUniqueProducts()
+    {
+        return $this->createQueryBuilder('p')
+        
+            ->andWhere('p.uniqueProduct = true')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Products[] Returns an array of Products objects

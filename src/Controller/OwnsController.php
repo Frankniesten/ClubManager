@@ -3,44 +3,63 @@
 namespace App\Controller;
 
 use App\Entity\OwnershipInfo;
+use App\Entity\Product;
 use App\Entity\Person;
+use App\Entity\Organization;
 use App\Form\OwnsFormType;
+use App\Form\OwnsEditFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\ProductsOnLoan;
 
 
 class OwnsController extends AbstractController
 {
 	/**
-     * @Route("/person/{id}/owns/create", name="app_person_owns_create")
+     * @Route("/{entity}/{id}/owns/create", name="app_owns_create")
      */
-	public function new(EntityManagerInterface $em, Request $request, $id)
+	public function new(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, Request $request, $entity, $id)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$person = $em->getRepository(Person::class)->find($id);
+		
+		if ($entity == 'person') 
+	    {
+		    $data = $em->getRepository(Person::class)->find($id);    
+	    }
+	    if ($entity == 'organization') 
+	    {
+		    $data = $em->getRepository(Organization::class)->find($id);    
+	    }
 		
 		$form = $this->createForm(OwnsFormType::class);
-		
-		
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
 			
 			$owns = $form->getData();
-			$person->addOwn($owns);
+			$data->addOwn($owns);
 			
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($owns);
-			$em->persist($person);
+			$em->persist($data);
 			$em->flush();
-			//$id = $person->getId();
-           
+					
 			$this->addFlash('success', 'Nieuw product in bruikleen is aangemaakt!');
 			
-			return $this->redirectToRoute('app_person_owns', array('id' => $id));			
+			//Process products in loan
+			$loan = $productsOnLoan->processProduct($owns->getTypeofGood()->getId());
+			
+			if ($entity == 'person') 
+		    {
+			    return $this->redirectToRoute('app_person_owns', array('id' => $id));    
+		    }
+		    if ($entity == 'organization') 
+		    {
+			    return $this->redirectToRoute('app_organization_owns', array('id' => $id));    
+		    }			
 		}
 		
 		return $this->render('owns/ownsForm.html.twig', [
@@ -51,15 +70,15 @@ class OwnsController extends AbstractController
 	
 	
 	/**
-	* @Route("/person/{id}/owns/{ownershipInfoID}/edit", name="app_person_owns_edit")
+	* @Route("/{entity}/{id}/owns/{ownershipInfoID}/edit", name="app_person_owns_edit")
 	*/
-	public function edit(EntityManagerInterface $em, Request $request, $id, $ownershipInfoID)
+	public function edit(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, Request $request, $entity, $id, $ownershipInfoID)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$owns = $em->getRepository(OwnershipInfo::class)->find($ownershipInfoID);
 		        
         
-		$form = $this->createForm(OwnsFormType::class, $owns);
+		$form = $this->createForm(OwnsEditFormType::class, $owns);
 		
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
@@ -68,13 +87,24 @@ class OwnsController extends AbstractController
 			
 			$em->persist($owns);
 			$em->flush();
+			
+			//Process products in loan
+			$productID = $owns->getTypeofGood()->getId();
+			$loan = $productsOnLoan->processProduct($productID);
            
 			$this->addFlash('success', 'Product in bruikleen is bijgewerkt!');
 			
-			return $this->redirectToRoute('app_person_owns', array('id' => $id));			
+			if ($entity == 'person') 
+		    {
+			    return $this->redirectToRoute('app_person_owns', array('id' => $id));    
+		    }
+		    if ($entity == 'organization') 
+		    {
+			    return $this->redirectToRoute('app_organization_owns', array('id' => $id));    
+		    }				
 		}
 		
-		return $this->render('owns/ownsForm.html.twig', [
+		return $this->render('owns/ownsEditForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $owns,
         	'id' => $id
@@ -83,9 +113,9 @@ class OwnsController extends AbstractController
 
 
 	/**
-	* @Route("/person/{id}/owns/{ownershipInfoID}/edit", name="app_person_owns_delete")
+	* @Route("/{entity}/{id}/owns/{ownershipInfoID}/delete", name="app_person_owns_delete")
 	*/
-	public function delete(EntityManagerInterface $em, Request $request, $id, $ownershipInfoID)
+	public function delete(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, Request $request, $entity, $id, $ownershipInfoID)
 	{
 		
 		$em = $this->getDoctrine()->getManager();
@@ -94,8 +124,19 @@ class OwnsController extends AbstractController
 		$em->remove($owns);
 		$em->flush();
 		
+		//Process products in loan
+		$productID = $owns->getTypeofGood()->getId();
+		$loan = $productsOnLoan->processProduct($productID);
+		
 		$this->addFlash('warning', 'Product in bruikleen is verwijderd!');
 		
-		return $this->redirectToRoute('app_person_owns', array('id' => $id));	
+		if ($entity == 'person') 
+	    {
+		    return $this->redirectToRoute('app_person_owns', array('id' => $id));    
+	    }
+	    if ($entity == 'organization') 
+	    {
+		    return $this->redirectToRoute('app_organization_owns', array('id' => $id));    
+	    }		
 	} 
 }

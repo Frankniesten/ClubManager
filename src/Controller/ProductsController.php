@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Products;
+use App\Entity\Person;
 use App\Form\ProductFormType;
+use App\Entity\OwnershipInfo;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Service\MessageGenerator;
 
 class ProductsController extends AbstractController
 {
@@ -21,6 +22,8 @@ class ProductsController extends AbstractController
 	    $products = $this->getDoctrine()
         ->getRepository(Products::class)
         ->findAll();
+        
+        dump($products);
         
         return $this->render('products/products.twig', [
             'controller_name' => 'OrganizationsController',
@@ -39,7 +42,7 @@ class ProductsController extends AbstractController
 		if (!$products) {
         	throw $this->createNotFoundException('The product does not exist');
     	}
-		        
+    			        
 		return $this->render('products/product.html.twig', [
         	'data' => $products
 		]);

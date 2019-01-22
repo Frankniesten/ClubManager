@@ -22,11 +22,6 @@ class OwnershipInfo
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="ownershipInfos")
-     */
-    private $aquiredFrom;
-
-    /**
      * @ORM\Column(type="date")
      */
     private $ownedFrom;
@@ -43,25 +38,18 @@ class OwnershipInfo
     private $typeofGood;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="owns")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="owns", fetch="EAGER")
      */
     private $person;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="owns")
+     */
+    private $organization;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAquiredFrom(): ?Organization
-    {
-        return $this->aquiredFrom;
-    }
-
-    public function setAquiredFrom(?Organization $aquiredFrom): self
-    {
-        $this->aquiredFrom = $aquiredFrom;
-
-        return $this;
     }
 
     public function getOwnedFrom(): ?\DateTimeInterface
@@ -108,6 +96,18 @@ class OwnershipInfo
     public function setPerson(?Person $person): self
     {
         $this->person = $person;
+
+        return $this;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): self
+    {
+        $this->organization = $organization;
 
         return $this;
     }

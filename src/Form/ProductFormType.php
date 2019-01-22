@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
 
@@ -26,6 +27,7 @@ class ProductFormType extends AbstractType
 			->add('model', TextType::class, ['label' => 'Model', 'required' => false])
 			->add('manufacturer', TextType::class, ['label' => 'Fabrikant', 'required' => false])
 			->add('purchaseDate', DateType::class, ['label' => 'Aankoopdatum', 'required' => false, 'widget' => 'single_text', 'html5' => false,])
+			->add('uniqueProduct', CheckboxType::class, ['label' => 'Uniek product', 'required' => false])
 			->add('categorie', EntityType::class, array(
 					    'class' => Categorie::class,
 					    'query_builder' => function (EntityRepository $er) {

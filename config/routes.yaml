@@ -100,31 +100,7 @@ app_person_memberOf_create:
 app_person_memberOf_edit:
     path: /person/{id}/memberof/edit
     controller: App\Controller\MemberOfController::edit
-    
-    
-# Person - Owns:
-app_person_owns:
-    path: /person/{id}/owns
-    controller: App\Controller\PeopleController::show
-
-app_person_owns_create:
-    path: /person/{id}/owns/create
-    controller: App\Controller\OwnsController::new
-    
-app_person_owns_edit:
-    path: /person/{id}/owns/{ownershipInfoID}/edit
-    controller: App\Controller\OwnsController::edit
-    
-app_person_owns_delete:
-    path: /person/{id}/owns/{ownershipInfoID}/delete
-    controller: App\Controller\OwnsController::delete
-
-
-# Person - Services:
-
-
-
-
+ 
 
 # ---Organizations--- #
 app_organizations:
@@ -198,7 +174,7 @@ app_product_isRelatedTo_edit:
 
 
 
-
+# ---Events--- #
 app_events:
     path: /events
     controller: App\Controller\EventsController::list
@@ -262,14 +238,7 @@ app_settings_program_settings_musical_instrument_edit:
 app_settings_program_settings_musical_instrument_delete:
     path: /settings/musicalinstrument/{id}/delete
     controller: App\Controller\MusicalInstrumentsController::delete
-    
-    
-    
-    
-    
-    
-    
-    
+
     
 # ---Reviews--- #
 app_review_create:
@@ -283,3 +252,24 @@ app_review_edit:
 app_review_delete:
     path: /{entity}/{id}/review/{reviewID}/delete
     controller: App\Controller\ReviewController::delete
+    
+# ---Owns--- #
+app_person_owns:
+    path: /person/{id}/owns
+    controller: App\Controller\PeopleController::show
+    
+app_organization_owns:
+    path: /organization/{id}/owns
+    controller: App\Controller\OrganizationsController::show
+
+app_owns_create:
+    path: /{entity}/{id}/owns/create
+    controller: App\Controller\OwnsController::new
+    
+app_owns_edit:
+    path: /{entity}/{id}/owns/{ownershipInfoID}/edit
+    controller: App\Controller\OwnsController::edit
+    
+app_owns_delete:
+    path: /{entity}/{id}/owns/{ownershipInfoID}/delete
+    controller: App\Controller\OwnsController::delete 

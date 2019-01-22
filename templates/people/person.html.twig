@@ -95,24 +95,32 @@
     
     <ul class="nav nav-tabs nav-justified">
 	    
-	    {% if data.categorie.id == 80 or data.alumni == true  %}
+	    
 	    <li class="nav-item">
-            <a href="#parents" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'parents' in app.request.uri  %}active{% endif %}">
+            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person' ? 'active' }}">
+                Notities
+            </a>
+        </li>
+        
+	    {% if data.categorie.id == 80 or data.alumni == true  %}
+	    
+	    <li class="nav-item">
+            <a href="#parents" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_parents' ? 'active' }}">
                 Ouders
             </a>
         </li>
         <li class="nav-item">
-            <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'membership' in app.request.uri  %}active{% endif %}">
+            <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_membership' ? 'active' }}">
                 Lidmaatschap
             </a>
         </li>
         <li class="nav-item">
-            <a href="#musicalInstrument" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'musical-instrument' in app.request.uri  %}active{% endif %}">
+            <a href="#musicalInstrument" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_musicalInstrument' ? 'active' }}">
                 Muziekinstrument
             </a>
         </li>
         <li class="nav-item">
-            <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'education' in app.request.uri  %}active{% endif %}">
+            <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_education' ? 'active' }}">
                 Opleiding
             </a>
         </li>
@@ -120,13 +128,13 @@
         {% endif %}
         
         <li class="nav-item">
-            <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'memberof' in app.request.uri  %}active{% endif %}">
+            <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_memberOf' ? 'active' }}">
                 Rollen
             </a>
         </li>
 
         <li class="nav-item">
-            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {% if 'owns' in app.request.uri  %}active{% endif %}">
+            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_owns' ? 'active' }}">
                 Producten
             </a>
         </li>
@@ -136,17 +144,21 @@
             </a>
         </li>
         
-        <li class="nav-item">
-            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link">
-                Notities
-            </a>
-        </li>
+        
     </ul>
 		    
 		    
 	<div class="card">
 	    <div class="tab-content">
-			<div role="tabpanel" class="tab-pane fade {% if 'parents' in app.request.uri  %}show active{% endif %}" id="parents">
+	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person' ? 'show active' }}" id="reviews">
+			
+				{{ include('Review/reviews.html.twig', { 
+					'data': data
+				}) }}
+				
+			</div>
+			
+			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_parents' ? 'show active' }}" id="parents">
         
 				{{ include('parents/parents.html.twig', { 
 					'data': data })
@@ -154,7 +166,7 @@
 	        
     		</div>
     		
-			<div role="tabpanel" class="tab-pane fade {% if 'membership' in app.request.uri  %}show active{% endif %}" id="membership">
+			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_membership' ? 'show active' }}" id="membership">
         
 				{{ include('membership/membership.html.twig', { 
 					'data': data })
@@ -162,7 +174,7 @@
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade {% if 'musical-instrument' in app.request.uri  %}show active{% endif %}" id="musicalInstrument">
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_musicalInstrument' ? 'show active' }}" id="musicalInstrument">
         
 				{{ include('musical_instrument/musicalInstrument.html.twig', { 
 					'data': data })
@@ -170,7 +182,7 @@
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade {% if 'education' in app.request.uri  %}show active{% endif %}" id="education">
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_education' ? 'show active' }}" id="education">
         
 				{{ include('education/education.html.twig', { 
 					'data': data })
@@ -178,7 +190,7 @@
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade {% if 'memberof' in app.request.uri  %}show active{% endif %}" id="roles">
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_memberOf' ? 'show active' }}" id="roles">
         
 				{{ include('member_of/memberof.html.twig', { 
 					'data': data })
@@ -186,7 +198,7 @@
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade {% if 'owns' in app.request.uri  %}show active{% endif %}" id="products">
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_owns' ? 'show active' }}" id="products">
         
 				{{ include('owns/owns.html.twig', { 
 					'data': data })
@@ -200,13 +212,7 @@
 	        
     		</div>
 			
-			<div role="tabpanel" class="tab-pane fade" id="reviews">
 			
-				{{ include('Review/reviews.html.twig', { 
-					'data': data
-				}) }}
-				
-			</div>
 	    </div>
 	</div>
 	<br>

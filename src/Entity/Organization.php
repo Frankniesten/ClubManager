@@ -106,14 +106,14 @@ class Organization
     private $education;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\OwnershipInfo", mappedBy="aquiredFrom")
-     */
-    private $ownershipInfos;
-
-    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="organizations")
      */
     private $employee;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OwnershipInfo", mappedBy="organization")
+     */
+    private $owns;
 
     public function __construct()
     {
@@ -121,6 +121,7 @@ class Organization
         $this->education = new ArrayCollection();
         $this->ownershipInfos = new ArrayCollection();
         $this->employee = new ArrayCollection();
+        $this->owns = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -359,37 +360,6 @@ class Organization
     }
 
     /**
-     * @return Collection|OwnershipInfo[]
-     */
-    public function getOwnershipInfos(): Collection
-    {
-        return $this->ownershipInfos;
-    }
-
-    public function addOwnershipInfo(OwnershipInfo $ownershipInfo): self
-    {
-        if (!$this->ownershipInfos->contains($ownershipInfo)) {
-            $this->ownershipInfos[] = $ownershipInfo;
-            $ownershipInfo->setAquiredFrom($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOwnershipInfo(OwnershipInfo $ownershipInfo): self
-    {
-        if ($this->ownershipInfos->contains($ownershipInfo)) {
-            $this->ownershipInfos->removeElement($ownershipInfo);
-            // set the owning side to null (unless already changed)
-            if ($ownershipInfo->getAquiredFrom() === $this) {
-                $ownershipInfo->setAquiredFrom(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Person[]
      */
     public function getEmployee(): Collection
@@ -410,6 +380,37 @@ class Organization
     {
         if ($this->employee->contains($employee)) {
             $this->employee->removeElement($employee);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OwnershipInfo[]
+     */
+    public function getOwns(): Collection
+    {
+        return $this->owns;
+    }
+
+    public function addOwn(OwnershipInfo $own): self
+    {
+        if (!$this->owns->contains($own)) {
+            $this->owns[] = $own;
+            $own->setOrganization($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwn(OwnershipInfo $own): self
+    {
+        if ($this->owns->contains($own)) {
+            $this->owns->removeElement($own);
+            // set the owning side to null (unless already changed)
+            if ($own->getOrganization() === $this) {
+                $own->setOrganization(null);
+            }
         }
 
         return $this;

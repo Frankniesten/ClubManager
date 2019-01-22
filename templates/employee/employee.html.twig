@@ -5,7 +5,7 @@
         
     <div class="col-4  ">
 	    <div class="btn-group float-right">
-	    	<a href="{{ path('app_organization_employee_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	<a href="{{ path('app_organization_employee_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-pencil"></i></a>
 	    </div>
     </div>
         
@@ -22,23 +22,11 @@
         </thead>
     {% for employee in data.employee %}
         <tr>
-            <td>{{ employee.familyName }}, {{ employee.givenName }} {{ employee.additionalName }}
-	            
-	            <!-- Dropdown -->
-			    <div class="dropdown pull-right">
-                    <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                    </a>
-                    
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <!-- item-->
-                        <a href="{{ path('app_organization_employee_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
-                    </div>
-                </div>
-                
+            <td>
+            	<a href="{{ path('app_person', {'id': employee.id}) }}">{{ employee.familyName }}, {{ employee.givenName }} {{ employee.additionalName }}</a>
             </td>
             <td>
-	            {{ employee.email }}
+	            <a href="mailto:{{ employee.email }}">{{ employee.email }}</a>
             </td>
             <td>
 	         	{{ employee.categorie.name }}	

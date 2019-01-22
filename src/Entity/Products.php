@@ -54,7 +54,7 @@ class Products
     private $purchaseDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="review")
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="review", orphanRemoval=true)
      */
     private $review;
 
@@ -77,6 +77,16 @@ class Products
      * @ORM\OneToMany(targetEntity="App\Entity\OwnershipInfo", mappedBy="typeofGood", orphanRemoval=true)
      */
     private $ownershipInfos;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $loan;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $uniqueProduct;
 
     public function __construct()
     {
@@ -287,6 +297,30 @@ class Products
                 $ownershipInfo->setTypeofGood(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLoan(): ?bool
+    {
+        return $this->loan;
+    }
+
+    public function setLoan(?bool $loan): self
+    {
+        $this->loan = $loan;
+
+        return $this;
+    }
+
+    public function getuniqueProduct(): ?bool
+    {
+        return $this->uniqueProduct;
+    }
+
+    public function setuniqueProduct(bool $uniqueProduct): self
+    {
+        $this->uniqueProduct = $uniqueProduct;
 
         return $this;
     }

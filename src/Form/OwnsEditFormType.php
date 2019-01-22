@@ -16,7 +16,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityRepository;
 
-class OwnsFormType extends AbstractType
+class OwnsEditFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -27,12 +27,12 @@ class OwnsFormType extends AbstractType
 					    'class' => Products::class,
 					    'query_builder' => function (EntityRepository $er) {
 					        return $er->createQueryBuilder('u')
-								->where('u.loan = false OR u.loan IS NULL')
 					            ->orderBy('u.name', 'ASC');
 					    },
 					    'choice_label' => 'name',
 					    'required' => true,
-					    'label' => 'Product'
+					    'label' => 'Product',
+					    'disabled' => true
 					));
 	
 	} 
