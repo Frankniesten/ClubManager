@@ -6,6 +6,8 @@ use App\Entity\Person;
 use App\Entity\Organization;
 use App\Entity\Products;
 use App\Entity\Review;
+use App\Entity\Service;
+use App\Entity\Events;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,6 +41,10 @@ class ReviewController extends AbstractController
 	    {
 		    $data = $em->getRepository(Event::class)->find($id);    
 	    }
+	    if ($entity == 'service') 
+	    {
+		    $data = $em->getRepository(Service::class)->find($id);    
+	    }
 	    
 	    $form = $this->createForm(ReviewFormType::class);
 		$form->handleRequest($request);
@@ -70,6 +76,10 @@ class ReviewController extends AbstractController
 		    if ($entity == 'event') 
 		    {
 			    return $this->redirectToRoute('app_event', array('id' => $id));    
+		    }
+		    if ($entity == 'service') 
+		    {
+			    return $this->redirectToRoute('app_service', array('id' => $id));    
 		    }					
 		}
 		
@@ -115,6 +125,10 @@ class ReviewController extends AbstractController
 		    if ($entity == 'event') 
 		    {
 			    return $this->redirectToRoute('app_event', array('id' => $id));    
+		    }
+		    if ($entity == 'service') 
+		    {
+			    return $this->redirectToRoute('app_service', array('id' => $id));    
 		    }			
 		}
 		
@@ -152,6 +166,14 @@ class ReviewController extends AbstractController
 	    if ($entity == 'organization') 
 	    {
 		    return $this->redirectToRoute('app_organization', array('id' => $id));    
+	    }	
+	    if ($entity == 'service') 
+	    {
+		    return $this->redirectToRoute('app_service', array('id' => $id));    
+	    }	
+	    if ($entity == 'event') 
+	    {
+		    return $this->redirectToRoute('app_event', array('id' => $id));    
 	    }	
 	}     
 }

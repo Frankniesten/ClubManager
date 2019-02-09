@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}<i class="mdi mdi-cart"></i> Orders{% endblock %}
+
+
+{% block body %}
+	<div class="row align-items-center">
+        <div class="col">
+	        <h2>
+	        	Order: #{{ data.id }}
+		    </h2>
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+                {% if entity == 'person' %}
+                	<a href="{{ path('app_order_edit', { 'id': id, 'entity': 'person', 'orderID': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+					<a href="{{ path('app_order_delete', { 'id': id, 'entity': 'person', 'orderID': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+					<a href="{{ path('app_person_customer', { 'id': id }) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+                {% endif %}
+                
+                {% if entity == 'order' %}
+                	<a href="{{ path('app_order_edit', { 'id': id, 'entity': 'order', 'orderID': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+					<a href="{{ path('app_order_delete', { 'id': id, 'entity': 'order', 'orderID': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+					<a href="{{ path('app_orders') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+                {% endif %}
+	        </div>
+        </div>
+        
+	</div>
+	<!-- Person details -->
+	<div id="accordion">
+		<div class="card">
+	        <div class="card-header" id="headingOne">
+	            <h4 class="m-0">
+	                <a href="#collapseOne" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+	                    Ordergegevens
+	                </a>
+	            </h4>
+	        </div>
+	
+	        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+	            <div class="card-body">
+	            
+		            <h4>Orderdatum</h4>
+		            <p>
+						{{ data.orderDate ? data.orderDate|date('d-m-Y') }}
+		            </p>
+					
+					<h4>Orderstatus</h4>
+					<p>
+						{% if data.orderStatus == "In behandeling" %}
+		            		<span class="badge badge-pink">{{ data.orderStatus }}</span>
+		            	{% endif %}
+		            	{% if data.orderStatus == "Afgerond" %}
+		            		<span class="badge badge-purple">{{ data.orderStatus }}</span>
+		            	{% endif %}
+		            	{% if data.orderStatus == "Geannuleerd" %}
+		            		<span class="badge badge-secondary">{{ data.orderStatus }}</span>
+		            	{% endif %}
+		            	{% if data.orderStatus == "In de wacht" %}
+		            		<span class="badge badge-pink">{{ data.orderStatus }}</span>
+		            	{% endif %}
+		            	{% if data.orderStatus == "Terugbetaald" %}
+		            		<span class="badge badge-secondary">{{ data.orderStatus }}</span>
+		            	{% endif %}
+		            	{% if data.orderStatus == "Wachtend op betaling" %}
+		            		<span class="badge badge-pink">{{ data.orderStatus }}</span>
+		            	{% endif %}
+					</p>
+					
+	            	<h4>Ordergegevens</h4>
+	            	<p>
+	            		{{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}<br>
+	            		{{ data.person.streetAddress }}<br>
+						{{ data.person.postalCode }}, {{ data.person.addressLocality }}
+	            	</p>
+	            	
+	            	<h4>Email</h4>
+	            	<p>
+	            		{{ data.person.email }}
+	            	</p>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+	<br>
+	
+	<!-- Order details -->
+	<div id="accordion">
+		<div class="card">
+	        <div class="card-header" id="headingOne">
+	            <h4 class="m-0">
+	                <a href="#collapseTwo" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseTwo">
+	                    Orderdetails
+	                </a>
+	            </h4>
+	        </div>
+	
+	        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+	            <div class="card-body">
+	            
+	            	<table class="table table-bordered table-striped"> 
+	                
+	                <thead>
+			            <tr>
+			            	<td><b>Artikel</b></td>
+			            	<td><b>aantal</b></td>
+			            	<td><b>Prijs</b></td>
+			        	</tr>
+			        </thead>  
+		           
+		            <tbody>
+		            	<tr>
+		            		<td></td>
+			                <td></td>
+			                <td></td>
+		            	</tr>
+
+			        	<tr>
+			                <td></td>
+			                <td></td>
+			                <td><b></b></td>
+			            </tr>  
+		            </tbody>
+			        </table> 
+
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	
+{% endblock %}

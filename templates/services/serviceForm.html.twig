@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}<i class="mdi mdi-wrench"></i> Inventaris{% endblock %}
+{% block title %}<i class="mdi mdi mdi-cart"></i> Producten{% endblock %}
 
 {% block stylesheets %}
 	
@@ -10,17 +10,16 @@
 	        
 {% endblock %}
 
-
 {% block body %}
 
  	{{ form_start(form) }}
 	<div class="row align-items-center">
         <div class="col">
 	        {% if 'create' in app.request.uri  %}
-	       		<h2>Item toevoegen</h2>
+	       		<h2>Service Toevoegen</h2>
 	        {% endif %}
 	        {% if 'edit' in app.request.uri  %}
-	       		<h2>{{ data.name }} - bewerken</h2>
+	       		<h2>{{ data.serviceType }} - bewerken</h2>
 	        {% endif %}
         </div>
         
@@ -29,10 +28,10 @@
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
 	        	
 	        	{% if 'create' in app.request.uri  %}
-	       			<a href="{{ path('app_products') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	       			<a href="{{ path('app_services') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 		        {% endif %}
 		        {% if 'edit' in app.request.uri  %}
-		       		<a href="{{ path('app_product', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+		       		<a href="{{ path('app_services', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 		        {% endif %}
 	        	
 	        </div>
@@ -44,9 +43,9 @@
     <div class="card-box table-responsive">
         <div class="row">
 	        <div class="col-12">
-				{{ form_label(form.name) }}
-				{{ form_errors(form.name) }}
-				{{ form_widget(form.name) }}
+				{{ form_label(form.serviceType) }}
+				{{ form_errors(form.serviceType) }}
+				{{ form_widget(form.serviceType) }}
 	        </div>
  		</div>
 	    <br>
@@ -58,36 +57,14 @@
 	        </div>
  		</div>
 	    <br>
-	    <div class="row">
-	        <div class="col-6">
-				{{ form_label(form.model) }}
-				{{ form_errors(form.model) }}
-				{{ form_widget(form.model) }}
+	     <div class="row">
+	        <div class="col-12">
+				{{ form_label(form.availableChannel) }}
+				{{ form_errors(form.availableChannel) }}
+				{{ form_widget(form.availableChannel) }}
 	        </div>
-	        
-	        <div class="col-6">
-		       {{ form_label(form.productID) }}
-			   {{ form_errors(form.productID) }}
-			   {{ form_widget(form.productID) }}
-	        </div>
-	    </div>
+ 		</div>
 	    <br>
-	    <div class="row">
-	        <div class="col-6">
-				{{ form_label(form.manufacturer) }}
-				{{ form_errors(form.manufacturer) }}
-				{{ form_widget(form.manufacturer) }}
-	        </div>
-	        
-	        <div class="col-6">
-		       {{ form_label(form.purchaseDate) }}
-			   {{ form_errors(form.purchaseDate) }}
-			   {{ form_widget(form.purchaseDate, {'id': 'datepicker-autoclose1'}) }}	        
-			</div>
-	    </div>
-	    <br>
-
-
 		{{ form_end(form) }}        
     </div>      
 

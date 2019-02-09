@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Organisaties{% endblock %}
+{% block title %}<i class="mdi mdi-domain"></i> Organisaties{% endblock %}
 
 
 {% block body %}
@@ -9,7 +9,7 @@
 	<div class="row align-items-center">
         <div class="col">
 	        {% if 'create' in app.request.uri  %}
-	       		<h2>Organisatie Toevoegen</h2>
+	       		<h2>Organisatie toevoegen</h2>
 	        {% endif %}
 	        {% if 'edit' in app.request.uri  %}
 	       		<h2>{{ data.legalName }} - Bewerken</h2>

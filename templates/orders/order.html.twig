@@ -1,0 +1,82 @@
+<div class="row align-items-center">
+	<div class="col">
+	    <h3>Orders</h3>
+    </div>
+        
+    <div class="col-4  ">
+	    <div class="btn-group float-right">
+	    	{% if 'person' in app.request.uri %}
+	    		<a href="{{ path( 'app_order_create', {'entity': 'person', 'id': data.id} ) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	{% endif %}
+	    </div>
+    </div>
+        
+</div>
+{%if data.customer is not empty %}
+<table class="table table-bordered table-striped">   
+    <tbody>
+        <thead>
+            <tr>
+            	<td><b>Order</b></td>
+            	<td><b>Datum</b></td>
+            	<td><b>Orderstatus</b></td>
+            	<td><b>Totaal</b></td>
+            	<td><b>Factuur</b></td>
+        	</tr>
+        </thead>
+    {% for customer in data.customer %}
+        <tr>
+            <td>
+            	<a href="{{ path('app_order', {'id': data.id, 'entity': 'person', 'orderID': customer.id }) }}">#{{customer.id}}</a>
+            	      
+	            <!-- Dropdown -->
+			    <div class="dropdown pull-right">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                        <i class="mdi mdi-dots-horizontal"></i>
+                    </a>
+                    
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        {% if 'person' in app.request.uri %}
+                        	<a href="{{ path('app_order_edit', { 'id': data.id, 'entity': 'person', 'orderID': customer.id}) }}" class="dropdown-item">Bewerken</a>
+							<a href="{{ path('app_order_delete', { 'id': data.id, 'entity': 'person', 'orderID': customer.id}) }}" class="dropdown-item">Verwijderen</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+            	
+            <td>
+				{{ customer.orderDate ? customer.orderDate|date('d-m-Y') }}
+            </td>
+            <td>
+            	{% if customer.orderStatus == "In behandeling" %}
+            		<span class="badge badge-pink">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "Afgerond" %}
+            		<span class="badge badge-purple">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "Geannuleerd" %}
+            		<span class="badge badge-secondary">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "In de wacht" %}
+            		<span class="badge badge-pink">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "Terugbetaald" %}
+            		<span class="badge badge-secondary">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "Wachtend op betaling" %}
+            		<span class="badge badge-pink">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            </td>
+            <td>
+            	50,-		
+            </td>
+            <td>
+            	<i class="mdi mdi-file-document-box"></i>		
+            </td>
+        </tr>
+    {% endfor %} 
+   
+    </tbody>
+</table>
+{% endif %} 

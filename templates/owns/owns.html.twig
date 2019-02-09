@@ -29,7 +29,9 @@
         </thead>
     {% for owns in data.owns %}
         <tr>
-            <td>{{ owns.typeofGood.name }}
+            <td>
+            	<a href="{{ path('app_product', {'id': owns.typeofGood.id}) }}">{{ owns.typeofGood.name }}</a>
+            	
 	            
 	            <!-- Dropdown -->
 			    <div class="dropdown pull-right">
@@ -53,7 +55,7 @@
                 
             </td>
             <td>
-	            {{ owns.typeofGood.model }}
+            	{{ owns.typeofGood.model }}
             </td>
             <td>
 	            {{ owns.typeofGood.manufacturer }}

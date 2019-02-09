@@ -46,6 +46,11 @@ class Review
      */
     private $review;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Service", inversedBy="Review")
+     */
+    private $service;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,6 +112,18 @@ class Review
     public function setReview(?Products $review): self
     {
         $this->review = $review;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }

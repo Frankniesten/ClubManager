@@ -16,6 +16,10 @@
 	{% if 'event' in app.request.uri %}
 		Events
 	{% endif %}
+	
+	{% if 'service' in app.request.uri %}
+		Dienst
+	{% endif %}
 
 
 
@@ -40,15 +44,23 @@
 	        <div class="btn-group float-right">
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
 	        	{% if 'person' in app.request.uri %}
-					<a href="{{ path('app_person', {'id': id}) }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+					<a href="{{ path('app_person', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 				{% endif %}
 				
-				{% if 'person' in app.request.uri %}
-					<a href="{{ path('app_person', {'id': id}) }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				{% if 'organization' in app.request.uri %}
+					<a href="{{ path('app_organization', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 				{% endif %}
 				
 				{% if 'product' in app.request.uri %}
-					<a href="{{ path('app_product', {'id': id}) }}" class="btn btn-inverse waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+					<a href="{{ path('app_product', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				{% endif %}
+				
+				{% if 'event' in app.request.uri %}
+					<a href="{{ path('app_event', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+				{% endif %}
+				
+				{% if 'service' in app.request.uri %}
+					<a href="{{ path('app_service', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 				{% endif %}
 				
 				

@@ -22,8 +22,9 @@
         </thead>
     {% for parents in data.parents %}
         <tr>
-            <td>{{ parents.familyName }}, {{ parents.givenName }} {{ parents.additionalName }}
-	            
+            <td>
+            	<a href="{{ path('app_person_parents', {'id': parents.id}) }}">{{ parents.familyName }}, {{ parents.givenName }} {{ parents.additionalName }}</a>
+            	
 	            <!-- Dropdown -->
 			    <div class="dropdown pull-right">
                     <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
@@ -38,7 +39,7 @@
                 
             </td>
             <td>
-	            {{ parents.email }}
+	            <a href="mailto:{{ parents.email }}">{{ parents.email }}</a>
             </td>
             <td>
 	         	{{ parents.categorie.name }}	

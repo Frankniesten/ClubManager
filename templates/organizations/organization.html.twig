@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Organisatie{% endblock %}
+{% block title %}<i class="mdi mdi-domain"></i> Organisatie{% endblock %}
 
 
 {% block body %}
@@ -113,16 +113,9 @@
             <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_organization_owns' ? 'active' }}">
                 Producten
             </a>
-        </li>
-        <li class="nav-item">
-            <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link">
-                Diensten
-            </a>
-        </li>
-        
+        </li> 
     </ul>
-		    
-		    
+		   
 	<div class="card">
 	    <div class="tab-content">
 	    	
@@ -149,22 +142,7 @@
 				}}             
 	        
     		</div>
-    		
-    		<div role="tabpanel" class="tab-pane fade" id="services">
-        
-				Diensten            
-	        
-    		</div>
-    		
-    	
-			
-			
 	    </div>
 	</div>
 	<br>
-    
-    
-    
-    
-    
 {% endblock %}

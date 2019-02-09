@@ -138,6 +138,11 @@ class Person
      */
     private $organizations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Orders", mappedBy="person")
+     */
+    private $customer;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
@@ -147,6 +152,8 @@ class Person
         $this->owns = new ArrayCollection();
         $this->parents = new ArrayCollection();
         $this->organizations = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->customer = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -545,6 +552,37 @@ class Person
         if ($this->organizations->contains($organization)) {
             $this->organizations->removeElement($organization);
             $organization->removeEmployee($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Orders[]
+     */
+    public function getCustomer(): Collection
+    {
+        return $this->customer;
+    }
+
+    public function addCustomer(Orders $customer): self
+    {
+        if (!$this->customer->contains($customer)) {
+            $this->customer[] = $customer;
+            $customer->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCustomer(Orders $customer): self
+    {
+        if ($this->customer->contains($customer)) {
+            $this->customer->removeElement($customer);
+            // set the owning side to null (unless already changed)
+            if ($customer->getPerson() === $this) {
+                $customer->setPerson(null);
+            }
         }
 
         return $this;

@@ -2,6 +2,7 @@ app_dashboard:
     path: /
     controller: App\Controller\DashboardController::homepage
 
+
 # ---People--- #
 app_people:
     path: /people
@@ -170,20 +171,50 @@ app_product_isRelatedTo_edit:
     controller: App\Controller\ProductRelatedToController::edit
 
 
-
-
-
-
 # ---Events--- #
 app_events:
     path: /events
     controller: App\Controller\EventsController::list
 
 
-
+# ---Services--- #
 app_services:
     path: /services
     controller: App\Controller\ServicesController::list
+
+app_service_create:
+    path: /service/create
+    controller: App\Controller\ServicesController::new
+    
+app_service:
+    path: /service/{id}
+    controller: App\Controller\ServicesController::show
+    
+app_service_edit:
+    path: /service/{id}/edit
+    controller: App\Controller\ServicesController::edit
+    
+app_service_delete:
+    path: /service/{id}/delete
+    controller: App\Controller\ServicesController::delete
+    
+
+# ---Offer--- #
+app_service_offer:
+    path: /service/{id}/offer
+    controller: App\Controller\ServicesController::show
+    
+app_offer_create:
+    path: /service/{id}/offer/create
+    controller: App\Controller\OffersController::new
+    
+app_offer_edit:
+    path: /service/{id}/offer/{offerID}/edit
+    controller: App\Controller\OffersController::edit 
+    
+app_offer_delete:
+    path: /service/{id}/offer/{offerID}/delete
+    controller: App\Controller\OffersController::delete       
 
 
 # ---Categories--- #
@@ -253,6 +284,7 @@ app_review_delete:
     path: /{entity}/{id}/review/{reviewID}/delete
     controller: App\Controller\ReviewController::delete
     
+
 # ---Owns--- #
 app_person_owns:
     path: /person/{id}/owns
@@ -273,3 +305,29 @@ app_owns_edit:
 app_owns_delete:
     path: /{entity}/{id}/owns/{ownershipInfoID}/delete
     controller: App\Controller\OwnsController::delete 
+    
+
+# ---Orders--- #
+app_person_customer:
+    path: /person/{id}/customer
+    controller: App\Controller\PeopleController::show
+
+app_orders:
+    path: /orders
+    controller: App\Controller\OrderController::list
+
+app_order_create:
+    path: /{entity}/{id}/order/create
+    controller: App\Controller\OrderController::new
+    
+app_order:
+    path: /{entity}/{id}/order/{orderID}
+    controller: App\Controller\OrderController::show
+    
+app_order_edit:
+    path: /{entity}/{id}/order/{orderID}/edit
+    controller: App\Controller\OrderController::edit 
+    
+app_order_delete:
+    path: /{entity}/{id}/order/{orderID}/delete
+    controller: App\Controller\OrderController::delete 

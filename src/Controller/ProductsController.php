@@ -23,8 +23,6 @@ class ProductsController extends AbstractController
         ->getRepository(Products::class)
         ->findAll();
         
-        dump($products);
-        
         return $this->render('products/products.twig', [
             'controller_name' => 'OrganizationsController',
             'data' => $products
@@ -81,6 +79,10 @@ class ProductsController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$products = $em->getRepository(Products::class)->find($id);
+		
+		if (!$products) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 		        
         
 		$form = $this->createForm(ProductFormType::class, $products);
@@ -111,6 +113,10 @@ class ProductsController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$products = $em->getRepository(Products::class)->find($id);
+		
+		if (!$products) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 
 			$em->remove($products);
 			$em->flush();

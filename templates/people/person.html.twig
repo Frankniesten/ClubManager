@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Personen{% endblock %}
+{% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
 
 
 {% block body %}
@@ -135,12 +135,12 @@
 
         <li class="nav-item">
             <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_owns' ? 'active' }}">
-                Producten
+                Inventaris
             </a>
         </li>
         <li class="nav-item">
-            <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link">
-                Diensten
+            <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_customer' ? 'active' }}">
+                Orders
             </a>
         </li>
         
@@ -206,13 +206,12 @@
 	        
     		</div>
     		
-    		<div role="tabpanel" class="tab-pane fade" id="services">
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_customer' ? 'show active' }} " id="services">
         
-				Diensten            
-	        
-    		</div>
-			
-			
+				{{ include('orders/order.html.twig', { 
+					'data': data })
+				}}            
+    		</div>	
 	    </div>
 	</div>
 	<br>

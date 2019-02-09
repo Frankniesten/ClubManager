@@ -93,7 +93,7 @@
                     <div id="sidebar-menu">
                         <ul>
                             <li>
-                                <a href="{{ path('dashboard') }}" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+                                <a href="{{ path('dashboard') }}" class="waves-effect {% if 'dashboard' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
 
                             <li>
@@ -109,11 +109,15 @@
                             </li>
                             
                             <li>
-                                <a href="{{ path('app_products') }}" class="waves-effect {% if 'product' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-wrench"></i> <span> Producten </span> </a>
+                                <a href="{{ path('app_products') }}" class="waves-effect {% if 'product' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-wrench"></i> <span> Inventaris </span> </a>
                             </li>
                             
                             <li>
-                                <a href="{{ path('app_services') }}" class="waves-effect"><i class="mdi mdi mdi-cart"></i> <span> Diensten </span> </a>
+                                <a href="{{ path('app_services') }}" class="waves-effect {% if 'service' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-cube"></i> <span> Producten </span> </a>
+                            </li>
+                            
+                            <li>
+                                <a href="{{ path('app_orders') }}" class="waves-effect {% if 'order' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-cart"></i> <span> Orders </span> </a>
                             </li>
                             
                             <li class="has_sub">

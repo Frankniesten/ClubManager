@@ -18,6 +18,9 @@
 	    	{% if 'event' in app.request.uri %}
 	    		<a href="{{ path( 'app_review_create', {'entity': 'event', 'id': data.id} ) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-plus"></i></a>
 	    	{% endif %}
+	    	{% if 'service' in app.request.uri %}
+	    		<a href="{{ path( 'app_review_create', {'entity': 'service', 'id': data.id} ) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	{% endif %}
 	
 	    </div>
     </div>
@@ -68,6 +71,13 @@
 	                        <a href="{{ path('app_review_edit', {'entity': 'event', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Bewerken</a>
 	                        <!-- item-->
 	                        <a href="{{ path('app_review_delete', {'entity': 'event', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>
+				    	{% endif %}
+				    	
+				    	{% if 'service' in app.request.uri %}
+				    		<!-- item-->
+	                        <a href="{{ path('app_review_edit', {'entity': 'service', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Bewerken</a>
+	                        <!-- item-->
+	                        <a href="{{ path('app_review_delete', {'entity': 'service', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>
 				    	{% endif %}
 	                             
 	                    </div>

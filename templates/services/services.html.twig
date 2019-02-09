@@ -12,19 +12,19 @@
 {% endblock %}       
         
 
-{% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
+{% block title %}<i class="mdi mdi mdi-cart"></i> Producten{% endblock %}
 
 
 {% block body %}
 
 <div class="row align-items-center">
         <div class="col">
-	        <h2>Personen</h2>
+	        <h2>Producten</h2>
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
-	        	<a href="{{ path('app_person_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
+	        	<a href="{{ path('app_service_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
 	        </div>
         </div>
         
@@ -39,7 +39,6 @@
                     <thead>
                     <tr>
                         <th>Naam</th>
-                        <th>Email</th>
                         <th>Categorie</th>
                     </tr>
                     </thead>
@@ -49,7 +48,7 @@
                     {% for data in data %}
 						<tr>
 						    <td style="padding-bottom: 0px;">
-							    <a href="{{ path('app_person', {'id': data.id}) }}" class="waves-effect">{{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}
+							    <a href="{{ path('app_service', {'id': data.id}) }}" class="waves-effect">{{ data.serviceType }}
 							    	
 							    	<!-- Dropdown -->
 								    <div class="dropdown pull-right">
@@ -59,18 +58,20 @@
 	                                    
 	                                    <div class="dropdown-menu dropdown-menu-right">
 	                                        <!-- item-->
-	                                        <a href="{{ path('app_person_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        <a href="{{ path('app_service_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
 	                                        <!-- item-->
-	                                        <a href="{{ path('app_person_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        <a href="{{ path('app_service_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
 	                                    </div>
 	                                </div>
 	                               
 							    </a>
 							    
 						    </td>
-						    <td>{{ data.email }}</td>
-						    <td>{{ data.categorie.name }}</td>
+						    <td>
+								{{ data.categorie.name }}
+							</td>
 						</tr>
+						
 
 					{% endfor %}
                     
