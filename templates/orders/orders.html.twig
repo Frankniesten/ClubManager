@@ -35,8 +35,8 @@
 		            	<td><b>Klant</b></td>
 		            	<td><b>Datum</b></td>
 		            	<td><b>Status</b></td>
+		            	<td><b>Artikel</b></td>
 		            	<td><b>Totaal</b></td>
-		            	<td><b>Factuur</b></td>
                     </tr>
                     </thead>
 
@@ -75,11 +75,29 @@
 				            	{% endif %}
 				            </td>
 				            <td>
-				            	50,-		
+								{% for details in data.orderItem %}
+				            		
+				            		<li>
+				            			{{ details.orderedItem.alternateName }}
+				            		</li>
+				            	{% endfor %}            
 				            </td>
 				            <td>
-				            	<i class="mdi mdi-file-document-box"></i>		
-				            </td>
+			            	{% set totalPrice = 0 %}
+			            	
+			            	{% for details in data.orderItem %}
+			            		
+			            		
+			            		{% set price = details.orderedItem.price %}
+			            		{% set quantity = details.orderQuantity|number_format %}
+			            		{% set itemPrice = price * quantity %}
+			            		
+			            		{% set totalPrice = totalPrice + itemPrice %} 
+			
+			            	{% endfor %}
+			            	€ {{ totalPrice|number_format(2, '.','') }}
+			            			
+			            </td>
 				        </tr>
 				    {% endfor %}                    
 				    

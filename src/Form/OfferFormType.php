@@ -26,6 +26,9 @@ class OfferFormType extends AbstractType
 	    	->add('availability', ChoiceType::class, [
 	    		'label' => 'Voorraad', 
 	    		'required' => true,
+	    		'attr' => [
+							'class' => 'select2'
+						],
 	    		 'choices'  => array(
 			        'Voorraad' => 'Voorraad',
 			        'Uitverkocht' => 'Uitverkocht',

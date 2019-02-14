@@ -4,10 +4,12 @@
 
 {% block stylesheets %}
 	
-	{{ parent() }}
+
 	<link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}"  rel="stylesheet" type="text/css" />
 	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
 	
+	{{ parent() }}
 	
 
 	        
@@ -115,6 +117,7 @@
 	<script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('assets/plugins/jquery-quicksearch/jquery.quicksearch.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
     <script type="text/javascript">
         jQuery('#date-range').datepicker({
@@ -128,6 +131,12 @@
             toggleActive: true
         });
     </script>
+    
+    <script>
+	    $(document).ready(function(){
+	        $('.select2').select2();
+	    });
+	</script>
     
 {% endblock %}
 

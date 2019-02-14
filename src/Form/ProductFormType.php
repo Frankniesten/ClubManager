@@ -37,7 +37,10 @@ class ProductFormType extends AbstractType
 					            ->orderBy('u.name', 'ASC');
 					    },
 					    'choice_label' => 'name',
-					    'required' => true
+					    'required' => true,
+					    'attr' => [
+							'class' => 'select2'
+						]
 					)); 
 	} 
 	

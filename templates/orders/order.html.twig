@@ -22,7 +22,6 @@
             	<td><b>Orderstatus</b></td>
             	<td><b>Artikel</b></td>
             	<td><b>Totaal</b></td>
-            	<td><b>Factuur</b></td>
         	</tr>
         </thead>
     {% for customer in data.customer %}
@@ -93,9 +92,6 @@
             	{% endfor %}
             	€ {{ totalPrice|number_format(2, '.','') }}
             			
-            </td>
-            <td>
-            	<i class="mdi mdi-file-document-box"></i>		
             </td>
         </tr>
     {% endfor %} 

@@ -32,7 +32,10 @@ class OwnsEditFormType extends AbstractType
 					    'choice_label' => 'name',
 					    'required' => true,
 					    'label' => 'Product',
-					    'disabled' => true
+					    'disabled' => true,
+					    'attr' => [
+							'class' => 'select2'
+						]
 					));
 	
 	} 

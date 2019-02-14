@@ -26,6 +26,9 @@ class ServiceFormType extends AbstractType
 	    	->add('availableChannel', ChoiceType::class, [
 	    		'label' => 'Communicatie Kanaal', 
 	    		'required' => false,
+	    		'attr' => [
+							'class' => 'select2'
+						],
 	    		 'choices'  => array(
 			        'Regulier' => 'Regulier',
 			        'Mail' => 'Mail',
@@ -39,7 +42,10 @@ class ServiceFormType extends AbstractType
 					            ->orderBy('u.name', 'ASC');
 					    },
 					    'choice_label' => 'name',
-					    'required' => true
+					    'required' => true,
+					    'attr' => [
+							'class' => 'select2'
+						]
 					)); 
 	} 
 	

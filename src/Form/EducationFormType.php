@@ -28,7 +28,10 @@ class EducationFormType extends AbstractType
 					    },
 					    'choice_label' => 'legalName',
 					    'required' => false,
-					    'label' => 'Muziekschool'
+					    'label' => 'Muziekschool',
+					    'attr' => [
+							'class' => 'select2'
+						]
 				)); 
 	}
 

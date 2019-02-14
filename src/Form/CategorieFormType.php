@@ -18,6 +18,9 @@ class CategorieFormType extends AbstractType
 	    	->add('name', TextType::class, ['label' => 'Categorie'])
 	    	->add('description', TextType::class, ['label' => 'Omschrijving'])
 	    	->add('additionalType', ChoiceType::class, array(
+				'attr' => [
+							'class' => 'select2'
+						],
 				'choices'  => array(
 					'' => '',
 					'Personen' => 'Personen',

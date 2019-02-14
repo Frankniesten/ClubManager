@@ -2,6 +2,16 @@
 
 {% block title %}Instellingen > Categoriën{% endblock %}
 
+{% block stylesheets %}
+	
+		
+    <link href="{{ asset('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/select2/css/select2.css') }}" rel="stylesheet" type="text/css" />
+    
+    {{ parent() }}
+
+      
+{% endblock %}
 
 {% block body %}
 
@@ -34,4 +44,21 @@
             
     </div>      
 
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    
+    
+    <script>
+	    $(document).ready(function(){
+	        $('.select2').select2();
+	    });
+	</script>
+
+    
 {% endblock %}

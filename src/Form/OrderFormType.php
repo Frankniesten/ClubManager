@@ -27,8 +27,11 @@ class OrderFormType extends AbstractType
 					'Geannuleerd' => 'Geannuleerd',
 					'In de wacht' => 'In de wacht',
 					'Terugbetaald' => 'Terugbetaald',
-					'Wachtend op betaling' => 'Wachtend op betaling'))
-			);	
+					'Wachtend op betaling' => 'Wachtend op betaling'),
+					'attr' => [
+							'class' => 'select2'
+						]
+						));	
 	} 
 
 	
