@@ -117,7 +117,7 @@
                             </li>
                             
                             <li>
-                                <a href="{{ path('app_orders') }}" class="waves-effect {% if 'order' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-cart"></i> <span> Orders </span> </a>
+                                <a href="{{ path('app_orders') }}" class="waves-effect {% if 'orders' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-cart"></i> <span> Orders </span> </a>
                             </li>
                             
                             <li class="has_sub">
@@ -149,6 +149,9 @@
                 <!-- Start content -->
                 <div class="content">
                     <div class="container-fluid">
+                    
+                    
+                    
 	                    
 	                    {% for message in app.flashes('success') %}
 							<div class="alert alert-success" role="alert">

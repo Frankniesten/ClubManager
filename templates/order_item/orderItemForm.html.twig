@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
+
+{% block stylesheets %}
+	
+		
+    <link href="{{ asset('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/select2/css/select2.css') }}" rel="stylesheet" type="text/css" />
+    
+    {{ parent() }}
+
+      
+{% endblock %}
+
+
+{% block body %}
+
+ 	{{ form_start(form) }}
+ 	
+ 	       
+	<div class="row align-items-center">
+        <div class="col">
+	        {% if 'create' in app.request.uri  %}
+	       		<h2>Artikel aan order #{{ orderID }} toevoegen</h2>
+	        {% endif %}
+	        {% if 'edit' in app.request.uri  %}
+	       		<h2>Artikel van order #{{ orderID }} - bewerken</h2>
+	        {% endif %}
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
+	        	
+		       		<a href="{{ path('app_order', {'id': id, 'orderID': orderID}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        	
+	        </div>
+        </div>
+        
+	</div>
+	
+    <!-- Card Box -->
+    <div class="card-box table-responsive">
+    	<div class="row">
+		    <div class="col-8">
+			    {{ form_label(form.orderedItem) }}
+				{{ form_errors(form.orderedItem) }}
+				{{ form_widget(form.orderedItem) }}
+			</div>
+			<div class="col-4">
+			    {{ form_label(form.orderQuantity) }}
+				{{ form_errors(form.orderQuantity) }}
+				{{ form_widget(form.orderQuantity, {'id': 'demo0', 'attr': {'data-bts-min': 1, 'data-bts-max': 100}}) }}
+			</div>
+	    </div>    
+	   
+
+		{{ form_end(form) }}   
+		     
+    </div>    
+    
+
+
+    
+
+        
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+	
+    <script src="{{ asset('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/jquery-quicksearch/jquery.quicksearch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    
+    
+    <script>
+	    $(document).ready(function(){
+	        $('.select2').select2();
+	    });
+	</script>
+
+        <script>
+    
+
+
+	
+            
+            
+        //Bootstrap-TouchSpin
+            $(".vertical-spin").TouchSpin({
+                verticalbuttons: true,
+                buttondown_class: "btn btn-primary",
+                buttonup_class: "btn btn-primary",
+                verticalupclass: 'ti-plus',
+                verticaldownclass: 'ti-minus'
+            });
+            var vspinTrue = $(".vertical-spin").TouchSpin({
+                verticalbuttons: true
+            });
+            if (vspinTrue) {
+                $('.vertical-spin').prev('.bootstrap-touchspin-prefix').remove();
+            }
+
+            $("input[name='order_item_form[orderQuantity]']").TouchSpin({
+                buttondown_class: "btn btn-purple",
+                buttonup_class: "btn btn-purple"
+            });    
+    </script>
+    
+{% endblock %}

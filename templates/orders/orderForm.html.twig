@@ -28,13 +28,19 @@
         <div class="col-4  ">
 	        <div class="btn-group float-right">
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_person_owns', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        	{% if 'create' in app.request.uri  %}
+	       			<a href="{{ path('app_person_customer', {'id': data.id }) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+		   		{% endif %}
+		   		{% if 'edit' in app.request.uri  %}
+	       			<a href="{{ path('app_order', {'id': id, 'orderID': data.id }) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+		   		{% endif %}
+				
 	        </div>
         </div>
         
 	</div>
 	
-	<!-- Person details -->
+	<!-- Order details -->
 	<div id="accordion">
 		<div class="card">
 	        <div class="card-header" id="headingOne">
@@ -66,64 +72,70 @@
 
 	            	<h4>Ordergegevens</h4>
 	            	<p>
-	            		{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}<br>
-	            		{{ data.streetAddress }}<br>
-						{{ data.postalCode }}, {{ data.addressLocality }}
+	            	
+	            	{% if 'create' in app.request.uri  %}
+	            		
+	            		{%if data.familyName is not empty %}
+			       			{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}<br>
+			       		{% else %}
+			       			-
+			       		{% endif %}
+			       		
+			       		{%if data.streetAddress is not empty %}	
+				   			{{ data.streetAddress }}<br>
+				   		{% else %}
+			       			-
+				   		{% endif %}
+				   		
+				   		{%if data.postalCode is not empty %}
+				   			{{ data.postalCode }}, {{ data.addressLocality }}
+						{% endif %}
+						
+			        {% endif %}
+			        {% if 'edit' in app.request.uri  %}
+			        	{%if data.person.familyName is not empty %}
+			       			{{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}<br>
+			       		{% else %}
+			       			-
+			       		{% endif %}
+			       		
+			       		{%if data.person.streetAddress is not empty %}	
+				   			{{ data.person.streetAddress }}<br>
+				   		{% else %}
+			       			-
+				   		{% endif %}
+				   		
+				   		{%if data.person.postalCode is not empty %}
+				   			{{ data.person.postalCode }}, {{ data.person.addressLocality }}
+						{% endif %}
+						
+			        {% endif %}
+	            	
 	            	</p>
 	            	
 
 	            	<h4>Email</h4>
-	            		{{ data.email }}
+	            	{% if 'create' in app.request.uri  %}
+	            		{%if data.email is not empty %}
+			       			{{ data.email }}<br>
+			       		{% else %}
+			       			-
+			       		{% endif %}
+			        {% endif %}
+			        
+			        {% if 'edit' in app.request.uri  %}
+			        	{%if data.person.email is not empty %}
+			       			{{ data.person.email }}<br>
+			       		{% else %}
+			       			-
+			       		{% endif %}
+			        {% endif %}
+	            		
 	            </div>
 	        </div>
 	    </div>
 	</div>
 	<br>
-	<!-- Order details -->
-	<div id="accordion">
-		<div class="card">
-	        <div class="card-header" id="headingOne">
-	            <h4 class="m-0">
-	                <a href="#collapseTwo" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseTwo">
-	                    Orderdetails
-	                </a>
-	            </h4>
-	        </div>
-	
-	        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
-	            <div class="card-body">
-	            
-	            	<table class="table table-bordered table-striped"> 
-	                
-	                <thead>
-			            <tr>
-			            	<td><b>Artikel</b></td>
-			            	<td><b>aantal</b></td>
-			            	<td><b>Prijs</b></td>
-			        	</tr>
-			        </thead>  
-		           
-		            <tbody>
-		            	<tr>
-		            		<td></td>
-			                <td></td>
-			                <td></td>
-		            	</tr>
-			                
-			            
- 
-			        	<tr>
-			                <td></td>
-			                <td></td>
-			                <td><b></b></td>
-			            </tr>  
-		            </tbody>
-			        </table> 
-
-	            </div>
-	        </div>
-	    </div>
-	</div>
 	
 	{{ form_end(form) }}
 

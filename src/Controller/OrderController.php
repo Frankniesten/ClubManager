@@ -31,32 +31,30 @@ class OrderController extends AbstractController
 	
 	
 	/**
-     * @Route("/{entity}/{id}/order/{orderID}", name="app_order")
+     * @Route("/person/{id}/order/{orderID}", name="app_order")
      */
-	public function show(EntityManagerInterface $em, Request $request, $entity, $id, $orderID)
+	public function show(EntityManagerInterface $em, Request $request, $id, $orderID)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$order = $em->getRepository(Orders::class)->find($orderID);
         
 		return $this->render('orders/orderDetails.html.twig', [
         	'data' => $order,
-        	'entity' => $entity,
-        	'id' => $id
+        	'id' => $id,
+        	'totalPrice' => 0
 		]);
 	}
 	
 	
 	/**
-     * @Route("/{entity}/{id}/order/create", name="app_order_create")
+     * @Route("/person/{id}/order/create", name="app_order_create")
      */
-	public function new(EntityManagerInterface $em, Request $request, $entity, $id)
+	public function new(EntityManagerInterface $em, Request $request, $id)
 	{
 		$em = $this->getDoctrine()->getManager();
 		
-		if ($entity == 'person') 
-	    {
-		    $data = $em->getRepository(Person::class)->find($id);    
-	    }
+		$data = $em->getRepository(Person::class)->find($id);    
+
 		
 		$form = $this->createForm(OrderFormType::class);
 		$form->handleRequest($request);
@@ -70,14 +68,12 @@ class OrderController extends AbstractController
 			$em->persist($order);
 			$em->persist($data);
 			$em->flush();
+			$OrderID = $order->getId();
 					
-			$this->addFlash('success', 'Nieuw product in bruikleen is aangemaakt!');
+			$this->addFlash('success', 'Nieuwe order #'.$OrderID.' is aangemaakt!');
 		
-			
-			if ($entity == 'person') 
-		    {
-			    return $this->redirectToRoute('app_person_customer', array('id' => $id));    
-		    }		
+		
+		    return $this->redirectToRoute('app_orderItem_create', array('id' => $id, 'orderID' => $OrderID));    		
 		}
 		
 		return $this->render('orders/orderForm.html.twig', [
@@ -89,9 +85,9 @@ class OrderController extends AbstractController
 	}
 	
 	/**
-	* @Route("/{entity}/{id}/order/{orderID}/edit", name="app_order_edit")
+	* @Route("/person/{id}/order/{orderID}/edit", name="app_order_edit")
 	*/
-	public function edit(EntityManagerInterface $em, Request $request, $entity, $id, $orderID)
+	public function edit(EntityManagerInterface $em, Request $request, $id, $orderID)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$order = $em->getRepository(Orders::class)->find($orderID);
@@ -105,31 +101,24 @@ class OrderController extends AbstractController
 			
 			$em->persist($order);
 			$em->flush();
+			$OrderID = $order->getId();
            
-			$this->addFlash('success', 'Order is bijgewerkt!');
+			$this->addFlash('success', 'Nieuwe order #'.$OrderID.' is bijgewerkt!');
 			
-			if ($entity == 'person') 
-		    {
-			    return $this->redirectToRoute('app_person_customer', array('id' => $id));    
-		    }
-		    if ($entity == 'order') 
-		    {
-			    return $this->redirectToRoute('app_orders');    
-		    }				
+			return $this->redirectToRoute('app_order', array('id' => $id, 'orderID' => $orderID));    			
 		}
 		
-		return $this->render('orders/orderEditForm.html.twig', [
+		return $this->render('orders/orderForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $order,
-        	'id' => $id,
-        	'entity' => $entity
+        	'id' => $id
 		]);
 	}
 	
 	/**
-	* @Route("/{entity}/{id}/order/{orderID}/delete", name="app_order_delete")
+	* @Route("/person/{id}/order/{orderID}/delete", name="app_order_delete")
 	*/
-	public function delete(EntityManagerInterface $em, Request $request, $entity, $id, $orderID)
+	public function delete(EntityManagerInterface $em, Request $request, $id, $orderID)
 	{
 		
 		$em = $this->getDoctrine()->getManager();
@@ -138,17 +127,9 @@ class OrderController extends AbstractController
 		$em->remove($order);
 		$em->flush();
 		
-		
 		$this->addFlash('warning', 'Order is verwijderd!');
 		
-		if ($entity == 'person') 
-	    {
-		    return $this->redirectToRoute('app_person_customer', array('id' => $id));    
-	    }
-	    if ($entity == 'order') 
-	    {
-		    return $this->redirectToRoute('app_orders', array('id' => $id));    
-	    }		
+		return $this->redirectToRoute('app_person_customer', array('id' => $id));    	
 	} 
 
 	

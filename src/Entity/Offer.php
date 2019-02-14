@@ -36,7 +36,7 @@ class Offer
     private $itemOffered;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="float", length=255, nullable=true)
      */
     private $price;
 
@@ -65,10 +65,16 @@ class Offer
      */
     private $alternateName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="orderedItem", orphanRemoval=true)
+     */
+    private $orderItems;
+
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->orderItems = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,6 +186,37 @@ class Offer
     public function setAlternateName(string $alternateName): self
     {
         $this->alternateName = $alternateName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getOrderItems(): Collection
+    {
+        return $this->orderItems;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->orderItems->contains($orderItem)) {
+            $this->orderItems[] = $orderItem;
+            $orderItem->setOrderedItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        if ($this->orderItems->contains($orderItem)) {
+            $this->orderItems->removeElement($orderItem);
+            // set the owning side to null (unless already changed)
+            if ($orderItem->getOrderedItem() === $this) {
+                $orderItem->setOrderedItem(null);
+            }
+        }
 
         return $this;
     }

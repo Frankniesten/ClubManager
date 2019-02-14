@@ -321,13 +321,29 @@ app_order_create:
     controller: App\Controller\OrderController::new
     
 app_order:
-    path: /{entity}/{id}/order/{orderID}
+    path: /person/{id}/order/{orderID}
     controller: App\Controller\OrderController::show
     
 app_order_edit:
-    path: /{entity}/{id}/order/{orderID}/edit
+    path: /person/{id}/order/{orderID}/edit
     controller: App\Controller\OrderController::edit 
     
 app_order_delete:
-    path: /{entity}/{id}/order/{orderID}/delete
+    path: /person/{id}/order/{orderID}/delete
     controller: App\Controller\OrderController::delete 
+
+
+# ---OrderItem--- #
+app_orderItem_create:
+    path: /person/{id}/order/{orderID}/orderitem/create
+    controller: App\Controller\OrderItemController::new
+    
+app_orderItem_edit:
+    path: /person/{id}/order/{orderID}/orderitem/{orderItemID}/edit
+    controller: App\Controller\OrderItemController::edit
+    
+app_orderItem_delete:
+    path: /person/{id}/order/{orderID}/orderitem/{orderItemID}/delete
+    controller: App\Controller\OrderItemController::delete
+    
+

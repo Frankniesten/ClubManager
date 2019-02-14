@@ -3,10 +3,12 @@
 {% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
 
 {% block stylesheets %}
+
+	<link href="{{ asset('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/select2/css/select2.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
 	
 	{{ parent() }}
-	
-	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
 	        
 {% endblock %}
 
@@ -150,9 +152,16 @@
 
 	{{ parent() }}
 	
+	<script>
+	    $(document).ready(function(){
+	        $('.select2').select2();
+	    });
+	</script>
+	
 	<!--form wysiwig js-->
     <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
     <script type="text/javascript">
         jQuery('#datepicker-autoclose').datepicker({

@@ -29,6 +29,10 @@ class OffersController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid()) {
 			
 			$offer = $form->getData();
+			
+			//Hier zou je dan eventueel de data naar centen kunnen omzetten
+			
+			
 			$data->addOffer($offer);
 			
 			$em = $this->getDoctrine()->getManager();

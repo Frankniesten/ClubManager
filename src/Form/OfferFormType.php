@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Doctrine\ORM\EntityRepository;
 
 class OfferFormType extends AbstractType
@@ -20,7 +21,7 @@ class OfferFormType extends AbstractType
     {
 	    $builder
 	    	->add('alternateName', TextType::class, ['label' => 'Naam aanbod', 'required' => true])
-	    	->add('price', TextType::class, ['label' => 'Prijs', 'required' => true])
+	    	->add('price', MoneyType::class, ['label' => 'Prijs', 'required' => true, 'grouping' => false])
 	    	->add('inventoryLevel', TextType::class, ['label' => 'Voorraadstatus', 'required' => false])
 	    	->add('availability', ChoiceType::class, [
 	    		'label' => 'Voorraad', 

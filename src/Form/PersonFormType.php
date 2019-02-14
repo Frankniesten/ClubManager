@@ -28,6 +28,9 @@ class PersonFormType extends AbstractType
 	    	->add('gender', ChoiceType::class, [
 	    		'label' => 'Geslacht', 
 	    		'required' => false,
+	    		'attr' => [
+							'class' => 'select2'
+						],
 	    		 'choices'  => array(
 			        'Man' => 'Man',
 			        'Vrouw' => 'Vrouw')])
@@ -40,6 +43,9 @@ class PersonFormType extends AbstractType
 			->add('addressCountry', ChoiceType::class, [
 	    		'label' => 'Land', 
 	    		'required' => false,
+	    		'attr' => [
+							'class' => 'select2'
+						],
 	    		 'choices'  => array(
 			        'Nederland' => 'Nederland',
 			        'België' => 'België',
@@ -55,7 +61,10 @@ class PersonFormType extends AbstractType
 					            ->orderBy('u.name', 'ASC');
 					    },
 					    'choice_label' => 'name',
-					    'required' => true
+					    'required' => true,
+					    'attr' => [
+							'class' => 'select2'
+						]
 					));
 	
 	} 

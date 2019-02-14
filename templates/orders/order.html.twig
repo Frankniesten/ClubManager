@@ -20,6 +20,7 @@
             	<td><b>Order</b></td>
             	<td><b>Datum</b></td>
             	<td><b>Orderstatus</b></td>
+            	<td><b>Artikel</b></td>
             	<td><b>Totaal</b></td>
             	<td><b>Factuur</b></td>
         	</tr>
@@ -27,7 +28,7 @@
     {% for customer in data.customer %}
         <tr>
             <td>
-            	<a href="{{ path('app_order', {'id': data.id, 'entity': 'person', 'orderID': customer.id }) }}">#{{customer.id}}</a>
+            	<a href="{{ path('app_order', {'id': data.id, 'orderID': customer.id }) }}">#{{customer.id}}</a>
             	      
 	            <!-- Dropdown -->
 			    <div class="dropdown pull-right">
@@ -38,8 +39,8 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
                         {% if 'person' in app.request.uri %}
-                        	<a href="{{ path('app_order_edit', { 'id': data.id, 'entity': 'person', 'orderID': customer.id}) }}" class="dropdown-item">Bewerken</a>
-							<a href="{{ path('app_order_delete', { 'id': data.id, 'entity': 'person', 'orderID': customer.id}) }}" class="dropdown-item">Verwijderen</a>
+                        	<a href="{{ path('app_order_edit', { 'id': data.id, 'orderID': customer.id}) }}" class="dropdown-item">Bewerken</a>
+							<a href="{{ path('app_order_delete', { 'id': data.id, 'orderID': customer.id}) }}" class="dropdown-item">Verwijderen</a>
                         {% endif %}
                     </div>
                 </div>
@@ -69,7 +70,29 @@
             	{% endif %}
             </td>
             <td>
-            	50,-		
+				{% for details in customer.orderItem %}
+            		
+            		<li>
+            			{{ details.orderedItem.alternateName }}
+            		</li>
+            	{% endfor %}            
+            </td>
+            
+            <td>
+            	{% set totalPrice = 0 %}
+            	
+            	{% for details in customer.orderItem %}
+            		
+            		
+            		{% set price = details.orderedItem.price %}
+            		{% set quantity = details.orderQuantity|number_format %}
+            		{% set itemPrice = price * quantity %}
+            		
+            		{% set totalPrice = totalPrice + itemPrice %} 
+
+            	{% endfor %}
+            	€ {{ totalPrice|number_format(2, '.','') }}
+            			
             </td>
             <td>
             	<i class="mdi mdi-file-document-box"></i>		

@@ -45,9 +45,15 @@ class Orders
      */
     private $price;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="orders", orphanRemoval=true)
+     */
+    private $orderItem;
+
     public function __construct()
     {
         $this->acceptedOffer = new ArrayCollection();
+        $this->orderItem = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,6 +117,37 @@ class Orders
     public function setPrice(?float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderItem[]
+     */
+    public function getOrderItem(): Collection
+    {
+        return $this->orderItem;
+    }
+
+    public function addOrderItem(OrderItem $orderItem): self
+    {
+        if (!$this->orderItem->contains($orderItem)) {
+            $this->orderItem[] = $orderItem;
+            $orderItem->setOrders($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderItem(OrderItem $orderItem): self
+    {
+        if ($this->orderItem->contains($orderItem)) {
+            $this->orderItem->removeElement($orderItem);
+            // set the owning side to null (unless already changed)
+            if ($orderItem->getOrders() === $this) {
+                $orderItem->setOrders(null);
+            }
+        }
 
         return $this;
     }

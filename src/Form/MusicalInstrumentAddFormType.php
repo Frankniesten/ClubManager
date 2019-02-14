@@ -22,6 +22,9 @@ class MusicalInstrumentAddFormType extends AbstractType
 					        return $er->createQueryBuilder('u');
 					    },
 					    'choice_label' => 'musicalInstrument',
+					    'attr' => [
+							'class' => 'select2'
+						],
 					    'required' => false,
 					    'label' => 'Muziekinstrument'
 					));

@@ -52,7 +52,13 @@
 	    <div class="row">
 		    <div class="col-12">
 			       {{ form_label(form.price) }}
-				   {{ form_widget(form.price) }}	   
+			       	{% if 'create' in app.request.uri  %}
+			       		{{ form_widget(form.price) }}
+			        {% endif %}
+			        {% if 'edit' in app.request.uri  %}
+			       		{{ form_widget(form.price, {'attr': {'readonly': ''}}) }}
+			        {% endif %}
+				   	
 		    </div>
 	    </div>
 	    <br>

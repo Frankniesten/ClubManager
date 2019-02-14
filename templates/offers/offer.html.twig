@@ -43,7 +43,7 @@
                 
             </td>
             <td>
-            	€ {{ offers.price }}
+            	€ {{ offers.price|number_format(2, '.','') }}
             </td>
             <td>
 	            {{ offers.availability }}
