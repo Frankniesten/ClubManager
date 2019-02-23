@@ -14,15 +14,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class User implements UserInterface
 {
 	use TimestampableEntity;
-    
-    /*
-    public function __construct(string $username, array $roles)
-	{
-    	$this->username = $username;
-		$this->roles = $roles;
-	}
-	*/
-    
+      
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
