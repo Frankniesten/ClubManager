@@ -30,7 +30,7 @@ class ParentsFormType extends AbstractType
 						    $person->getGivenName(). ' ' .
 						    $person->getAdditionalName();
 						    
-						    },
+						 },
 					    'required' => false,
 					    'label' => 'Ouders',
 					    'multiple' => true

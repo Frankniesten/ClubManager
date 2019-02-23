@@ -46,11 +46,6 @@
                 <div class="navbar navbar-default" role="navigation">
                     <div class="container-fluid">
 						
-						                        
-                        
-                        
-                        
-                        
                         <!-- Page title -->
                         <ul class="nav navbar-nav list-inline navbar-left">
                             <li class="list-inline-item">
@@ -61,7 +56,28 @@
                             <li class="list-inline-item">
                                 <h1 class="page-title">{% block title %}Title Placeholder{% endblock %}</h1>
                             </li>
-                        </ul>                                             
+                        </ul>     
+                        
+                        <nav class="navbar-custom">
+
+                            <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                                <li>
+                                    <!-- Notification -->
+                                    <div class="notification-box">
+                                        <ul class="list-inline mb-0">
+                                            <li>
+                                                <a href="javascript:void(0);" class="right-bar-toggle">
+                                                    <i class="mdi mdi-settings"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- End Notification bar -->
+                                </li>
+                            </ul>
+                        </nav>
+                                                                
                     </div><!-- end container -->
                 </div><!-- end navbar -->
             </div>
@@ -75,17 +91,11 @@
                     <!-- User -->
                     <div class="user-box">
                         <div class="user-img">
-                            <img src="{{ asset('assets/images/users/avatar-1.jpg') }}" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail img-responsive">
+                            <img src="{{ asset('assets/images/users/avatar.jpeg') }}" alt="user-img" title="Mat Helme" class="rounded-circle img-thumbnail img-responsive">
                             
                         </div>
-                        <h5><a href="#">Frank Niesten</a> </h5>
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a href="#" class="text-custom">
-                                    <i class="mdi mdi-power"></i>
-                                </a>
-                            </li>
-                        </ul>
+                        <h5><a href="#">{{ app.user.displayName }}</a> </h5>
+                        
                     </div>
                     <!-- End User -->
 
@@ -95,10 +105,11 @@
                             <li>
                                 <a href="{{ path('dashboard') }}" class="waves-effect {% if 'dashboard' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
                             </li>
-
+							{% if is_granted('ROLE_PERSON_VIEW') %}
                             <li>
                                 <a href="{{ path('app_people') }}" class="waves-effect {% if 'person' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-account-multiple"></i> <span> Personen </span> </a>
                             </li>
+                            {% endif %}
                             
                             <li>
                                 <a href="{{ path('app_organizations') }}" class="waves-effect {% if 'organization' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-domain"></i> <span> Organisaties </span> </a>
@@ -121,11 +132,12 @@
                             </li>
                             
                             <li class="has_sub">
-                                <a class="waves-effect {% if 'settings' in app.request.uri  %}active submenu{% endif %}" href="javascript:void(0);"><i class="mdi mdi-settings"></i> <span> Instellingen </span> <span class="menu-arrow"></span></a>
+                                <a class="waves-effect {% if 'settings' in app.request.uri  %}active submenu{% endif %}" href="javascript:void(0);"><i class="mdi mdi-tag-multiple"></i> <span> Parameters </span> <span class="mdi mdi-arrow-down-thick"></span></a>
                                 <ul class="list-unstyled">
                                     <li {% if 'categorie' in app.request.uri  %}class="active"{% endif %}><a href="{{ path('app_settings_categories') }}">Categoriën</a></li>
                                     <li {% if 'programmembership' in app.request.uri  %}class="active"{% endif %}><a href="{{ path('app_settings_program_memberships') }}">Rollen</a></li>
                                     <li {% if 'musicalinstrument' in app.request.uri  %}class="active"{% endif %}><a href="{{ path('app_settings_musical_instruments') }}">Muziekinstrumenten</a></li>
+                                   
                                 </ul>
                             </li>
 
@@ -192,6 +204,47 @@
             <!-- ============================================================== -->
             <!-- End Right content here -->
             <!-- ============================================================== -->
+
+
+            <!-- Right Sidebar -->
+            <div class="side-bar right-bar">
+                <a href="javascript:void(0);" class="right-bar-toggle">
+                    <i class="mdi mdi-close-circle-outline"></i>
+                </a>
+                <h4 class="">Beheer</h4>
+                <div class="notification-list nicescroll">
+                
+                		
+                
+                <!--- Sidemenu -->
+                    <div id="sidebar-menu">
+                        <ul>
+                            <li>
+                                <a href="{{ path('app_users') }}" class="waves-effect {% if 'users' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-account-key"></i> <span> Gebruikers </span> </a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- Sidebar -->
+                    <div class="clearfix"></div>
+                
+                
+                
+                
+                
+                
+                
+                
+                    <ul class="list-group list-no-border user-list">
+                        
+                        
+                        
+                        
+
+                    </ul>
+                </div>
+            </div>
+            <!-- /Right-bar -->
 
 
             

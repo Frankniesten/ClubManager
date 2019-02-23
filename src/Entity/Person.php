@@ -143,6 +143,12 @@ class Person
      */
     private $customer;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="person", cascade={"persist", "remove"})
+     */
+    private $user;
+
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
@@ -583,6 +589,24 @@ class Person
             if ($customer->getPerson() === $this) {
                 $customer->setPerson(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPerson = $user === null ? null : $this;
+        if ($newPerson !== $user->getPerson()) {
+            $user->setPerson($newPerson);
         }
 
         return $this;

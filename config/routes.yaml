@@ -345,5 +345,43 @@ app_orderItem_edit:
 app_orderItem_delete:
     path: /person/{id}/order/{orderID}/orderitem/{orderItemID}/delete
     controller: App\Controller\OrderItemController::delete
+
+
+# ---User--- # 
+app_user_create:
+    path: /user/create
+    controller: App\Controller\UserController::new
+
+app_users:
+    path: /users
+    controller: App\Controller\UserController::list
+    
+app_user_edit:
+    path: /user/{id}/edit
+    controller: App\Controller\UserController::edit
+    
+app_user_delete:
+    path: /user/{id}/delete
+    controller: App\Controller\UserController::delete
     
 
+# ---Roles--- # 
+app_roles:
+    path: /roles
+    controller: App\Controller\RolesController::list
+    
+app_role_create:
+    path: /role/create
+    controller: App\Controller\RolesController::new
+
+app_role_edit:
+    path: /role/{id}/edit
+    controller: App\Controller\RolesController::edit
+
+app_role_delete:
+    path: /role/{id}/delete
+    controller: App\Controller\RolesController::delete
+
+# ---SAML--- #
+hslavich_saml_sp:
+    resource: "@HslavichOneloginSamlBundle/Resources/config/routing.yml"

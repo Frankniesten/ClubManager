@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}<i class="mdi mdi mdi-account-key"></i> Gebruikers{% endblock %}
+
+{% block stylesheets %}
+
+	<link href="{{ asset('assets/plugins/select2/css/select2.css') }}" rel="stylesheet" type="text/css" />
+    
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+ 	{{ form_start(form) }}
+	<div class="row align-items-center">
+        <div class="col">
+	        {% if 'create' in app.request.uri  %}
+	       		<h2>Gebruiker toevoegen</h2>
+	        {% endif %}
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
+	        	<a href="{{ path('app_users') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        </div>
+        </div>
+        
+	</div>
+	
+    <!-- Card Box -->
+    <div class="card-box table-responsive">
+    
+        <div class="row">
+	        <div class="col-12">
+				{{ form_label(form.person) }}
+				{{ form_errors(form.person) }}
+				{{ form_widget(form.person) }}
+	        </div>
+ 		</div>
+ 		
+		{{ form_end(form) }}        
+    </div>      
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+	<script type="text/javascript" src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    
+    <script>
+	    $(document).ready(function(){
+	        $('.select2').select2();
+	    });
+	</script>
+    
+    {% endblock %}

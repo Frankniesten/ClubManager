@@ -1,0 +1,22 @@
+hslavich_onelogin_saml:
+    # Basic settings
+    idp:
+        entityId: '%env(resolve:ENTITY_ID)%'
+        singleSignOnService:
+            url: '%env(resolve:SINGLE_SIGN_ON_SERVICE)%'
+            binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect'
+        singleLogoutService:
+            url: '%env(resolve:SINGLE_LOGOUT_SERVICE)%'
+            binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect'
+        x509cert: '%env(resolve:IDP_CERT)%'
+    sp:
+        entityId: '%env(resolve:ENTITY_ID_SP)%'
+        assertionConsumerService:
+            url: '%env(resolve:ASSERTION_CONSUMER_SERVICE_SP)%'
+            binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'
+        singleLogoutService:
+            url: '%env(resolve:SINGLE_LOGOUT_SERVICE_SP)%'
+            binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect'
+        x509cert: '%env(resolve:SP_CERT)%'
+        privateKey: '%env(resolve:PRIVATE_KEY)%'
+   

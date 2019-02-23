@@ -12,12 +12,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class PeopleController extends AbstractController
 {
     /**
      * @Route("/people", name="app_people")
+     *
+     * Require ROLE_PERSON_VIEW for only this controller method.
+     *
+     * @IsGranted("ROLE_PERSON_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
