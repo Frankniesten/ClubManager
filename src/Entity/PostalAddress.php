@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
 
 /**
  * @ApiResource()
@@ -13,6 +14,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class PostalAddress
 {
 	use TimestampableEntity;
+	use BlameableEntity;
 	
     /**
      * @ORM\Id()

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
 
 /**
  * @ApiResource()
@@ -16,6 +17,7 @@ class Organization
 {
 	
 	use TimestampableEntity;
+	use BlameableEntity;
 	
 	
     /**

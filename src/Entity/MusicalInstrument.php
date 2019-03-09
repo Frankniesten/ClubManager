@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
 
 /**
  * @ApiResource()
@@ -14,6 +15,7 @@ class MusicalInstrument
 {
 	
 	use TimestampableEntity;
+	use BlameableEntity;
 	
     /**
      * @ORM\Id()

@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
 
 /**
  * @ApiResource()
@@ -13,6 +14,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Review
 {
 	use TimestampableEntity;
+	use BlameableEntity;
 	
     /**
      * @ORM\Id()
@@ -50,6 +52,7 @@ class Review
      * @ORM\ManyToOne(targetEntity="App\Entity\Service", inversedBy="Review")
      */
     private $service;
+
 
     public function getId(): ?int
     {
@@ -127,4 +130,5 @@ class Review
 
         return $this;
     }
+
 }

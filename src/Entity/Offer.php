@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\Blameable\Traits\BlameableEntity;
 
 /**
  * @ApiResource()
@@ -15,6 +16,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Offer
 {
 	use TimestampableEntity;
+	use BlameableEntity;
 	
     /**
      * @ORM\Id()
