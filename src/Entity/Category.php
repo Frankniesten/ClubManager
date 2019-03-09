@@ -10,9 +10,9 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource()
- * @ORM\Entity(repositoryClass="App\Repository\CategorieRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
-class Categorie
+class Category
 {
 	use TimestampableEntity;
 	
@@ -29,7 +29,7 @@ class Categorie
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
@@ -39,7 +39,7 @@ class Categorie
     private $additionalType;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Products", mappedBy="categorie")
+     * @ORM\OneToMany(targetEntity="App\Entity\Products", mappedBy="category")
      */
     private $products;
 
@@ -107,7 +107,7 @@ class Categorie
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->setCategorie($this);
+            $product->setCategory($this);
         }
 
         return $this;
@@ -118,8 +118,8 @@ class Categorie
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
             // set the owning side to null (unless already changed)
-            if ($product->getCategorie() === $this) {
-                $product->setCategorie(null);
+            if ($product->getCategory() === $this) {
+                $product->setCategory(null);
             }
         }
 

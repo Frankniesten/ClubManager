@@ -11,21 +11,25 @@
 {% endblock %}  
 
 
-{% block title %}<i class="mdi mdi mdi-cart"></i> Producten{% endblock %}
+{% block title %}<i class="mdi mdi-cube"></i> Producten{% endblock %}
 
 
 {% block body %}
 	<div class="row align-items-center">
         <div class="col">
 	        <h2>
-	        	{{ data.serviceType }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span>
+	        	{{ data.serviceType }}&nbsp;<span class="badge badge-purple">{{ data.category.name }}</span>
 	        </h2>
         </div>
         
         <div class="col-4  ">
-	        <div class="btn-group float-right">
+        	<div class="btn-group float-right">
+	        	{% if is_granted('ROLE_SERVICES_EDIT') %}
 	        	<a href="{{ path('app_service_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+	        	{% endif %}
+	        	{% if is_granted('ROLE_SERVICES_DELETE') %}
 	        	<a href="{{ path('app_service_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+	        	{% endif %}
 				<a href="{{ path('app_services') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>

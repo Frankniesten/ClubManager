@@ -19,10 +19,8 @@ class PeopleController extends AbstractController
 {
     /**
      * @Route("/people", name="app_people")
-     *
-     * Require ROLE_PERSON_VIEW for only this controller method.
-     *
      * @IsGranted("ROLE_PERSON_VIEW")
+     *
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
@@ -37,6 +35,7 @@ class PeopleController extends AbstractController
 
 	/**
      * @Route("/person/create", name="app_person_create")
+     * @IsGranted("ROLE_PERSON_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request)
 	{
@@ -63,6 +62,7 @@ class PeopleController extends AbstractController
 
 	/**
      * @Route("/person/{id}", name="app_person")
+     * @IsGranted("ROLE_PERSON_VIEW")
      */
 	public function show(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -76,6 +76,7 @@ class PeopleController extends AbstractController
 		
 	/**
      * @Route("/person/{id}/edit", name="app_person_edit")
+     * @IsGranted("ROLE_PERSON_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -107,6 +108,7 @@ class PeopleController extends AbstractController
 	
 	/**
      * @Route("/person/{id}/delete", name="person_delete")
+     * @IsGranted("ROLE_PERSON_DELETE")
      */
 	public function del(EntityManagerInterface $em, Request $request, $id)
 	{

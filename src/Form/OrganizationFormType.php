@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Organization;
-use App\Entity\Categorie;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,6 +33,7 @@ class OrganizationFormType extends AbstractType
 			->add('addressCountry', ChoiceType::class, [
 	    		'label' => 'Land', 
 	    		'required' => false,
+	    		'placeholder' => 'Selecteer...',
 	    		'attr' => [
 							'class' => 'select2'
 						],
@@ -45,16 +46,17 @@ class OrganizationFormType extends AbstractType
 			->add('leiCode', TextType::class, ['label' => 'K.v.K. Nummer', 'required' => false])
 			->add('vatID', TextType::class, ['label' => 'Belasting Nummer', 'required' => false])
 			->add('url', UrlType::class, ['label' => 'Website', 'required' => false])
-			->add('categorie', EntityType::class, array(
-					    'class' => Categorie::class,
+			->add('category', EntityType::class, array(
+					    'class' => Category::class,
 					    'query_builder' => function (EntityRepository $er) {
 					        return $er->createQueryBuilder('u')
 					        	->andWhere('u.additionalType = :additionalType')
-					        	->setParameter('additionalType', 'organisaties')
+					        	->setParameter('additionalType', 'organization')
 					            ->orderBy('u.name', 'ASC');
 					    },
 					    'choice_label' => 'name',
 					    'required' => true,
+					    'placeholder' => 'Selecteer...',
 					    'attr' => [
 							'class' => 'select2'
 						]

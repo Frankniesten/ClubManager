@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Service;
-use App\Entity\Categorie;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,6 +26,7 @@ class ServiceFormType extends AbstractType
 	    	->add('availableChannel', ChoiceType::class, [
 	    		'label' => 'Communicatie Kanaal', 
 	    		'required' => false,
+	    		'placeholder' => 'Selecteer...',
 	    		'attr' => [
 							'class' => 'select2'
 						],
@@ -33,16 +34,17 @@ class ServiceFormType extends AbstractType
 			        'Regulier' => 'Regulier',
 			        'Mail' => 'Mail',
 			        'Webshop' => 'Webshop')])
-			->add('categorie', EntityType::class, array(
-					    'class' => Categorie::class,
+			->add('category', EntityType::class, array(
+					    'class' => Category::class,
 					    'query_builder' => function (EntityRepository $er) {
 					        return $er->createQueryBuilder('u')
 					        	->andWhere('u.additionalType = :additionalType')
-					        	->setParameter('additionalType', 'diensten')
+					        	->setParameter('additionalType', 'service')
 					            ->orderBy('u.name', 'ASC');
 					    },
 					    'choice_label' => 'name',
 					    'required' => true,
+					    'placeholder' => 'Selecteer...',
 					    'attr' => [
 							'class' => 'select2'
 						]

@@ -21,6 +21,7 @@ class MusicalInstrumentAddFormType extends AbstractType
 					    'query_builder' => function (EntityRepository $er) {
 					        return $er->createQueryBuilder('u');
 					    },
+					    'placeholder' => 'Selecteer...',
 					    'choice_label' => 'musicalInstrument',
 					    'attr' => [
 							'class' => 'select2'

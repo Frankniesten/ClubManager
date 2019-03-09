@@ -11,11 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ProductsController extends AbstractController
 {
     /**
      * @Route("/products", name="app_products")
+     * @IsGranted("ROLE_PRODUCT_VIEW")
      */
     public function list(EntityManagerInterface $em, Request $request)
     {
@@ -31,6 +33,7 @@ class ProductsController extends AbstractController
     
     /**
      * @Route("/product/{id}", name="app_product")
+     * @IsGranted("ROLE_PRODUCT_VIEW")
      */
 	public function show(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -48,6 +51,7 @@ class ProductsController extends AbstractController
     
     /**
      * @Route("/product/create", name="app_product_create")
+     * @IsGranted("ROLE_PRODUCT_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request)
 	{
@@ -74,6 +78,7 @@ class ProductsController extends AbstractController
 	
 	/**
      * @Route("/organization/{id}/edit", name="app_organization_edit")
+     * @IsGranted("ROLE_PRODUCT_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -108,6 +113,7 @@ class ProductsController extends AbstractController
 	
 	/**
      * @Route("/product/{id}/delete", name="product_delete")
+     * @IsGranted("ROLE_PRODUCT_DELETE")
      */
 	public function del(EntityManagerInterface $em, Request $request, $id)
 	{

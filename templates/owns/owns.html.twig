@@ -4,6 +4,7 @@
     </div>
         
     <div class="col-4  ">
+    {% if is_granted('ROLE_PRODUCT_CREATE') %}
 	    <div class="btn-group float-right">
 	    	{% if 'person' in app.request.uri %}
 	    		<a href="{{ path( 'app_owns_create', {'entity': 'person', 'id': data.id} ) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-plus"></i></a>
@@ -12,6 +13,7 @@
 	    		<a href="{{ path( 'app_owns_create', {'entity': 'organization', 'id': data.id} ) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-plus"></i></a>
 	    	{% endif %}
 	    </div>
+	{% endif %}
     </div>
         
 </div>
@@ -34,6 +36,7 @@
             	
 	            
 	            <!-- Dropdown -->
+	            {% if is_granted('ROLE_PRODUCT_EDIT') or is_granted('ROLE_PRODUCT_DELETE') %}
 			    <div class="dropdown pull-right">
                     <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
                         <i class="mdi mdi-dots-horizontal"></i>
@@ -42,16 +45,25 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
                         {% if 'person' in app.request.uri %}
+                        {% if is_granted('ROLE_PRODUCT_EDIT') %}
                         	<a href="{{ path('app_owns_edit', {'entity': 'person', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Bewerken</a>		<!-- item-->
+                        	{% endif %}
+                        	{% if is_granted('ROLE_PRODUCT_DELETE') %}
 							<a href="{{ path('app_owns_delete', {'entity': 'person', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Verwijderen</a>
+						{% endif %}
                         {% endif %}
                         
                         {% if 'organization' in app.request.uri %}
-                        	<a href="{{ path('app_owns_edit', {'entity': 'organization', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Bewerken</a>		<!-- item-->
+                        {% if is_granted('ROLE_PRODUCT_EDIT') %}
+                        	<a href="{{ path('app_owns_edit', {'entity': 'organization', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Bewerken</a>		{% endif %}
+                        {% if is_granted('ROLE_PRODUCT_DELETE') %}
+                        <!-- item-->
 							<a href="{{ path('app_owns_delete', {'entity': 'organization', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Verwijderen</a>
+						{% endif %}	
                         {% endif %}
                     </div>
                 </div>
+                {% endif %}
                 
             </td>
             <td>

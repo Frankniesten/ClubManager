@@ -9,11 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ParentsController extends AbstractController
 {
     /**
     * @Route("/person/{id}/parents/create", name="app_person_parents_create")
+    * @IsGranted("ROLE_PERSON_EDIT")
     */
     public function edit(EntityManagerInterface $em, Request $request, $id)
     {

@@ -32,9 +32,14 @@
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
+	        		{% if is_granted('ROLE_SERVICES_EDIT') %}
                 	<a href="{{ path('app_order_edit', { 'id': id, 'orderID': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+                	{% endif %}
+                	{% if is_granted('ROLE_SERVICES_DELETE') %}
 					<a href="{{ path('app_order_delete', { 'id': id, 'orderID': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+					{% endif %}
 					<a href="{{ path('app_person_customer', { 'id': id }) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+					
 	        </div>
         </div>
         
@@ -115,10 +120,12 @@
 				        
 				    <div class="col-4  ">
 					    <div class="btn-group float-right">
-					    	{% if data.orderStatus == "In behandeling" %}
-					    		<a href="{{ path('app_orderItem_create', { 'id': id, 'orderID': data.id}) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-plus"></i></a>
 					    	
+					    	{% if is_granted('ROLE_SERVICES_CREATE') %}	
+					    	<a href="{{ path('app_orderItem_create', { 'id': id, 'orderID': data.id}) }}" class="btn btn-trans btn-sm btn-purple waves-effect {% if data.orderStatus != "In behandeling" %}disabled{% endif %}" ><i class="fa fa-plus"></i></a>
 					    	{% endif %}
+					    	
+					    	
 					    </div>
 				    </div>     
 				</div>
@@ -142,18 +149,26 @@
 	            	<tr>
 	            		<td>{{ orderItem.orderedItem.alternateName }}
 	            		{% if data.orderStatus == "In behandeling" %}
-	            		<!-- Dropdown -->
-					    <div class="dropdown pull-right">
-		                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-		                        <i class="mdi mdi-dots-horizontal"></i>
-		                    </a>
-		                    
-		                    <div class="dropdown-menu dropdown-menu-right">
-		                        <!-- item-->
-		                        <a href="{{ path('app_orderItem_edit', { 'id': id, 'orderID': data.id, 'orderItemID': orderItem.id}) }}" class="dropdown-item">Bewerken</a>
-								<a href="{{ path('app_orderItem_delete', { 'id': id, 'orderID': data.id, 'orderItemID': orderItem.id}) }}" class="dropdown-item">Verwijderen</a>
-		                    </div>
-		                </div>
+		            		 <!-- Dropdown -->
+					    	{% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+						    <div class="dropdown pull-right">
+			                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+			                        <i class="mdi mdi-dots-horizontal"></i>
+			                    </a>
+			                    
+			                    <div class="dropdown-menu dropdown-menu-right">
+			                        <!-- item-->
+			                        {% if is_granted('ROLE_SERVICES_EDIT') %}
+			                        <a href="{{ path('app_orderItem_edit', { 'id': id, 'orderID': data.id, 'orderItemID': orderItem.id}) }}" class="dropdown-item">Bewerken</a>
+			                        {% endif %}
+			                        <!-- item-->
+			                        {% if is_granted('ROLE_SERVICES_DELETE') %}
+			                        <a href="{{ path('app_orderItem_delete', { 'id': id, 'orderID': data.id, 'orderItemID': orderItem.id}) }}" class="dropdown-item">Verwijderen</a>
+			                        {% endif %}
+			                    </div>
+			                </div>
+			                {% endif %}
+			                <!-- End Dropdown -->
 		                {% endif %}
 
 	            		</td>

@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>{{ data.name }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span>
+	        <h2>{{ data.name }}&nbsp;<span class="badge badge-purple">{{ data.category.name }}</span>
 		    
 	        {% if data.loan == true  %}       
 		        <span class="badge badge-pink">In Bruikleen</span>
@@ -17,8 +17,12 @@
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
+	        {% if is_granted('ROLE_PERSON_EDIT') %}
 	        	<a href="{{ path('app_product_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+	        {% endif %}
+	        {% if is_granted('ROLE_PERSON_DELETE') %}
 	        	<a href="{{ path('app_product_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+	        {% endif %}
 				<a href="{{ path('app_products') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>

@@ -33,6 +33,7 @@ class OwnsEditFormType extends AbstractType
 					    'required' => true,
 					    'label' => 'Product',
 					    'disabled' => true,
+					    'placeholder' => 'Selecteer...',
 					    'attr' => [
 							'class' => 'select2'
 						]

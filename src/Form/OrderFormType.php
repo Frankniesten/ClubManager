@@ -28,6 +28,7 @@ class OrderFormType extends AbstractType
 					'In de wacht' => 'In de wacht',
 					'Terugbetaald' => 'Terugbetaald',
 					'Wachtend op betaling' => 'Wachtend op betaling'),
+					'placeholder' => 'Selecteer...',
 					'attr' => [
 							'class' => 'select2'
 						]

@@ -14,12 +14,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\ProductsOnLoan;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class OwnsController extends AbstractController
 {
 	/**
      * @Route("/{entity}/{id}/owns/create", name="app_owns_create")
+     * @IsGranted("ROLE_PRODUCT_CREATE")
      */
 	public function new(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, Request $request, $entity, $id)
 	{
@@ -71,6 +73,7 @@ class OwnsController extends AbstractController
 	
 	/**
 	* @Route("/{entity}/{id}/owns/{ownershipInfoID}/edit", name="app_person_owns_edit")
+	* @IsGranted("ROLE_PRODUCT_EDIT")
 	*/
 	public function edit(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, Request $request, $entity, $id, $ownershipInfoID)
 	{
@@ -114,6 +117,7 @@ class OwnsController extends AbstractController
 
 	/**
 	* @Route("/{entity}/{id}/owns/{ownershipInfoID}/delete", name="app_person_owns_delete")
+	* @IsGranted("ROLE_PRODUCT_DELETE")
 	*/
 	public function delete(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, Request $request, $entity, $id, $ownershipInfoID)
 	{

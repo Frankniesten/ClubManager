@@ -33,6 +33,7 @@ class OwnsFormType extends AbstractType
 					    'choice_label' => 'name',
 					    'required' => true,
 					    'label' => 'Product',
+					    'placeholder' => 'Selecteer...',
 					    'attr' => [
 							'class' => 'select2'
 						]

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Utils\MembershipYears;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class MembershipController extends AbstractController
 {
@@ -18,6 +19,7 @@ class MembershipController extends AbstractController
 	
     /**
     * @Route("/person/{id}/membership/create", name="app_person_membership_create")
+    * @IsGranted("ROLE_PERSON_CREATE")
     */
     public function new(EntityManagerInterface $em, Request $request, $id, MembershipYears $MembershipYears)
     {
@@ -58,6 +60,7 @@ class MembershipController extends AbstractController
 	
 	/**
 	* @Route("/person/{$id}/membership/{membershipID}/edit", name="app_person_membership_edit")
+	* @IsGranted("ROLE_PERSON_EDIT")
 	*/
 	public function edit(EntityManagerInterface $em, Request $request, $id, $membershipID, MembershipYears $MembershipYears)
 	{
@@ -93,6 +96,7 @@ class MembershipController extends AbstractController
 
 	/**
 	* @Route("/person/{id}/membership/{membershipID}/delete", name="app_person_membership_delete")
+	* @IsGranted("ROLE_PERSON_DELETE")
 	*/
 	public function delete(EntityManagerInterface $em, Request $request, $id, $membershipID, MembershipYears $MembershipYears)
 	{

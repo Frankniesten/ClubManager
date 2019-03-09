@@ -7,6 +7,7 @@
 	
 	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
 	<link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css"/>
 	
 	{{ parent() }}      
 {% endblock %}
@@ -96,10 +97,11 @@
 
 {% block javascripts %}
 
+	<script type="text/javascript" src="{{ asset('assets/plugins/switchery/switchery.min.js') }}"></script>
+	
 	{{ parent() }}
 	
 	<!--form wysiwig js-->
-    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 

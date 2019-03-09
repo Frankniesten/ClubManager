@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class EducationController extends AbstractController
 {
     /**
      * @Route("/person/{id}/education/create", name="app_person_education_create")
+     * @IsGranted("ROLE_PERSON_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -48,6 +50,7 @@ class EducationController extends AbstractController
 	
 	/**
 	* @Route("/person/{id}/education/{educationID}/edit", name="app_person_education_edit")
+	* @IsGranted("ROLE_PERSON_EDIT")
 	*/
 	public function edit(EntityManagerInterface $em, Request $request, $id, $educationID)
 	{
@@ -80,6 +83,7 @@ class EducationController extends AbstractController
 
 	/**
 	* @Route("/person/{id}/education/{educationID}/delete", name="app_person_education_delete")
+	* @IsGranted("ROLE_PERSON_DELETE")
 	*/
 	public function delete(EntityManagerInterface $em, Request $request, $id, $educationID)
 	{

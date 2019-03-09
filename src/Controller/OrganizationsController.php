@@ -9,12 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class OrganizationsController extends AbstractController
 {
     /**
      * @Route("/organizations", name="organizations")
+     * @IsGranted("ROLE_ORGANIZATION_VIEW")
      */
     public function list(EntityManagerInterface $em, Request $request)
     {
@@ -31,6 +33,7 @@ class OrganizationsController extends AbstractController
     
     /**
      * @Route("/organization/create", name="app_organization_create")
+     * @IsGranted("ROLE_ORGANIZATION_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request)
 	{
@@ -58,6 +61,7 @@ class OrganizationsController extends AbstractController
 	
 	/**
      * @Route("/organization/{id}", name="app_organization")
+     * @IsGranted("ROLE_ORGANIZATION_VIEW")
      */
 	public function show(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -72,6 +76,7 @@ class OrganizationsController extends AbstractController
 	
 	/**
      * @Route("/organization/{id}/edit", name="app_organization_edit")
+     * @IsGranted("ROLE_ORGANIZATION_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -102,6 +107,7 @@ class OrganizationsController extends AbstractController
 	
 	/**
      * @Route("/organization/{id}/delete", name="organization_delete")
+     * @IsGranted("ROLE_ORGANIZATION_DELETE")
      */
 	public function del(EntityManagerInterface $em, Request $request, $id)
 	{

@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Products;
-use App\Entity\Categorie;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,13 +27,13 @@ class ProductFormType extends AbstractType
 			->add('model', TextType::class, ['label' => 'Model', 'required' => false])
 			->add('manufacturer', TextType::class, ['label' => 'Fabrikant', 'required' => false])
 			->add('purchaseDate', DateType::class, ['label' => 'Aankoopdatum', 'required' => false, 'widget' => 'single_text', 'html5' => false,])
-			->add('uniqueProduct', CheckboxType::class, ['label' => 'Uniek product', 'required' => false])
-			->add('categorie', EntityType::class, array(
-					    'class' => Categorie::class,
+			->add('uniqueProduct', CheckboxType::class, ['label' => 'Uniek product', 'required' => false, 'attr' => ['data-plugin' => 'switchery']])
+			->add('category', EntityType::class, array(
+					    'class' => Category::class,
 					    'query_builder' => function (EntityRepository $er) {
 					        return $er->createQueryBuilder('u')
 					        	->andWhere('u.additionalType = :additionalType')
-					        	->setParameter('additionalType', 'producten')
+					        	->setParameter('additionalType', 'product')
 					            ->orderBy('u.name', 'ASC');
 					    },
 					    'choice_label' => 'name',

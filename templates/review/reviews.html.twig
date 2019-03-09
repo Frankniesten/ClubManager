@@ -4,6 +4,7 @@
     </div>
         
     <div class="col-4  ">
+    {% if is_granted('ROLE_REVIEW_CREATE') %}
 	    <div class="btn-group float-right">
 	    	
 	    	{% if 'person' in app.request.uri %}
@@ -23,6 +24,7 @@
 	    	{% endif %}
 	
 	    </div>
+	{% endif %}
     </div>
         
 </div>
@@ -37,7 +39,8 @@
 	        	</div>
 	        
 				<div class="col-4  ">
-				
+					
+					{% if is_granted('ROLE_REVIEW_EDIT') or is_granted('ROLE_REVIEW_DELETE') %}
 					<!-- Dropdown -->
 				    <div class="dropdown pull-right">
 	                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
@@ -47,41 +50,57 @@
 	                    <div class="dropdown-menu dropdown-menu-right">
 	                    {% if 'person' in app.request.uri %}
 				    		<!-- item-->
+				    		{% if is_granted('ROLE_REVIEW_EDIT') %}
 	                        <a href="{{ path('app_review_edit', {'entity': 'person', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Bewerken</a>
+	                        {% endif %}
 	                        <!-- item-->
-	                        <a href="{{ path('app_review_delete', {'entity': 'person', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>
+	                        {% if is_granted('ROLE_REVIEW_DELETE') %}
+	                        <a href="{{ path('app_review_delete', {'entity': 'person', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>{% endif %}
 				    	{% endif %}
 				    	
 				    	{% if 'organization' in app.request.uri %}
 				    		<!-- item-->
+				    		{% if is_granted('ROLE_REVIEW_EDIT') %}
 	                        <a href="{{ path('app_review_edit', {'entity': 'organization', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Bewerken</a>
+	                        {% endif %}
 	                        <!-- item-->
-	                        <a href="{{ path('app_review_delete', {'entity': 'organization', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>
+	                        {% if is_granted('ROLE_REVIEW_DELETE') %}
+	                        <a href="{{ path('app_review_delete', {'entity': 'organization', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>{% endif %}
 				    	{% endif %}
 				    	
 				    	{% if 'product' in app.request.uri %}
 				    		<!-- item-->
+				    		{% if is_granted('ROLE_REVIEW_EDIT') %}
 	                        <a href="{{ path('app_review_edit', {'entity': 'product', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Bewerken</a>
+	                        {% endif %}
 	                        <!-- item-->
-	                        <a href="{{ path('app_review_delete', {'entity': 'product', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>
+	                        {% if is_granted('ROLE_REVIEW_DELETE') %}
+	                        <a href="{{ path('app_review_delete', {'entity': 'product', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>{% endif %}
 				    	{% endif %}
 				    	
 				    	{% if 'event' in app.request.uri %}
 				    		<!-- item-->
+				    		{% if is_granted('ROLE_REVIEW_EDIT') %}
 	                        <a href="{{ path('app_review_edit', {'entity': 'event', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Bewerken</a>
+	                        {% endif %}
 	                        <!-- item-->
-	                        <a href="{{ path('app_review_delete', {'entity': 'event', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>
+	                        {% if is_granted('ROLE_REVIEW_DELETE') %}
+	                        <a href="{{ path('app_review_delete', {'entity': 'event', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>{% endif %}
 				    	{% endif %}
 				    	
 				    	{% if 'service' in app.request.uri %}
 				    		<!-- item-->
+				    		{% if is_granted('ROLE_REVIEW_EDIT') %}
 	                        <a href="{{ path('app_review_edit', {'entity': 'service', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Bewerken</a>
+	                        {% endif %}
 	                        <!-- item-->
-	                        <a href="{{ path('app_review_delete', {'entity': 'service', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>
+	                        {% if is_granted('ROLE_REVIEW_DELETE') %}
+	                        <a href="{{ path('app_review_delete', {'entity': 'service', 'id': data.id, 'reviewID': review.id}) }}" class="dropdown-item">Verwijderen</a>{% endif %}
 				    	{% endif %}
 	                             
 	                    </div>
 	                </div>
+	                {% endif %}
 					
 				</div>
 	        </div>

@@ -7,6 +7,7 @@
 	<link href="{{ asset('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/select2/css/select2.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+	<link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css"/>
 	
 	{{ parent() }}
 	        
@@ -47,19 +48,16 @@
         <div class="row">
 	        <div class="col-5">
 				{{ form_label(form.givenName) }}
-				{{ form_errors(form.givenName) }}
 				{{ form_widget(form.givenName) }}
 	        </div>
 	        
 	        <div class="col-2">
 		       {{ form_label(form.additionalName) }}
-			   {{ form_errors(form.additionalName) }}
 			   {{ form_widget(form.additionalName) }}
 	        </div>
 	        
 	        <div class="col-5">
 		       {{ form_label(form.familyName) }}
-			   {{ form_errors(form.familyName) }}
 			   {{ form_widget(form.familyName) }}
 	        </div>
 	    </div>
@@ -72,7 +70,6 @@
 	        
 	        <div class="col-6">
 		       {{ form_label(form.gender) }}
-			   {{ form_errors(form.gender) }}
 			   {{ form_widget(form.gender) }}
 	        </div>
 	    </div>
@@ -80,7 +77,6 @@
 	    <div class="row">
 		    <div class="col-12">
 			    {{ form_label(form.email) }}
-				{{ form_errors(form.email) }}
 				{{ form_widget(form.email) }}
 		    </div>
 	    </div>
@@ -88,13 +84,11 @@
 	    <div class="row">
 	        <div class="col-6">
 				{{ form_label(form.telephone) }}
-				{{ form_errors(form.telephone) }}
 				{{ form_widget(form.telephone) }}
 	        </div>
 	        
 	        <div class="col-6">
 		       {{ form_label(form.telephone_2) }}
-			   {{ form_errors(form.telephone_2) }}
 			   {{ form_widget(form.telephone_2) }}
 	        </div>
 	    </div>
@@ -102,13 +96,11 @@
 	    <div class="row">
 	        <div class="col-6">
 				{{ form_label(form.streetAddress) }}
-				{{ form_errors(form.streetAddress) }}
 				{{ form_widget(form.streetAddress) }}
 	        </div>
 	        
 	        <div class="col-6">
 		       {{ form_label(form.postalCode) }}
-			   {{ form_errors(form.postalCode) }}
 			   {{ form_widget(form.postalCode) }}
 	        </div>
 	    </div>
@@ -116,13 +108,11 @@
 	    <div class="row">
 	        <div class="col-6">
 				{{ form_label(form.addressLocality) }}
-				{{ form_errors(form.addressLocality) }}
 				{{ form_widget(form.addressLocality) }}
 	        </div>
 	        
 	        <div class="col-6">
 		       {{ form_label(form.addressCountry) }}
-			   {{ form_errors(form.addressCountry) }}
 			   {{ form_widget(form.addressCountry) }}
 	        </div>
 	    </div>
@@ -130,16 +120,14 @@
 	    <div class="row">
 		    <div class="col-12">
 			    {{ form_label(form.alumni) }}
-				{{ form_errors(form.alumni) }}
 				{{ form_widget(form.alumni) }}
 		    </div>
 	    </div>
 	    <br>
 	    <div class="row">
 		    <div class="col-12">
-			    {{ form_label(form.categorie) }}
-				{{ form_errors(form.categorie) }}
-				{{ form_widget(form.categorie) }}
+			    {{ form_label(form.category) }}
+				{{ form_widget(form.category) }}
 		    </div>
 	    </div>
 
@@ -150,6 +138,8 @@
 
 {% block javascripts %}
 
+	<script type="text/javascript" src="{{ asset('assets/plugins/switchery/switchery.min.js') }}"></script>
+	
 	{{ parent() }}
 	
 	<script>
@@ -158,10 +148,9 @@
 	    });
 	</script>
 	
-	<!--form wysiwig js-->
-    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    
 
     <script type="text/javascript">
         jQuery('#datepicker-autoclose').datepicker({

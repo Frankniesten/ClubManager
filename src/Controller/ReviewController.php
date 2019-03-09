@@ -14,12 +14,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ReviewFormType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class ReviewController extends AbstractController
 {
     /**
 	* @Route("/{entity}/{id}/review/create", name="app_person_review_create")
+	* @IsGranted("ROLE_REVIEW_CREATE")
 	*/
 	public function new (EntityManagerInterface $em, Request $request, $entity, $id)
 	{
@@ -92,6 +94,7 @@ class ReviewController extends AbstractController
 
 	/**
 	* @Route("/{entity}/{id}/review/{reviewID}/edit", name="app_review_edit")
+	* @IsGranted("ROLE_REVIEW_EDIT")
 	*/
 	public function edit(EntityManagerInterface $em, Request $request, $entity, $id, $reviewID)
 	{
@@ -143,6 +146,7 @@ class ReviewController extends AbstractController
 	
 	/**
 	* @Route("/{entity}/{id}/review/{reviewID}/delete", name="app_review_delete")
+	* @IsGranted("ROLE_REVIEW_DELETE")
 	*/
 	public function delete(EntityManagerInterface $em, Request $request, $entity, $id, $reviewID)
 	{

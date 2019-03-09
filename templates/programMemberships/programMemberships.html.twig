@@ -12,7 +12,7 @@
 {% endblock %}       
         
 
-{% block title %}Instellingen > Rollen{% endblock %}
+{% block title %}<i class="mdi mdi-tag-multiple"></i> Instellingen > Rollen{% endblock %}
 
 
 {% block body %}
@@ -23,9 +23,11 @@
         </div>
         
         <div class="col-4  ">
+        	{% if is_granted('ROLE_SETTINGS_CREATE') %}
 	        <div class="btn-group float-right">
 	        	<a href="{{ path('app_settings_program_membership_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
 	        </div>
+	        {% endif %}
         </div>
         
 	</div>
@@ -48,9 +50,10 @@
                     {% for data in data %}
 						<tr>
 						    <td style="padding-bottom: 0px;">
-							    <a href="{{ path('app_settings_program_membership_edit', {'id': data.id}) }}" class="waves-effect">{{ data.programName }}
+							    {{ data.programName }}
 							    	
 							    	<!-- Dropdown -->
+							    	{% if is_granted('ROLE_SETTINGS_EDIT') or is_granted('ROLE_SETTINGS_DELETE') %}
 								    <div class="dropdown pull-right">
 	                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
 	                                        <i class="mdi mdi-dots-horizontal"></i>
@@ -58,16 +61,19 @@
 	                                    
 	                                    <div class="dropdown-menu dropdown-menu-right">
 	                                        <!-- item-->
+	                                        {% if is_granted('ROLE_SETTINGS_EDIT') %}
 	                                        <a href="{{ path('app_settings_program_membership_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        {% endif %}
 	                                        <!-- item-->
+	                                        {% if is_granted('ROLE_SETTINGS_DELETE') %}
 	                                        <a href="{{ path('app_settings_program_membership_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        {% endif %}
 	                                    </div>
 	                                </div>
-	                               
-							    </a>
-							    
+	                                {% endif %}
+	                                <!-- End Dropdown -->
 						    </td>
-						    <td>{{ data.description }}</td>
+						    <td>{{ data.description | truncate(100) }}</td>
 						</tr>
 
 					{% endfor %}

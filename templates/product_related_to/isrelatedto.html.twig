@@ -4,9 +4,11 @@
     </div>
         
     <div class="col-4  ">
+    {% if is_granted('ROLE_PERSON_EDIT') %}
 	    <div class="btn-group float-right">
-	    	<a href="{{ path('app_product_isRelatedTo_edit', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-pencil"></i></a>
+	    	<a href="{{ path('app_product_isRelatedTo_edit', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
 	    </div>
+	{% endif %}
     </div>
         
 </div>

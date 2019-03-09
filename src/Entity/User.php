@@ -43,10 +43,11 @@ class User implements UserInterface
     private $person;
 
 
+
 	public function getId(): ?int
-    {
-        return $this->id;
-    }
+             {
+                 return $this->id;
+             }
   
     /**
      * A visual identifier that represents this user.

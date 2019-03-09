@@ -9,12 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
  
 class ProgramMembershipController extends AbstractController
 {
 	
     /**
      * @Route("/programmemberships", name="program_memberships")
+     * @IsGranted("ROLE_SETTINGS_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
@@ -31,6 +33,7 @@ class ProgramMembershipController extends AbstractController
 	
 	/**
      * @Route("/settings/programmembership/create", name="program_memberships_create")
+     * @IsGranted("ROLE_SETTINGS_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request)
 	{
@@ -45,7 +48,7 @@ class ProgramMembershipController extends AbstractController
 			$em->persist($programMembership);
 			$em->flush();
            
-			$this->addFlash('success', 'De nieuwe rol is opgeslagen!');
+			$this->addFlash('success', 'Rol: '.$programMembership->getProgramName().' is toegevoegd!');
 			
 			return $this->redirectToRoute('app_settings_program_memberships');			
 		}
@@ -58,6 +61,7 @@ class ProgramMembershipController extends AbstractController
 	
 	/**
      * @Route("/settings/programmembership/{id}/edit", name="programmembership_edit")
+     * @IsGranted("ROLE_SETTINGS_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -75,7 +79,7 @@ class ProgramMembershipController extends AbstractController
 			$em->persist($programMembership);
 			$em->flush();
            
-			$this->addFlash('success', 'De rol is aangepast!');
+			$this->addFlash('success', 'Rol: '.$programMembership->getProgramName().' is bijgewerkt!');
 			
 			return $this->redirectToRoute('app_settings_program_memberships');			
 		}
@@ -89,6 +93,7 @@ class ProgramMembershipController extends AbstractController
 	
 	/**
      * @Route("/settings/programmembership/{id}/delete", name="programmembership_delete")
+     * @IsGranted("ROLE_SETTINGS_DELETE")
      */
 	public function del(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -98,7 +103,7 @@ class ProgramMembershipController extends AbstractController
 			$em->remove($programMembership);
 			$em->flush();
            
-			$this->addFlash('success', 'De rol is verwijderd!');
+			$this->addFlash('warning', 'De rol is verwijderd!');
 			
 			return $this->redirectToRoute('app_settings_program_memberships');			
 	}

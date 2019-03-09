@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class EmployeeController extends AbstractController
 {
     /**
-    * @Route("/organization/{id}/employee/create", name="app_organization_employee_create")
+    * @Route("/organization/{id}/employee/EDIT", name="app_organization_employee_edit")
+    * @IsGranted("ROLE_ORGANIZATION_EDIT")
     */
     public function edit(EntityManagerInterface $em, Request $request, $id)
     {

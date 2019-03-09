@@ -29,10 +29,6 @@ app_person_delete:
 app_person_parents:
     path: /person/{id}/parents
     controller: App\Controller\PeopleController::show
-    
-app_person_parents_create:
-    path: /person/{id}/parents/create
-    controller: App\Controller\ParentsController::edit
 
 app_person_parents_edit:
     path: /person/{id}/parents/edit
@@ -61,10 +57,6 @@ app_person_membership_delete:
 app_person_musicalInstrument:
     path: /person/{id}/musical-instrument
     controller: App\Controller\PeopleController::show
-    
-app_person_musicalInstrument_create:
-    path: /person/{id}/musical-instrument/create
-    controller: App\Controller\MusicalInstrumentController::edit
 
 app_person_musicalInstrument_edit:
     path: /person/{id}/musical-instrument/edit
@@ -93,10 +85,6 @@ app_person_education_delete:
 app_person_memberOf:
     path: /person/{id}/memberof
     controller: App\Controller\PeopleController::show
-
-app_person_memberOf_create:
-    path: /person/{id}/memberof/create
-    controller: App\Controller\MemberOfController::edit
     
 app_person_memberOf_edit:
     path: /person/{id}/memberof/edit
@@ -129,10 +117,6 @@ app_organization_delete:
 app_organization_employee:
     path: /organization/{id}/employee
     controller: App\Controller\OrganizationsController::show
-
-app_organization_employee_create:
-    path: /organization/{id}/employee/create
-    controller: App\Controller\EmployeeController::edit
     
 app_organization_employee_edit:
     path: /organization/{id}/employee/edit
@@ -217,21 +201,21 @@ app_offer_delete:
     controller: App\Controller\OffersController::delete       
 
 
-# ---Categories--- #
+# ---Categoriess--- #
 app_settings_categories:
     path: /settings/categories
     controller: App\Controller\CategoriesController::list
 
-app_settings_categorie_create:
-    path: /settings/categorie/create
+app_settings_category_create:
+    path: /settings/category/create
     controller: App\Controller\CategoriesController::new
     
-app_settings_categorie_edit:
-    path: /settings/categorie/{id}/edit
+app_settings_category_edit:
+    path: /settings/category/{id}/edit
     controller: App\Controller\CategoriesController::edit
 
-app_settings_categorie_delete:
-    path: /settings/categorie/{id}/delete
+app_settings_category_delete:
+    path: /settings/category/{id}/delete
     controller: App\Controller\CategoriesController::show
 
 
@@ -363,24 +347,7 @@ app_user_edit:
 app_user_delete:
     path: /user/{id}/delete
     controller: App\Controller\UserController::delete
-    
 
-# ---Roles--- # 
-app_roles:
-    path: /roles
-    controller: App\Controller\RolesController::list
-    
-app_role_create:
-    path: /role/create
-    controller: App\Controller\RolesController::new
-
-app_role_edit:
-    path: /role/{id}/edit
-    controller: App\Controller\RolesController::edit
-
-app_role_delete:
-    path: /role/{id}/delete
-    controller: App\Controller\RolesController::delete
 
 # ---SAML--- #
 hslavich_saml_sp:

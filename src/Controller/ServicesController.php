@@ -9,11 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ServicesController extends AbstractController
 {
     /**
      * @Route("/services", name="app_services")
+     * @IsGranted("ROLE_SERVICES_VIEW")
      */
     public function list(EntityManagerInterface $em, Request $request)
     {
@@ -28,6 +30,7 @@ class ServicesController extends AbstractController
     
     /**
      * @Route("/service/{id}", name="app_service")
+     * @IsGranted("ROLE_SERVICES_VIEW")
      */
 	public function show(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -46,6 +49,7 @@ class ServicesController extends AbstractController
     
     /**
      * @Route("/service/create", name="app_service_create")
+     * @IsGranted("ROLE_SERVICES_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request)
 	{
@@ -72,6 +76,7 @@ class ServicesController extends AbstractController
 	
 	/**
      * @Route("/servcie/{id}/edit", name="app_service_edit")
+     * @IsGranted("ROLE_SERVICES_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -105,6 +110,7 @@ class ServicesController extends AbstractController
 	
 	/**
      * @Route("/service/{id}/delete", name="service_delete")
+     * @IsGranted("ROLE_SERVICES_DELETE")
      */
 	public function del(EntityManagerInterface $em, Request $request, $id)
 	{

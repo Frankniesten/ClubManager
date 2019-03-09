@@ -23,11 +23,12 @@
         </div>
         
         <div class="col-4  ">
-	        <div class="btn-group float-right">
-	        {% if is_granted('ROLE_PERSON_CREATE') %}
+        
+        {% if is_granted('ROLE_PERSON_CREATE') %}
+            <div class="btn-group float-right">  
 	        	<a href="{{ path('app_person_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
-	        {% endif %}
 	        </div>
+	    {% endif %}    
         </div>
         
 	</div>
@@ -51,9 +52,9 @@
                     {% for data in data %}
 						<tr>
 						    <td style="padding-bottom: 0px;">
-							    <a href="{{ path('app_person', {'id': data.id}) }}" class="waves-effect">{{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}
-							    	
+							    <a href="{{ path('app_person', {'id': data.id}) }}" class="waves-effect">{{ data.familyName }}, {{ data.givenName }}{{ data.additionalName }}</a>
 							    	<!-- Dropdown -->
+							    	{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 								    <div class="dropdown pull-right">
 	                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
 	                                        <i class="mdi mdi-dots-horizontal"></i>
@@ -61,17 +62,23 @@
 	                                    
 	                                    <div class="dropdown-menu dropdown-menu-right">
 	                                        <!-- item-->
+	                                        {% if is_granted('ROLE_PERSON_EDIT') %}
 	                                        <a href="{{ path('app_person_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        {% endif %}
 	                                        <!-- item-->
+	                                        {% if is_granted('ROLE_PERSON_DELETE') %}
 	                                        <a href="{{ path('app_person_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        {% endif %}
 	                                    </div>
 	                                </div>
-	                               
-							    </a>
+	                                {% endif %}
+	                                <!-- End Dropdown -->
+							    	
+							    
 							    
 						    </td>
 						    <td>{{ data.email }}</td>
-						    <td>{{ data.categorie.name }}</td>
+						    <td>{{ data.category.name }}</td>
 						</tr>
 
 					{% endfor %}

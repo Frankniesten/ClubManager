@@ -12,7 +12,7 @@
 {% endblock %}       
         
 
-{% block title %}Instellingen > Categorieën{% endblock %}
+{% block title %}<i class="mdi mdi-tag-multiple"></i> Instellingen > Categorieën{% endblock %}
 
 
 {% block body %}
@@ -23,9 +23,11 @@
         </div>
         
         <div class="col-4  ">
+        	{% if is_granted('ROLE_SETTINGS_CREATE') %}
 	        <div class="btn-group float-right">
-	        	<a href="{{ path('app_settings_categorie_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
+	        	<a href="{{ path('app_settings_category_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
 	        </div>
+	        {% endif %}
         </div>
         
 	</div>
@@ -46,12 +48,13 @@
 
 
                     <tbody>
-                    {% for categorie in data %}
+                    {% for category in data %}
 						<tr>
 						    <td style="padding-bottom: 0px;">
-							    <a href="{{ path('app_settings_categorie_edit', {'id': categorie.id}) }}" class="waves-effect">{{ categorie.name }}
+							    {{ category.name }}
 							    	
 							    	<!-- Dropdown -->
+							    	{% if is_granted('ROLE_SETTINGS_EDIT') or is_granted('ROLE_SETTINGS_DELETE') %}
 								    <div class="dropdown pull-right">
 	                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
 	                                        <i class="mdi mdi-dots-horizontal"></i>
@@ -59,17 +62,37 @@
 	                                    
 	                                    <div class="dropdown-menu dropdown-menu-right">
 	                                        <!-- item-->
-	                                        <a href="{{ path('app_settings_categorie_edit', {'id': categorie.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        {% if is_granted('ROLE_SETTINGS_EDIT') %}
+	                                        <a href="{{ path('app_settings_category_edit', {'id': category.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        {% endif %}
 	                                        <!-- item-->
-	                                        <a href="{{ path('app_settings_categorie_delete', {'id': categorie.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        {% if is_granted('ROLE_SETTINGS_DELETE') %}
+	                                        <a href="{{ path('app_settings_category_delete', {'id': category.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        {% endif %}
 	                                    </div>
 	                                </div>
-	                               
-							    </a>
-							    
+	                                {% endif %}
+	                                <!-- End Dropdown -->
+  
 						    </td>
-						    <td>{{ categorie.description }}</td>
-						    <td>{{ categorie.additionalType }}</td>
+						    <td>{{ category.description | truncate(100) }}</td>
+							<td>
+						    	{% if category.additionalType == "person" %}
+				            		<span class="badge badge-purple">Personen</span>
+				            	{% endif %}
+				            	{% if category.additionalType == "organization" %}
+				            		<span class="badge badge-purple">Organisaties</span>
+				            	{% endif %}
+				            	{% if category.additionalType == "event" %}
+				            		<span class="badge badge-purple">Events</span>
+				            	{% endif %}
+				            	{% if category.additionalType == "product" %}
+				            		<span class="badge badge-purple">Inventaris</span>
+				            	{% endif %}
+				            	{% if category.additionalType == "service" %}
+				            		<span class="badge badge-purple">Producten</span>
+				            	{% endif %}
+						    </td>
 						</tr>
 
 					{% endfor %}

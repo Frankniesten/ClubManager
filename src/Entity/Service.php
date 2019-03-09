@@ -24,7 +24,7 @@ class Service
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $serviceType;
 
@@ -39,9 +39,9 @@ class Service
     private $availableChannel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Categorie", inversedBy="services")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="services")
      */
-    private $categorie;
+    private $category;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="service")
@@ -100,14 +100,14 @@ class Service
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    public function getCategory(): ?Category
     {
-        return $this->categorie;
+        return $this->category;
     }
 
-    public function setCategorie(?Categorie $categorie): self
+    public function setCategory(?Category $category): self
     {
-        $this->categorie = $categorie;
+        $this->category = $category;
 
         return $this;
     }

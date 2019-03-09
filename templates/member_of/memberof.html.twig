@@ -4,9 +4,11 @@
     </div>
         
     <div class="col-4  ">
+    	{% if is_granted('ROLE_PERSON_EDIT') %}
 	    <div class="btn-group float-right">
-	    	<a href="{{ path('app_person_memberOf_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	<a href="{{ path('app_person_memberOf_edit', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
 	    </div>
+	    {% endif %}
     </div>
         
 </div>
@@ -23,6 +25,7 @@
         <tr>
             <td>{{ memberOf.programName }}
 	            
+	            {% if is_granted('ROLE_PERSON_EDIT') %}
 	            <!-- Dropdown -->
 			    <div class="dropdown pull-right">
                     <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
@@ -34,10 +37,11 @@
                         <a href="{{ path('app_person_memberOf_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
                     </div>
                 </div>
+                {% endif %}
                 
             </td>
             <td>
-	            {{ memberOf.description }}
+	            {{ memberOf.description | truncate(100) }}
             </td>
             
             

@@ -24,7 +24,9 @@
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
-	        	<a href="{{ path('app_user_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
+	        	{% if is_granted('ROLE_USERS_EDIT') %}
+	        		<a href="{{ path('app_user_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
+	        	{% endif %}
 	        </div>
         </div>
         
@@ -49,9 +51,11 @@
                     {% for data in data %}
 						<tr>
 						    <td style="padding-bottom: 0px;">
-							    <a href="{{ path('app_user_edit', {'id': data.id}) }}" class="waves-effect">
-							    	{{ data.person.familyName }}, {{ data.person.givenName }} {{ data.person.additionalName }}
+							  	{{ data.person.familyName }}, {{ data.person.givenName }} {{ data.person.additionalName }}
+							    	
+							    	
 							    	<!-- Dropdown -->
+							    	{% if is_granted('ROLE_USERS_EDIT') or is_granted('ROLE_USERS_DELETE') %}
 								    <div class="dropdown pull-right">
 	                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
 	                                        <i class="mdi mdi-dots-horizontal"></i>
@@ -59,14 +63,18 @@
 	                                    
 	                                    <div class="dropdown-menu dropdown-menu-right">
 	                                        <!-- item-->
-	                                        <a href="{{ path('app_user_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        {% if is_granted('ROLE_USERS_EDIT') %}
+	                                        	<a href="{{ path('app_user_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        {% endif %}
 	                                        <!-- item-->
-	                                        <a href="{{ path('app_user_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        {% if is_granted('ROLE_USERS_DELETE') %}
+	                                        	<a href="{{ path('app_user_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        {% endif %}
 	                                    </div>
 	                                </div>
-	                               
-							    </a>
-							    
+	                                {% endif %}
+	                                <!-- End Dropdown -->
+	                                
 						    </td>
 						    <td>{{ data.username }}</td>
 						    <td>{{ data.displayName }}</td>

@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class OffersController extends AbstractController
 {
     /**
      * @Route("/service/{id}/offer/create", name="app_offer_create")
+     * @IsGranted("ROLE_SERVICES_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -53,7 +55,8 @@ class OffersController extends AbstractController
 	}
 	
 	/**
-	* @Route("/service/{id}/offer/{offerID}/edit", name="app_offer_create")
+	* @Route("/service/{id}/offer/{offerID}/edit", name="app_offer_edit")
+	* @IsGranted("ROLE_SERVICES_EDIT")
 	*/
 	public function edit(EntityManagerInterface $em, Request $request, $id, $offerID)
 	{
@@ -86,6 +89,7 @@ class OffersController extends AbstractController
 		
 	/**
 	* @Route("/service/{id}/offer/{mofferID}/delete", name="app_offer_delete")
+	* @IsGranted("ROLE_SERVICES_DELETE")
 	*/
 	public function delete(EntityManagerInterface $em, Request $request, $id, $offerID)
 	{

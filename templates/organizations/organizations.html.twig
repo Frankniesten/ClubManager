@@ -23,9 +23,11 @@
         </div>
         
         <div class="col-4  ">
+        	{% if is_granted('ROLE_ORGANIZATION_CREATE') %}
 	        <div class="btn-group float-right">
 	        	<a href="{{ path('app_organization_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
 	        </div>
+	        {% endif %} 
         </div>
         
 	</div>
@@ -52,6 +54,7 @@
 							    <a href="{{ path('app_organization', {'id': data.id}) }}" class="waves-effect">{{ data.legalName }}
 							    	
 							    	<!-- Dropdown -->
+							    	{% if is_granted('ROLE_ORGANIZATION_EDIT') or is_granted('ROLE_ORGANIZATION_DELETE') %}
 								    <div class="dropdown pull-right">
 	                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
 	                                        <i class="mdi mdi-dots-horizontal"></i>
@@ -59,17 +62,23 @@
 	                                    
 	                                    <div class="dropdown-menu dropdown-menu-right">
 	                                        <!-- item-->
+	                                        {% if is_granted('ROLE_ORGANIZATION_EDIT') %}
 	                                        <a href="{{ path('app_organization_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        {% endif %}
 	                                        <!-- item-->
+	                                        {% if is_granted('ROLE_ORGANIZATION_DELETE') %}
 	                                        <a href="{{ path('app_organization_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        {% endif %}
 	                                    </div>
 	                                </div>
-	                               
+	                                {% endif %}
+	                                <!-- End Dropdown -->
+	                                
 							    </a>
 							    
 						    </td>
 						    <td>{{ data.email }}</td>
-						    <td>{{ data.categorie.name }}</td>
+						    <td>{{ data.category.name }}</td>
 						</tr>
 
 					{% endfor %}

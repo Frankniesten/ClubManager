@@ -6,13 +6,17 @@
 {% block body %}
 	<div class="row align-items-center">
         <div class="col">
-	        <h2>{{ data.legalName }}&nbsp;<span class="badge badge-purple">{{ data.categorie.name }}</span></h2>
+	        <h2>{{ data.legalName }}&nbsp;<span class="badge badge-purple">{{ data.category.name }}</span></h2>
         </div>
         
         <div class="col-4  ">
 	        <div class="btn-group float-right">
+	        	{% if is_granted('ROLE_ORGANIZATION_EDIT') %}
 	        	<a href="{{ path('app_organization_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+	        	{% endif %}
+	        	{% if is_granted('ROLE_ORGANIZATION_DELETE') %}
 	        	<a href="{{ path('app_organization_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+	        	{% endif %}
 				<a href="{{ path('app_organizations') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 	        </div>
         </div>

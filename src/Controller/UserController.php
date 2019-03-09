@@ -11,11 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class UserController extends AbstractController
 {
     /**
      * @Route("/users", name="app_users")
+     * @IsGranted("ROLE_USERS_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
@@ -30,6 +32,7 @@ class UserController extends AbstractController
 	
 	/**
      * @Route("/user/create", name="app_user_create")
+     * @IsGranted("ROLE_USERS_EDIT")
      */
 	public function new(EntityManagerInterface $em, Request $request)
 	{
@@ -58,6 +61,7 @@ class UserController extends AbstractController
 	
 	/**
      * @Route("/user/{id}/edit", name="app_user_edit")
+     * @IsGranted("ROLE_USERS_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -66,6 +70,7 @@ class UserController extends AbstractController
 
 		          
 		$form = $this->createForm(UserEditFormType::class, $user);
+		
 		
 		$form->handleRequest($request);
 		
@@ -89,6 +94,7 @@ class UserController extends AbstractController
 	
 	/**
      * @Route("/user/{id}/delete", name="user_delete")
+     * @IsGranted("ROLE_USERS_DELETE")
      */
 	public function delete(EntityManagerInterface $em, Request $request, $id)
 	{

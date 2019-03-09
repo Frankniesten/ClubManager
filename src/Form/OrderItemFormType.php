@@ -32,6 +32,7 @@ class OrderItemFormType extends AbstractType
 					    'required' => true,
 					    'label' => 'Product',
 					    'multiple' => false,
+					    'placeholder' => 'Selecteer...',
 					    'attr' => [
 							'class' => 'select2'
 						]

@@ -4,9 +4,11 @@
     </div>
         
     <div class="col-4  ">
+    {% if is_granted('ROLE_PERSON_CREATE') %}
 	    <div class="btn-group float-right">
 	    	<a href="{{ path('app_person_membership_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
 	    </div>
+	{% endif %}
     </div>
         
 </div>
@@ -20,23 +22,31 @@
 				<td><b>Aantal Jaren</b></td>
         	</tr>
         </thead>
-    {% for membership in data.membership %}
+		
+		{% for membership in data.membership %}
         <tr>
             <td>{{ membership.startDate | date("d-m-Y") }}
 	            
 	            <!-- Dropdown -->
+		    	{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 			    <div class="dropdown pull-right">
-                    <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
                         <i class="mdi mdi-dots-horizontal"></i>
                     </a>
                     
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
+                        {% if is_granted('ROLE_PERSON_EDIT') %}
                         <a href="{{ path('app_person_membership_edit', {'id': data.id, 'membershipID': membership.id}) }}" class="dropdown-item">Bewerken</a>
+                        {% endif %}
                         <!-- item-->
+                        {% if is_granted('ROLE_PERSON_DELETE') %}
                         <a href="{{ path('app_person_membership_delete', {'id': data.id, 'membershipID': membership.id}) }}" class="dropdown-item">Verwijderen</a>
+                        {% endif %}
                     </div>
                 </div>
+                {% endif %}
+                <!-- End Dropdown -->
                 
             </td>
             <td>{{ membership.endDate is empty ? "" : membership.endDate|date("d-m-Y") }}</td>
@@ -47,7 +57,8 @@
 	         
             </td>
         </tr>
-    {% endfor %} 
+		{% endfor %}
+		
     	<tr>
             <td></td>
             <td><b>Totaal</b></td>

@@ -28,6 +28,7 @@ class EducationFormType extends AbstractType
 					    },
 					    'choice_label' => 'legalName',
 					    'required' => false,
+					    'placeholder' => 'Selecteer...',
 					    'label' => 'Muziekschool',
 					    'attr' => [
 							'class' => 'select2'

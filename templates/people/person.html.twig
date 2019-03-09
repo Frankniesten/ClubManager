@@ -8,7 +8,7 @@
 	<div class="row align-items-center">
         <div class="col">
 	        <h2>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}
-		        <span class="badge badge-purple">{{ data.categorie.name }}</span>
+		        <span class="badge badge-purple">{{ data.category.name }}</span>
 		        
 		        {% if data.alumni == true  %}       
 		        <span class="badge badge-success">Oud Lid</span>
@@ -106,7 +106,7 @@
             </a>
         </li>
         
-	    {% if data.categorie.id == 1 or data.alumni == true  %}
+	    {% if data.category.id == 1 or data.alumni == true  %}
 	    
 	    <li class="nav-item">
             <a href="#parents" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_parents' ? 'active' }}">

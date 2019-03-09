@@ -9,12 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ProductRelatedToController extends AbstractController
 {
 	
     /**
     * @Route("/product/{id}/isrelatedto/edit", name="app_product_isRelatedTo_edit")
+    * @IsGranted("ROLE_PRODUCT_EDIT")
     */
     public function edit(EntityManagerInterface $em, Request $request, $id)
     {

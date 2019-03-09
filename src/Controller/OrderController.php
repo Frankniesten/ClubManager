@@ -11,12 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class OrderController extends AbstractController
 {
 	/**
      * @Route("/orders", name="app_orders")
+     * @IsGranted("ROLE_SERVICES_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
@@ -32,6 +34,7 @@ class OrderController extends AbstractController
 	
 	/**
      * @Route("/person/{id}/order/{orderID}", name="app_order")
+     * @IsGranted("ROLE_SERVICES_VIEW")
      */
 	public function show(EntityManagerInterface $em, Request $request, $id, $orderID)
 	{
@@ -48,6 +51,7 @@ class OrderController extends AbstractController
 	
 	/**
      * @Route("/person/{id}/order/create", name="app_order_create")
+     * @IsGranted("ROLE_SERVICES_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request, $id)
 	{
@@ -86,6 +90,7 @@ class OrderController extends AbstractController
 	
 	/**
 	* @Route("/person/{id}/order/{orderID}/edit", name="app_order_edit")
+	* @IsGranted("ROLE_SERVICES_EDIT")
 	*/
 	public function edit(EntityManagerInterface $em, Request $request, $id, $orderID)
 	{
@@ -117,6 +122,7 @@ class OrderController extends AbstractController
 	
 	/**
 	* @Route("/person/{id}/order/{orderID}/delete", name="app_order_delete")
+	* @IsGranted("ROLE_SERVICES_DELETE")
 	*/
 	public function delete(EntityManagerInterface $em, Request $request, $id, $orderID)
 	{

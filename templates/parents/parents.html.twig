@@ -4,9 +4,11 @@
     </div>
         
     <div class="col-4  ">
+    	{% if is_granted('ROLE_PERSON_EDIT') %}
 	    <div class="btn-group float-right">
-	    	<a href="{{ path('app_person_parents_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	<a href="{{ path('app_person_parents_edit', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
 	    </div>
+	    {% endif %}
     </div>
         
 </div>
@@ -24,7 +26,7 @@
         <tr>
             <td>
             	<a href="{{ path('app_person_parents', {'id': parents.id}) }}">{{ parents.familyName }}, {{ parents.givenName }} {{ parents.additionalName }}</a>
-            	
+            	{% if is_granted('ROLE_PERSON_EDIT') %}
 	            <!-- Dropdown -->
 			    <div class="dropdown pull-right">
                     <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
@@ -36,13 +38,13 @@
                         <a href="{{ path('app_person_parents_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
                     </div>
                 </div>
-                
+                {% endif %}
             </td>
             <td>
 	            <a href="mailto:{{ parents.email }}">{{ parents.email }}</a>
             </td>
             <td>
-	         	{{ parents.categorie.name }}	
+	         	{{ parents.category.name }}	
             </td>
         </tr>
     {% endfor %} 
