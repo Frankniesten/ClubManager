@@ -8,10 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
+ * @Gedmo\Loggable
  */
 class Products
 {
@@ -27,31 +29,37 @@ class Products
 
     /**
      * @ORM\Column(type="text")
+     * @Gedmo\Versioned
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $productID;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $model;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $manufacturer;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
      */
     private $purchaseDate;
 

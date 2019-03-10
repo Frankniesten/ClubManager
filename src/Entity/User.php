@@ -6,11 +6,13 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
  * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @Gedmo\Loggable
  */
 class User implements UserInterface
 {
@@ -26,6 +28,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Gedmo\Versioned
      */
     private $username;
 
@@ -36,11 +39,13 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $displayName;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Person", inversedBy="user")
+     * @Gedmo\Versioned
      */
     private $person;
 

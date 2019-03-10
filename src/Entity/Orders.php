@@ -8,10 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
+ * @Gedmo\Loggable
  */
 class Orders
 {
@@ -27,26 +29,31 @@ class Orders
 
     /**
      * @ORM\Column(type="datetime")
+     * @Gedmo\Versioned
      */
     private $orderDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="customer")
+     * @Gedmo\Versioned
      */
     private $person;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $orderStatus;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="customer")
+     * @Gedmo\Versioned
      */
     private $organization;
 
     /**
      * @ORM\Column(type="float", nullable=true)
+     * @Gedmo\Versioned
      */
     private $price;
 

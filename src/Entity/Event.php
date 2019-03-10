@@ -6,10 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ * @Gedmo\Loggable
  */
 class Event
 {
@@ -25,36 +27,43 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Versioned
      */
     private $about;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $description;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
      */
     private $doorTime;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $eventStatus;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      */
     private $maximumAttendeeCapacity;
 

@@ -6,10 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\OwnershipInfoRepository")
+ * @Gedmo\Loggable
  */
 class OwnershipInfo
 {
@@ -25,27 +27,32 @@ class OwnershipInfo
 
     /**
      * @ORM\Column(type="date")
+     * @Gedmo\Versioned
      */
     private $ownedFrom;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
      */
     private $ownedTrough;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Products", inversedBy="ownershipInfos")
      * @ORM\JoinColumn(nullable=false)
+     * @Gedmo\Versioned
      */
     private $typeofGood;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="owns", fetch="EAGER")
+     * @Gedmo\Versioned
      */
     private $person;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="owns")
+     * @Gedmo\Versioned
      */
     private $organization;
 

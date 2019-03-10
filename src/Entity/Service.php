@@ -8,10 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\ServiceRepository")
+ * @Gedmo\Loggable
  */
 class Service
 {
@@ -27,21 +29,25 @@ class Service
 
     /**
      * @ORM\Column(type="text")
+     * @Gedmo\Versioned
      */
     private $serviceType;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $availableChannel;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="services")
+     * @Gedmo\Versioned
      */
     private $category;
 

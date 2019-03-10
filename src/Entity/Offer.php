@@ -8,10 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\OfferRepository")
+ * @Gedmo\Loggable
  */
 class Offer
 {
@@ -27,46 +29,55 @@ class Offer
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $availability;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      */
     private $inventoryLevel;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Service", inversedBy="offers")
+     * @Gedmo\Versioned
      */
     private $itemOffered;
 
     /**
      * @ORM\Column(type="float", length=255, nullable=true)
+     * @Gedmo\Versioned
      */
     private $price;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Versioned
      */
     private $validFrom;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Versioned
      */
     private $validThrough;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Versioned
      */
     private $availabilityEnds;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Versioned
      */
     private $availabilityStarts;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Versioned
      */
     private $alternateName;
 

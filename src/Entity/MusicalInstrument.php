@@ -6,10 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\MusicalInstrumentRepository")
+ * @Gedmo\Loggable
  */
 class MusicalInstrument
 {
@@ -26,6 +28,7 @@ class MusicalInstrument
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\Versioned
      */
     private $musicalInstrument;
 

@@ -6,10 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\OrderItemRepository")
+ * @Gedmo\Loggable
  */
 class OrderItem
 {
@@ -25,16 +27,19 @@ class OrderItem
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Offer", inversedBy="orderItems")
+     * @Gedmo\Versioned
      */
     private $orderedItem;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      */
     private $orderQuantity;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Orders", inversedBy="orderItem")
+     * @Gedmo\Versioned
      */
     private $orders;
 

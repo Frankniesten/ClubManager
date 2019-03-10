@@ -10,11 +10,13 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  * @UniqueEntity("email")
+ * @Gedmo\Loggable
  */
 class Person
 {
@@ -31,52 +33,62 @@ class Person
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank
+     * @Gedmo\Versioned
      */
     private $givenName;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $additionalName;
 
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank
+     * @Gedmo\Versioned
      */
     private $familyName;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
      */
     private $birthDate;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $gender;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true, unique = true)
+     * @Gedmo\Versioned
      */
     private $email;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $telephone_2;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @Gedmo\Versioned
      */
     private $category;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $addressCountry;
 
@@ -87,11 +99,13 @@ class Person
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $streetAddress;
 

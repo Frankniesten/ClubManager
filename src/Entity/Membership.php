@@ -6,10 +6,12 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\MembershipRepository")
+ * @Gedmo\Loggable
  */
 class Membership
 {
@@ -25,16 +27,19 @@ class Membership
 
     /**
      * @ORM\Column(type="date")
+     * @Gedmo\Versioned
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     * @Gedmo\Versioned
      */
     private $endDate;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Person", inversedBy="membership")
+     * @Gedmo\Versioned
      */
     private $person;
 
