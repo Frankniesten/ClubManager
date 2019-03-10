@@ -1,3 +1,3 @@
-Hello World!\
+Checkout the gitHub Page:
 
-cgeck
+https://frankniesten.github.io/ClubManager/

@@ -52,7 +52,7 @@
                     {% for data in data %}
 						<tr>
 						    <td style="padding-bottom: 0px;">
-							    <a href="{{ path('app_person', {'id': data.id}) }}" class="waves-effect">{{ data.familyName }}, {{ data.givenName }}{{ data.additionalName }}</a>
+							    <a href="{{ path('app_person', {'id': data.id}) }}" class="waves-effect">{{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}</a>
 							    	<!-- Dropdown -->
 							    	{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 								    <div class="dropdown pull-right">
