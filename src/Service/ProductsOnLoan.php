@@ -14,15 +14,10 @@ class ProductsOnLoan extends AbstractController
 	    $products = $this->getDoctrine()
         ->getRepository(Products::class)
         ->findUniqueProducts();
-	    	    	    
-	    	    	 
-	    	    	    
+	    	    	        	    	    
 	    foreach ($products as $key => $value)
 		{
 			$loan = false;
-			
-			
-		
 			
 			foreach ($value->getOwnershipInfos() as $k => $v)
 			{
