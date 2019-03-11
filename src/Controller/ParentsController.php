@@ -22,6 +22,10 @@ class ParentsController extends AbstractController
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
+		
+		if (!$person) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 	    
 		//generate Form.
 	    $form = $this->createForm(ParentsFormType::class, $person, array('personId' => $id));

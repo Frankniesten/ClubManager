@@ -68,6 +68,10 @@ class PeopleController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
+		
+		if (!$person) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
         
 		return $this->render('people/person.html.twig', [
         	'data' => $person
@@ -83,7 +87,10 @@ class PeopleController extends AbstractController
 		$em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
 		        
-        
+        if (!$person) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
+    	
 		$form = $this->createForm(PersonFormType::class, $person);
 		
 		$form->handleRequest($request);
@@ -115,11 +122,15 @@ class PeopleController extends AbstractController
 		$em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
 
-			$em->remove($person);
-			$em->flush();
-           
-			$this->addFlash('warning', 'Persoon is verwijderd!');
-			
-			return $this->redirectToRoute('app_people');			
-	}
+		if (!$person) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
+    	
+		$em->remove($person);
+		$em->flush();
+       
+		$this->addFlash('warning', 'Persoon is verwijderd!');
+		
+		return $this->redirectToRoute('app_people');			
+}
 }

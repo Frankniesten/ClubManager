@@ -67,6 +67,10 @@ class UserController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$user = $em->getRepository(User::class)->find($id);
+		
+		if (!$user) {
+        	throw $this->createNotFoundException('Deze dienst bestaat niet.');
+    	}
 
 		          
 		$form = $this->createForm(UserEditFormType::class, $user);
@@ -100,6 +104,10 @@ class UserController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$user = $em->getRepository(User::class)->find($id);
+		
+		if (!$user) {
+        	throw $this->createNotFoundException('Deze dienst bestaat niet.');
+    	}
 
 			$em->remove($user);
 			$em->flush();

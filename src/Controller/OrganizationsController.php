@@ -67,6 +67,10 @@ class OrganizationsController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$organization = $em->getRepository(Organization::class)->find($id);
+		
+		if (!$organization) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 		        
 		return $this->render('organizations/organization.html.twig', [
         	'data' => $organization
@@ -82,7 +86,10 @@ class OrganizationsController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$organization = $em->getRepository(Organization::class)->find($id);
-		        
+		    
+		if (!$organization) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}     
         
 		$form = $this->createForm(OrganizationFormType::class, $organization);
 		
@@ -113,6 +120,10 @@ class OrganizationsController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$organization = $em->getRepository(Organization::class)->find($id);
+		
+		if (!$organization) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 
 			$em->remove($organization);
 			$em->flush();

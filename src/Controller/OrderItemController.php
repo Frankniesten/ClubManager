@@ -24,7 +24,11 @@ class OrderItemController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		
-		$data = $em->getRepository(Orders::class)->find($orderID);    
+		$data = $em->getRepository(Orders::class)->find($orderID);   
+		
+		if (!$data) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 		
 		$form = $this->createForm(OrderItemFormType::class);
 		$form->handleRequest($request);
@@ -65,6 +69,11 @@ class OrderItemController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$order = $em->getRepository(OrderItem::class)->find($orderItemID);
+		
+		if (!$order) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
+		
 	    
 		$form = $this->createForm(OrderItemFormType::class, $order);
 		
@@ -99,6 +108,10 @@ class OrderItemController extends AbstractController
 		
 		$em = $this->getDoctrine()->getManager();
 		$orderItem = $em->getRepository(OrderItem::class)->find($orderItemID);
+		
+		if (!$orderItem) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 		        
 		$em->remove($orderItem);
 		$em->flush();

@@ -48,6 +48,10 @@ class ReviewController extends AbstractController
 		    $data = $em->getRepository(Service::class)->find($id);    
 	    }
 	    
+	    if (!$data) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
+	    
 	    $form = $this->createForm(ReviewFormType::class);
 		$form->handleRequest($request);
 		
@@ -100,6 +104,10 @@ class ReviewController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$review = $em->getRepository(Review::class)->find($reviewID);
+		
+		if (!$review) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 		        
 		$form = $this->createForm(ReviewFormType::class, $review);
 		$form->handleRequest($request);
@@ -153,6 +161,10 @@ class ReviewController extends AbstractController
 		
 		$em = $this->getDoctrine()->getManager();
 		$review = $em->getRepository(Review::class)->find($reviewID);
+		
+		if (!$review) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 		        
 		$em->remove($review);
 		$em->flush();

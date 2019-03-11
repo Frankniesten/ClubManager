@@ -65,6 +65,10 @@ class MusicalInstrumentsController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$musicalInstrument = $em->getRepository(MusicalInstrument::class)->find($id);
+		
+		if (!$musicalInstrument) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 		        
         
 		$form = $this->createForm(MusicalInstrumentFormType::class, $musicalInstrument);
@@ -96,6 +100,10 @@ class MusicalInstrumentsController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$musicalInstrument = $em->getRepository(MusicalInstrument::class)->find($id);
+		
+		if (!$musicalInstrument) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 
 			$em->remove($musicalInstrument);
 			$em->flush();

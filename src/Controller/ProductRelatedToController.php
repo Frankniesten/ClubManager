@@ -23,6 +23,10 @@ class ProductRelatedToController extends AbstractController
 	    //get product object.
 	    $em = $this->getDoctrine()->getManager();
 		$products = $em->getRepository(Products::class)->find($id);
+		
+		if (!$products) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 	    
 		//generate Form.
 	    $form = $this->createForm(ProductIsRelatedToFormType::class, $products, array('productId' => $id));

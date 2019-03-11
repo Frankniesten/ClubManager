@@ -21,7 +21,11 @@ class OffersController extends AbstractController
 	public function new(EntityManagerInterface $em, Request $request, $id)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$data = $em->getRepository(Service::class)->find($id);    
+		$data = $em->getRepository(Service::class)->find($id);   
+		
+		if (!$data) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 	    
 		
 		$form = $this->createForm(OfferFormType::class);
@@ -63,7 +67,10 @@ class OffersController extends AbstractController
 		$em = $this->getDoctrine()->getManager();
 		$offer = $em->getRepository(Offer::class)->find($offerID);
 		        
-        
+        if (!$offer) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
+    	
 		$form = $this->createForm(OfferFormType::class, $offer);
 		
 		$form->handleRequest($request);
@@ -96,6 +103,10 @@ class OffersController extends AbstractController
 		
 		$em = $this->getDoctrine()->getManager();
 		$offer = $em->getRepository(Offer::class)->find($offerID);
+		
+		if (!$offer) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 		        
 		$em->remove($offer);
 		$em->flush();

@@ -79,6 +79,10 @@ class OwnsController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$owns = $em->getRepository(OwnershipInfo::class)->find($ownershipInfoID);
+		
+		if (!$owns) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 		        
         
 		$form = $this->createForm(OwnsEditFormType::class, $owns);
@@ -124,6 +128,10 @@ class OwnsController extends AbstractController
 		
 		$em = $this->getDoctrine()->getManager();
 		$owns = $em->getRepository(OwnershipInfo::class)->find($ownershipInfoID);
+		
+		if (!$owns) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 		        
 		$em->remove($owns);
 		$em->flush();

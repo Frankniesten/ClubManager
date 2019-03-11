@@ -23,6 +23,10 @@ class EmployeeController extends AbstractController
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
 		$organization = $em->getRepository(Organization::class)->find($id);
+		
+		if (!$organization) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 	    
 		//generate Form.
 	    $form = $this->createForm(EmployeeFormType::class, $organization);

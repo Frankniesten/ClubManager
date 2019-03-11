@@ -66,6 +66,10 @@ class CategoriesController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->find($id);
+		
+		if (!$category) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 		        
 		$form = $this->createForm(CategoryFormType::class, $category);
 		
@@ -96,6 +100,10 @@ class CategoriesController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->find($id);
+		
+		if (!$category) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}    
 
 			$em->remove($category);
 			$em->flush();

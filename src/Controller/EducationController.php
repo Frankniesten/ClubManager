@@ -56,7 +56,10 @@ class EducationController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$education = $em->getRepository(Education::class)->find($educationID);
-		        
+		
+		if (!$education) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}    
         
 		$form = $this->createForm(EducationFormType::class, $education);
 		
@@ -90,7 +93,11 @@ class EducationController extends AbstractController
 		
 		$em = $this->getDoctrine()->getManager();
 		$education = $em->getRepository(Education::class)->find($educationID);
-		        
+		
+		if (!$education) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}    
+    	    
 		$em->remove($education);
 		$em->flush();
 		

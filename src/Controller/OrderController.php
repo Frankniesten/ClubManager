@@ -40,6 +40,10 @@ class OrderController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$order = $em->getRepository(Orders::class)->find($orderID);
+		
+		if (!$order) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
         
 		return $this->render('orders/orderDetails.html.twig', [
         	'data' => $order,
@@ -57,7 +61,11 @@ class OrderController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		
-		$data = $em->getRepository(Person::class)->find($id);    
+		$data = $em->getRepository(Person::class)->find($id);   
+		
+		if (!$data) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 
 		
 		$form = $this->createForm(OrderFormType::class);
@@ -96,6 +104,10 @@ class OrderController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$order = $em->getRepository(Orders::class)->find($orderID);
+		
+		if (!$order) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	} 
 	    
 		$form = $this->createForm(OrderFormType::class, $order);
 		
@@ -129,6 +141,11 @@ class OrderController extends AbstractController
 		
 		$em = $this->getDoctrine()->getManager();
 		$order = $em->getRepository(Orders::class)->find($orderID);
+		
+		if (!$order) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
+		
 		        
 		$em->remove($order);
 		$em->flush();

@@ -26,6 +26,10 @@ class MembershipController extends AbstractController
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
+		
+		if (!$person) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 	    
 		//generate Form.
 	    $form = $this->createForm(MembershipFormType::class);
@@ -66,6 +70,10 @@ class MembershipController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$membership = $em->getRepository(Membership::class)->find($membershipID);
+		
+		if (!$membership) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 		        
         
 		$form = $this->createForm(MembershipFormType::class, $membership);
@@ -103,6 +111,10 @@ class MembershipController extends AbstractController
 		
 		$em = $this->getDoctrine()->getManager();
 		$membership = $em->getRepository(Membership::class)->find($membershipID);
+		
+		if (!$membership) {
+        	throw $this->createNotFoundException('The product does not exist');
+    	}
 		        
 		$em->remove($membership);
 		$em->flush();

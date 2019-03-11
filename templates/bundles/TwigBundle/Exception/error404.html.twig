@@ -1,10 +1,57 @@
 {# templates/bundles/TwigBundle/Exception/error404.html.twig #}
 
+<!DOCTYPE html>
+<html>
+    <head>
 
 
-    <h1>Page not found</h1>
+        <title>Clubmanager - Error</title>
 
-    <p>
-        The requested page couldn't be located. Checkout for any URL lnhohohohoho
-        misspelling or <a href="{{ path('homepage') }}">return to the homepage</a>.
-    </p>
+        <!-- App css -->
+	        
+	        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+	        <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css"/>
+	        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css"/>
+	        
+	        <script src="{{ asset('assets/js/modernizr.min.js' ) }}"></script>
+
+    </head>
+
+    <body>
+
+        <div class="account-pages"></div>
+        <div class="clearfix"></div>
+        <div class="wrapper-page">
+            <div class="ex-page-content text-center">
+                <div class="text-error text-purple">404</div>
+                
+                <h1 class="text-uppercase font-600">Padoem Paf!</h1>
+                <p>
+                    We kunnen je pagina helaas niet vinden.
+                </p>
+                <br>
+                <a class="btn btn-purple waves-effect waves-light" href="{{ path('app_dashboard') }}"> Naar Dashboard</a>
+
+            </div>
+        </div>
+        <!-- end wrapper page -->
+
+
+        	<!-- jQuery  -->
+	        <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+	        <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+	        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+	        <script src="{{ asset('assets/js/detect.js') }}"></script>
+	        <script src="{{ asset('assets/js/fastclick.js') }}"></script>
+	        <script src="{{ asset('assets/js/jquery.blockUI.js') }}"></script>
+	        <script src="{{ asset('assets/js/waves.js') }}"></script>
+	        <script src="{{ asset('assets/js/jquery.nicescroll.js') }}"></script>
+	        <script src="{{ asset('assets/js/jquery.slimscroll.js') }}"></script>
+	        <script src="{{ asset('assets/js/jquery.scrollTo.min.js') }}"></script>
+	
+	        <!-- App js -->
+	        <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
+	        <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
+	        	
+	</body>
+</html>
