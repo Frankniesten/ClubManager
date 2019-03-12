@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Person;
 use App\Entity\Membership;
+use App\Entity\Category;
 use App\Form\PersonFormType;
 use App\Form\ReviewFormType;
 use App\Form\MembershipFormType;
@@ -24,13 +25,35 @@ class PeopleController extends AbstractController
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
-		$people = $this->getDoctrine()
-        ->getRepository(Person::class)
-        ->findAll();
+		
+    	$query = $request->query->get('query');
+    	
+    	if ($query == null) {
+    
+			$people = $this->getDoctrine()
+	        ->getRepository(Person::class)
+	        ->findAll();    
+	    }
+	    
+	    else {
+		    
+		    $em = $this->getDoctrine()->getManager();
+			$people = $em->getRepository(Person::class)->findByCategegory($query);
+		        
+	    }
+        
+		$em = $this->getDoctrine()->getManager();
+		$category = $em->getRepository(Category::class)->findCategoryType('person');
 				
 		return $this->render('people/people.html.twig', [
         	'data' => $people,
+        	'category' => $category,
+        	'query' => $query
 		]);
+		
+		
+		
+		
 	}
 
 	/**

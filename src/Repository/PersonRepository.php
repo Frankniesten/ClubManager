@@ -22,19 +22,16 @@ class PersonRepository extends ServiceEntityRepository
     // /**
     //  * @return Person[] Returns an array of Person objects
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findByCategegory($value)
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
+            ->andWhere('p.category = :val')
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Person
