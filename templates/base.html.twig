@@ -39,7 +39,7 @@
 
                 <!-- LOGO -->
                 <div class="topbar-left">
-                    <a href="index.html" class="logo"><span>Club<span>Manager</span></span><i class="mdi mdi-layers"></i></a>
+                    <a href="{{ path('app_dashboard') }}" class="logo"><span>Club<span>Manager</span></span><i class="mdi mdi-layers"></i></a>
                 </div>
 
                 <!-- Button mobile view to collapse sidebar menu -->
@@ -132,7 +132,7 @@
                             
                             {% if is_granted('ROLE_EVENT_VIEW') %}
 	                            <li>
-	                                <a href="{{ path('app_events') }}" class="waves-effect"><i class="mdi mdi mdi-calendar-clock"></i> <span> Events </span> </a>
+	                                <a href="{{ path('app_events') }}" class="waves-effect"><i class="mdi mdi-calendar-clock"></i> <span> Events </span> </a>
 	                            </li>
 	                        {% endif %}
                             
@@ -264,12 +264,9 @@
 	        <script src="{{ asset('assets/js/jquery.nicescroll.js') }}"></script>
 	        <script src="{{ asset('assets/js/jquery.slimscroll.js') }}"></script>
 	        <script src="{{ asset('assets/js/jquery.scrollTo.min.js') }}"></script>
-	
-	        <!-- KNOB JS -->
-	        <script src="{{ asset('assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
-	
-	        <!-- Dashboard init -->
-	        <script src="{{ asset('assets/pages/jquery.dashboard.js') }}"></script>
+			
+			<script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('assets/plugins/jquery-quicksearch/jquery.quicksearch.js') }}"></script>
 	
 	        <!-- App js -->
 	        <script src="{{ asset('assets/js/jquery.core.js') }}"></script>

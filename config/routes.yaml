@@ -159,6 +159,22 @@ app_product_isRelatedTo_edit:
 app_events:
     path: /events
     controller: App\Controller\EventsController::list
+    
+app_event_create:
+    path: /event/create
+    controller: App\Controller\EventsController::new
+    
+app_event:
+    path: /event/{id}
+    controller: App\Controller\EventsController::show
+    
+app_event_edit:
+    path: /event/{id}/edit
+    controller: App\Controller\EventsController::edit
+    
+app_event_delete:
+    path: /event/{id}/delete
+    controller: App\Controller\EventsController::delete
 
 
 # ---Services--- #

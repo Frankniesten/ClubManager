@@ -12,52 +12,39 @@
 {% endblock %}       
         
 
-{% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
+{% block title %}<i class="mdi mdi-calendar-clock"></i> Events{% endblock %}
 
 
 {% block body %}
 
 <div class="row align-items-center">
         <div class="col">
-	        <h2>Personen</h2>
+	        <h2>Events</h2>
         </div>
         
         <div class="col-4  ">
-        
-        {% if is_granted('ROLE_PERSON_CREATE') %}
-            <div class="btn-group float-right">  
-	        	<a href="{{ path('app_person_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
+        {% if is_granted('ROLE_EVENT_CREATE') %}
+	        <div class="btn-group float-right">
+	        	<a href="{{ path('app_event_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
 	        </div>
-	    {% endif %}    
+	    {% endif %} 
         </div>
         
 	</div>
 	
-	<ul class="nav nav-tabs nav-justified"> 
-		<li class="nav-item">
-            <a href="{{ path('app_people') }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == null %}active {% endif %}">
-                Alle personen
-            </a>
-        </li>
-		
-		{% for data in category %}
-	    <li class="nav-item">
-            <a href="{{ path('app_people', {'query': data.id}) }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == data.id %}active {% endif %}">
-                {{ data.name }}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
 	
 	<div class="row">
         <div class="col-12">
-            <div class="card-box table-responsive"> 
+            <div class="card-box table-responsive">
+	            
 	            <table id="datatable" class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Naam</th>
-                        <th>Email</th>
-                        <th>Categorie</th>
+                        <th>Event</th>
+                        <th>Datum & Tijd</th>
+                        <th>Locatie</th>
+                        <th>Status</th>
+						<th>Categorie</th>
                     </tr>
                     </thead>
 
@@ -66,9 +53,10 @@
                     {% for data in data %}
 						<tr>
 						    <td style="padding-bottom: 0px;">
-							    <a href="{{ path('app_person', {'id': data.id}) }}" class="waves-effect">{{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}</a>
+							    <a href="{{ path('app_event', {'id': data.id}) }}" class="waves-effect">{{ data.about }}
+							    	
 							    	<!-- Dropdown -->
-							    	{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+							    	{% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
 								    <div class="dropdown pull-right">
 	                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
 	                                        <i class="mdi mdi-dots-horizontal"></i>
@@ -76,23 +64,42 @@
 	                                    
 	                                    <div class="dropdown-menu dropdown-menu-right">
 	                                        <!-- item-->
-	                                        {% if is_granted('ROLE_PERSON_EDIT') %}
-	                                        <a href="{{ path('app_person_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+	                                        {% if is_granted('ROLE_EVENT_EDIT') %}
+	                                        <a href="{{ path('app_event_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
 	                                        {% endif %}
 	                                        <!-- item-->
-	                                        {% if is_granted('ROLE_PERSON_DELETE') %}
-	                                        <a href="{{ path('app_person_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                        {% if is_granted('ROLE_EVENT_DELETE') %}
+	                                        <a href="{{ path('app_event_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
 	                                        {% endif %}
 	                                    </div>
 	                                </div>
 	                                {% endif %}
 	                                <!-- End Dropdown -->
-							    	
-							    
+							    		                               
+							    </a>
 							    
 						    </td>
-						    <td>{{ data.email }}</td>
-						    <td>{{ data.category.name }}</td>
+						    <td>{{ data.startDate | date('d-m-Y') }}, {{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}</td>
+						    <td>
+						    	{{ data.location.venue }}
+							</td>
+							<td>
+								{% if data.eventStatus == 'Bevestigd'  %}    
+							        <span class="badge badge-purple">Bevestigd</span>
+							    {% endif %}
+							    {% if data.eventStatus == 'Voorlopig'  %}    
+							        <span class="badge badge-pink">Voorlopig</span>
+							    {% endif %}
+							    {% if data.eventStatus == 'Geannuleerd'  %}    
+							        <span class="badge badge-inverse">Geannuleerd</span>
+							    {% endif %}
+							</td>
+						    <td>
+						    {% for data in data.category %}
+						    	{{ data.name }}{% if not loop.last %}, {% endif %}
+						    {% endfor %}
+						    
+						    </td>
 						</tr>
 
 					{% endfor %}

@@ -84,6 +84,49 @@ class AppCategory extends Fixture
       	$category->setAdditionalType('service');
         $manager->persist($category);
         
+        $category = new Category();
+      	$category->setName('Concerten');
+      	$category->setDescription('Concerten van de vereniging.');
+      	$category->setAdditionalType('event');
+        $manager->persist($category);
+        
+        $category = new Category();
+      	$category->setName('Fanfare-orkest');
+      	$category->setDescription('Events van het fanfare-orkest.');
+      	$category->setAdditionalType('event');
+        $manager->persist($category);
+        
+        $category = new Category();
+      	$category->setName('Jeugdfanfare-orkest');
+      	$category->setDescription('Events van het jeugdfanfare-orkest.');
+      	$category->setAdditionalType('event');
+        $manager->persist($category);
+        
+        $category = new Category();
+      	$category->setName('Kapel');
+      	$category->setDescription('Events van de kapel.');
+      	$category->setAdditionalType('event');
+        $manager->persist($category);
+        
+        $category = new Category();
+      	$category->setName('Kernteam');
+      	$category->setDescription('vergadering van het kernteam.');
+      	$category->setAdditionalType('event');
+        $manager->persist($category);
+        
+        $category = new Category();
+      	$category->setName('Werkgroep');
+      	$category->setDescription('vergadering van een werkgroep.');
+      	$category->setAdditionalType('event');
+        $manager->persist($category);
+        
+        $category = new Category();
+      	$category->setName('Overig');
+      	$category->setDescription('Overige events.');
+      	$category->setAdditionalType('event');
+        $manager->persist($category);
+        
+        
         $manager->flush();
     }
 }

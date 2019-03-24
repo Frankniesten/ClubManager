@@ -55,10 +55,17 @@ class Category
      */
     private $services;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="category")
+     */
+    private $events;
+
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
         $this->services = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -163,4 +170,33 @@ class Category
 
         return $this;
     }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            $event->removeCategory($this);
+        }
+
+        return $this;
+    }
+
 }

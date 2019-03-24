@@ -1,0 +1,241 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}<i class="mdi mdi-calendar-clock"></i> Events{% endblock %}
+
+
+{% block body %}
+	<div class="row align-items-center">
+        <div class="col">
+	        <h2>{{ data.about }}
+	        	{% for data in data.category %}
+			    	<span class="badge badge-purple">{{ data.name }}</span>
+			    {% endfor %}
+		        
+		    </h2>
+        </div>
+        
+        <div class="col-4  ">
+	        <div class="btn-group float-right">
+	        	{% if is_granted('ROLE_PERSON_EDIT') %}
+	        	<a href="{{ path('app_event_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
+	        	{% endif %}
+	        	{% if is_granted('ROLE_PERSON_DELETE') %}
+	        	<a href="{{ path('app_event_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
+	        	{% endif %}
+				<a href="{{ path('app_events') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+	        </div>
+        </div>
+        
+	</div>
+	
+	<!-- Person details -->
+	<div id="accordion">
+		<div class="card">
+	        <div class="card-header" id="headingOne">
+	            <h4 class="m-0">
+	                <a href="#collapseOne" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
+	                    Eventgegevens
+	                </a>
+	            </h4>
+	        </div>
+	
+	        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+	            <div class="card-body">
+	                <table class="table table-bordered table-striped">   
+			            <tbody>
+				            <tr>
+				                <td width="20%"><b>Event</b></td>
+				                <td width="70%">{{ data.about }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Omschrijving</b></td>
+				                <td>{{ data.description }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Begindatum</b></td>
+				                <td>{{ data.startDate | date('d-m-Y') }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Einddatum</b></td>
+				                <td>{{ data.endDate | date('d-m-Y') }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Aanvang</b></td>
+				                <td>{{ data.doorTime | date('H:i') }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Begintijd</b></td>
+				                <td>{{ data.startTime | date('H:i') }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Eindtijd</b></td>
+				                <td>{{ data.endTime | date('H:i') }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Status</b></td>
+				                <td>
+					                {% if data.eventStatus == 'Bevestigd'  %}    
+								        <span class="badge badge-purple">Bevestigd</span>
+								    {% endif %}
+								    {% if data.eventStatus == 'Voorlopig'  %}    
+								        <span class="badge badge-pink">Voorlopig</span>
+								    {% endif %}
+								    {% if data.eventStatus == 'Geannuleerd'  %}    
+								        <span class="badge badge-inverse">Geannuleerd</span>
+								    {% endif %}
+							    </td>
+				            </tr>
+				            <tr>
+				                <td><b>Locatie</b></td>
+				                <td>{{ data.location.venue }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Straat</b></td>
+				                <td>{{ data.location.streetaddress }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Postcode</b></td>
+				                <td>{{ data.location.postalcode }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Plaats</b></td>
+				                <td>{{ data.location.addressLocality }}</td>
+				            </tr>
+				        {% if data.isAccessibleForFree  %}
+				            <tr>
+				                <td><b>Betaalde entree</b></td>
+				                <td><i class="mdi mdi-check-circle"></i></td>
+				            </tr>
+				            <tr>
+				                <td><b>Tickets totaal</b></td>
+				                <td>{{ data.maximumAttendeeCapacity }}</td>
+				            </tr>
+				            <tr>
+				                <td><b>Tickets beschikbaar</b></td>
+				                <td>{{ data.remainingAttendeeCapacity }}</td>
+				            </tr>
+				        {% endif %}
+				            
+				  
+				            
+				            
+				            
+				            
+				            
+				        </tbody>
+			        </table>   
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+    <br>
+	
+	<!-- Details -->
+    
+    <ul class="nav nav-tabs nav-justified">
+	    
+	    
+	    <li class="nav-item">
+            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person' ? 'active' }}">
+                Notities
+            </a>
+        </li>
+        
+
+	    
+	    <li class="nav-item">
+            <a href="#parents" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_parents' ? 'active' }}">
+                Ouders
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_membership' ? 'active' }}">
+                Lidmaatschap
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#musicalInstrument" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_musicalInstrument' ? 'active' }}">
+                Muziekinstrument
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_education' ? 'active' }}">
+                Opleiding
+            </a>
+        </li>
+        
+
+        
+        <li class="nav-item">
+            <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_memberOf' ? 'active' }}">
+                Rollen
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_owns' ? 'active' }}">
+                Inventaris
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_customer' ? 'active' }}">
+                Orders
+            </a>
+        </li>
+        
+        
+    </ul>
+		    
+		    
+	<div class="card">
+	    <div class="tab-content">
+	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person' ? 'show active' }}" id="reviews">
+			
+				
+				
+			</div>
+			
+			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_parents' ? 'show active' }}" id="parents">
+        
+				       
+	        
+    		</div>
+    		
+			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_membership' ? 'show active' }}" id="membership">
+                
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_musicalInstrument' ? 'show active' }}" id="musicalInstrument">
+        
+				           
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_education' ? 'show active' }}" id="education">
+        
+				             
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_memberOf' ? 'show active' }}" id="roles">
+        
+				            
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_owns' ? 'show active' }}" id="products">
+                     
+	        
+    		</div>
+    		
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_customer' ? 'show active' }} " id="services">
+        
+				           
+    		</div>	
+	    </div>
+	</div>
+	<br>
+{% endblock %}
