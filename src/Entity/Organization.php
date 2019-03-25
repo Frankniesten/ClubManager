@@ -138,6 +138,7 @@ class Organization
      */
     private $customer;
 
+
     public function __construct()
     {
         $this->review = new ArrayCollection();

@@ -7,7 +7,7 @@ use App\Entity\Organization;
 use App\Entity\Products;
 use App\Entity\Review;
 use App\Entity\Service;
-use App\Entity\Events;
+use App\Entity\Event;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

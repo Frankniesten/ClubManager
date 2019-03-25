@@ -58,6 +58,11 @@ class Review
      */
     private $service;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="review")
+     */
+    private $event;
+
 
     public function getId(): ?int
     {
@@ -132,6 +137,18 @@ class Review
     public function setService(?Service $service): self
     {
         $this->service = $service;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }

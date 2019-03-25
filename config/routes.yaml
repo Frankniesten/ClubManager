@@ -176,6 +176,65 @@ app_event_delete:
     path: /event/{id}/delete
     controller: App\Controller\EventsController::delete
 
+  
+# Event - organizer:
+app_event_organizer:
+    path: /event/{id}/organizer
+    controller: App\Controller\EventsController::show
+    
+app_event_organizer_edit:
+    path: /event/{id}/organizer/edit
+    controller: App\Controller\OrganizerController::edit
+    
+# Event - performer:
+app_event_performer:
+    path: /event/{id}/performer
+    controller: App\Controller\EventsController::show
+    
+app_event_performer_edit:
+    path: /event/{id}/performer/edit
+    controller: App\Controller\performerController::edit
+    
+    
+# Event - supplier:
+app_event_suppliers:
+    path: /event/{id}/suppliers
+    controller: App\Controller\EventsController::show
+    
+app_event_suppliers_edit:
+    path: /event/{id}/suppliers/edit
+    controller: App\Controller\suppliersController::edit
+    
+
+# Event - sponsor:
+app_event_sponsor:
+    path: /event/{id}/sponsor
+    controller: App\Controller\EventsController::show
+    
+app_event_sponsor_edit:
+    path: /event/{id}/sponsor/edit
+    controller: App\Controller\SponsorController::edit
+    
+
+# Event - contributor:
+app_event_contributor:
+    path: /event/{id}/contributor
+    controller: App\Controller\EventsController::show
+
+app_event_contributor_edit:
+    path: /event/{id}/contributor/edit
+    controller: App\Controller\ContributorController::edit
+
+
+# Event - attendee:
+app_event_attendee:
+    path: /event/{id}/attendee
+    controller: App\Controller\EventsController::show
+
+app_event_attendee_edit:
+    path: /event/{id}/attendee/edit
+    controller: App\Controller\AttendeeController::edit
+
 
 # ---Services--- #
 app_services:

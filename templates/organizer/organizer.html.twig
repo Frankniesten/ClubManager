@@ -1,0 +1,54 @@
+<div class="row align-items-center">
+	<div class="col">
+	    <h3>Organisator</h3>
+    </div>
+        
+    <div class="col-4  ">
+	    <div class="btn-group float-right">
+	    	{% if is_granted('ROLE_EVENT_CREATE') %}
+	    	<a href="{{ path('app_event_organizer_edit', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
+	    	{% endif %}
+	    </div>
+    </div>
+        
+</div>
+{%if data.organizer is not empty %}
+<table class="table table-bordered table-striped">   
+    <tbody>
+        <thead>
+            <tr>
+            	<td><b>Naam</b></td>
+            	<td><b>Email</b></td>
+            	<td><b>Categorie</b></td>
+        	</tr>
+        </thead>
+    {% for organizer in data.organizer %}
+        <tr>
+            <td>
+            	<a href="{{ path('app_organization', {'id': organizer.id}) }}">{{ organizer.legalName }}</a>
+            	{% if is_granted('ROLE_EVENT_EDIT') %}
+	            <!-- Dropdown -->
+			    <div class="dropdown pull-right">
+                    <a href="" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                        <i class="mdi mdi-dots-horizontal"></i>
+                    </a>
+                    
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <!-- item-->
+                        <a href="{{ path('app_event_organizer_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+                    </div>
+                </div>
+                {% endif %}
+            </td>
+            <td>
+	            <a href="mailto:{{ organizer.email }}">{{ organizer.email }}</a>
+            </td>
+            <td>
+	         	{{ organizer.category.name }}	
+            </td>
+        </tr>
+    {% endfor %} 
+   
+    </tbody>
+</table>
+{% endif %} 

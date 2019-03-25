@@ -132,7 +132,7 @@
                             
                             {% if is_granted('ROLE_EVENT_VIEW') %}
 	                            <li>
-	                                <a href="{{ path('app_events') }}" class="waves-effect"><i class="mdi mdi-calendar-clock"></i> <span> Events </span> </a>
+	                                <a href="{{ path('app_events') }}" class="waves-effect {% if 'event' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-calendar-clock"></i> <span> Events </span> </a>
 	                            </li>
 	                        {% endif %}
                             

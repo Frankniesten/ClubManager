@@ -103,9 +103,57 @@ class Event
      */
     private $category;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="event", orphanRemoval=true)
+     */
+    private $review;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", orphanRemoval=true)
+     * @ORM\JoinTable(name="event_organizers")
+     */
+    private $organizer;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", orphanRemoval=true)
+     * @ORM\JoinTable(name="event_performer")
+     */
+    private $performer;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", orphanRemoval=true)
+     * @ORM\JoinTable(name="event_supplier")
+     */
+    private $suppliers;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true)
+     * @ORM\JoinTable(name="event_sponsor")
+     */
+    private $sponsor;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true)
+     * @ORM\JoinTable(name="event_contributor")
+     */
+    private $contributor;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\person", orphanRemoval=true)
+     * @ORM\JoinTable(name="event_attendee")
+     */
+    private $attendee;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->review = new ArrayCollection();
+        $this->organizer = new ArrayCollection();
+        $this->performer = new ArrayCollection();
+        $this->suppliers = new ArrayCollection();
+        $this->sponsor = new ArrayCollection();
+        $this->contributor = new ArrayCollection();
+        $this->attendee = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -278,6 +326,193 @@ class Event
     {
         if ($this->category->contains($category)) {
             $this->category->removeElement($category);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReview(): Collection
+    {
+        return $this->review;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->review->contains($review)) {
+            $this->review[] = $review;
+            $review->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->review->contains($review)) {
+            $this->review->removeElement($review);
+            // set the owning side to null (unless already changed)
+            if ($review->getEvent() === $this) {
+                $review->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Organization[]
+     */
+    public function getOrganizer(): Collection
+    {
+        return $this->organizer;
+    }
+
+    public function addOrganizer(Organization $organizer): self
+    {
+        if (!$this->organizer->contains($organizer)) {
+            $this->organizer[] = $organizer;
+        }
+
+        return $this;
+    }
+
+    public function removeOrganizer(Organization $organizer): self
+    {
+        if ($this->organizer->contains($organizer)) {
+            $this->organizer->removeElement($organizer);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Organization[]
+     */
+    public function getPerformer(): Collection
+    {
+        return $this->performer;
+    }
+
+    public function addPerformer(Organization $performer): self
+    {
+        if (!$this->performer->contains($performer)) {
+            $this->performer[] = $performer;
+        }
+
+        return $this;
+    }
+
+    public function removePerformer(Organization $performer): self
+    {
+        if ($this->performer->contains($performer)) {
+            $this->performer->removeElement($performer);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Organization[]
+     */
+    public function getSuppliers(): Collection
+    {
+        return $this->suppliers;
+    }
+
+    public function addSupplier(Organization $supplier): self
+    {
+        if (!$this->suppliers->contains($supplier)) {
+            $this->suppliers[] = $supplier;
+        }
+
+        return $this;
+    }
+
+    public function removeSupplier(Organization $supplier): self
+    {
+        if ($this->suppliers->contains($supplier)) {
+            $this->suppliers->removeElement($supplier);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Person[]
+     */
+    public function getSponsor(): Collection
+    {
+        return $this->sponsor;
+    }
+
+    public function addSponsor(Person $sponsor): self
+    {
+        if (!$this->sponsor->contains($sponsor)) {
+            $this->sponsor[] = $sponsor;
+        }
+
+        return $this;
+    }
+
+    public function removeSponsor(Person $sponsor): self
+    {
+        if ($this->sponsor->contains($sponsor)) {
+            $this->sponsor->removeElement($sponsor);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Person[]
+     */
+    public function getContributor(): Collection
+    {
+        return $this->contributor;
+    }
+
+    public function addContributor(Person $contributor): self
+    {
+        if (!$this->contributor->contains($contributor)) {
+            $this->contributor[] = $contributor;
+        }
+
+        return $this;
+    }
+
+    public function removeContributor(Person $contributor): self
+    {
+        if ($this->contributor->contains($contributor)) {
+            $this->contributor->removeElement($contributor);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|person[]
+     */
+    public function getAttendee(): Collection
+    {
+        return $this->attendee;
+    }
+
+    public function addAttendee(person $attendee): self
+    {
+        if (!$this->attendee->contains($attendee)) {
+            $this->attendee[] = $attendee;
+        }
+
+        return $this;
+    }
+
+    public function removeAttendee(person $attendee): self
+    {
+        if ($this->attendee->contains($attendee)) {
+            $this->attendee->removeElement($attendee);
         }
 
         return $this;

@@ -117,12 +117,6 @@
 				            </tr>
 				        {% endif %}
 				            
-				  
-				            
-				            
-				            
-				            
-				            
 				        </tbody>
 			        </table>   
 	            </div>
@@ -136,104 +130,86 @@
     
     <ul class="nav nav-tabs nav-justified">
 	    
-	    
 	    <li class="nav-item">
-            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person' ? 'active' }}">
+            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event' ? 'active' }}">
                 Notities
             </a>
         </li>
-        
-
 	    
 	    <li class="nav-item">
-            <a href="#parents" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_parents' ? 'active' }}">
-                Ouders
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_membership' ? 'active' }}">
-                Lidmaatschap
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#musicalInstrument" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_musicalInstrument' ? 'active' }}">
-                Muziekinstrument
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_education' ? 'active' }}">
-                Opleiding
+            <a href="#parents" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_organizer' ? 'active' }}">
+                Organisator
             </a>
         </li>
         
-
+        <li class="nav-item">
+            <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_performer' ? 'active' }}">
+                Performers
+            </a>
+        </li>
         
         <li class="nav-item">
-            <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_memberOf' ? 'active' }}">
-                Rollen
+            <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_suppliers' ? 'active' }}">
+                Leveranciers
+            </a>
+        </li>
+        
+        <li class="nav-item">
+            <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_sponsor' ? 'active' }}">
+                Sponsoren
             </a>
         </li>
 
         <li class="nav-item">
-            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_owns' ? 'active' }}">
-                Inventaris
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_customer' ? 'active' }}">
-                Orders
+            <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_contributor' ? 'active' }}">
+                Medewerkers
             </a>
         </li>
         
+        <li class="nav-item">
+            <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_attendee' ? 'active' }}">
+                Publiek
+            </a>
+        </li>
         
     </ul>
-		    
-		    
+	    
 	<div class="card">
 	    <div class="tab-content">
-	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person' ? 'show active' }}" id="reviews">
-			
-				
-				
+	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_event' ? 'show active' }}" id="reviews">				
+				{{ include('review/reviews.html.twig', { 
+					'data': data
+				}) }}
 			</div>
-			
-			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_parents' ? 'show active' }}" id="parents">
-        
-				       
-	        
-    		</div>
-    		
-			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_membership' ? 'show active' }}" id="membership">
-                
-	        
-    		</div>
-    		
-    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_musicalInstrument' ? 'show active' }}" id="musicalInstrument">
-        
-				           
-	        
-    		</div>
-    		
-    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_education' ? 'show active' }}" id="education">
-        
-				             
-	        
-    		</div>
-    		
-    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_memberOf' ? 'show active' }}" id="roles">
-        
-				            
-	        
-    		</div>
-    		
-    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_owns' ? 'show active' }}" id="products">
-                     
-	        
-    		</div>
-    		
-    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_person_customer' ? 'show active' }} " id="services">
-        
-				           
+			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_event_organizer' ? 'show active' }}" id="parents">
+				{{ include('organizer/organizer.html.twig', { 
+					'data': data
+				}) }}
+    		</div>    		
+			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_event_performer' ? 'show active' }}" id="membership">
+                {{ include('performer/performer.html.twig', { 
+					'data': data
+				}) }}
+    		</div>  		
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_event_suppliers' ? 'show active' }}" id="education">
+				{{ include('suppliers/suppliers.html.twig', { 
+					'data': data
+				}) }}
+    		</div>	
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_event_sponsor' ? 'show active' }}" id="roles">
+				{{ include('sponsor/sponsor.html.twig', { 
+					'data': data
+				}) }}
+    		</div>   		
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_event_contributor' ? 'show active' }}" id="products">
+              {{ include('contributor/contributor.html.twig', { 
+					'data': data
+				}) }}       
+    		</div>	
+    		<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_event_attendee' ? 'show active' }} " id="services">
+				{{ include('attendee/attendee.html.twig', { 
+					'data': data
+				}) }}          
     		</div>	
 	    </div>
 	</div>
