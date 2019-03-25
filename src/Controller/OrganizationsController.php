@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Organization;
+use App\Entity\Category;
 use App\Form\OrganizationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,13 +21,29 @@ class OrganizationsController extends AbstractController
      */
     public function list(EntityManagerInterface $em, Request $request)
     {
-	    $organizations = $this->getDoctrine()
-        ->getRepository(Organization::class)
-        ->findAll();
+	    $query = $request->query->get('query');
+    	
+    	if ($query == null) {
+    
+			$organizations = $this->getDoctrine()
+	        ->getRepository(Organization::class)
+	        ->findAll();    
+	    }
+	    
+	    else {
+		    
+		    $em = $this->getDoctrine()->getManager();
+			$organizations = $em->getRepository(Organization::class)->findByCategegory($query);
+		        
+	    }
+        
+		$em = $this->getDoctrine()->getManager();
+		$category = $em->getRepository(Category::class)->findCategoryType('organization');
         
         return $this->render('organizations/organizations.html.twig', [
-            'controller_name' => 'OrganizationsController',
-            'data' => $organizations
+            'data' => $organizations,
+        	'category' => $category,
+        	'query' => $query
         ]);
     }
     

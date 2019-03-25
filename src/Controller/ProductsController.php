@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Products;
 use App\Entity\Person;
+use App\Entity\Category;
 use App\Form\ProductFormType;
 use App\Entity\OwnershipInfo;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,13 +22,30 @@ class ProductsController extends AbstractController
      */
     public function list(EntityManagerInterface $em, Request $request)
     {
-	    $products = $this->getDoctrine()
-        ->getRepository(Products::class)
-        ->findAll();
+	    $query = $request->query->get('query');
+    	
+    	if ($query == null) {
+    
+			$products = $this->getDoctrine()
+	        ->getRepository(Products::class)
+	        ->findAll();    
+	    }
+	    
+	    else {
+		    
+		    $em = $this->getDoctrine()->getManager();
+			$products = $em->getRepository(Products::class)->findByCategegory($query);
+		        
+	    }
+        
+		$em = $this->getDoctrine()->getManager();
+		$category = $em->getRepository(Category::class)->findCategoryType('product');
         
         return $this->render('products/products.twig', [
             'controller_name' => 'OrganizationsController',
-            'data' => $products
+            'data' => $products,
+        	'category' => $category,
+        	'query' => $query
         ]);
     }
     

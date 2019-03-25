@@ -21,12 +21,30 @@ class EventsController extends AbstractController
      */
     public function list(EntityManagerInterface $em, Request $request)
     {
-	    $events = $this->getDoctrine()
-        ->getRepository(Event::class)
-        ->findAll();
+	    $query = $request->query->get('query');
+    	
+    	if ($query == null) {
+    
+			$events = $this->getDoctrine()
+	        ->getRepository(Event::class)
+	        ->findAll();    
+	    }
+	    
+	    else {
+		    
+		    $em = $this->getDoctrine()->getManager();
+			$events = $em->getRepository(Event::class)->findByCategegory($query);
+		        
+	    }
+        
+		$em = $this->getDoctrine()->getManager();
+		$category = $em->getRepository(Category::class)->findCategoryType('event');
+	    
         
         return $this->render('events/events.html.twig', [
-            'data' => $events
+            'data' => $events,
+            'category' => $category,
+        	'query' => $query
         ]);
     }
     
@@ -135,4 +153,24 @@ class EventsController extends AbstractController
 			
 			return $this->redirectToRoute('app_events');			
 	}
+	
+	
+	
+	/**
+     * @Route("/events/feed", name="app_events_feed")
+     */
+    public function feed(EntityManagerInterface $em, Request $request)
+    {
+
+    
+			$events = $this->getDoctrine()
+	        ->getRepository(Event::class)
+	        ->findAll();    
+	    
+	    
+        
+        return $this->render('events/feed.html.twig', [
+            'data' => $events,
+        ]);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Service;
+use App\Entity\Category;
 use App\Form\ServiceFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,12 +20,29 @@ class ServicesController extends AbstractController
      */
     public function list(EntityManagerInterface $em, Request $request)
     {
-	    $services = $this->getDoctrine()
-        ->getRepository(Service::class)
-        ->findAll();
+	    $query = $request->query->get('query');
+    	
+    	if ($query == null) {
+    
+			$services = $this->getDoctrine()
+	        ->getRepository(Service::class)
+	        ->findAll();    
+	    }
+	    
+	    else {
+		    
+		    $em = $this->getDoctrine()->getManager();
+			$services = $em->getRepository(Service::class)->findByCategegory($query);
+		        
+	    }
         
+		$em = $this->getDoctrine()->getManager();
+		$category = $em->getRepository(Category::class)->findCategoryType('service');
+		        
         return $this->render('services/services.html.twig', [
-            'data' => $services
+            'data' => $services,
+        	'category' => $category,
+        	'query' => $query
         ]);
     }
     

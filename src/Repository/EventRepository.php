@@ -20,22 +20,22 @@ class EventRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Event[] Returns an array of Event objects
+    //  * @return Person[] Returns an array of Person objects in specific category
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findByCategegory($value)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
+        return $this->createQueryBuilder('p')
+        	->leftJoin('p.category', 'i')
+            ->Where('i.id = :val')
             ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
+            //->orderBy('p.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
+   /// ->leftJoin('p.user', 'u')
+					        //->where('u.id IS NULL AND p.email IS NOT NULL');
+   
     /*
     public function findOneBySomeField($value): ?Event
     {

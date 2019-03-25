@@ -176,6 +176,9 @@ app_event_delete:
     path: /event/{id}/delete
     controller: App\Controller\EventsController::delete
 
+app_events_feed:
+    path: /events/feed
+    controller: App\Controller\EventsController::feed
   
 # Event - organizer:
 app_event_organizer:

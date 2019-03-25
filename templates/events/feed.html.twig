@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+METHOD:PUBLISH
+VERSION:2.0
+PRODID:-//Fanfare Sint Gabriel//Agenda//NL\n";
+
+{% for data in data %}
+BEGIN:VEVENT
+SUMMARY:{{ data.about }}
+UID:{{ data.id }}
+STATUS:{% if data.eventStatus == 'Bevestigd'  %}CONFIRMED{% endif %}{% if data.eventStatus == 'Voorlopig' %}TENTATIVE{% endif %}{% if data.eventStatus == 'Geannuleerd' %}CANCELLED{% endif %}
+
+DTSTART:{{ data.startDate|date("Ymd", false)  }}T{{ data.startTime|date("His", "Europe/Paris")  }}
+DTEND:{{ data.endDate|date("Ymd", false)  }}T{{ data.endTime|date("His", "Europe/Paris")  }}
+LAST-MODIFIED:{{ data.updatedAt|date("Ymd", false)  }}T{{ data.updatedAt|date("His", "Europe/Paris")  }}
+LOCATION:{{ data.location.venue }} - {{ data.location.streetaddress }} {{ data.location.addressLocality }}
+END:VEVENT
+{% endfor %}
+
+END:VCALENDAR

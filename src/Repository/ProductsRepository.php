@@ -31,6 +31,21 @@ class ProductsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
+    
+    // /**
+    //  * @return Person[] Returns an array of Product objects in specific category
+    //  */
+    public function findByCategegory($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.category = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Products[] Returns an array of Products objects

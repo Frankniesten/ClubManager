@@ -20,7 +20,7 @@ class PersonRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Person[] Returns an array of Person objects
+    //  * @return Person[] Returns an array of Person objects in specific category
     //  */
     public function findByCategegory($value)
     {

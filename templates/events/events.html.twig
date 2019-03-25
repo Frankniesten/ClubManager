@@ -32,7 +32,22 @@
         
 	</div>
 	
-	
+	<ul class="nav nav-tabs nav-justified"> 
+		<li class="nav-item">
+            <a href="{{ path('app_events') }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == null %}active {% endif %}">
+                Alle events
+            </a>
+        </li>
+		
+		{% for data in category %}
+	    <li class="nav-item">
+            <a href="{{ path('app_events', {'query': data.id}) }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == data.id %}active {% endif %}">
+                {{ data.name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    
 	<div class="row">
         <div class="col-12">
             <div class="card-box table-responsive">

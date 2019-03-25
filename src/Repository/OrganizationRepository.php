@@ -20,21 +20,18 @@ class OrganizationRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Organization[] Returns an array of Organization objects
+    //  * @return Person[] Returns an array of Organization objects in specific category
     //  */
-    /*
-    public function findByExampleField($value)
+    public function findByCategegory($value)
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.category = :val')
             ->setParameter('val', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('p.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Organization
