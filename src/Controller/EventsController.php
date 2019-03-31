@@ -11,30 +11,59 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class EventsController extends AbstractController
 {
+	    
     /**
      * @Route("/events", name="app_events")
      * @IsGranted("ROLE_PRODUCT_VIEW")
      */
-    public function list(EntityManagerInterface $em, Request $request)
+    public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
     {
-	    $query = $request->query->get('query');
-    	
-    	if ($query == null) {
+	    //Check startDate:       
+	    if ($startDate = $request->query->get('startDate'))
+	    {
+		    $session->set('startDate', $startDate);
+	    }
+	    else 
+	    {
+		    $startDate = $session->get('startDate', new \DateTime());
+	    }
+	    
+	    //Check endDate:       
+	    if ($endDate = $request->query->get('endDate'))
+	    {
+		    $session->set('endDate', $endDate);
+	    }
+	    else 
+	    {
+		    $endDate = $session->get('endDate', null);
+	    }
+	    
+	    //Check categorie:       
+	    if ($query = $request->query->get('query'))
+	    {
+		    $session->set('event_query', $query);
+	    }
+	    else 
+	    {
+		    $query = $session->get('event_query', 0);
+	    }
+	    
+    	//Query events:
+    	if ($query == 'all') {
     
 			$events = $this->getDoctrine()
-	        ->getRepository(Event::class)
-	        ->findAll();    
+	        ->getRepository(Event::class)->findByDate($startDate, $endDate); 
 	    }
 	    
 	    else {
 		    
 		    $em = $this->getDoctrine()->getManager();
-			$events = $em->getRepository(Event::class)->findByCategegory($query);
-		        
+			$events = $em->getRepository(Event::class)->findByCategegory($query, $startDate, $endDate);   
 	    }
         
 		$em = $this->getDoctrine()->getManager();
@@ -44,7 +73,9 @@ class EventsController extends AbstractController
         return $this->render('events/events.html.twig', [
             'data' => $events,
             'category' => $category,
-        	'query' => $query
+        	'query' => $query,
+        	'startDate' => $startDate,
+        	'endDate' => $endDate,
         ]);
     }
     
@@ -171,6 +202,7 @@ class EventsController extends AbstractController
         
         return $this->render('events/feed.html.twig', [
             'data' => $events,
+            
         ]);
     }
 }

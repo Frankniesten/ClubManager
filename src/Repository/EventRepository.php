@@ -19,32 +19,37 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    
     // /**
-    //  * @return Person[] Returns an array of Person objects in specific category
+    //  * @return Person[] Returns an array of Event objects in specific category
     //  */
-    public function findByCategegory($value)
+    public function findByDate($startDate, $endDate)
     {
         return $this->createQueryBuilder('p')
-        	->leftJoin('p.category', 'i')
-            ->Where('i.id = :val')
-            ->setParameter('val', $value)
-            //->orderBy('p.id', 'ASC')
+            ->Where('p.startDate >= :startDate AND p.endDate <= :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->orderBy('p.startDate', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-   /// ->leftJoin('p.user', 'u')
-					        //->where('u.id IS NULL AND p.email IS NOT NULL');
-   
-    /*
-    public function findOneBySomeField($value): ?Event
+    
+    
+    
+    // /**
+    //  * @return Person[] Returns an array of Event objects in specific category
+    //  */
+    public function findByCategegory($value, $startDate, $endDate)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
+        return $this->createQueryBuilder('p')
+        	->leftJoin('p.category', 'i')
+            ->Where('i.id = :val AND p.startDate >= :startDate AND p.endDate <= :endDate')
             ->setParameter('val', $value)
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
-    */
 }

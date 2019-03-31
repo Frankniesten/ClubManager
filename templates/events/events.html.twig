@@ -2,12 +2,25 @@
 
 
 {% block stylesheets %}
-
+	
+	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+	
 {{ parent() }}
 
 	<!-- DataTables -->
     <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    
+    
+    <style>
+	.hide {
+    	display:none; 
+	}
+	</style>
+    
+    
+    
+    
     
 {% endblock %}       
         
@@ -32,9 +45,10 @@
         
 	</div>
 	
+
 	<ul class="nav nav-tabs nav-justified"> 
 		<li class="nav-item">
-            <a href="{{ path('app_events') }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == null %}active {% endif %}">
+            <a href="{{ path('app_events', {'query': 'all'}) }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == 'all' %}active {% endif %}">
                 Alle events
             </a>
         </li>
@@ -48,17 +62,44 @@
         {% endfor %}
     </ul>
     
+
 	<div class="row">
         <div class="col-12">
             <div class="card-box table-responsive">
+            
+				<!-- Date Filter -->
+            	<form method="get">
+
+
+															
+					<div class="col-md-4">
+						<div class="input-group input-group-sm mb-3 input-daterange" id="date-range">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Van:</span>
+					  		</div>
+					  		<input type="text" class="form-control" id="datepicker-autoclose" name="startDate" value="{{ startDate }}">
+					  		<div class="input-group-prepend">
+								<span class="input-group-text" id="inputGroup-sizing-sm">Tot:</span>
+					  		</div>
+					  		<input type="text" class="form-control" id="datepicker-autoclose2" name="endDate" value="{{ endDate }}">
+					  		<div class="input-group-append">
+								<button type="submit" class="btn btn-dark btn-sm">Filter</button>
+					  		</div>
+						</div>
+					</div>	
+
+				</form>
 	            
+	            
+	            <!-- DataTable -->
 	            <table id="datatable-buttons" class="table table-bordered">
                     <thead>
                     <tr>
                     	
                         <th>Event</th>
                         <th></th>
-                        <th>Datum & Tijd</th>
+                        <th>Datum</th>
+                        <th>Tijd</th>
                         <th>Locatie</th>
                         <th>Status</th>
 						<th>Categorie</th>
@@ -96,7 +137,8 @@
                                 <!-- End Dropdown -->
 							</td>
 						    
-						    <td>{{ data.startDate | date('d-m-Y') }}, {{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}</td>
+						    <td>{{ data.startDate | date('Y-m-d') }}</td>
+						    <td>{{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}</td>
 						    <td>
 						    	{{ data.location.venue }}
 							</td>
@@ -143,6 +185,7 @@
     <script src="{{ asset('assets/plugins/datatables/vfs_fonts.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     
     
     
@@ -190,6 +233,22 @@
                 table.buttons().container()
                     .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
             });
+            
+            jQuery('#datepicker-autoclose').datepicker({
+	        	format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true
+            });
+            
+            jQuery('#datepicker-autoclose2').datepicker({
+	        	format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true
+            });
+            
+            jQuery('#date-range').datepicker({
+                toggleActive: true
+            });
     </script>
     
-{% endblock %}
+    {% endblock %}
