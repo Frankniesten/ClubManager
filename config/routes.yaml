@@ -313,7 +313,25 @@ app_settings_program_membership_edit:
 app_settings_program_membership_delete:
     path: /settings/programmembership/{id}/delete
     controller: App\Controller\ProgramMembershipController::delete
+    
 
+# ---PostalAddress--- # 
+app_settings_postaladdresses:
+    path: /settings/postaladdresses
+    controller: App\Controller\PostalAddressController::list
+    
+app_settings_postaladdress_create:
+    path: /settings/postaladdress/create
+    controller: App\Controller\PostalAddressController::new  
+
+app_settings_postaladdress_edit:
+    path: /settings/postaladdress/{id}/edit
+    controller: App\Controller\PostalAddressController::edit
+    
+app_settings_postaladdress_delete:
+    path: /settings/postaladdress/{id}/delete
+    controller: App\Controller\PostalAddressController::delete 
+    
 
 # ---MusicalInstruments--- #
 app_settings_musical_instruments:

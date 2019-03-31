@@ -27,19 +27,7 @@ class AppCategory extends Fixture
       	$category->setDescription('Persoon die product of dienst afneemt van de vereniging.');
       	$category->setAdditionalType('person');
         $manager->persist($category);
-        
-        $category = new Category();
-      	$category->setName('Abonnee');
-      	$category->setDescription('Persoon die belangstelling heeft in product of dienst van de vereniging.');
-      	$category->setAdditionalType('person');
-        $manager->persist($category);
-        
-        $category = new Category();
-      	$category->setName('Potentional');
-      	$category->setDescription('Persoon die mogelijk belangstelling heeft in product of dienst van de vereniging.');
-      	$category->setAdditionalType('person');
-        $manager->persist($category);
-        
+                
         $category = new Category();
       	$category->setName('Prospect');
       	$category->setDescription('Persoon die mogelijk belangstelling heeft in lidmaatschap van de vereniging.');
@@ -91,13 +79,13 @@ class AppCategory extends Fixture
         $manager->persist($category);
         
         $category = new Category();
-      	$category->setName('Fanfare-orkest');
+      	$category->setName('Fanfare');
       	$category->setDescription('Events van het fanfare-orkest.');
       	$category->setAdditionalType('event');
         $manager->persist($category);
         
         $category = new Category();
-      	$category->setName('Jeugdfanfare-orkest');
+      	$category->setName('Jeugdfanfare');
       	$category->setDescription('Events van het jeugdfanfare-orkest.');
       	$category->setAdditionalType('event');
         $manager->persist($category);

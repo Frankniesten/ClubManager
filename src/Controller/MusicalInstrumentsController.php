@@ -14,20 +14,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class MusicalInstrumentsController extends AbstractController
 {
 	/**
-	     * @Route("/settings/musicalinstruments", name="musical_instruments")
-	     * @IsGranted("ROLE_SETTINGS_VIEW")
-	     */
-		public function list(EntityManagerInterface $em, Request $request)
-		{
-			$musicalInstrument = $this->getDoctrine()
-	        ->getRepository(MusicalInstrument::class)
-	        ->findAll();
-			
-					
-			return $this->render('musical_instruments/musicalInstruments.html.twig', [
-	        	'data' => $musicalInstrument
-			]);
-		}
+     * @Route("/settings/musicalinstruments", name="musical_instruments")
+     * @IsGranted("ROLE_SETTINGS_VIEW")
+     */
+	public function list(EntityManagerInterface $em, Request $request)
+	{
+		$musicalInstrument = $this->getDoctrine()
+        ->getRepository(MusicalInstrument::class)
+        ->findAll();
+		
+				
+		return $this->render('musical_instruments/musicalInstruments.html.twig', [
+        	'data' => $musicalInstrument
+		]);
+	}
 		
 		
 	/**
