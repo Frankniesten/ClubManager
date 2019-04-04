@@ -20,13 +20,14 @@ class AppCategory extends Fixture
       	$category->setAdditionalType('person');
         $manager->persist($category);
         
-        $this->addReference(self::CATEGORY, $category);
-        
+
         $category = new Category();
       	$category->setName('Relatie');
       	$category->setDescription('Persoon die product of dienst afneemt van de vereniging.');
       	$category->setAdditionalType('person');
         $manager->persist($category);
+        
+        $this->addReference(self::CATEGORY, $category);
                 
         $category = new Category();
       	$category->setName('Prospect');

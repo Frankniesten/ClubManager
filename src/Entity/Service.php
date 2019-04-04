@@ -52,7 +52,7 @@ class Service
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="service")
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="service", orphanRemoval=true)
      */
     private $Review;
 

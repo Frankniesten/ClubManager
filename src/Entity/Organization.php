@@ -114,17 +114,17 @@ class Organization
     private $addressCountry;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="organization")
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="organization", orphanRemoval=true)
      */
     private $review;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Education", mappedBy="organization")
+     * @ORM\OneToMany(targetEntity="App\Entity\Education", mappedBy="organization", orphanRemoval=true)
      */
     private $education;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="organizations")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="organizations", orphanRemoval=true)
      */
     private $employee;
 
