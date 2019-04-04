@@ -40,7 +40,7 @@ class EventsController extends AbstractController
 	    }
 	    else 
 	    {
-		    $endDate = $session->get('endDate', null);
+		    $endDate = $session->get('endDate', new \DateTime('+1 year'));
 	    }
 	    
 	    //Check categorie:       
@@ -50,18 +50,18 @@ class EventsController extends AbstractController
 	    }
 	    else 
 	    {
-		    $query = $session->get('event_query', 0);
+		    $query = $session->get('event_query', 'all');
 	    }
 	    
-    	//Query events:
-    	if ($query == 'all') {
-    
+    	//Query
+    	if ($query == 'all') 
+    	{
 			$events = $this->getDoctrine()
 	        ->getRepository(Event::class)->findByDate($startDate, $endDate); 
 	    }
 	    
-	    else {
-		    
+	    else 
+	    { 
 		    $em = $this->getDoctrine()->getManager();
 			$events = $em->getRepository(Event::class)->findByCategegory($query, $startDate, $endDate);   
 	    }
@@ -105,6 +105,47 @@ class EventsController extends AbstractController
 		
 		return $this->render('events/eventForm.html.twig', [
         	'form' => $form->createView()
+		]);
+	}
+	
+	
+	/**
+     * @Route("/event/{id}/clone", name="app_event_clone")
+     * @IsGranted("ROLE_EVENT_CREATE")
+     */
+	public function clone(EntityManagerInterface $em, Request $request, $id)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$event = $em->getRepository(Event::class)->find($id);
+		
+		if (!$event) {
+        	throw $this->createNotFoundException('Dit event bestaat niet.');
+    	}
+		        
+        
+		$form = $this->createForm(EventFormType::class, clone $event);
+		
+		$form->handleRequest($request);
+		
+		if ($form->isSubmitted() && $form->isValid()) {
+			
+			unset($event);
+
+  
+			$event = $form->getData();
+			
+			$em->persist($event);
+			$em->flush();
+			$id = $event->getId();
+           
+			$this->addFlash('success', $event->getAbout(). ' is nieuw toegevoegd!');
+			
+			return $this->redirectToRoute('app_event', array('id' => $id));			
+		}
+		
+		return $this->render('events/eventForm.html.twig', [
+        	'form' => $form->createView(),
+        	'data' => $event
 		]);
 	}
 	

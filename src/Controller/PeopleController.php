@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class PeopleController extends AbstractController
@@ -23,12 +24,20 @@ class PeopleController extends AbstractController
      * @IsGranted("ROLE_PERSON_VIEW")
      *
      */
-	public function list(EntityManagerInterface $em, Request $request)
+	public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
 	{
 		
-    	$query = $request->query->get('query');
+    	//Check categorie:       
+	    if ($query = $request->query->get('query'))
+	    {
+		    $session->set('event_query', $query);
+	    }
+	    else 
+	    {
+		    $query = $session->get('event_query', 'all');
+	    }
     	
-    	if ($query == null) {
+    	if ($query == 'all') {
     
 			$people = $this->getDoctrine()
 	        ->getRepository(Person::class)

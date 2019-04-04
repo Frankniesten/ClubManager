@@ -22,20 +22,18 @@ class CategoryRepository extends ServiceEntityRepository
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */
-    public function findByAdditionalType($value)
+    public function findByAdditionalType()
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.additionalType = :additionalType')
-            ->setParameter('additionalType', $value)
-            ->orderBy('a.id', 'ASC')
+        	->select('a.additionalType')
+            ->distinct()
+            ->orderBy('a.additionalType', 'ASC')
             ->getQuery()
+            ->getResult()
         ;
     }
-    
-    
-
  
-
+//SELECT DISTINCT `additional_type` FROM `category`
     /**
     //  * @return Category[] Returns an array of Category objects
     //  */
@@ -45,6 +43,7 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->andWhere('c.additionalType = :val')
             ->setParameter('val', $value)
+            ->orderBy('c.additionalType', 'ASC')
             ->getQuery()
             ->getResult()
         ;

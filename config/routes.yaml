@@ -164,6 +164,10 @@ app_event_create:
     path: /event/create
     controller: App\Controller\EventsController::new
     
+app_event_clone:
+    path: /event/{id}/clone
+    controller: App\Controller\EventsController::clone
+    
 app_event:
     path: /event/{id}
     controller: App\Controller\EventsController::show

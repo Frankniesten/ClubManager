@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ProductsController extends AbstractController
 {
@@ -20,24 +21,33 @@ class ProductsController extends AbstractController
      * @Route("/products", name="app_products")
      * @IsGranted("ROLE_PRODUCT_VIEW")
      */
-    public function list(EntityManagerInterface $em, Request $request)
+    public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
     {
-	    $query = $request->query->get('query');
+	    //Check categorie:       
+	    if ($query = $request->query->get('query'))
+	    {
+		    $session->set('products_query', $query);
+	    }
+	    else 
+	    {
+		    $query = $session->get('products_query', 'all');
+	    }
     	
-    	if ($query == null) {
+    	if ($query == 'all') {
     
 			$products = $this->getDoctrine()
 	        ->getRepository(Products::class)
-	        ->findAll();    
+	        ->findAll();     
 	    }
 	    
 	    else {
 		    
 		    $em = $this->getDoctrine()->getManager();
 			$products = $em->getRepository(Products::class)->findByCategegory($query);
+
 		        
 	    }
-        
+	            
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->findCategoryType('product');
         

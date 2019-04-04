@@ -27,6 +27,9 @@
 	        {% if 'edit' in app.request.uri  %}
 	       		<h2>{{ data.about }} - bewerken</h2>
 	        {% endif %}
+	        {% if 'clone' in app.request.uri  %}
+	       		<h2>{{ data.about }} - Kopiëren</h2>
+	        {% endif %}
         </div>
         
         <div class="col-4  ">
@@ -34,6 +37,9 @@
 	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
 	        	
 	        	{% if 'create' in app.request.uri  %}
+	       			<a href="{{ path('app_events') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
+		        {% endif %}
+		        {% if 'clone' in app.request.uri  %}
 	       			<a href="{{ path('app_events') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
 		        {% endif %}
 		        {% if 'edit' in app.request.uri  %}

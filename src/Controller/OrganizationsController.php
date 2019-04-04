@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class OrganizationsController extends AbstractController
@@ -19,24 +20,33 @@ class OrganizationsController extends AbstractController
      * @Route("/organizations", name="organizations")
      * @IsGranted("ROLE_ORGANIZATION_VIEW")
      */
-    public function list(EntityManagerInterface $em, Request $request)
+    public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
     {
-	    $query = $request->query->get('query');
+	    
+	    //Check categorie:       
+	    if ($query = $request->query->get('query'))
+	    {
+		    $session->set('organization_query', $query);
+	    }
+	    else 
+	    {
+		    $query = $session->get('organization_query', 'all');
+	    }
     	
-    	if ($query == null) {
+    	if ($query == 'all') {
     
 			$organizations = $this->getDoctrine()
 	        ->getRepository(Organization::class)
-	        ->findAll();    
+	        ->findAll();     
 	    }
 	    
 	    else {
 		    
 		    $em = $this->getDoctrine()->getManager();
-			$organizations = $em->getRepository(Organization::class)->findByCategegory($query);
-		        
+			$organizations = $em->getRepository(Organization::class)->findByCategegory($query);		        
 	    }
-        
+	    
+  
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->findCategoryType('organization');
         

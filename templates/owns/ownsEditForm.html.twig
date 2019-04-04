@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Personen{% endblock %}
+{% block title %}
+	{% if 'person' in app.request.uri %}
+		<i class="mdi mdi-account-multiple"></i> Personen
+	{% endif %}
+	
+	{% if 'organization' in app.request.uri %}
+		<i class="mdi mdi-domain"></i> Organisaties
+	{% endif %}
+
+{% endblock %}
 
 {% block stylesheets %}
 	

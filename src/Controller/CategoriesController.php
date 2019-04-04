@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class CategoriesController extends AbstractController
@@ -20,15 +21,42 @@ class CategoriesController extends AbstractController
      * @Route("/settings/categorys", name="app_settings_categorys")
      * @IsGranted("ROLE_SETTINGS_VIEW")
      */
-	public function list(EntityManagerInterface $em, Request $request)
+	public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
 	{
-		$category = $this->getDoctrine()
-        ->getRepository(Category::class)
-        ->findAll();
+
+		//Check categorie:       
+	    if ($query = $request->query->get('query'))
+	    {
+		    $session->set('category_query', $query);
+	    }
+	    else 
+	    {
+		    $query = $session->get('category_query', 'all');
+	    }
+    	
+    	if ($query == 'all') {
+    
+			$category = $this->getDoctrine()
+	        ->getRepository(Category::class)
+	        ->findAll();    
+	    }
+	    
+	    else {
+		    
+		    $em = $this->getDoctrine()->getManager();
+			$category = $em->getRepository(Category::class)->findCategoryType($query);      
+	    }
 		
 				
+		
+		
+		$em = $this->getDoctrine()->getManager();
+		$categories = $em->getRepository(Category::class)->findByAdditionalType();
+						
 		return $this->render('categories/Categories.html.twig', [
-        	'data' => $category
+        	'data' => $category,
+        	'categories' => $categories,
+        	'query' => $query
 		]);
 	}
 

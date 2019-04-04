@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ServicesController extends AbstractController
 {
@@ -18,11 +19,19 @@ class ServicesController extends AbstractController
      * @Route("/services", name="app_services")
      * @IsGranted("ROLE_SERVICES_VIEW")
      */
-    public function list(EntityManagerInterface $em, Request $request)
+    public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
     {
-	    $query = $request->query->get('query');
+	    //Check categorie:       
+	    if ($query = $request->query->get('query'))
+	    {
+		    $session->set('service_query', $query);
+	    }
+	    else 
+	    {
+		    $query = $session->get('service_query', 'all');
+	    }
     	
-    	if ($query == null) {
+    	if ($query == 'all') {
     
 			$services = $this->getDoctrine()
 	        ->getRepository(Service::class)
@@ -35,6 +44,7 @@ class ServicesController extends AbstractController
 			$services = $em->getRepository(Service::class)->findByCategegory($query);
 		        
 	    }
+	    
         
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->findCategoryType('service');
