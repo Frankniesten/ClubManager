@@ -1,5 +1,25 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+
+{{ parent() }}
+
+	<!-- DataTables -->
+    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    
+    <style>
+	.card-drop {
+	    color: $muted 
+	    font-size: 18px !important;
+	    height: 0px !important;
+	    line-height: 0px !important;
+	    display: inline-block;
+	}
+	</style>
+	
+{% endblock %} 
+
 
 {% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
 

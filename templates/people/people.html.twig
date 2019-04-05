@@ -77,30 +77,28 @@
                     {% for data in data %}
 						<tr>
 							<td align="center" valign="bottom" with="10">
-								<!-- Dropdown -->
 								
-							    	{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
-							    	<div class="dropdown">
-								    
-	                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-                                        <i class="mdi mdi-dots-horizontal"></i>
-                                   
-	                                    
-	                                    <div class="dropdown-menu dropdown-menu-right">
-	                                        <!-- item-->
-	                                        {% if is_granted('ROLE_PERSON_EDIT') %}
-	                                        <a href="{{ path('app_person_edit', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>
-	                                        {% endif %}
-	                                        <!-- item-->
-	                                        {% if is_granted('ROLE_PERSON_DELETE') %}
-	                                        <a href="{{ path('app_person_delete', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
-	                                        {% endif %}
-	                                    </div>
-	                               
-	                                {% endif %}
-	                                 </div>
-	                            </div>
-	                                <!-- End Dropdown -->
+								<!-- Dropdown -->
+						    	{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+						    	<div class="dropdown">
+							    
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
+                               
+                                    <div class="dropdown-menu dropdown-menu-right"> 
+                                        <!-- item-->
+                                        {% if is_granted('ROLE_PERSON_EDIT') %}
+                                        <a href="{{ path('app_person_edit', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>
+                                        {% endif %}
+                                        
+                                        <!-- item-->
+                                        {% if is_granted('ROLE_PERSON_DELETE') %}
+                                        <a href="{{ path('app_person_delete', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
+                                        {% endif %}
+                                    </div>
+                                </div> 
+ 								{% endif %}
+								<!-- End Dropdown -->
+                            
 							</td>
 							
 						    <td>

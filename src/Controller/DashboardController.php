@@ -4,16 +4,20 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\TotalMembers;
 
 class DashboardController extends AbstractController
 {
     /**
      * @Route("/", name="dashboard")
      */
-    public function index()
+    public function index(TotalMembers $totalMembers)
     {
-        return $this->render('dashboard/index.html.twig', [
-            'controller_name' => 'DashboardController',
+	    
+	    $totalMembers = $totalMembers->countAllMembers();
+	    
+        return $this->render('dashboard/dashboard.html.twig', [
+            'totalMembers' => $totalMembers,
         ]);
     }
 }

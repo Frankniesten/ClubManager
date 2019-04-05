@@ -85,11 +85,11 @@
 	                                <div class="dropdown-menu dropdown-menu-right">
 	                                    <!-- item-->
 	                                    {% if is_granted('ROLE_SERVICES_EDIT') %}
-	                                    <a href="{{ path('app_service_edit', {'id': data.id}) }}" class="dropdown-item">Bewerken</a>
+	                                    <a href="{{ path('app_service_edit', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>
 	                                    {% endif %}
 	                                    <!-- item-->
 	                                    {% if is_granted('ROLE_SERVICES_DELETE') %}
-	                                    <a href="{{ path('app_service_delete', {'id': data.id}) }}" class="dropdown-item">Verwijderen</a>
+	                                    <a href="{{ path('app_service_delete', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
 	                                    {% endif %}
 	                                </div>
 	                            </div>
@@ -100,7 +100,7 @@
 							    <a href="{{ path('app_service', {'id': data.id}) }}" class="waves-effect">{{ data.serviceType }}</a>
 						    </td>
 						    <td>
-								{{ data.category.name }}
+								<span class="badge badge-purple">{{ data.category.name }}</span>
 							</td>
 						</tr>
 						

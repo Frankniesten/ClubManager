@@ -33,15 +33,15 @@ class PersonRepository extends ServiceEntityRepository
         ;
     }
 
-    /*
-    public function findOneBySomeField($value): ?Person
+    public function CountByCategegory()
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+        	->select('count(p.id)')
+            ->andWhere('p.category = :val')
+            ->setParameter('val', '17')
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getSingleScalarResult()
         ;
     }
-    */
 }
+
