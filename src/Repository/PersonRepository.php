@@ -38,7 +38,7 @@ class PersonRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
         	->select('count(p.id)')
             ->andWhere('p.category = :val')
-            ->setParameter('val', '17')
+            ->setParameter('val', '1')
             ->getQuery()
             ->getSingleScalarResult()
         ;

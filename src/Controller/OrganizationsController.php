@@ -28,25 +28,27 @@ class OrganizationsController extends AbstractController
 	    {
 		    $session->set('organization_query', $query);
 	    }
+	    
 	    else 
 	    {
 		    $query = $session->get('organization_query', 'all');
 	    }
     	
-    	if ($query == 'all') {
-    
+    	if ($query == 'all') 
+    	{
 			$organizations = $this->getDoctrine()
 	        ->getRepository(Organization::class)
 	        ->findAll();     
 	    }
 	    
-	    else {
+	    else 
+	    {
+		    $query = $session->get('organization_query', 'all');
 		    
 		    $em = $this->getDoctrine()->getManager();
 			$organizations = $em->getRepository(Organization::class)->findByCategegory($query);		        
 	    }
 	    
-  
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->findCategoryType('organization');
         

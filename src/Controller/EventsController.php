@@ -62,6 +62,8 @@ class EventsController extends AbstractController
 	    
 	    else 
 	    { 
+		    $query = $session->get('event_query', 'all');
+		    
 		    $em = $this->getDoctrine()->getManager();
 			$events = $em->getRepository(Event::class)->findByCategegory($query, $startDate, $endDate);   
 	    }

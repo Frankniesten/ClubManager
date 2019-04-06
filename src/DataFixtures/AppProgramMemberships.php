@@ -59,6 +59,16 @@ class AppProgramMemberships extends Fixture
 		$memberOf->setProgramName('Kapel');
 		$memberOf->setDescription('Lid van de kapel.');
        	$manager->persist($memberOf);
+       	
+       	$memberOf = new ProgramMembership();
+		$memberOf->setProgramName('Leerling');
+		$memberOf->setDescription('Persoon die muziekles volgt via de vereniging.');
+       	$manager->persist($memberOf);
+       	
+       	$memberOf = new ProgramMembership();
+		$memberOf->setProgramName('Uithulp');
+		$memberOf->setDescription('Relaties die de vereniging muzikaal uithelpen.');
+       	$manager->persist($memberOf);
 
         $manager->flush();
     }

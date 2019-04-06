@@ -37,18 +37,19 @@ class PeopleController extends AbstractController
 		    $query = $session->get('event_query', 'all');
 	    }
     	
-    	if ($query == 'all') {
-    
+    	if ($query == 'all') 
+    	{
 			$people = $this->getDoctrine()
 	        ->getRepository(Person::class)
 	        ->findAll();    
 	    }
 	    
-	    else {
+	    else 
+	    { 
+		    $query = $session->get('event_query', 'all');
 		    
 		    $em = $this->getDoctrine()->getManager();
-			$people = $em->getRepository(Person::class)->findByCategegory($query);
-		        
+			$people = $em->getRepository(Person::class)->findByCategegory($query);        
 	    }
         
 		$em = $this->getDoctrine()->getManager();

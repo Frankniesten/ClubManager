@@ -41,7 +41,9 @@ class CategoriesController extends AbstractController
 	        ->findAll();    
 	    }
 	    
-	    else {
+	    else 
+	    {
+		    $query = $session->get('category_query', 'all');
 		    
 		    $em = $this->getDoctrine()->getManager();
 			$category = $em->getRepository(Category::class)->findCategoryType($query);      

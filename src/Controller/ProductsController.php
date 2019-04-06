@@ -33,19 +33,19 @@ class ProductsController extends AbstractController
 		    $query = $session->get('products_query', 'all');
 	    }
     	
-    	if ($query == 'all') {
-    
+    	if ($query == 'all') 
+    	{
 			$products = $this->getDoctrine()
 	        ->getRepository(Products::class)
 	        ->findAll();     
 	    }
 	    
-	    else {
+	    else 
+	    {  
+		    $query = $session->get('products_query', 'all');
 		    
 		    $em = $this->getDoctrine()->getManager();
-			$products = $em->getRepository(Products::class)->findByCategegory($query);
-
-		        
+			$products = $em->getRepository(Products::class)->findByCategegory($query);    
 	    }
 	            
 		$em = $this->getDoctrine()->getManager();

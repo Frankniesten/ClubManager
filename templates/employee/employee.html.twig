@@ -41,10 +41,10 @@
                 {% endif %}
             </td>
             <td>
-	            <a href="mailto:{{ employee.email }}">{{ employee.email }}</a>
+	            {{ employee.email }}
             </td>
             <td>
-	         	{{ employee.category.name }}	
+	         	<span class="badge badge-purple">{{ employee.category.name }}	
             </td>
         </tr>
     {% endfor %} 

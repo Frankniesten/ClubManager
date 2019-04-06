@@ -38,14 +38,14 @@ class ServicesController extends AbstractController
 	        ->findAll();    
 	    }
 	    
-	    else {
+	    else 
+	    {
+		    $query = $session->get('service_query', 'all');
 		    
 		    $em = $this->getDoctrine()->getManager();
 			$services = $em->getRepository(Service::class)->findByCategegory($query);
-		        
 	    }
-	    
-        
+	        
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->findCategoryType('service');
 		        
