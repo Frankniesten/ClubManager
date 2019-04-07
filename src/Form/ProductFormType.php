@@ -26,7 +26,7 @@ class ProductFormType extends AbstractType
 	    	->add('productID', TextType::class, ['label' => 'Serienummer', 'required' => false])
 			->add('model', TextType::class, ['label' => 'Model', 'required' => false])
 			->add('manufacturer', TextType::class, ['label' => 'Fabrikant', 'required' => false])
-			->add('purchaseDate', DateType::class, ['label' => 'Aankoopdatum', 'required' => false, 'widget' => 'single_text', 'html5' => false,])
+			->add('purchaseDate', DateType::class, ['label' => 'Aankoopdatum', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
 			->add('uniqueProduct', CheckboxType::class, ['label' => 'Uniek product', 'required' => false, 'attr' => ['data-plugin' => 'switchery']])
 			->add('category', EntityType::class, array(
 					    'class' => Category::class,

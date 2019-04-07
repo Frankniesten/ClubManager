@@ -45,7 +45,7 @@
 	
 	<ul class="nav nav-tabs nav-justified"> 
 		<li class="nav-item">
-            <a href="{{ path('app_products', {'query': 'all'}) }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == 'all' %}active {% endif %}">
+            <a href="{{ path('app_products', {'query': 'all'}) }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == 'all' or query == null %}active {% endif %}">
                 Alle inventaris
             </a>
         </li>

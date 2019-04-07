@@ -19,7 +19,7 @@ class EducationFormType extends AbstractType
     {
 	    $builder
 	    	->add('certificate', TextType::class, ['label' => 'Diploma', 'required' => true])
-	    	->add('dataAchieved', DateType::class, ['label' => 'Behaald', 'required' => false, 'widget' => 'single_text', 'html5' => false,])
+	    	->add('dataAchieved', DateType::class, ['label' => 'Behaald', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
 	    	->add('organization', EntityType::class, array(
 					    'class' => Organization::class,
 					    'query_builder' => function (EntityRepository $er) {

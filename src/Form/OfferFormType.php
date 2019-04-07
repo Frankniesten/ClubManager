@@ -34,10 +34,10 @@ class OfferFormType extends AbstractType
 			        'Voorraad' => 'Voorraad',
 			        'Uitverkocht' => 'Uitverkocht',
 			        'Nabestelling' => 'Nabestelling')])
-			->add('validFrom', DateType::class, ['label' => 'Aanbod beschikbaar (van / tot)', 'required' => true, 'widget' => 'single_text', 'html5' => false,])
-			->add('validThrough', DateType::class, ['label' => 'Aanbod beschikbaar (van / tot)', 'required' => false, 'widget' => 'single_text', 'html5' => false,])
-			->add('availabilityStarts', DateType::class, ['label' => 'Product beschikbaar (van / tot)', 'required' => false, 'widget' => 'single_text', 'html5' => false,])
-			->add('availabilityEnds', DateType::class, ['label' => 'Product beschikbaar (van / tot)', 'required' => false, 'widget' => 'single_text', 'html5' => false,])
+			->add('validFrom', DateType::class, ['label' => 'Aanbod beschikbaar (van / tot)', 'required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
+			->add('validThrough', DateType::class, ['label' => 'Aanbod beschikbaar (van / tot)', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
+			->add('availabilityStarts', DateType::class, ['label' => 'Product beschikbaar (van / tot)', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
+			->add('availabilityEnds', DateType::class, ['label' => 'Product beschikbaar (van / tot)', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
 			
 	    	
 	    	;

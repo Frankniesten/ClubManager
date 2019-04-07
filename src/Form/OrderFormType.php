@@ -18,7 +18,7 @@ class OrderFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
-	    	->add('orderDate', DateType::class, ['label' => 'Order datum', 'required' => true, 'widget' => 'single_text', 'html5' => false,])    
+	    	->add('orderDate', DateType::class, ['label' => 'Order datum', 'required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])    
 			->add('orderStatus', ChoiceType::class, array(
 				'choices'  => array(
 					

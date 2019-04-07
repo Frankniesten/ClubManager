@@ -42,7 +42,7 @@
 	
 	<ul class="nav nav-tabs nav-justified"> 
 		<li class="nav-item">
-            <a href="{{ path('app_people', {'query': 'all'} ) }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == 'all' %}active {% endif %}">
+            <a href="{{ path('app_people', {'query': 'all'} ) }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == 'all' or query == null %}active {% endif %}">
                 Alle personen
             </a>
         </li>
@@ -65,6 +65,9 @@
                     	 <th align="center" valign="bottom" width="20"></th>
                         <th>Naam</th>
                         <th>Email</th>
+                        <th>Telefoon</th>
+                        <th>Mobiel</th>
+                        <th>Adres</th>
                         <th>Categorie</th>
                     </tr>
                     </thead>
@@ -102,6 +105,10 @@
 						    </td>
 						    
 						    <td>{{ data.email }}</td>
+						    <td>{{data.telephone}}</td>
+						    <td>{{data.telephone2}}</td>
+						    <td>{{data.streetAddress}}{% if data.streetAddress != null %},{% endif %} {{data.addressLocality}}</td>
+						   
 						    
 						    <td><span class="badge badge-purple">{{ data.category.name }}</span></td>
 						</tr>
@@ -134,19 +141,19 @@
 	                    {
 			                extend: 'csv',
 			                exportOptions: {
-			                    columns: [ 1, 2, 3]
+			                    columns: [ 1, 2, 3, 4, 5 ]
 			                }
 		                },
 	                    {
 			                extend: 'print',
 			                exportOptions: {
-			                    columns: [ 1, 2, 3]
+			                    columns: [ 1, 2, 3, 4, 5 ]
 			                }
 		                },
 	                    {
 			                extend: 'pdfHtml5',
 			                exportOptions: {
-			                    columns: [ 1, 2, 3 ]
+			                    columns: [ 1, 2, 3, 4, 5 ]
 							}
 						}] 
                 });

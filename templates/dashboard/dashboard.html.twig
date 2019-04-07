@@ -2,8 +2,8 @@
 
 {% block stylesheets %}
 
-{{ parent() }}
-
+	{{ parent() }}
+	
     <!--Morris Chart CSS -->
 	<link rel="{{ asset('stylesheet') }}" href="assets/plugins/morris/morris.css">
 	
@@ -11,7 +11,6 @@
 
 
 {% block title %}<i class="mdi mdi-view-dashboard"></i> Dashboard{% endblock %}
-
 
 {% block body %}
    
@@ -48,7 +47,6 @@
 
 	{{ parent() }}
 
-    
     <!-- KNOB JS -->
     <script src="{{ asset('assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
 
@@ -58,9 +56,6 @@
 
     <!-- Dashboard init -->
     <script src="{{ asset('assets/pages/jquery.dashboard.js') }}"></script>
-
-    <!-- App js -->
-    <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
-    <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
-    
+	
+       
 {% endblock %}

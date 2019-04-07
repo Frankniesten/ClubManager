@@ -24,7 +24,7 @@ class PersonFormType extends AbstractType
 	    	->add('additionalName', TextType::class, ['label' => 'Tussenvoegsel', 'required' => false])
 	    	->add('familyName', TextType::class, ['label' => 'Achternaam'])
 	    	->add('email', EmailType::class, ['label' => 'Email', 'required' => false])
-	    	->add('birthDate', DateType::class, ['label' => 'Geboorte Datum', 'required' => false, 'widget' => 'single_text', 'html5' => false,])
+	    	->add('birthDate', DateType::class, ['label' => 'Geboorte Datum', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
 	    	->add('gender', ChoiceType::class, [
 	    		'label' => 'Geslacht', 
 	    		'required' => false,

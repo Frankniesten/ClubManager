@@ -25,8 +25,8 @@ class EventFormType extends AbstractType
 	    	->add('about', TextType::class, ['label' => 'Event', 'required' => true])
 	    	->add('description', TextType::class, ['label' => 'Omschrijving', 'required' => false]) 
 	    	
-	    	->add('startDate', DateType::class, ['label' => 'Begin- en einddatum', 'required' => true, 'widget' => 'single_text', 'html5' => false]) 
-	    	->add('endDate', DateType::class, ['label' => 'Einddatum', 'required' => true, 'widget' => 'single_text', 'html5' => false]) 
+	    	->add('startDate', DateType::class, ['label' => 'Begin- en einddatum', 'required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy']) 
+	    	->add('endDate', DateType::class, ['label' => 'Einddatum', 'required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy']) 
 	    	
 	    	
 	    	->add('doorTime', TimeType::class, ['label' => 'Aanvang', 'required' => false, 'widget' => 'single_text', 'html5' => false]) 
