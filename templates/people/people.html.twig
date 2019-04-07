@@ -1,46 +1,22 @@
 {% extends 'base.html.twig' %}
 
-
-{% block stylesheets %}
-
-{{ parent() }}
-
-	<!-- DataTables -->
-    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    
-    <style>
-	.card-drop {
-	    color: $muted;
-	    font-size: 18px !important;
-	    height: 0px !important;
-	    line-height: 0px !important;
-	    display: inline-block;
-	}
-	</style>
-    
-{% endblock %}       
-        
-
 {% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
-
 
 {% block body %}
 
-<div class="row align-items-center">
+	<div class="row align-items-center">
         <div class="col">
 	        <h2>Personen</h2>
         </div>
         
         <div class="col-4  ">
-        
-        {% if is_granted('ROLE_PERSON_CREATE') %}
+       
+        	{% if is_granted('ROLE_PERSON_CREATE') %}
             <div class="btn-group float-right">  
 	        	<a href="{{ path('app_person_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
 	        </div>
-	    {% endif %}    
+			{% endif %}    
         </div>
-        
 	</div>
 	
 	<ul class="nav nav-tabs nav-justified"> 
@@ -61,7 +37,7 @@
 	
 	<div class="row">
         <div class="col-12">
-            <div class="card-box table-responsive"> 
+            <div class="card-box table-responsive">
 	             <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0">
                     <thead>
                     <tr>
@@ -72,7 +48,6 @@
                     </tr>
                     </thead>
 
-
                     <tbody>
                     {% for data in data %}
 						<tr>
@@ -82,7 +57,7 @@
 						    	{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 						    	<div class="dropdown">
 							    
-                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
                                
                                     <div class="dropdown-menu dropdown-menu-right"> 
                                         <!-- item-->
@@ -103,17 +78,13 @@
 							
 						    <td>
 							    <a href="{{ path('app_person', {'id': data.id}) }}">{{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}</a>
-							    	
-							    	
-							    
-							    
 						    </td>
+						    
 						    <td>{{ data.email }}</td>
+						    
 						    <td><span class="badge badge-purple">{{ data.category.name }}</span></td>
 						</tr>
-
 					{% endfor %}
-                    
                     
                     </tbody>
                 </table>
@@ -127,29 +98,6 @@
 {% block javascripts %}
 
 	{{ parent() }}
-
-     <!-- Required datatable js -->
-
-    <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
-    
-    <!-- Buttons examples -->
-    <script src="{{ asset('assets/plugins/datatables/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-    
-    
-    
-
-    <!-- Key Tables -->
-    <script src="{{ asset('assets/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
-
-
 
     <script type="text/javascript">
         $(document).ready(function () {
