@@ -2,13 +2,25 @@
 
 
 {% block stylesheets %}
-
-
+	
 {{ parent() }}
+
 	<!-- DataTables -->
     <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-{% endblock %}  
+    
+    
+    <style>
+	.card-drop {
+	    color: $muted;
+	    font-size: 20px !important;
+	    height: 0px !important;
+	    line-height: 22px !important;
+	    display: inline-block;
+	}
+	</style>
+
+{% endblock %}
 
 
 {% block title %}<i class="mdi mdi-cube"></i> Producten{% endblock %}
@@ -99,8 +111,7 @@
     </ul>
 		    
 		    
-	<div class="card">
-	    <div class="tab-content">
+<div class="card-box tab-content">
 	    	
 	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_service' ? 'show active' }}" id="reviews">
 			
@@ -118,8 +129,6 @@
 				          
 			</div>
 	    </div>
-	</div>
-	<br>
 
 {% endblock %}
 

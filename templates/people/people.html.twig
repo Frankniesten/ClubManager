@@ -1,5 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+	
+{{ parent() }}
+
+	<!-- DataTables -->
+    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    
+    
+    <style>
+	.card-drop {
+	    color: $muted;
+	    font-size: 20px !important;
+	    height: 0px !important;
+	    line-height: 22px !important;
+	    display: inline-block;
+	}
+	</style>
+
+{% endblock %}
+
 {% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
 
 {% block body %}
@@ -51,13 +72,13 @@
                     <tbody>
                     {% for data in data %}
 						<tr>
-							<td align="center" valign="bottom" with="10">
+							<td align="center" valign="bottom" width="10">
 								
 								<!-- Dropdown -->
 						    	{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 						    	<div class="dropdown">
 							    
-                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-vertical"></i></a>
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></a>
                                
                                     <div class="dropdown-menu dropdown-menu-right"> 
                                         <!-- item-->

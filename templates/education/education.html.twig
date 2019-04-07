@@ -36,11 +36,11 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
                         {% if is_granted('ROLE_PERSON_EDIT') %}
-                        <a href="{{ path('app_person_education_edit', {'id': data.id, 'educationID': education.id}) }}" class="dropdown-item">Bewerken</a>
+                        <a href="{{ path('app_person_education_edit', {'id': data.id, 'educationID': education.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>
                         {% endif %}
                         <!-- item-->
                         {% if is_granted('ROLE_PERSON_DELETE') %}
-                        <a href="{{ path('app_person_education_delete', {'id': data.id, 'educationID': education.id}) }}" class="dropdown-item">Verwijderen</a>
+                        <a href="{{ path('app_person_education_delete', {'id': data.id, 'educationID': education.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
                         {% endif %}
                     </div>
                 </div>

@@ -17,7 +17,7 @@
     <tbody>
         <thead>
             <tr>
-            	<td><b>Aanbod</b></td>
+            	<td width="180"><b>Aanbod</b></td>
             	<td><b>Prijs</b></td>	
             	<td><b>Voorraadstatus</b></td>
             	<td><b>Voorraad</b></td>
@@ -40,11 +40,11 @@
                     <div class="dropdown-menu dropdown-menu-right">
                         <!-- item-->
                         {% if is_granted('ROLE_SERVICES_EDIT') %}
-                        <a href="{{ path('app_offer_edit', {'id': data.id, 'offerID': offers.id}) }}" class="dropdown-item">Bewerken</a>
+                        <a href="{{ path('app_offer_edit', {'id': data.id, 'offerID': offers.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>
                         {% endif %}
                         <!-- item-->
                         {% if is_granted('ROLE_SERVICES_DELETE') %}
-                        <a href="{{ path('app_offer_delete', {'id': data.id, 'offerID': offers.id}) }}" class="dropdown-item">Verwijderen</a>
+                        <a href="{{ path('app_offer_delete', {'id': data.id, 'offerID': offers.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
                         {% endif %}
                     </div>
                 </div>

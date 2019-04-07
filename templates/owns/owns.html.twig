@@ -46,19 +46,19 @@
                         <!-- item-->
                         {% if 'person' in app.request.uri %}
                         {% if is_granted('ROLE_PRODUCT_EDIT') %}
-                        	<a href="{{ path('app_owns_edit', {'entity': 'person', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Bewerken</a>		<!-- item-->
+                        	<a href="{{ path('app_owns_edit', {'entity': 'person', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>		<!-- item-->
                         	{% endif %}
                         	{% if is_granted('ROLE_PRODUCT_DELETE') %}
-							<a href="{{ path('app_owns_delete', {'entity': 'person', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Verwijderen</a>
+							<a href="{{ path('app_owns_delete', {'entity': 'person', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
 						{% endif %}
                         {% endif %}
                         
                         {% if 'organization' in app.request.uri %}
                         {% if is_granted('ROLE_PRODUCT_EDIT') %}
-                        	<a href="{{ path('app_owns_edit', {'entity': 'organization', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Bewerken</a>		{% endif %}
+                        	<a href="{{ path('app_owns_edit', {'entity': 'organization', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>		{% endif %}
                         {% if is_granted('ROLE_PRODUCT_DELETE') %}
                         <!-- item-->
-							<a href="{{ path('app_owns_delete', {'entity': 'organization', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item">Verwijderen</a>
+							<a href="{{ path('app_owns_delete', {'entity': 'organization', 'id': data.id, 'ownershipInfoID': owns.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
 						{% endif %}	
                         {% endif %}
                     </div>
