@@ -60,7 +60,7 @@ class EventRepository extends ServiceEntityRepository
     public function UpcomingEvents()
     {
 
-		$startDate = new \DateTime();
+		$startDate = new \DateTime('-1 day');
 	    
 	    $endDate = new \DateTime('+15 day');
 
@@ -72,6 +72,7 @@ class EventRepository extends ServiceEntityRepository
             ->andWhere('p.startDate >= :startDate AND p.endDate <= :endDate')
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
+            ->orderBy('p.startDate', 'ASC')
             ->getQuery()
             ->getResult()
         ;
