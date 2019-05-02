@@ -14,6 +14,9 @@
     "api-platform/schema-generator": {
         "version": "v2.1.0"
     },
+    "beberlei/doctrineextensions": {
+        "version": "v1.2.0"
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -119,6 +122,18 @@
     "egulias/email-validator": {
         "version": "2.1.7"
     },
+    "eightpoints/guzzle-bundle": {
+        "version": "7.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "7.0",
+            "ref": "e5e657ce5a4ebc99f3c76916938aa0a5f8ef7736"
+        },
+        "files": [
+            "config/packages/eight_points_guzzle.yaml"
+        ]
+    },
     "facebook/webdriver": {
         "version": "1.6.0"
     },
@@ -136,6 +151,15 @@
     },
     "gedmo/doctrine-extensions": {
         "version": "v2.4.36"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.3.3"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.5.2"
     },
     "hslavich/oneloginsaml-bundle": {
         "version": "v1.4.1"
@@ -185,6 +209,9 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
@@ -193,6 +220,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
     },
     "robrichards/xmlseclibs": {
         "version": "3.0.3"

@@ -1,5 +1,5 @@
 <?php
-// src/Service/TotalMembers.php
+// src/Service/WidgetTotalMembers.php
 
 namespace App\Service;
 
@@ -7,9 +7,9 @@ use App\Entity\Person;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class TotalMembers extends AbstractController
+class WidgetTotalMembers extends AbstractController
 {
-	public function countAllMembers()
+	public function WidgetTotalMembers()
     {
 	    
 	    $countMembers = $this->getDoctrine()

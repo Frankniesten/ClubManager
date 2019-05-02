@@ -15,8 +15,10 @@
 {% block body %}
    
 <div class="row">
+	
+	
 
-   	<div class="col-xl-3 col-md-6">
+   	<div class="col-xl-4 col-md-8">
 		<div class="card-box">
 			
 			<h4 class="header-title mt-0 m-b-30">Totaal aantal leden</h4>
@@ -36,10 +38,108 @@
             </div>
 		</div>
     </div><!-- end col -->
-
-
+  
 </div>
 <!-- end row -->
+
+<div class="row">
+
+	<div class="col-xl-12">
+        <div class="card-box">
+          
+			<h4 class="header-title mt-0 m-b-30">Aankomende Events (komende 14 dagen)</h4>
+
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Datum</th>
+                        <th>Tijd</th>
+                        <th>Locatie</th>
+                        <th>Categorie</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in events %}
+                        <tr>
+                            <td><a href="{{ path('app_event', {'id': data.id}) }}">{{ data.about }}</a></td>
+                            <td>{{ data.startDate | date('d-m-Y') }}</td>
+                            <td>{{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}</td>
+                            <td>{{ data.location.venue }}</td>
+                            <td>{% for data in data.category %}<span class="badge badge-purple">{{ data.name }}</span> {% endfor %}</td>
+                        </tr>                                               
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- end col -->
+    
+    	
+	<div class="col-xl-6 col-md-8">
+    	<div class="card-box">                              
+			<h4 class="header-title m-t-0 m-b-30">Aanstaande verjaardagen (komende 14 dagen)</h4>
+
+			    <ul class="list-group m-b-0 user-list">
+			    	{% for data in birthdays %}
+			    	
+			    	{% set difference = date("now"|date()).diff(date(data.birthDate)) %}    	
+			    	
+			    	
+			        <li class="list-group-item">
+			            <a href="{{ path('app_person', {'id': data.id}) }}" class="user-list-item">
+			                <div class="avatar">
+			                    {% if difference.d > 0 %} 
+			                    	<i class="mdi mdi-circle text-purple"></i>
+			                    {% endif %}
+			                    {% if difference.d == 0 %} 
+			                    	<i class="mdi mdi-circle text-pink"></i>
+			                    {% endif %}
+			                </div>
+			                <div class="user-desc">
+			                    <span class="name">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</span>
+			                    <span class="desc">{{ data.birthDate | date('d-m-Y') }}, wordt {{ difference.y + 1 }} jaar </span>
+			                </div>
+			            </a>
+			        </li>
+			        
+			        {% endfor %}
+			    </ul>
+			</div>
+		</div>
+
+	
+	<div class="col-xl-6 col-md-8">
+    	<div class="card-box">                              
+			<h4 class="header-title m-t-0 m-b-30">Jubilarissen</h4>
+
+			    <ul class="list-group m-b-0 user-list">
+			    	{% for data in jubilee %}
+   	
+			        <li class="list-group-item">
+			            <a href="{{ path('app_person', {'id': data.id}) }}" class="user-list-item">
+			                <div class="avatar">
+			                    <i class="mdi mdi-circle text-purple"></i>
+			                </div>
+			                <div class="user-desc">
+			                    <span class="name">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</span>
+			                    <span class="desc">{{ data.membershipYears }} Jaar </span>
+			                </div>
+			            </a>
+			        </li>
+			        
+			        {% endfor %}
+			    </ul>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<!-- end row -->
+
                         
 {% endblock %}
 

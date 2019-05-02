@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -52,4 +53,28 @@ class EventRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
+    // /**
+    //  * @return Person[] Returns an array of upcoming events.
+    //  */
+    public function UpcomingEvents()
+    {
+
+		$startDate = new \DateTime();
+	    
+	    $endDate = new \DateTime('+15 day');
+
+
+
+
+        return $this->createQueryBuilder('p')
+        	->select('p')
+            ->andWhere('p.startDate >= :startDate AND p.endDate <= :endDate')
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+                
 }
