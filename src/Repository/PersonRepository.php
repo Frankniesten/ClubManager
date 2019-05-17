@@ -56,12 +56,13 @@ class PersonRepository extends ServiceEntityRepository
     {
 	    $currentDate = new \DateTime();
 	    $CurrentDayOfYear = $currentDate->format('z');
+	    $TwoWeeksBeforeDayOfYear = $CurrentDayOfYear - 7;
 	    $TwoWeeksDayOfYear = $CurrentDayOfYear + 14;
 	    
         return $this->createQueryBuilder('p')
         	->select('p')
             ->Where('dayofyear(p.birthDate) >= :CurrentDayOfYear AND dayofyear(p.birthDate) <= :TwoWeeksDayOfYear')
-            ->setParameter('CurrentDayOfYear', $CurrentDayOfYear)
+            ->setParameter('CurrentDayOfYear', $TwoWeeksBeforeDayOfYear)
             ->setParameter('TwoWeeksDayOfYear', $TwoWeeksDayOfYear)
             ->orderBy('day(p.birthDate)', 'ASC')
             ->getQuery()

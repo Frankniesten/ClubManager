@@ -92,12 +92,13 @@
 			        <li class="list-group-item">
 			            <a href="{{ path('app_person', {'id': data.id}) }}" class="user-list-item">
 			                <div class="avatar">
-			                    {% if difference.d > 0 %} 
+			                    
+			                    {% if "now"|date("m/d/") > data.birthDate|date("m/d/") %}
+				                    <i class="mdi mdi-circle text-muted"></i>
+			                    {% else %}
 			                    	<i class="mdi mdi-circle text-purple"></i>
 			                    {% endif %}
-			                    {% if difference.d == 0 %} 
-			                    	<i class="mdi mdi-circle text-pink"></i>
-			                    {% endif %}
+			                  
 			                </div>
 			                <div class="user-desc">
 			                    <span class="name">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</span>
