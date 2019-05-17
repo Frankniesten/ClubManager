@@ -37,7 +37,11 @@
 		public function processIntegrateUsersIncremental()
 		{
 			/*
-				Hier een incrementale sync. Dit kan op basis van de log tabel.
+				Hier een incrementale sync. Dit kan op basis van de users tabel en de updated at tabel
+				
+				Als update en created hetzelfde zijn is het een nieuwe. Als er verschil is is het een update.
+				
+				Timestamp zouden we in de cache kunnen gooien. Als er geen cache waarde is doen we een full sync. Je zou met de cache waarde kunnen regelen hoe vaak een full en of inc. Sync moet plaatsvinden.
 				
 				Waar hou je de timestamps bij?
 				
