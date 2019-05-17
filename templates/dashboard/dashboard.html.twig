@@ -57,6 +57,7 @@
                         <th>Datum</th>
                         <th>Tijd</th>
                         <th>Locatie</th>
+                        <th>Status</th>
                         <th>Categorie</th>
                     </tr>
                     </thead>
@@ -67,6 +68,17 @@
                             <td>{{ data.startDate | date('d-m-Y') }}</td>
                             <td>{{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}</td>
                             <td>{{ data.location.venue }}</td>
+                            <td>
+								{% if data.eventStatus == 'Bevestigd'  %}    
+							        <span class="badge badge-purple">Bevestigd</span>
+							    {% endif %}
+							    {% if data.eventStatus == 'Voorlopig'  %}    
+							        <span class="badge badge-pink">Voorlopig</span>
+							    {% endif %}
+							    {% if data.eventStatus == 'Geannuleerd'  %}    
+							        <span class="badge badge-inverse">Geannuleerd</span>
+							    {% endif %}
+							</td>
                             <td>{% for data in data.category %}<span class="badge badge-purple">{{ data.name }}</span> {% endfor %}</td>
                         </tr>                                               
                     {% endfor %}
