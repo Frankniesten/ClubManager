@@ -34,7 +34,6 @@ class PersonRepository extends ServiceEntityRepository
         ;
     }
 
-	
 	// /**
     //  * @return Person[] Returns an array of Person objects from category 1
     //  */
@@ -64,13 +63,12 @@ class PersonRepository extends ServiceEntityRepository
             ->Where('dayofyear(p.birthDate) >= :CurrentDayOfYear AND dayofyear(p.birthDate) <= :TwoWeeksDayOfYear')
             ->setParameter('CurrentDayOfYear', $TwoWeeksBeforeDayOfYear)
             ->setParameter('TwoWeeksDayOfYear', $TwoWeeksDayOfYear)
-            ->orderBy('day(p.birthDate)', 'ASC')
+            ->orderBy('month(p.birthDate)', 'ASC')
             ->getQuery()
             ->getResult()
         ;   
     }
-    
-    
+     
     // /**
     //  * @return Person[] Returns an array of people wich have an jubilee this year.
     //  */
@@ -97,6 +95,21 @@ class PersonRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;   
-    }    
+    }  
+    
+    // /**
+    //  * @return Person[] Returns an array of Person objects in specific role.
+    //  */
+    public function findByMemberOf($value)
+    {
+        return $this->createQueryBuilder('p')
+        	->innerJoin('p.memberOf', 'i')
+            ->andWhere('i.id = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getArrayResult()
+        ;
+    }  
 }
 

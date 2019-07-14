@@ -64,9 +64,6 @@ class EventRepository extends ServiceEntityRepository
 	    
 	    $endDate = new \DateTime('+15 day');
 
-
-
-
         return $this->createQueryBuilder('p')
         	->select('p')
             ->andWhere('p.startDate >= :startDate AND p.endDate <= :endDate')
