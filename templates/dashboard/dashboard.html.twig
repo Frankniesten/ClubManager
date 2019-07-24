@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-
-	{{ parent() }}
-	
-    <!--Morris Chart CSS -->
-	<link rel="{{ asset('stylesheet') }}" href="assets/plugins/morris/morris.css">
+	    
+	<!--Morris Chart CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/morris/morris.css') }}">
+    
+    {{ parent() }}
 	
 {% endblock %}
 
@@ -20,22 +20,10 @@
 
    	<div class="col-xl-4 col-md-8">
 		<div class="card-box">
-			
-			<h4 class="header-title mt-0 m-b-30">Totaal aantal leden</h4>
-
-            <div class="widget-box-2">
-                <div class="widget-detail-2">
-                    
-                    <h2 class="mb-0"> {{ totalMembers }} </h2>
-                    <p class="text-muted m-b-25">Leden</p>
-                </div>
-                <div class="progress progress-bar-success-alt progress-sm mb-0">
-                    <div class="progress-bar progress-bar-success" role="progressbar"
-                         aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
-                         style="width: {{ totalMembers }}%;">
-                    </div>
-                </div>
-            </div>
+			<h4 class="header-title m-t-0 m-b-30">Personen per categorie</h4>
+            
+            <div id="myfirstchart" style="height: 250px;"></div>
+ 
 		</div>
     </div><!-- end col -->
   
@@ -157,17 +145,27 @@
 
 {% block javascripts %}
 
-	{{ parent() }}
 
-    <!-- KNOB JS -->
-    <script src="{{ asset('assets/plugins/jquery-knob/jquery.knob.js') }}"></script>
-
+    {{ parent() }}
+    
     <!--Morris Chart-->
-	<script src="{{ asset('assets/plugins/morris/morris.min.js') }}"></script>
-	<script src="{{ asset('assets/plugins/raphael/raphael-min.js') }}"></script>
-
-    <!-- Dashboard init -->
-    <script src="{{ asset('assets/pages/jquery.dashboard.js') }}"></script>
+    <script src="{{ asset('assets/plugins/morris/morris.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/raphael/raphael-min.js') }}"></script>
 	
+	<script type="text/javascript">
+new Morris.Donut({
+  
+  // ID of the element in which to draw the chart.
+  element: 'myfirstchart',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: [
+	{% for data in totalMembers %}
+    { label: '{{data.name}}', value: {{data.count}} },
+    {% endfor %}
+  ],
+  colors: ['#ff8acc', '#5b69bc', "#35b8e0"]
+});
+	</script>
        
 {% endblock %}

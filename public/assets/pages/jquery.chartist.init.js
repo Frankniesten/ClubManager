@@ -681,7 +681,7 @@ new Chartist.Pie('#simple-pie', data, {
 //Pie chart with custom labels
 
 var data = {
-  labels: ['Bananas', 'Apples', 'Grapes'],
+  labels: ['Test', 'test 2', 'Grapes'],
   series: [20, 15, 40]
 };
 

@@ -37,12 +37,12 @@ class PersonRepository extends ServiceEntityRepository
 	// /**
     //  * @return Person[] Returns an array of Person objects from category 1
     //  */
-    public function CountByCategegory()
+    public function CountByCategegory($value)
     {
         return $this->createQueryBuilder('p')
         	->select('count(p.id)')
             ->andWhere('p.category = :val')
-            ->setParameter('val', '1')
+            ->setParameter('val', $value)
             ->getQuery()
             ->getSingleScalarResult()
         ;
