@@ -429,8 +429,13 @@ app_orderItem_edit:
 app_orderItem_delete:
     path: /person/{id}/order/{orderID}/orderitem/{orderItemID}/delete
     controller: App\Controller\OrderItemController::delete
+    
 
-
+# ---Statistics--- #
+app_statistics:
+    path: /statistics
+    controller: App\Controller\StatisticsController::list
+    
 # ---User--- # 
 app_user_create:
     path: /user/create

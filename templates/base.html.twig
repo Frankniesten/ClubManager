@@ -157,6 +157,12 @@
 	                                <a href="{{ path('app_orders') }}" class="waves-effect {% if 'orders' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-cart"></i> <span> Orders </span> </a>
 	                            </li>
 	                        {% endif %}
+	                        
+	                        {% if is_granted('ROLE_SERVICES_VIEW') %}
+	                            <li>
+	                                <a href="{{ path('app_statistics') }}" class="waves-effect {% if 'statistics' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-chart-bar"></i> <span> Statistieken </span> </a>
+	                            </li>
+	                        {% endif %}
                             
                             {% if is_granted('ROLE_SETTINGS_VIEW') %}
 	                            <li class="has_sub">

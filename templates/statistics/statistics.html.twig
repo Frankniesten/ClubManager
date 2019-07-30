@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	    
+	<!--Morris Chart CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/plugins/morris/morris.css') }}">
+    
+    {{ parent() }}
+	
+{% endblock %}
+
+
+{% block title %}<i class="mdi mdi-chart-bar"></i> Statistieken{% endblock %}
+
+{% block body %}
+   
+<div class="row">
+    	
+	<div class="col-xl-6 col-md-8">
+    	<div class="card-box">                              
+			<h4 class="header-title m-t-0 m-b-30">Gemiddelde leeftijd</h4>
+				<div class="widget-box-2">
+                    <div class="widget-detail-2">
+                        
+                        <h2 class="mb-0"> {{ averageAge.averageAge | number_format(1) }} </h2>
+                        <p class="text-muted m-b-25">
+                        	<i class="mdi mdi-arrow-up-bold"></i> {{ averageAge.maxAge }} jaar<br>
+                        	<i class="mdi mdi-arrow-down-bold"></i> {{ averageAge.minAge }} jaar <br>
+							
+                    </div>
+                    <div class="progress progress-bar-success-alt progress-sm mb-0">
+                        <div class="progress-bar progress-bar-success" role="progressbar"
+                             aria-valuenow="{{ averageAge.averageAge }}" aria-valuemin="{{ averageAge.minAge }}" aria-valuemax="{{ averageAge.maxAge }}"
+                             style="width: {{ averageAge.averageAge }}%;">
+                        </div>
+                    </div>
+                </div>  
+			</div>
+		</div>
+
+	
+	<div class="col-xl-6 col-md-8">
+    	<div class="card-box">                              
+			<h4 class="header-title m-t-0 m-b-30">Verdeling man, vrouw</h4>
+				<div id="myfirstchart" style="height: 250px;"></div>
+				<ul class="list-inline chart-detail-list mb-0">
+                                            <li class="list-inline-item">
+                                                <h5 style="color: #ff8acc;"><i class="fa fa-circle m-r-5"></i>Vrouw</h5>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <h5 style="color: #5b69bc;"><i class="fa fa-circle m-r-5"></i>Man</h5>
+                                            </li>
+                                        </ul>
+			    
+		</div>
+	</div>
+	
+	<div class="col-xl-12">
+        <div class="card-box">
+          
+			<h4 class="header-title mt-0 m-b-30">Leeftijdsopbouw per 5 jaar </h4>
+			
+			<div id="bar" style="height: 250px;"></div>
+
+        </div>
+    </div>
+
+	
+</div>
+<!-- end row -->
+
+                        
+{% endblock %}
+
+{% block javascripts %}
+
+
+    {{ parent() }}
+    
+    <!--Morris Chart-->
+    <script src="{{ asset('assets/plugins/morris/morris.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/raphael/raphael-min.js') }}"></script>
+	
+	<script type="text/javascript">
+new Morris.Donut({
+  
+  // ID of the element in which to draw the chart.
+  element: 'myfirstchart',
+  // Chart data records -- each entry in this array corresponds to a point on
+  // the chart.
+  data: [
+	{% for data in genderDistribution %}
+    { label: '{{data.name}}', value: {{data.count}} },
+    {% endfor %}
+  ],
+  colors: ['#ff8acc', '#5b69bc', "#35b8e0"]
+});
+
+
+ 	new Morris.Bar({
+	 	element: 'bar',
+
+	 	data: [
+	 		{% for data in ageDifference %}
+	 			{ y: '{{data.name}}', a: {{data.count}} },	
+	 		{% endfor %}
+	 		
+	 	],
+	 	xkey: 'y',	
+	 	ykeys: 'a',
+	 	barColors: ['#5b69bc', "#35b8e0"],
+	 	labels: ['leden'],
+	 	hideHover: 'true'
+	 	}); 
+     
+	</script>
+       
+{% endblock %}
