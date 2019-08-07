@@ -302,20 +302,20 @@ app_settings_category_delete:
 
 
 # ---ProgramMemberships--- #
-app_settings_program_memberships:
-    path: /settings/programmemberships
+app_program_memberships:
+    path: /programmemberships
     controller: App\Controller\ProgramMembershipController::list
 
-app_settings_program_membership_create:
-    path: /settings/programmembership/create
+app_program_membership_create:
+    path: /programmembership/create
     controller: App\Controller\ProgramMembershipController::new
     
-app_settings_program_membership_edit:
-    path: /settings/programmembership/{id}/edit
+app_program_membership_edit:
+    path: /programmembership/{id}/edit
     controller: App\Controller\ProgramMembershipController::edit
     
-app_settings_program_membership_delete:
-    path: /settings/programmembership/{id}/delete
+app_program_membership_delete:
+    path: /programmembership/{id}/delete
     controller: App\Controller\ProgramMembershipController::delete
     
 

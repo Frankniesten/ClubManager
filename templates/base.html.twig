@@ -119,12 +119,19 @@
                         	{% if is_granted('ROLE_USER') %}
 	                            <li>
 	                                <a href="{{ path('dashboard') }}" class="waves-effect {% if 'dashboard' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
+	                                
 	                            </li>
 	                        {% endif %}
                             
                             {% if is_granted('ROLE_PERSON_VIEW') %}
 	                            <li>
 	                                <a href="{{ path('app_people') }}" class="waves-effect {% if 'person' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-account-multiple"></i> <span> Personen </span> </a>
+	                            </li>
+	                        {% endif %}
+	                        
+	                        {% if is_granted('ROLE_PERSON_VIEW') %}
+	                            <li>
+	                                <a href="{{ path('app_program_memberships') }}" class="waves-effect {% if 'programmembership' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-account-star"></i> <span> Rollen </span> </a>
 	                            </li>
 	                        {% endif %}
 
@@ -169,7 +176,6 @@
 	                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-tag-multiple"></i> <span> Parameters </span> <span class="menu-arrow"></span></a>
 	                                <ul class="list-unstyled">
 	                                	<li><a href="{{ path('app_settings_categories') }}">Categoriën</a></li>
-	                                    <li><a href="{{ path('app_settings_program_memberships') }}">Rollen</a></li>
 	                                    <li><a href="{{ path('app_settings_musical_instruments') }}">Muziekinstrumenten</a></li>
 	                                    <li><a href="{{ path('app_settings_postaladdresses') }}">Event locaties</a></li>
 	                                </ul>
@@ -223,7 +229,7 @@
                 </div> <!-- content -->
 
                 <footer class="footer text-right">
-                    2019 © ClubManager - Versie 1.0.0
+                    2019 © ClubManager - Versie 1.1.0
                 </footer>
 
             </div>
