@@ -111,5 +111,21 @@ class PersonRepository extends ServiceEntityRepository
             ->getArrayResult()
         ;
     }  
+    
+    
+    // /**
+    //  * @return Person[] Returns an array of Person objects in specific role.
+    //  */
+    public function findByMemberOfProgramName($value)
+    {
+        return $this->createQueryBuilder('p')
+        	->innerJoin('p.memberOf', 'i')
+            ->andWhere('i.programName = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
 

@@ -29,7 +29,14 @@ class OwnsEditFormType extends AbstractType
 					        return $er->createQueryBuilder('u')
 					            ->orderBy('u.name', 'ASC');
 					    },
-					    'choice_label' => 'name',
+					    'choice_label' => function (Products $product) {return 'Naam: ' .
+
+						    $product->getName(). ', SN: ' .
+						    $product->getProductID(). ', Model: ' .
+						    $product->getModel(). ', Fabrikant: ' .
+						    $product->getManufacturer(); 
+						    
+						    },
 					    'required' => true,
 					    'label' => 'Product',
 					    'disabled' => true,

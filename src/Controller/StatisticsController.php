@@ -18,16 +18,7 @@ class StatisticsController extends AbstractController
      *
      */
     public function list()
-    {
-	    //Alle personen met lidmaatschap 1 opvragen.
-		//Dan zou je voor iedere gadget een foreach kunnen doen en daar alles uit halen.
-		
-		//Gemiddelde leeftijd:
-			//selecteer van iedere persoon de geboortedatum.
-			//Tel alle leeftijden bij elkaar op en deel ze door het aantal personen.
-			
-
-	    
+    {	    
 	    $em = $this->getDoctrine()->getManager();
 		$people = $em->getRepository(Person::class)->findByCategegory(1); 
 		

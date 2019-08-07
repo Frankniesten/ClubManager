@@ -27,30 +27,49 @@ class PeopleController extends AbstractController
 	public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
 	{
 		
-    	//Check categorie:       
-	    if ($query = $request->query->get('query'))
+		$people = null;
+		$query = null;
+		$roles = null;
+		
+		//Check for roles query:       
+	    if ($roles= $request->query->get('roles'))
 	    {
-		    $session->set('event_query', $query);
-	    }
-	    else 
-	    {
-		    $query = $session->get('event_query', 'all');
-	    }
-    	
-    	if ($query == 'all') 
-    	{
-			$people = $this->getDoctrine()
-	        ->getRepository(Person::class)
-	        ->findAll();    
-	    }
-	    
-	    else 
-	    { 
-		    $query = $session->get('event_query', 'all');
+		    //$session->set('event_query', $query);
 		    
 		    $em = $this->getDoctrine()->getManager();
-			$people = $em->getRepository(Person::class)->findByCategegory($query);        
+			$people = $em->getRepository(Person::class)->findByMemberOfProgramName($roles); 	
 	    }
+	    
+	    if ($query = $request->query->get('query'))
+	    {
+		    
+	    
+		
+	    	//Check categorie:       
+		    if ($query = $request->query->get('query'))
+		    {
+			    $session->set('event_query', $query);
+		    }
+		    else 
+		    {
+			    $query = $session->get('event_query', 'all');
+		    }
+	    	
+	    	if ($query == 'all') 
+	    	{
+				$people = $this->getDoctrine()
+		        ->getRepository(Person::class)
+		        ->findAll();    
+		    }
+		    
+		    else 
+		    { 
+			    $query = $session->get('event_query', 'all');
+			    
+			    $em = $this->getDoctrine()->getManager();
+				$people = $em->getRepository(Person::class)->findByCategegory($query);        
+		    }
+		}
         
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->findCategoryType('person');
@@ -58,7 +77,8 @@ class PeopleController extends AbstractController
 		return $this->render('people/people.html.twig', [
         	'data' => $people,
         	'category' => $category,
-        	'query' => $query
+        	'query' => $query,
+        	'roles' => $roles
 		]);
 		
 		

@@ -36,7 +36,7 @@
         <div class="col-4  ">
         	{% if is_granted('ROLE_SETTINGS_CREATE') %}
 	        <div class="btn-group float-right">
-	        	<a href="{{ path('app_settings_program_membership_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
+	        	<a href="{{ path('app_program_membership_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
 	        </div>
 	        {% endif %}
         </div>
@@ -54,6 +54,7 @@
                     	<th align="center" valign="bottom" width="20"></th>
 						<th>Rol</th>
 						<th>Omschrijving</th>
+						<th>Personen</th>
                     </tr>
                     </thead>
 
@@ -72,11 +73,11 @@
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <!-- item-->
                                         {% if is_granted('ROLE_SETTINGS_EDIT') %}
-                                        <a href="{{ path('app_settings_program_membership_edit', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>
+                                        <a href="{{ path('app_program_membership_edit', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>
                                         {% endif %}
                                         <!-- item-->
                                         {% if is_granted('ROLE_SETTINGS_DELETE') %}
-                                        <a href="{{ path('app_settings_program_membership_delete', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
+                                        <a href="{{ path('app_program_membership_delete', {'id': data.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -87,7 +88,10 @@
 							    {{ data.programName }}
 						    </td>
 						    <td>{{ data.description | truncate(100) }}</td>
+						    <td><a href="{{ path('app_people', {'roles': data.programName}) }}"><span class="badge badge-purple">Bekijk {{ data.people|length }} {% if data.people|length == 1 %}persoon{% else %}personen{% endif %}</span></a></td>
 						</tr>
+
+
 
 					{% endfor %}
                     
@@ -129,6 +133,7 @@
 
                 var table = $('#datatable-buttons').DataTable({
                     lengthChange: true,
+                    "pageLength": 50,
                     "columnDefs": [
 					    { "orderable": false, "targets": 0 }
 					  ],

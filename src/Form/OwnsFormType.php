@@ -30,7 +30,14 @@ class OwnsFormType extends AbstractType
 								->where('u.loan = false OR u.loan IS NULL')
 					            ->orderBy('u.name', 'ASC');
 					    },
-					    'choice_label' => 'name',
+					    'choice_label' => function (Products $product) {return 'Naam: ' .
+
+						    $product->getName(). ', SN: ' .
+						    $product->getProductID(). ', Model: ' .
+						    $product->getModel(). ', Fabrikant: ' .
+						    $product->getManufacturer(); 
+						    
+						    },
 					    'required' => true,
 					    'label' => 'Product',
 					    'placeholder' => 'Selecteer...',
