@@ -2,7 +2,11 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,6 +16,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ApiResource()
+ * @ApiFilter(DateFilter::class, properties={"startDate", "endDate", "createdAt", "updatedAt"})
+ * @ApiFilter(OrderFilter::class, properties={"id", "startDate"}, arguments={"orderParameterName"="order"})
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "category": "exact"})
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  * @Gedmo\Loggable
  */
