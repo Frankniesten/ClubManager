@@ -20,7 +20,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ApiFilter(DateFilter::class, properties={"startDate", "endDate", "createdAt", "updatedAt"})
  * @ApiFilter(OrderFilter::class, properties={"id", "startDate"}, arguments={"orderParameterName"="order"})
  * @ApiFilter(SearchFilter::class, properties={"id": "exact", "category": "exact"})
- * @ApiFilter(PropertyFilter::class, arguments={"parameterName": "properties", "overrideDefaultProperties": false, "whitelist": {"allowed_property"}})
+ * @ApiFilter(PropertyFilter::class, arguments={"parameterName": "properties", "overrideDefaultProperties": false, "location": {"allowed_property"}})
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  * @Gedmo\Loggable
  */
