@@ -2,6 +2,11 @@
 
 namespace App\Entity;
 
+
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -10,6 +15,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
+ * @ApiResource()
+ * @ApiFilter(SearchFilter::class, properties={"username": "exact"})
+ * @ApiFilter(PropertyFilter::class, arguments={"parameterName": "properties", "overrideDefaultProperties": false, "whitelist": null})
  * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @Gedmo\Loggable
