@@ -135,7 +135,7 @@ class Person
     private $education;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ProgramMembership", inversedBy="people", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\ProgramMembership", inversedBy="people")
      */
     private $memberOf;
 
