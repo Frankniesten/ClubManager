@@ -146,7 +146,7 @@
 	    	
 	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_organization' ? 'show active' }}" id="reviews">
 			
-				{{ include('Review/reviews.html.twig', { 
+				{{ include('review/reviews.html.twig', { 
 					'data': data, 
 				}) }}
 				
