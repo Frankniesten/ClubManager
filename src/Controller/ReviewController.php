@@ -89,7 +89,7 @@ class ReviewController extends AbstractController
 		    }					
 		}
 		
-		return $this->render('review/ReviewForm.html.twig', [
+		return $this->render('review/reviewForm.html.twig', [
 	    	'form' => $form->createView(),
 	    	'id' => $id
 		]);
