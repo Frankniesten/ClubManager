@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use App\Entity\Person;
 use App\Entity\Membership;
 use App\Entity\Category;
@@ -15,8 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
-
 class PeopleController extends AbstractController
 {
     /**
@@ -33,43 +29,36 @@ class PeopleController extends AbstractController
 		
 		//Check for roles query:       
 	    if ($roles= $request->query->get('roles'))
-	    {
-		    //$session->set('event_query', $query);
-		    
+	    {		    
 		    $em = $this->getDoctrine()->getManager();
 			$people = $em->getRepository(Person::class)->findByMemberOfProgramName($roles); 	
 	    }
-	    
-	    if ($query = $request->query->get('query'))
+	   
+    	//Check categorie query:       
+	    else if ($query = $request->query->get('query'))
 	    {
+		    $session->set('event_query', $query);
 		    
-	    
-		
-	    	//Check categorie:       
-		    if ($query = $request->query->get('query'))
-		    {
-			    $session->set('event_query', $query);
-		    }
-		    else 
+		    if ($query == 'all')
 		    {
 			    $query = $session->get('event_query', 'all');
-		    }
-	    	
-	    	if ($query == 'all') 
-	    	{
-				$people = $this->getDoctrine()
+			    $people = $this->getDoctrine()
 		        ->getRepository(Person::class)
-		        ->findAll();    
+		        ->findAll();  
 		    }
-		    
 		    else 
-		    { 
-			    $query = $session->get('event_query', 'all');
-			    
+		    {
 			    $em = $this->getDoctrine()->getManager();
-				$people = $em->getRepository(Person::class)->findByCategegory($query);        
+				$people = $em->getRepository(Person::class)->findByCategegory($query);  
 		    }
-		}
+	    }
+	    else 
+	    {
+		    $query = $session->get('event_query', 'all');
+		    $people = $this->getDoctrine()
+	        ->getRepository(Person::class)
+	        ->findAll(); 
+	    }
         
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->findCategoryType('person');
@@ -85,7 +74,6 @@ class PeopleController extends AbstractController
 		
 		
 	}
-
 	/**
      * @Route("/person/create", name="app_person_create")
      * @IsGranted("ROLE_PERSON_CREATE")
@@ -112,7 +100,6 @@ class PeopleController extends AbstractController
         	'form' => $form->createView()
 		]);
 	}
-
 	/**
      * @Route("/person/{id}", name="app_person")
      * @IsGranted("ROLE_PERSON_VIEW")
@@ -123,7 +110,7 @@ class PeopleController extends AbstractController
 		$person = $em->getRepository(Person::class)->find($id);
 		
 		if (!$person) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException('Deze persoon bestaat niet');
     	} 
         
 		return $this->render('people/person.html.twig', [
@@ -141,7 +128,7 @@ class PeopleController extends AbstractController
 		$person = $em->getRepository(Person::class)->find($id);
 		        
         if (!$person) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException('Deze persoon bestaat niet');
     	} 
     	
 		$form = $this->createForm(PersonFormType::class, $person);
@@ -174,9 +161,8 @@ class PeopleController extends AbstractController
 	{
 		$em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
-
 		if (!$person) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException('Deze persoon bestaat niet');
     	} 
     	
 		$em->remove($person);

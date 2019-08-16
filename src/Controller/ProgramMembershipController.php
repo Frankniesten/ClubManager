@@ -15,7 +15,7 @@ class ProgramMembershipController extends AbstractController
 {
 	
     /**
-     * @Route("/programmemberships", name="program_memberships")
+     * @Route("/programmemberships", name="app_program_memberships")
      * @IsGranted("ROLE_SETTINGS_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
@@ -32,7 +32,7 @@ class ProgramMembershipController extends AbstractController
 	
 	
 	/**
-     * @Route("/settings/programmembership/create", name="program_memberships_create")
+     * @Route("/settings/programmembership/create", name="app_program_membership_create")
      * @IsGranted("ROLE_SETTINGS_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request)
@@ -60,7 +60,7 @@ class ProgramMembershipController extends AbstractController
 	
 	
 	/**
-     * @Route("/settings/programmembership/{id}/edit", name="programmembership_edit")
+     * @Route("/settings/programmembership/{id}/edit", name="app_program_membership_edit")
      * @IsGranted("ROLE_SETTINGS_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id)
@@ -95,10 +95,10 @@ class ProgramMembershipController extends AbstractController
 	
 	
 	/**
-     * @Route("/settings/programmembership/{id}/delete", name="programmembership_delete")
+     * @Route("/settings/programmembership/{id}/delete", name="app_program_membership_delete")
      * @IsGranted("ROLE_SETTINGS_DELETE")
      */
-	public function del(EntityManagerInterface $em, Request $request, $id)
+	public function delete(EntityManagerInterface $em, Request $request, $id)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$programMembership = $em->getRepository(ProgramMembership::class)->find($id);

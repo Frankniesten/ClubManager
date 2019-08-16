@@ -140,7 +140,7 @@
  <div class="card-box tab-content">
 	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_product' ? 'show active' }}" id="reviews">
 			
-				{{ include('Review/reviews.html.twig', { 
+				{{ include('review/reviews.html.twig', { 
 					'data': data
 				}) }}
 				
