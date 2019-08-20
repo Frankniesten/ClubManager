@@ -50,7 +50,7 @@ class ProgramMembershipController extends AbstractController
            
 			$this->addFlash('success', 'Rol: '.$programMembership->getProgramName().' is toegevoegd!');
 			
-			return $this->redirectToRoute('app_settings_program_memberships');			
+			return $this->redirectToRoute('app_program_memberships');			
 		}
 		
 		return $this->render('programMemberships/programMembershipsForm.html.twig', [
@@ -84,7 +84,7 @@ class ProgramMembershipController extends AbstractController
            
 			$this->addFlash('success', 'Rol: '.$programMembership->getProgramName().' is bijgewerkt!');
 			
-			return $this->redirectToRoute('app_settings_program_memberships');			
+			return $this->redirectToRoute('app_program_memberships');			
 		}
 		
 		return $this->render('programMemberships/programMembershipsForm.html.twig', [
@@ -112,7 +112,7 @@ class ProgramMembershipController extends AbstractController
            
 			$this->addFlash('warning', 'De rol is verwijderd!');
 			
-			return $this->redirectToRoute('app_settings_program_memberships');			
+			return $this->redirectToRoute('app_program_memberships');			
 	}
 
 
