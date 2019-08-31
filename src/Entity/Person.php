@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
 
+
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
@@ -97,6 +98,7 @@ class Person
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Gedmo\Versioned
      */
     private $addressLocality;
 
@@ -124,11 +126,13 @@ class Person
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Gedmo\Versioned
      */
     private $membershipYears;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\MusicalInstrument")
+     * @Gedmo\Versioned
      */
     private $musicalInstrument;
 
@@ -143,12 +147,13 @@ class Person
     private $memberOf;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\OwnershipInfo", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="App\Entity\OwnershipInfo", mappedBy="person", orphanRemoval=true)
      */
     private $owns;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
+     * @Gedmo\Versioned
      */
     private $alumni;
 
@@ -169,6 +174,7 @@ class Person
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="person", cascade={"persist", "remove"})
+     * @Gedmo\Versioned
      */
     private $user;
 

@@ -37,7 +37,7 @@ class MemberOfController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid()) {
 			
 			$person = $form->getData();
-			
+			$person->setUpdatedAt(new \DateTime());
 			$em->persist($person);
 			$em->flush();
            

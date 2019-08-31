@@ -24,7 +24,7 @@ class ParentsController extends AbstractController
 		$person = $em->getRepository(Person::class)->find($id);
 		
 		if (!$person) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException('The person does not exist');
     	} 
 	    
 		//generate Form.
@@ -36,10 +36,10 @@ class ParentsController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid()) {
 			
 			$person = $form->getData();
-			
+			$person->setUpdatedAt(new \DateTime());
 			$em->persist($person);
 			$em->flush();
-           
+			
 			$this->addFlash('success', 'Ouder(s) aan: '.$person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' toegevoegd!');
 					
 			return $this->redirectToRoute('app_person_parents', array('id' => $id));			
