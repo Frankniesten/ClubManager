@@ -45,6 +45,7 @@ class EventFormType extends AbstractType
 			        'Bevestigd' => 'Bevestigd',
 			        'Voorlopig' => 'Voorlopig',
 			        'Geannuleerd' => 'Geannuleerd')])
+			        
 			->add('eventStatus', ChoiceType::class, [
 	    		'label' => 'Status', 
 	    		'required' => true,

@@ -80,10 +80,12 @@
 				                <td><b>Einddatum</b></td>
 				                <td>{{ data.endDate | date('d-m-Y') }}</td>
 				            </tr>
+				            {% if data.doorTime is not null  %}
 				            <tr>
 				                <td><b>Aanvang</b></td>
-				                <td>{{ data.doorTime | date('H:i') }}</td>
+				                <td>{{ data.doorTime | date('H:i') }}</td>	
 				            </tr>
+				            {% endif %}  
 				            <tr>
 				                <td><b>Begintijd</b></td>
 				                <td>{{ data.startTime | date('H:i') }}</td>

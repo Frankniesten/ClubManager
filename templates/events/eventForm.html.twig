@@ -161,11 +161,11 @@
 		    <div class="row">
 			    <div class="col-6">
 				    {{ form_label(form.maximumAttendeeCapacity) }}
-					{{ form_widget(form.maximumAttendeeCapacity, {'id': 'demo0', 'attr': {'data-bts-min': 0}})  }}
+					{{ form_widget(form.maximumAttendeeCapacity, {'id': 'demo0', 'attr': {'data-bts-min': 0, 'data-bts-max': 100000}})  }}
 			    </div>
 			    <div class="col-6">
 				    {{ form_label(form.remainingAttendeeCapacity) }}
-					{{ form_widget(form.remainingAttendeeCapacity, {'id': 'demo0', 'attr': {'data-bts-min': 0}}) }}
+					{{ form_widget(form.remainingAttendeeCapacity, {'id': 'demo0', 'attr': {'data-bts-min': 0, 'data-bts-max': 100000}}) }}
 			    </div>
 		    </div>
 		</div>

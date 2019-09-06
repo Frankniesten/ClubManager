@@ -49,7 +49,7 @@ class Event
     private $description;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\Column(type="time", nullable=true)
      * @Gedmo\Versioned
      */
     private $doorTime;
@@ -199,7 +199,7 @@ class Event
         return $this->doorTime;
     }
 
-    public function setDoorTime(?\DateTimeInterface $doorTime): self
+    public function setDoorTime(\DateTimeInterface $doorTime = null): self
     {
         $this->doorTime = $doorTime;
 
