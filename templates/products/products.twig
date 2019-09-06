@@ -69,8 +69,9 @@
                        <th>Product</th>
                        <th>Model</th>
                        <th>Fabrikant</th>
-                       <th>Type</th>
-						<th>Bruikleen</th>
+                       <th>Serienummer</th>
+                       <th>Asset tag</th>
+					   <th>Bruikleen</th>
                        <th>Categorie</th>
                     </tr>
                     </thead>
@@ -106,15 +107,8 @@
 						    </td>
 						    <td>{{ data.model }}</td>
 						    <td>{{ data.manufacturer }}</td>
-						    <td>
-						    	{% if data.uniqueProduct == true  %}       
-							        Uniek
-							    {% endif %}
-							    {% if data.uniqueProduct == false  %}       
-							        Meerdere
-							    {% endif %}
-						    
-						    </td>
+						    <td>{{ data.productID }}</td>
+						    <td>{{ data.identifier }}</td>
 						    <td>
 						    	{% if data.loan == true  %}       
 							        <span class="badge badge-pink">In Bruikleen</span>

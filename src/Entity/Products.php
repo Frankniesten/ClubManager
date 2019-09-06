@@ -98,6 +98,11 @@ class Products
      */
     private $uniqueProduct;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $identifier;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
@@ -331,6 +336,18 @@ class Products
     public function setuniqueProduct(bool $uniqueProduct): self
     {
         $this->uniqueProduct = $uniqueProduct;
+
+        return $this;
+    }
+
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier(?string $identifier): self
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }

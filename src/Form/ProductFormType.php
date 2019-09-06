@@ -28,6 +28,7 @@ class ProductFormType extends AbstractType
 			->add('manufacturer', TextType::class, ['label' => 'Fabrikant', 'required' => false])
 			->add('purchaseDate', DateType::class, ['label' => 'Aankoopdatum', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
 			->add('uniqueProduct', CheckboxType::class, ['label' => 'Uniek product', 'required' => false, 'attr' => ['data-plugin' => 'switchery']])
+			->add('identifier', TextType::class, ['label' => 'Asset tag', 'required' => false])
 			->add('category', EntityType::class, array(
 					    'class' => Category::class,
 					    'query_builder' => function (EntityRepository $er) {
