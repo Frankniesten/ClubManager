@@ -123,28 +123,26 @@
                         <ul>
                         	{% if is_granted('ROLE_USER') %}
 	                            <li>
-	                                <a href="{{ path('dashboard') }}" class="waves-effect {% if 'dashboard' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>
-	                                
-	                            </li>
-	                        {% endif %}
-                            
-                            {% if is_granted('ROLE_PERSON_VIEW') %}
-	                            <li>
-	                                <a href="{{ path('app_people') }}" class="waves-effect {% if 'person' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-account-multiple"></i> <span> Personen </span> </a>
+	                                <a href="{{ path('dashboard') }}" class="waves-effect {% if 'dashboard' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>    
 	                            </li>
 	                        {% endif %}
 	                        
-	                        {% if is_granted('ROLE_PERSON_VIEW') %}
-	                            <li>
-	                                <a href="{{ path('app_program_memberships') }}" class="waves-effect {% if 'programmembership' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-account-star"></i> <span> Rollen </span> </a>
+	                        {% if is_granted('ROLE_SETTINGS_VIEW') %}
+	                            <li class="has_sub">
+	                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-multiple"></i> <span> Contacten </span> <span class="menu-arrow"></span></a>
+	                                <ul class="list-unstyled">
+	                                {% if is_granted('ROLE_PERSON_VIEW') %}
+	                                	<li><a href="{{ path('app_people') }}" {% if 'person' in app.request.uri  %}active{% endif %}">Personen</a></li>
+	                                {% endif %}
+	                                {% if is_granted('ROLE_ORGANIZATION_VIEW') %}
+	                                    <li><a href="{{ path('app_organizations') }}" {% if 'organization' in app.request.uri  %}active{% endif %}">Organisaties</a></li>
+	                                 {% endif %}
+	                                 {% if is_granted('ROLE_PERSON_VIEW') %}
+	                                    <li><a href="{{ path('app_program_memberships') }}" {% if 'programmembership' in app.request.uri  %}active{% endif %}">Rollen</a></li>
+	                                {% endif %}
+	                                </ul>
 	                            </li>
-	                        {% endif %}
-
-                            {% if is_granted('ROLE_ORGANIZATION_VIEW') %}
-	                            <li>
-	                                <a href="{{ path('app_organizations') }}" class="waves-effect {% if 'organization' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-domain"></i> <span> Organisaties </span> </a>
-	                            </li>
-	                        {% endif %}
+                            {% endif %}
                             
                             {% if is_granted('ROLE_EVENT_VIEW') %}
 	                            <li>
@@ -178,7 +176,7 @@
                             
                             {% if is_granted('ROLE_SETTINGS_VIEW') %}
 	                            <li class="has_sub">
-	                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-tag-multiple"></i> <span> Parameters </span> <span class="menu-arrow"></span></a>
+	                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-tag-multiple"></i> <span> Instellingen </span> <span class="menu-arrow"></span></a>
 	                                <ul class="list-unstyled">
 	                                	<li><a href="{{ path('app_settings_categories') }}">Categoriën</a></li>
 	                                    <li><a href="{{ path('app_settings_musical_instruments') }}">Muziekinstrumenten</a></li>
