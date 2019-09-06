@@ -54,7 +54,21 @@
 		{% for data in categories %}
 	    <li class="nav-item">
             <a href="{{ path('app_settings_categories', {'query': data.additionalType}) }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == data.additionalType %}active {% endif %}">
-                {{ data.additionalType }}
+                {% if data.additionalType == "event" %}
+                      Events                  
+                {% endif %}
+                {% if data.additionalType == "organization" %}
+                      Organisaties                  
+                {% endif %}
+                {% if data.additionalType == "person" %}
+                      Personen                  
+                {% endif %}
+                {% if data.additionalType == "product" %}
+                      Inventaris                  
+                {% endif %}
+                {% if data.additionalType == "service" %}
+                      Producten                  
+                {% endif %}               
             </a>
         </li>
         {% endfor %}
