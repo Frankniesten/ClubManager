@@ -8,6 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Entity\Person;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints\DateTime;
+use App\Service\WidgetTotalMembers;
+use App\Service\WidgetBirthdays;
+use App\Service\WidgetJubilee;
+use App\Service\WidgetEvents;
 
 class StatisticsController extends AbstractController
 {
@@ -17,7 +21,7 @@ class StatisticsController extends AbstractController
      * @IsGranted("ROLE_PERSON_VIEW")
      *
      */
-    public function list()
+    public function list(WidgetTotalMembers $totalMembers, WidgetBirthdays $birthdays, WidgetJubilee $jubilee, WidgetEvents $events)
     {	    
 	    $em = $this->getDoctrine()->getManager();
 		$people = $em->getRepository(Person::class)->findByCategegory(1); 
@@ -268,11 +272,20 @@ class StatisticsController extends AbstractController
 		
 		$ageDifference['19']['name'] = '96-100';
 		$ageDifference['19']['count'] = $age95;
+		
+		$totalMembers = $totalMembers->WidgetTotalMembers();
+	    $birthdays = $birthdays->WidgetBirthdays();
+	    $jubilee = $jubilee->WidgetJubilee();
+	    $events = $events->WidgetEvents();
 
         return $this->render('statistics/statistics.html.twig', [
             'genderDistribution' => $genderDistribution,
             'averageAge' => $averageAge,
-            'ageDifference' => $ageDifference
+            'ageDifference' => $ageDifference,
+            'totalMembers' => $totalMembers,
+            'birthdays'=> $birthdays,
+            'jubilee' => $jubilee,
+            'events' =>$events
 
         ]);
     }

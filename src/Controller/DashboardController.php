@@ -14,18 +14,11 @@ class DashboardController extends AbstractController
     /**
      * @Route("/", name="dashboard")
      */
-    public function index(WidgetTotalMembers $totalMembers, WidgetBirthdays $birthdays, WidgetJubilee $jubilee, WidgetEvents $events)
+    public function index(WidgetEvents $events)
     {
-	    
-	    $totalMembers = $totalMembers->WidgetTotalMembers();
-	    $birthdays = $birthdays->WidgetBirthdays();
-	    $jubilee = $jubilee->WidgetJubilee();
 	    $events = $events->WidgetEvents();
 	    
         return $this->render('dashboard/dashboard.html.twig', [
-            'totalMembers' => $totalMembers,
-            'birthdays'=> $birthdays,
-            'jubilee' => $jubilee,
             'events' =>$events
         ]);
     }
