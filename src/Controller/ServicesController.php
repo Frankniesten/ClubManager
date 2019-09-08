@@ -51,6 +51,7 @@ class ServicesController extends AbstractController
 		        
         return $this->render('services/services.html.twig', [
             'data' => $services,
+            'club_name' => getenv('CLUB_NAME'),
         	'category' => $category,
         	'query' => $query
         ]);

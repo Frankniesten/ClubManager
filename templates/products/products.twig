@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% set pdfCat = '' %}
 
 {% block stylesheets %}
 	
@@ -132,6 +132,15 @@
 {% block javascripts %}
 
 	{{ parent() }}
+	
+	{% for data in category %}
+		{% if query == data.id %}
+			{% set pdfCat = data.name %}
+		{% endif %}
+    {% endfor %}
+    {% if query == 'all' or query == null %}
+    	{% set pdfCat = 'Alles' %}
+	{% endif %}
 
     <!-- Required datatable js -->
 
@@ -177,6 +186,9 @@
 		                },
 	                    {
 			                extend: 'pdfHtml5',
+			                title: '{{ club_name }} - Inventarislijst. Categorie: {{ pdfCat }} - Versie: {{ "now"|date("m-d-y") }}',
+			                orientation: 'landscape',
+			                pageSize: 'A4',
 			                exportOptions: {
 			                    columns: [ 1, 2, 3, 4, 5, 6]
 							}

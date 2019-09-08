@@ -28,6 +28,7 @@ class OrderController extends AbstractController
 				
 		return $this->render('orders/orders.html.twig', [
         	'data' => $orders,
+        	'club_name' => getenv('CLUB_NAME'),
 		]);
 	}
 	

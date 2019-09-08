@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% set pdfCat = '' %}
 
 {% block stylesheets %}
 	
@@ -25,13 +26,14 @@
 
 {% block body %}
 
+
+
 	<div class="row align-items-center">
         <div class="col">
 	        <h2>Personen {% if roles %}- rol: {{roles}}{% endif %}</h2>
         </div>
         
         <div class="col-4  ">
-       
         	{% if is_granted('ROLE_PERSON_CREATE') %}
             <div class="btn-group float-right">  
 	        	<a href="{{ path('app_person_create') }}" class="btn btn-purple waves-effect"><i class="fa fa-plus"></i>  Nieuw</a>
@@ -40,7 +42,9 @@
         </div>
 	</div>
 	
+	
 	<ul class="nav nav-tabs nav-justified"> 
+	
 		<li class="nav-item">
             <a href="{{ path('app_people', {'query': 'all'} ) }}" data-toggle="link" aria-expanded="true" class="nav-link {% if query == 'all' or query == null %}active {% endif %}">
                 Alle personen
@@ -126,6 +130,15 @@
 {% block javascripts %}
 
 	{{ parent() }}
+	
+	{% for data in category %}
+		{% if query == data.id %}
+			{% set pdfCat = data.name %}
+		{% endif %}
+    {% endfor %}
+    {% if query == 'all' or query == null %}
+    	{% set pdfCat = 'Alles' %}
+	{% endif %}
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -152,6 +165,9 @@
 		                },
 	                    {
 			                extend: 'pdfHtml5',
+			                title: '{{ club_name }} - Personenlijst. Categorie: {{ pdfCat }} - Versie: {{ "now"|date("m-d-y") }}',
+			                orientation: 'landscape',
+			                pageSize: 'A4',
 			                exportOptions: {
 			                    columns: [ 1, 2, 3, 4, 5 ]
 							}
