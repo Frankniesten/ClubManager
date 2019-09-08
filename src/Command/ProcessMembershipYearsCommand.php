@@ -16,11 +16,11 @@ class ProcessMembershipYearsCommand extends Command
     protected function configure()
     {
         $this
-        ->setDescription('Process years of membership from every person')
+        ->setDescription('Process years of membership from every person.')
 
         // the full command description shown when running the command with
         // the "--help" option
-        ->setHelp('This command allows you to process all persons membershipyears');
+        ->setHelp('This command allows you to process all person membership years.');
     }
     
     public function __construct(MembershipYears $MembershipYears)
@@ -34,6 +34,6 @@ class ProcessMembershipYearsCommand extends Command
     {
 	    
 	    $this->MembershipYears->processAllMembershipYears();
-        $output->writeln('All memberships have been loaned are processed.');
+        $output->writeln('All memberships have been processed.');
     }
 }
