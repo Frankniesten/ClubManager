@@ -138,6 +138,13 @@
 							
 						    <td style="padding-bottom: 0px;">
 							    <a href="{{ path('app_event', {'id': data.id}) }}" class="waves-effect">{{ data.about }}</a> 
+							    
+							    {% if data.updatedAt|date("U") > "-14 days"|date("U") %}
+									<span class="badge badge-success badge-pill">Nieuw</span>
+								{% endif %}
+
+
+
 						    </td>
 						    
 						    
