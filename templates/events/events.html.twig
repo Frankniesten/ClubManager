@@ -149,7 +149,7 @@
 						    
 						    
 						    
-						    <td>{{ data.startDate | date('Y/m/d') }}</td>
+						    <td data-order="{{ data.startDate | date('Y/m/d') }}">{{ data.startDate | date('d-m-Y') }}</td>
 						    <td>{{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}</td>
 						    <td>
 						    	{{ data.location.venue }}
