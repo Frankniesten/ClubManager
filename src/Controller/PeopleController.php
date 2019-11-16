@@ -27,37 +27,35 @@ class PeopleController extends AbstractController
 		$query = null;
 		$roles = null;
 		
-		//Check for roles query:       
+    	//Check categorie query:       
+	    if ($query = $request->query->get('query'))
+	    {
+	    	$session->set('people_query', $query);
+	    }
+	    
+	    else 
+	    {
+		    $query = $session->get('people_query', 'all');
+	    }
+	    
+	    if ($query == 'all')
+	    {
+		    $query = $session->get('people_query', 'all');
+		    $people = $this->getDoctrine()
+	        ->getRepository(Person::class)
+	        ->findAll();  
+	    }
+	    else 
+	    {
+		    $em = $this->getDoctrine()->getManager();
+			$people = $em->getRepository(Person::class)->findByCategegory($query);  
+	    }
+
+        //Check for roles query:       
 	    if ($roles= $request->query->get('roles'))
 	    {		    
 		    $em = $this->getDoctrine()->getManager();
 			$people = $em->getRepository(Person::class)->findByMemberOfProgramName($roles); 	
-	    }
-	   
-    	//Check categorie query:       
-	    else if ($query = $request->query->get('query'))
-	    {
-		    $session->set('event_query', $query);
-		    
-		    if ($query == 'all')
-		    {
-			    $query = $session->get('event_query', 'all');
-			    $people = $this->getDoctrine()
-		        ->getRepository(Person::class)
-		        ->findAll();  
-		    }
-		    else 
-		    {
-			    $em = $this->getDoctrine()->getManager();
-				$people = $em->getRepository(Person::class)->findByCategegory($query);  
-		    }
-	    }
-	    else 
-	    {
-		    $query = $session->get('event_query', 'all');
-		    $people = $this->getDoctrine()
-	        ->getRepository(Person::class)
-	        ->findAll(); 
 	    }
         
 		$em = $this->getDoctrine()->getManager();
