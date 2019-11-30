@@ -18,15 +18,28 @@
 	            
 	            
 		    <style>				
-				<!-- Tab styling -->
-				.tab-content {
-					border: 0px solid #eeeeee !important;
-				}
+			<!-- Tab styling -->
+			.tab-content {
+				border: 0px solid #eeeeee !important;
+			}
 				
-				.required:after {
-				    content: "*";
-				    color: red;
-				}
+			.required:after {
+				content: "*";
+				color: red;
+			}
+				
+			.nav-tabs {
+			    a {
+			    color: $dark;
+			    font-size: 13px;
+			    font-weight: 600;
+			    font-family: $font-secondary;
+			    }
+			 }
+			.nav-link {
+				display: block;
+				padding: .5rem .1rem;
+			}
 			</style>
  
         {% endblock %}
@@ -37,6 +50,11 @@
 
 	    <!-- Begin page -->
 	    <div id="wrapper">
+		    
+		    
+		    
+
+            </div> <!-- container -->
 
             <!-- Top Bar Start -->
             <div class="topbar">
@@ -132,13 +150,13 @@
 	                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-multiple"></i> <span> Contacten </span> <span class="menu-arrow"></span></a>
 	                                <ul class="list-unstyled">
 	                                {% if is_granted('ROLE_PERSON_VIEW') %}
-	                                	<li><a href="{{ path('app_people') }}" {% if 'person' in app.request.uri  %}active{% endif %}">Personen</a></li>
+	                                	<li><a href="{{ path('app_people') }}" "{% if 'person' in app.request.uri  %}active{% endif %}">Personen</a></li>
 	                                {% endif %}
 	                                {% if is_granted('ROLE_ORGANIZATION_VIEW') %}
-	                                    <li><a href="{{ path('app_organizations') }}" {% if 'organization' in app.request.uri  %}active{% endif %}">Organisaties</a></li>
+	                                    <li><a href="{{ path('app_organizations') }}" "{% if 'organization' in app.request.uri  %}active{% endif %}">Organisaties</a></li>
 	                                 {% endif %}
 	                                 {% if is_granted('ROLE_PERSON_VIEW') %}
-	                                    <li><a href="{{ path('app_program_memberships') }}" {% if 'programmembership' in app.request.uri  %}active{% endif %}">Rollen</a></li>
+	                                    <li><a href="{{ path('app_program_memberships') }}" "{% if 'programmembership' in app.request.uri  %}active{% endif %}">Rollen</a></li>
 	                                {% endif %}
 	                                </ul>
 	                            </li>

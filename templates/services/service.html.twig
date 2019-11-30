@@ -99,13 +99,13 @@
         
         <li class="nav-item">
             <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_service' ? 'active' }}">
-                Notities
+                Notities <span class="badge badge-purple">{{ data.review|length }}</span>
             </a>
         </li>
         
         <li class="nav-item">
             <a href="#offers" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_service_offer' ? 'active' }}">
-                Aanbod
+                Aanbod <span class="badge badge-purple">{{ data.offers|length }}</span>
             </a>
         </li>
     </ul>

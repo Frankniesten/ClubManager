@@ -122,7 +122,7 @@
 	    
 	    <li class="nav-item">
             <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person' ? 'active' }}">
-                Notities
+                Notities <span class="badge badge-purple">{{ data.review|length }}</span>
             </a>
         </li>
         
@@ -130,7 +130,7 @@
 	    
 	    <li class="nav-item">
             <a href="#parents" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_parents' ? 'active' }}">
-                Ouders
+                Ouders <span class="badge badge-purple">{{ data.parents|length }}</span>
             </a>
         </li>
         <li class="nav-item">
@@ -140,12 +140,12 @@
         </li>
         <li class="nav-item">
             <a href="#musicalInstrument" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_musicalInstrument' ? 'active' }}">
-                Muziekinstrument
+                Instrument
             </a>
         </li>
         <li class="nav-item">
             <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_education' ? 'active' }}">
-                Opleiding
+                Opleiding <span class="badge badge-purple">{{ data.education|length }}</span>
             </a>
         </li>
         
@@ -153,22 +153,21 @@
         
         <li class="nav-item">
             <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_memberOf' ? 'active' }}">
-                Rollen
+                Rollen <span class="badge badge-purple">{{ data.memberOf|length }}</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_owns' ? 'active' }}">
-                Inventaris
+                Inventaris <span class="badge badge-purple">{{ data.owns|length }}</span>
             </a>
         </li>
         <li class="nav-item">
             <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_person_customer' ? 'active' }}">
-                Orders
+                Orders <span class="badge badge-purple">{{ data.customer|length }}</span>
             </a>
         </li>
-        
-        
+      
     </ul>
 		   		    
 
@@ -235,7 +234,6 @@
 					'data': data })
 				}}            
     		</div>	
+    	
 	    </div>
-
-	<br>
 {% endblock %}

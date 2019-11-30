@@ -121,21 +121,21 @@
         
         <li class="nav-item">
             <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_product' ? 'active' }}">
-                Notities
+                Notities <span class="badge badge-purple">{{ data.review|length }}</span>
             </a>
         </li>
         
         {%if data.ownershipInfos is not empty %}
         <li class="nav-item">
             <a href="#owns" data-toggle="tab" aria-expanded="true" class="nav-link">
-                Bruikleen
+                Bruikleen <span class="badge badge-purple">{{ data.ownershipInfos|length }}</span>
             </a>
         </li>
         {% endif %} 
         
         <li class="nav-item">
             <a href="#relatedTo" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_product_isRelatedTo' ? 'active' }}">
-                Gerelateerde producten
+                Gerelateerde producten <span class="badge badge-purple">{{ data.isRelatedTo|length }}</span>
             </a>
         </li>
     </ul>

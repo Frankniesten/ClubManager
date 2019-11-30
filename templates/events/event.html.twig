@@ -154,43 +154,43 @@
 	    
 	    <li class="nav-item">
             <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event' ? 'active' }}">
-                Notities
+                Notities <span class="badge badge-purple">{{ data.review|length }}</span>
             </a>
         </li>
 	    
 	    <li class="nav-item">
             <a href="#parents" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_organizer' ? 'active' }}">
-                Organisator
+                Organisator <span class="badge badge-purple">{{ data.organizer|length }}</span>
             </a>
         </li>
         
         <li class="nav-item">
             <a href="#membership" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_performer' ? 'active' }}">
-                Performers
+                Performers <span class="badge badge-purple">{{ data.performer|length }}</span>
             </a>
         </li>
         
         <li class="nav-item">
             <a href="#education" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_suppliers' ? 'active' }}">
-                Leveranciers
+                Leveranciers <span class="badge badge-purple">{{ data.suppliers|length }}</span>
             </a>
         </li>
         
         <li class="nav-item">
             <a href="#roles" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_sponsor' ? 'active' }}">
-                Sponsoren
+                Sponsoren <span class="badge badge-purple">{{ data.sponsor|length }}</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_contributor' ? 'active' }}">
-                Medewerkers
+                Medewerkers <span class="badge badge-purple">{{ data.contributor|length }}</span>
             </a>
         </li>
         
         <li class="nav-item">
             <a href="#services" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_event_attendee' ? 'active' }}">
-                Publiek
+                Publiek <span class="badge badge-purple">{{ data.attendee|length }}</span>
             </a>
         </li>
         

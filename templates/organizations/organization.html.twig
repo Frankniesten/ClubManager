@@ -126,17 +126,17 @@
     	
     	<li class="nav-item">
             <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_organization' ? 'active' }}">
-                Notities
+                Notities <span class="badge badge-purple">{{ data.review|length }}</span>
             </a>
         </li>
         <li class="nav-item">
             <a href="#employees" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_organization_employee' ? 'active' }}">
-                Medewerkers
+                Medewerkers <span class="badge badge-purple">{{ data.employee|length }}</span>
             </a>
         </li>
         <li class="nav-item">
             <a href="#products" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_organization_owns' ? 'active' }}">
-                Inventaris
+                Inventaris <span class="badge badge-purple">{{ data.owns|length }}</span>
             </a>
         </li> 
     </ul>
