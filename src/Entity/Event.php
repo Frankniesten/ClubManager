@@ -136,19 +136,19 @@ class Event
     private $suppliers;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true, inversedBy="sponsor")
      * @ORM\JoinTable(name="event_sponsor")
      */
     private $sponsor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true, inversedBy="contributor")
      * @ORM\JoinTable(name="event_contributor")
      */
     private $contributor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\person", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\person", orphanRemoval=true, inversedBy="attendee")
      * @ORM\JoinTable(name="event_attendee")
      */
     private $attendee;

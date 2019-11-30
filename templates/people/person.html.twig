@@ -236,4 +236,185 @@
     		</div>	
     	
 	    </div>
+	    
+
+	<div id="accordion2">
+		
+		<!-- Organization details -->
+		<div class="card">
+	        <div class="card-header" id="headingOne">
+	            <h4 class="m-0">
+	                <a href="#organizations" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="organizations">
+	                    Organisaties
+	                </a>
+	            </h4>
+	        </div>
+	
+	        <div id="organizations" class="collapse" aria-labelledby="headingOne" data-parent="#accordion2">
+		        <div class="card-body">
+			        {%if data.organizations is not empty %}
+			        {{ data.familyName }}, {{data.givenName }} {{ data.additionalName }} behoort tot de organisatie(s):
+			        <br>
+			        <br>
+		            <table class="table table-bordered table-striped">   
+					    <tbody>
+					        <thead>
+					            <tr>
+					            	<td><b>Organisatie</b></td>
+					            	<td><b>Email</b></td>
+					            	<td><b>Categorie</b></td>
+					        	</tr>
+					        </thead>
+					    {% for data in data.organizations %}
+					        <tr>
+					            <td>
+					            	<a href="{{ path('app_organization', {'id': data.id}) }}">{{ data.legalName }}</a>
+					            </td>
+					            <td>
+						            <a href="mailto:{{ data.email }}">{{ data.email }}</a>
+					            </td>
+					            <td>
+						         	{{ data.category.name }}	
+					            </td>
+					        </tr>
+					    {% endfor %} 
+					   
+					    </tbody>
+					</table>
+					{% else %}
+					{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }} behoort niet tot een organisatie.
+					{% endif %}
+		        </div>
+	        </div>
+	    </div>	
+	    <!-- Organization details - end -->
+	    
+	    <!-- Event - attendee details -->
+	    
+		<div class="card">
+	        <div class="card-header" id="headingOne">
+	            <h4 class="m-0">
+	                <a href="#attendee" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="attendee">
+	                    Events
+	                </a>
+	            </h4>
+	        </div>
+	
+	        <div id="attendee" class="collapse" aria-labelledby="headingOne" data-parent="#accordion2">
+		        <div class="card-body">
+			        <!-- Start sponsor -->
+			        {%if data.sponsor is not empty %}
+			        <h4>Sponsor tijdens</h4>
+		            <table class="table table-bordered table-striped">   
+					    <tbody>
+					        <thead>
+					            <tr>
+					            	<td><b>Event</b></td>
+					            	<td><b>Datum</b></td>
+					            	<td><b>Tijd</b></td>
+					            	<td><b>Locatie</b></td>
+					        	</tr>
+					        </thead>
+					    {% for data in data.sponsor %}
+					        <tr>
+					            <td width="35%">
+					            	<a href="{{ path('app_event', {'id': data.id}) }}" class="waves-effect">{{ data.about }}</a> 
+					            </td>
+					            <td>
+					            {{ data.startDate | date('d-m-Y') }}
+					            </td>
+					            <td>
+						         	{{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}	
+					            </td>
+					            <td>
+						         	{{ data.location.venue }}	
+					            </td>
+					        </tr>
+					    {% endfor %} 
+					   
+					    </tbody>
+					</table>
+					<br>
+					{% endif %}
+					<!-- End sponsor -->
+					
+					<!-- Start contributor -->
+					{%if data.contributor is not empty %}
+			        <h4>Medewerker tijdens</h4>
+		            <table class="table table-bordered table-striped">   
+					    <tbody>
+					        <thead>
+					            <tr>
+					            	<td><b>Event</b></td>
+					            	<td><b>Datum</b></td>
+					            	<td><b>Tijd</b></td>
+					            	<td><b>Locatie</b></td>
+					        	</tr>
+					        </thead>
+					    {% for data in data.contributor %}
+					        <tr>
+					            <td width="35%">
+					            	<a href="{{ path('app_event', {'id': data.id}) }}" class="waves-effect">{{ data.about }}</a> 
+					            </td>
+					            <td>
+					            {{ data.startDate | date('d-m-Y') }}
+					            </td>
+					            <td>
+						         	{{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}	
+					            </td>
+					            <td>
+						         	{{ data.location.venue }}	
+					            </td>
+					        </tr>
+					    {% endfor %} 
+					   
+					    </tbody>
+					</table>
+					<br>
+					{% endif %}
+					<!-- End contributor -->
+			        
+			        <!-- Start attendee -->
+			        {%if data.attendee is not empty %}
+			        <h4>Publiek tijdens</h4>
+		            <table class="table table-bordered table-striped">   
+					    <tbody>
+					        <thead>
+					            <tr>
+					            	<td><b>Event</b></td>
+					            	<td><b>Datum</b></td>
+					            	<td><b>Tijd</b></td>
+					            	<td><b>Locatie</b></td>
+					        	</tr>
+					        </thead>
+					    {% for data in data.attendee %}
+					        <tr>
+					            <td width="35%">
+					            	<a href="{{ path('app_event', {'id': data.id}) }}" class="waves-effect">{{ data.about }}</a> 
+					            </td>
+					            <td>
+					            {{ data.startDate | date('d-m-Y') }}
+					            </td>
+					            <td>
+						         	{{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}	
+					            </td>
+					            <td>
+						         	{{ data.location.venue }}	
+					            </td>
+					        </tr>
+					    {% endfor %} 
+					   
+					    </tbody>
+					</table>
+					{% endif %}
+					<!-- End attendee -->
+					
+					
+		        </div>
+	        </div>
+	    </div>	
+	    
+	    <!-- Event details - end -->
+	</div>
+	 
 {% endblock %}

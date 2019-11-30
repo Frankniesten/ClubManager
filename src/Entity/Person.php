@@ -177,6 +177,21 @@ class Person
      * @Gedmo\Versioned
      */
     private $user;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="attendee")
+     */
+    private $attendee;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="contributor")
+     */
+    private $contributor;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="sponsor")
+     */
+    private $sponsor;
 
 
     public function __construct()
@@ -190,6 +205,9 @@ class Person
         $this->organizations = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->customer = new ArrayCollection();
+        $this->attendee = new ArrayCollection();
+        $this->contributor = new ArrayCollection();
+        $this->sponsor = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -637,6 +655,84 @@ class Person
         $newPerson = $user === null ? null : $this;
         if ($newPerson !== $user->getPerson()) {
             $user->setPerson($newPerson);
+        }
+
+        return $this;
+    }
+    
+     /**
+     * @return Collection|person[]
+     */
+    public function getAttendee(): Collection
+    {
+        return $this->attendee;
+    }
+
+    public function addAttendee(person $attendee): self
+    {
+        if (!$this->attendee->contains($attendee)) {
+            $this->attendee[] = $attendee;
+        }
+
+        return $this;
+    }
+
+    public function removeAttendee(person $attendee): self
+    {
+        if ($this->attendee->contains($attendee)) {
+            $this->attendee->removeElement($attendee);
+        }
+
+        return $this;
+    }
+    
+    /**
+     * @return Collection|Person[]
+     */
+    public function getContributor(): Collection
+    {
+        return $this->contributor;
+    }
+
+    public function addContributor(Person $contributor): self
+    {
+        if (!$this->contributor->contains($contributor)) {
+            $this->contributor[] = $contributor;
+        }
+
+        return $this;
+    }
+
+    public function removeContributor(Person $contributor): self
+    {
+        if ($this->contributor->contains($contributor)) {
+            $this->contributor->removeElement($contributor);
+        }
+
+        return $this;
+    }
+    
+    /**
+     * @return Collection|Person[]
+     */
+    public function getSponsor(): Collection
+    {
+        return $this->sponsor;
+    }
+
+    public function addSponsor(Person $sponsor): self
+    {
+        if (!$this->sponsor->contains($sponsor)) {
+            $this->sponsor[] = $sponsor;
+        }
+
+        return $this;
+    }
+
+    public function removeSponsor(Person $sponsor): self
+    {
+        if ($this->sponsor->contains($sponsor)) {
+            $this->sponsor->removeElement($sponsor);
         }
 
         return $this;
