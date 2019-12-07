@@ -16,9 +16,9 @@
 	        <script src="{{ asset('assets/js/modernizr.min.js' ) }}"></script>
 	            	            
 	            
-	            
+	        <!-- Tab styling -->    
 		    <style>				
-			<!-- Tab styling -->
+			
 			.tab-content {
 				border: 0px solid #eeeeee !important;
 			}
@@ -91,14 +91,6 @@
                                     <!-- Icons top bar right -->
                                     <div class="notification-box">
                                         <ul class="list-inline mb-0">	
-                                           {% if is_granted('ROLE_USERS_VIEW') %}
-										   	<li>
-										   		<a href="javascript:void(0);" class="right-bar-toggle">
-										   			<i class="mdi mdi-settings">&nbsp&nbsp</i>
-                                               </a>
-                                           </li>
-                                            {% endif %}
-                                            
                                             <li>
                                                 <a href="https://frankniesten.github.io/ClubManager/" target="_blanc" >
                                                     <i class="mdi mdi-help-circle"></i>
@@ -109,6 +101,7 @@
                                    <!-- END Icons top bar right -->
                                 </li>
                             </ul>
+                            
                         </nav>
                         <!-- End Navbar -->
                                                                 
@@ -199,6 +192,11 @@
 	                                	<li><a href="{{ path('app_settings_categories') }}">Categoriën</a></li>
 	                                    <li><a href="{{ path('app_settings_musical_instruments') }}">Muziekinstrumenten</a></li>
 	                                    <li><a href="{{ path('app_settings_postaladdresses') }}">Event locaties</a></li>
+	                                    {% if is_granted('ROLE_USERS_VIEW') %}
+	                                    <li><a href="{{ path('app_users') }}">Gebruikers</a></li>
+	                                    {% endif %}
+	                                    
+	                                    
 	                                </ul>
 	                            </li>
                             {% endif %}
@@ -254,37 +252,6 @@
                 </footer>
 
             </div>
-
-            <!-- ============================================================== -->
-            <!-- End Right content here -->
-            <!-- ============================================================== -->
-
-            <!-- Right Sidebar -->
-            <div class="side-bar right-bar">
-                
-                <a href="javascript:void(0);" class="right-bar-toggle">
-                    <i class="mdi mdi-close-circle-outline"></i>
-                </a>
-                
-                <h4 class="">Beheer</h4>
-                
-                <div class="notification-list nicescroll">		
-                
-                	<!--- Sidemenu -->
-                    <div id="sidebar-menu">
-                        <ul>
-                            <li>
-                                <a href="{{ path('app_users') }}" class="waves-effect {% if 'users' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-account"></i> <span> Gebruikers </span> </a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    
-                    <!-- Sidebar -->
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <!-- /Right-bar -->
 
         </div>
         
