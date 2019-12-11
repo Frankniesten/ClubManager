@@ -48,7 +48,7 @@
 				            	<a href="{{ path('app_order', {'id': data.person.id, 'orderID': data.id}) }}">#{{data.id}}</a>				            
 				            </td>
 				            <td>
-								{{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}
+								<a href="{{ path('app_person', {'id': data.person.id }) }}">{{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}</a>
 				            </td>
 				            	
 				            <td>
