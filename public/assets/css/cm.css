@@ -1,0 +1,134 @@
+body {
+  background-color: #ebeff2;
+}
+
+.container {
+  max-width: 960px;
+}
+
+/*
+ * Custom translucent site navbar
+ */
+.navbar {
+  background-color: rgba(0, 0, 0, .85) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(20px) !important;
+  backdrop-filter: saturate(180%) blur(20px) !important;
+}
+
+.navbar-dark .nav-item.active .nav-link,
+.navbar-dark .nav-item .nav-link:active,
+.navbar-dark .nav-item .nav-link:focus,
+.navbar-dark .nav-item:hover .nav-link {
+    color: #f9ab00;
+}
+
+/*
+ * Tiles
+ */
+ 
+.mfl-orange {
+
+	background-color: #f9ab00;
+}
+
+.mfl-tile {
+  width: 94px;
+  height: 94px;
+  color: #f9ab00;
+  display: block;
+  float: left;
+  border-radius: 3px;
+  margin-left: 0px;
+  margin-right:5px;
+  margin-top: 0px;
+  margin-bottom:0px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.mfl-tile:hover {
+  outline: #999999 solid 0px !important;
+  color: white !important;
+  background: #999999 !important;
+}
+
+.mfl-tile .icon {
+  position: absolute;
+  color: rgba(0, 0, 0, .85);
+  width: 64px;
+  height: 64px;
+  font-size: 36px;
+  top: 50%;
+  margin-top: -25px;
+  left: 50%;
+  margin-left: -32px;
+  text-align: center;
+}
+
+.mfl-tile .tile-label {
+  position: absolute;
+  color: rgba(0, 0, 0, .85);
+  bottom: 0;
+  left: 2px;
+  padding: 3px;
+  z-index: 999;
+  font-size: 12px;
+}
+
+
+
+/*
+ * Custom Table
+ */
+tr {
+  font-size: 12px;
+}
+
+td {
+  font-size: 12px;
+}
+
+
+.badge-info {
+background-color: #f9ab00;
+color: rgba(0, 0, 0, .85);
+}
+
+.btn-info {
+	background-color: #f9ab00;
+	color: rgba(0, 0, 0, .85);
+	border-color: #f9ab00;
+}
+.btn-info:hover {
+	background-color: #999999;
+	color: rgba(0, 0, 0, .85);
+	border-color: #999999;
+}
+.btn-info:active {
+	background-color: #999999;
+	color: rgba(0, 0, 0, .85);
+	border-color: #999999;
+}
+
+
+/*
+ * Extra utilities
+ */
+
+.flex-equal > * {
+  -ms-flex: 1;
+  flex: 1;
+}
+@media (min-width: 768px) {
+  .flex-md-equal > * {
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
+
+.overflow-hidden { overflow: hidden; }

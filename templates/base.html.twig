@@ -10,248 +10,78 @@
         {% block stylesheets %}
 
         	<!-- App css -->
-	        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+	        <link href="{{ asset('assets/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+	        <link href="{{ asset('assets/css/cm.css') }}" rel="stylesheet" type="text/css"/>
+	        
+	        
 	        <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css"/>
-	        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css"/>
 	        <script src="{{ asset('assets/js/modernizr.min.js' ) }}"></script>
-	            	            
-	            
-	        <!-- Tab styling -->    
-		    <style>				
-			
-			.tab-content {
-				border: 0px solid #eeeeee !important;
-			}
-				
-			.required:after {
-				content: "*";
-				color: red;
-			}
-				
-			.nav-tabs {
-			    a {
-			    color: $dark;
-			    font-size: 13px;
-			    font-weight: 600;
-			    font-family: $font-secondary;
-			    }
-			 }
-			.nav-link {
-				display: block;
-				padding: .5rem .1rem;
-			}
-			</style>
- 
+	            	           
         {% endblock %}
               
     </head>
 
-	<body class="fixed-left">
+	<body>
 
 	    <!-- Begin page -->
 	    <div id="wrapper">
 		    
+		    <!-- navbar -->
+			<nav class="navbar navbar-expand-xl navbar-dark sticky-top p-1">
+				
+				<div class="container">
+					
+					<a class="navbar-brand text-center" href="{{ path('dashboard') }}"><img src="{{ asset('assets/logo.svg') }}" height="28" alt="ClubManager Logo"></a>
+				
+					<button class="navbar-toggler ml-auto hidden-sm-up float-xs-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+					</button>
+				
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					    <ul class="navbar-nav mr-auto nav-fill w-100">
+					      	
+					      	<li class="nav-item {{ app.request.get('_route') == 'dashboard' ? 'active' }}">
+					        	<a class="nav-link" href="{{ path('dashboard') }}"><i class="mdi mdi-account-multiple"></i> Dashboard</a>
+							</li>
+							
+							<li class="nav-item dropdown">
+					        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Contacten
+					        	</a>
+					        
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="{{ path('app_people') }}">Personen</a>
+									<a class="dropdown-item" href="#">Organisaties</a>
+									<a class="dropdown-item" href="#">Rollen</a>
+								</div>
+							</li>
+							<li class="nav-item">
+					        	<a class="nav-link" href="#">Events<span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+					        	<a class="nav-link" href="#">Inventaris<span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+					        	<a class="nav-link" href="#">Producten<span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+					        	<a class="nav-link" href="#">Statistieken<span class="sr-only">(current)</span></a>
+							</li>
+							<li class="nav-item">
+					        	<a class="nav-link" href="#">Instellingen<span class="sr-only">(current)</span></a>
+							</li>
+					    </ul>
+					</div>
+				</div>
+			</nav>
+			<!-- End navbar -->
 		    
-		    
-
-            </div> <!-- container -->
-
-            <!-- Top Bar Start -->
-            <div class="topbar">
-
-                <!-- Logo -->
-                <div class="topbar-left">
-                    <a href="{{ path('app_dashboard') }}" class="logo"><span>Club<span>Manager</span></span><i class="mdi mdi-layers"></i></a>
-                </div>
-                <!-- End Logo -->
-
-                <!-- Button mobile view to collapse sidebar menu -->
-                <div class="navbar navbar-default" role="navigation">
-                    <div class="container-fluid">
-						
-                        <!-- Page title -->
-                        <ul class="nav navbar-nav list-inline navbar-left">
-                            <li class="list-inline-item">
-                                <button class="button-menu-mobile open-left">
-                                    <i class="mdi mdi-menu"></i>
-                                </button>
-                            </li>
-                            
-                            <li class="list-inline-item">
-                                <h1 class="page-title">{% block title %}Title Placeholder{% endblock %}</h1>
-                            </li>
-                        </ul>     
-                        <!-- End Page title -->
-
-						 <!-- Navbar -->
-                        <nav class="navbar-custom">
-
-                            <ul class="list-unstyled topbar-right-menu float-right mb-0">
-                            	<li>
-                                    <!-- Icons top bar right -->
-                                    <div class="notification-box">
-                                        <ul class="list-inline mb-0">	
-                                            <li>
-                                                <a href="https://frankniesten.github.io/ClubManager/" target="_blanc" >
-                                                    <i class="mdi mdi-help-circle"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                   <!-- END Icons top bar right -->
-                                </li>
-                            </ul>
-                            
-                        </nav>
-                        <!-- End Navbar -->
-                                                                
-                    </div><!-- end container -->
-                
-                </div><!-- end navbar -->
-            
-            </div>
-            <!-- Top Bar End -->
-
-
-            <!-- ========== Left Sidebar Start ========== -->
-            <div class="left side-menu">
-                
-                <div class="sidebar-inner slimscrollleft">
-
-                    <!-- User -->
-                    <div class="user-box">
-                        <div class="user-img">
-                            <img src="{{ asset('assets/images/users/avatar.jpeg') }}" alt="user-img" class="rounded-circle img-thumbnail img-responsive">
-                        </div>
-                        
-                        <h5><a href="#">{{ app.user.displayName }}</a> </h5>
-                    
-                    </div>
-                    <!-- End User -->
-                    
-                    <!--- Sidemenu -->
-                    <div id="sidebar-menu">
-                        <ul>
-                        	{% if is_granted('ROLE_USER') %}
-	                            <li>
-	                                <a href="{{ path('dashboard') }}" class="waves-effect {% if 'dashboard' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-view-dashboard"></i> <span> Dashboard </span> </a>    
-	                            </li>
-	                        {% endif %}
-	                        
-	                        {% if is_granted('ROLE_SETTINGS_VIEW') %}
-	                            <li class="has_sub">
-	                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-account-multiple"></i> <span> Contacten </span> <span class="menu-arrow"></span></a>
-	                                <ul class="list-unstyled">
-	                                {% if is_granted('ROLE_PERSON_VIEW') %}
-	                                	<li><a href="{{ path('app_people') }}" "{% if 'person' in app.request.uri  %}active{% endif %}">Personen</a></li>
-	                                {% endif %}
-	                                {% if is_granted('ROLE_ORGANIZATION_VIEW') %}
-	                                    <li><a href="{{ path('app_organizations') }}" "{% if 'organization' in app.request.uri  %}active{% endif %}">Organisaties</a></li>
-	                                 {% endif %}
-	                                 {% if is_granted('ROLE_PERSON_VIEW') %}
-	                                    <li><a href="{{ path('app_program_memberships') }}" "{% if 'programmembership' in app.request.uri  %}active{% endif %}">Rollen</a></li>
-	                                {% endif %}
-	                                </ul>
-	                            </li>
-                            {% endif %}
-                            
-                            {% if is_granted('ROLE_EVENT_VIEW') %}
-	                            <li>
-	                                <a href="{{ path('app_events') }}" class="waves-effect {% if 'event' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-calendar-clock"></i> <span> Events </span> </a>
-	                            </li>
-	                        {% endif %}
-                            
-                            {% if is_granted('ROLE_PRODUCT_VIEW') %}
-	                            <li>
-	                                <a href="{{ path('app_products') }}" class="waves-effect {% if 'product' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-wrench"></i> <span> Inventaris </span> </a>
-	                            </li>
-	                        {% endif %}
-                            
-                            {% if is_granted('ROLE_SERVICES_VIEW') %}
-	                            <li>
-	                                <a href="{{ path('app_services') }}" class="waves-effect {% if 'service' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-cube"></i> <span> Producten </span> </a>
-	                            </li>
-	                        {% endif %}
-                            
-                            {% if is_granted('ROLE_SERVICES_VIEW') %}
-	                            <li>
-	                                <a href="{{ path('app_orders') }}" class="waves-effect {% if 'orders' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-cart"></i> <span> Orders </span> </a>
-	                            </li>
-	                        {% endif %}
-	                        
-	                        {% if is_granted('ROLE_SERVICES_VIEW') %}
-	                            <li>
-	                                <a href="{{ path('app_statistics') }}" class="waves-effect {% if 'statistics' in app.request.uri  %}active{% endif %}"><i class="mdi mdi-chart-bar"></i> <span> Statistieken </span> </a>
-	                            </li>
-	                        {% endif %}
-                            
-                            {% if is_granted('ROLE_SETTINGS_VIEW') %}
-	                            <li class="has_sub">
-	                                <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-tag-multiple"></i> <span> Instellingen </span> <span class="menu-arrow"></span></a>
-	                                <ul class="list-unstyled">
-	                                	<li><a href="{{ path('app_settings_categories') }}">Categoriën</a></li>
-	                                    <li><a href="{{ path('app_settings_musical_instruments') }}">Muziekinstrumenten</a></li>
-	                                    <li><a href="{{ path('app_settings_postaladdresses') }}">Event locaties</a></li>
-	                                    {% if is_granted('ROLE_USERS_VIEW') %}
-	                                    <li><a href="{{ path('app_users') }}">Gebruikers</a></li>
-	                                    {% endif %}
-	                                    
-	                                    
-	                                </ul>
-	                            </li>
-                            {% endif %}
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    
-                    <!-- Sidebar -->
-                    <div class="clearfix"></div>
-
-                </div>
-
-            </div>
-            <!-- Left Sidebar End -->
-
-            <!-- ============================================================== -->
-            <!-- Start right Content here -->
-            <!-- ============================================================== -->
-            <div class="content-page">
-                <!-- Start content -->
-                <div class="content">
-                    <div class="container-fluid">
-                    
-	                    {% for message in app.flashes('success') %}
-							<div class="alert alert-success" role="alert">
-							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							  <strong>Success!</strong> {{ message }}
-							</div>
-						{% endfor %}
-						
-						{% for message in app.flashes('warning') %}
-							<div class="alert alert-warning" role="alert">
-							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							  <strong>Waarschuwing!</strong> {{ message }}
-							</div>
-						{% endfor %}
-						
-						{% for message in app.flashes('danger') %}
-							<div class="alert alert-danger" role="alert">
-							  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							  <strong>Waarschuwing!</strong> {{ message }}
-							</div>
-						{% endfor %}
-	                    
-	                    {% block body %}{% endblock %}
-
-                    </div> <!-- container -->
-
-                </div> <!-- content -->
-
-                <footer class="footer text-right">
-                    2019 © ClubManager - Versie 1.1.0
-                </footer>
-
-            </div>
+			<!-- Content -->
+			{% block body %}{% endblock %}
+			<!-- End content -->
+			
+			<div class="p-md-1 m-md-2 text-center text-muted"><small>Copyright © 2020 ClubManager - Versie 2.0</small> 
+			</div>
 
         </div>
         
@@ -260,7 +90,7 @@
             <!-- jQuery  -->
 	        <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 	        <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-	        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+	        <script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>
 	        <script src="{{ asset('assets/js/detect.js') }}"></script>
 	        <script src="{{ asset('assets/js/fastclick.js') }}"></script>
 	        <script src="{{ asset('assets/js/jquery.blockUI.js') }}"></script>
@@ -269,18 +99,7 @@
 	        <script src="{{ asset('assets/js/jquery.slimscroll.js') }}"></script>
 	        <script src="{{ asset('assets/js/jquery.scrollTo.min.js') }}"></script>
 			
-			
-
-
-			<script src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
-			<script src="{{ asset('assets/plugins/jquery-quicksearch/jquery.quicksearch.js') }}"></script>
-			
-	
-	        <!-- App js -->
-	        <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
-	        <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
-	        
-	        <!-- Required datatable js -->
+			<!-- Required datatable js -->
 		    <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 		    <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
 		    
@@ -297,6 +116,10 @@
 		    
 		    <!-- Key Tables -->
 		    <script src="{{ asset('assets/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
+
+		    		    
+		    
+
 	        
 	        <script type="text/javascript">
 				window.setTimeout(function() {

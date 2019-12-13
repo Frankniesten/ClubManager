@@ -170,6 +170,9 @@
     "onelogin/php-saml": {
         "version": "v3.1.0"
     },
+    "php": {
+        "version": "7.3"
+    },
     "php-cs-fixer/diff": {
         "version": "v1.3.0"
     },
@@ -292,6 +295,9 @@
     },
     "symfony/dotenv": {
         "version": "v4.2.1"
+    },
+    "symfony/error-handler": {
+        "version": "v4.4.1"
     },
     "symfony/event-dispatcher": {
         "version": "v4.2.1"
