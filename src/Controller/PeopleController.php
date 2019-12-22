@@ -16,19 +16,16 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class PeopleController extends AbstractController
 {
     /**
-     * @Route("/people", name="app_people")
+     * @Route("/person", name="person")
      * @IsGranted("ROLE_PERSON_VIEW")
-     *
      */
 	public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
 	{
-		
-		$people = null;
 		$query = null;
 		$roles = null;
 		
-    	//Check categorie query:       
-	    if ($query = $request->query->get('query'))
+    	//Check memberOf query:       
+	    if ($query = $request->query->get('category'))
 	    {
 	    	$session->set('people_query', $query);
 	    }
@@ -38,43 +35,44 @@ class PeopleController extends AbstractController
 		    $query = $session->get('people_query', 'all');
 	    }
 	    
+	    //Get all persons:
 	    if ($query == 'all')
 	    {
 		    $query = $session->get('people_query', 'all');
-		    $people = $this->getDoctrine()
+		    $data = $this->getDoctrine()
 	        ->getRepository(Person::class)
 	        ->findAll();  
 	    }
+	    
+	    //Get persons from specific memberOf:
 	    else 
 	    {
 		    $em = $this->getDoctrine()->getManager();
-			$people = $em->getRepository(Person::class)->findByCategegory($query);  
+			$data = $em->getRepository(Person::class)->findByCategegory($query);  
 	    }
 
         //Check for roles query:       
 	    if ($roles= $request->query->get('roles'))
 	    {		    
 		    $em = $this->getDoctrine()->getManager();
-			$people = $em->getRepository(Person::class)->findByMemberOfProgramName($roles); 	
+			$data = $em->getRepository(Person::class)->findByMemberOfProgramName($roles); 	
 	    }
         
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository(Category::class)->findCategoryType('person');
 				
-		return $this->render('people/people.html.twig', [
-        	'data' => $people,
+		return $this->render('person/person-all.html.twig', [
+        	'data' => $data,
         	'club_name' => getenv('CLUB_NAME'),
         	'category' => $category,
         	'query' => $query,
         	'roles' => $roles
 		]);
-		
-		
-		
-		
 	}
+	
+		
 	/**
-     * @Route("/person/create", name="app_person_create")
+     * @Route("/person/create", name="person_create")
      * @IsGranted("ROLE_PERSON_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request)
@@ -84,23 +82,27 @@ class PeopleController extends AbstractController
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			
-			$person = $form->getData();
+			$data = $form->getData();
 			
-			$em->persist($person);
+			$em->persist($data);
 			$em->flush();
-			$id = $person->getId();
+			$id = $data->getId();
            
-			$this->addFlash('success', $person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' is aangemaakt!');
+			$this->addFlash('success', $data->getFamilyName().', '.$data->getGivenName().' '.$data->getAdditionalName().' is aangemaakt!');
 			
-			return $this->redirectToRoute('app_person', array('id' => $id));			
+			return $this->redirectToRoute('person', array('id' => $id));			
 		}
 		
-		return $this->render('people/personForm.html.twig', [
+		return $this->render('person/personForm.html.twig', [
         	'form' => $form->createView()
 		]);
 	}
+	
+	
+	
+	
 	/**
-     * @Route("/person/{id}", name="app_person")
+     * @Route("/person/{id}", name="person_id")
      * @IsGranted("ROLE_PERSON_VIEW")
      */
 	public function show(EntityManagerInterface $em, Request $request, $id)
@@ -112,13 +114,13 @@ class PeopleController extends AbstractController
         	throw $this->createNotFoundException('Deze persoon bestaat niet');
     	} 
         
-		return $this->render('people/person.html.twig', [
+		return $this->render('person/person.html.twig', [
         	'data' => $person
 		]);
 	}
 		
 	/**
-     * @Route("/person/{id}/edit", name="app_person_edit")
+     * @Route("/person/{id}/edit", name="person_edit")
      * @IsGranted("ROLE_PERSON_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id)
@@ -142,10 +144,10 @@ class PeopleController extends AbstractController
            
 			$this->addFlash('success', $person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' is bijgewerkt!');
 			
-			return $this->redirectToRoute('app_person', array('id' => $id));			
+			return $this->redirectToRoute('person_id', array('id' => $id));			
 		}
 		
-		return $this->render('people/personForm.html.twig', [
+		return $this->render('person/personForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $person
 		]);

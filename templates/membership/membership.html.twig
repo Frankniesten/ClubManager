@@ -1,17 +1,3 @@
-<div class="row align-items-center">
-	<div class="col">
-	    <h3>Lidmaatschap</h3>
-    </div>
-        
-    <div class="col-4  ">
-    {% if is_granted('ROLE_PERSON_CREATE') %}
-	    <div class="btn-group float-right">
-	    	<a href="{{ path('app_person_membership_create', {'id': data.id}) }}" class="btn btn-sm btn-trans btn-purple waves-effect"><i class="fa fa-plus"></i></a>
-	    </div>
-	{% endif %}
-    </div>
-        
-</div>
 {%if data.membership is not empty %}
 <table class="table table-bordered table-striped">   
     <tbody>

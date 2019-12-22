@@ -1,0 +1,45 @@
+<table class="table table-bordered table-striped">   
+    <tbody>
+        <tr>
+            <td width="20%"><b>Naam</b></td>
+            <td width="70%">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</td>
+        </tr>
+        <tr>
+            <td><b>Geboortedatum</b></td>
+            <td>{{ data.birthDate ? data.birthDate | date('d-m-Y') }}</td>
+        </tr>
+        <tr>
+            <td><b>Geslacht</b></td>
+            <td>{{data.gender}}</td>
+        </tr>
+        <tr>
+            <td><b>Email</b></td>
+            <td><a href="mailto:{{data.email}}" target="_blank">{{data.email}}</a></td>
+        </tr>
+        <tr>
+            <td><b>Telefoon</b></td>
+            <td>{{data.telephone}}</td>
+        </tr>
+        <tr>
+            <td><b>Mobiel</b></td>
+            <td>{{data.telephone2}}</td>
+        </tr>
+
+        <tr>
+            <td><b>Straat</b></td>
+            <td>{{data.streetAddress}}</td>
+        </tr>
+        <tr>
+            <td><b>Postcode</b></td>
+            <td>{{data.postalCode}}</td>
+        </tr>
+        <tr>
+            <td><b>Woonplaats</b></td>
+            <td>{{data.addressLocality}}</td>
+        </tr>
+        <tr>
+            <td><b>Land</b></td>
+            <td>{{data.addressCountry}}</td>
+        </tr>
+    </tbody>
+</table> 

@@ -1,20 +1,6 @@
 
 # ---People--- #
-app_people:
-    path: /people
-    controller: App\Controller\PeopleController::list
 
-app_person_create:
-    path: /person/create
-    controller: App\Controller\PeopleController::new
-     
-app_person:
-    path: /person/{id}
-    controller: App\Controller\PeopleController::show
-    
-app_person_edit:
-    path: /person/{id}/edit
-    controller: App\Controller\PeopleController::edit
     
 app_person_delete:
     path: /person/{id}/delete

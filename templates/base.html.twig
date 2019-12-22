@@ -10,13 +10,27 @@
         {% block stylesheets %}
 
         	<!-- App css -->
-	        <link href="{{ asset('assets/css/bootstrap/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
-	        <link href="{{ asset('assets/css/cm.css') }}" rel="stylesheet" type="text/css"/>
+	        <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+	        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css"/>
 	        
 	        
-	        <link href="{{ asset('assets/css/icons.css') }}" rel="stylesheet" type="text/css"/>
+	        <link href="{{ asset('assets/css/materialdesignicons.css') }}" rel="stylesheet" type="text/css"/>
+	        
+	        
 	        <script src="{{ asset('assets/js/modernizr.min.js' ) }}"></script>
-	            	           
+	        
+
+	        <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+			<link href="{{ asset('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet" />
+			
+			<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
+			<link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css"/>
+	        <link href="{{ asset('assets/plugins/select2/css/select2.css') }}" rel="stylesheet" type="text/css" />
+	        <link href="{{ asset('assets/plugins/select2/css/select2-bootstrap4.css') }}" rel="stylesheet" type="text/css" />
+	        
+	        
+	        
         {% endblock %}
               
     </head>
@@ -27,7 +41,7 @@
 	    <div id="wrapper">
 		    
 		    <!-- navbar -->
-			<nav class="navbar navbar-expand-xl navbar-dark sticky-top p-1">
+			<nav class="navbar navbar-expand-xl navbar-dark p-1">
 				
 				<div class="container">
 					
@@ -41,16 +55,16 @@
 					    <ul class="navbar-nav mr-auto nav-fill w-100">
 					      	
 					      	<li class="nav-item {{ app.request.get('_route') == 'dashboard' ? 'active' }}">
-					        	<a class="nav-link" href="{{ path('dashboard') }}"><i class="mdi mdi-account-multiple"></i> Dashboard</a>
+					        	<a class="nav-link" href="{{ path('dashboard') }}">Dashboard</a>
 							</li>
 							
-							<li class="nav-item dropdown">
+							<li class="nav-item {{ app.request.get('_route') == 'person' ? 'active' }} dropdown">
 					        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Contacten
 					        	</a>
 					        
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item" href="{{ path('app_people') }}">Personen</a>
+									<a class="dropdown-item {{ app.request.get('_route') == 'person' ? 'active' }}" href="{{ path('person') }}">Personen</a>
 									<a class="dropdown-item" href="#">Organisaties</a>
 									<a class="dropdown-item" href="#">Rollen</a>
 								</div>
@@ -76,12 +90,36 @@
 			</nav>
 			<!-- End navbar -->
 		    
+		    <!-- Flash Messages -->
+		    <div class="p-md-1 m-md-2 text-left">
+		    {% for message in app.flashes('success') %}
+				<div class="alert alert-success" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  <strong>Success!</strong> {{ message }}
+				</div>
+			{% endfor %}
+			
+			{% for message in app.flashes('warning') %}
+				<div class="alert alert-warning" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  <strong>Waarschuwing!</strong> {{ message }}
+				</div>
+			{% endfor %}
+			
+			{% for message in app.flashes('danger') %}
+				<div class="alert alert-danger" role="alert">
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  <strong>Waarschuwing!</strong> {{ message }}
+				</div>
+			{% endfor %}
+			</div>
+		    <!-- End Flash Messages -->
+		    
 			<!-- Content -->
 			{% block body %}{% endblock %}
 			<!-- End content -->
 			
-			<div class="p-md-1 m-md-2 text-center text-muted"><small>Copyright © 2020 ClubManager - Versie 2.0</small> 
-			</div>
+			<div class="p-md-1 m-md-2 text-center text-muted"><small>Copyright © 2020 ClubManager - Versie 2.0</small></div>
 
         </div>
         
@@ -90,7 +128,7 @@
             <!-- jQuery  -->
 	        <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 	        <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-	        <script src="{{ asset('assets/js/bootstrap/bootstrap.min.js') }}"></script>
+	        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 	        <script src="{{ asset('assets/js/detect.js') }}"></script>
 	        <script src="{{ asset('assets/js/fastclick.js') }}"></script>
 	        <script src="{{ asset('assets/js/jquery.blockUI.js') }}"></script>
@@ -102,8 +140,6 @@
 			<!-- Required datatable js -->
 		    <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 		    <script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
-		    
-		    <!-- Buttons examples -->
 		    <script src="{{ asset('assets/plugins/datatables/dataTables.buttons.min.js') }}"></script>
 		    <script src="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
 		    <script src="{{ asset('assets/plugins/datatables/jszip.min.js') }}"></script>
@@ -112,15 +148,12 @@
 		    <script src="{{ asset('assets/plugins/datatables/buttons.html5.min.js') }}"></script>
 		    <script src="{{ asset('assets/plugins/datatables/buttons.print.min.js') }}"></script>
 		    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-		    
-		    
-		    <!-- Key Tables -->
 		    <script src="{{ asset('assets/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
+		    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+			<script type="text/javascript" src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
 		    		    
-		    
-
-	        
+		
 	        <script type="text/javascript">
 				window.setTimeout(function() {
 				    $(".alert").fadeTo(500, 0).slideUp(500, function(){
