@@ -1,18 +1,18 @@
-{%if data.parents is not empty %}
+{%if data.membership is not empty %}
 <!--Table -->
 <table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <tr>
 				<th width="20px"></th>
-                <th>Naam</th>
-                <th>Email</th>
-                <th>Categorie</th>
+                <th>Start datum</th>
+                <th>Eind datum</th>
+                <th>Aantal jaren</th>
             </tr>
         </thead>
 
         <tbody>
         
-        {% for parents in data.parents %}
+        {% for membership in data.membership %}
 			<tr>
 				<td align="center">
 					<!-- Dropdown menu -->
@@ -26,20 +26,27 @@
 					<!-- End dropdown menu -->
 				</td>
 			    <td>
-					<a href="{{ path('app_person_parents', {'id': parents.id}) }}">{{ parents.familyName }}, {{ parents.givenName }} {{ parents.additionalName }}</a>
+					{{ membership.startDate | date("d-m-Y") }}
 			    </td>	
 			    <td>
-				    <a href="mailto:{{ parents.email }}">{{ parents.email }}</a>
+				    {{ membership.endDate is empty ? "" : membership.endDate|date("d-m-Y") }}
 				</td>
 			    <td>
-				   	{{ parents.category.name }}	
+				    {% set difference = date(membership.endDate).diff(date(membership.startDate)) %}
+					{% set leftDays = difference.y %}
+					{{ leftDays}}
 				</td>
 			</tr>
 		{% endfor %}
-        
+		
+			<tr>
+	            <td></td>
+	            <td></td>
+	            <td><b>Totaal</b></td>
+	            <td><b>{{ data.membershipYears }}</b></td>
+	        </tr>
         </tbody>
     </table>
-
 {% else %}
 	<div class="text-muted">Niet van toepassing.</div>
 {% endif %}

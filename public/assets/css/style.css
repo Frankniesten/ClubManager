@@ -27,10 +27,17 @@ color: rgba(0, 0, 0, .85);
 	color: rgba(0, 0, 0, .85);
 	border-color: #999999;
 }
-.btn-info:active {
-	background-color: #999999;
-	color: rgba(0, 0, 0, .85);
-	border-color: #999999;
+
+.btn-info:not(:disabled):not(.disabled):active, .btn-info:not(:disabled):not(.disabled).active,
+.show > .btn-info.dropdown-toggle {
+  color: #fff;
+  background-color: #999999;
+  border-color: #999999;
+}
+
+.btn-info:not(:disabled):not(.disabled):active:focus, .btn-info:not(:disabled):not(.disabled).active:focus,
+.show > .btn-info.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
 }
 
 .btn-danger {
@@ -55,6 +62,13 @@ color: rgba(0, 0, 0, .85);
 	border-radius: .2rem;
 }
 
+
+/*
+ * Header margin pages.
+ */
+ .header-top {
+	 margin-top: -4px;
+ }
 
 /*
  * Custom DataTable

@@ -1,18 +1,17 @@
-{%if data.parents is not empty %}
+{%if data.memberOf is not empty %}
 <!--Table -->
-<table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0">
+<table id="datatable-memberOf" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <tr>
 				<th width="20px"></th>
-                <th>Naam</th>
-                <th>Email</th>
-                <th>Categorie</th>
+                <th>Rol</th>
+                <th>Omschrijving</th>
             </tr>
         </thead>
 
         <tbody>
         
-        {% for parents in data.parents %}
+        {% for memberOf in data.memberOf %}
 			<tr>
 				<td align="center">
 					<!-- Dropdown menu -->
@@ -26,13 +25,10 @@
 					<!-- End dropdown menu -->
 				</td>
 			    <td>
-					<a href="{{ path('app_person_parents', {'id': parents.id}) }}">{{ parents.familyName }}, {{ parents.givenName }} {{ parents.additionalName }}</a>
+					{{ memberOf.programName }}
 			    </td>	
 			    <td>
-				    <a href="mailto:{{ parents.email }}">{{ parents.email }}</a>
-				</td>
-			    <td>
-				   	{{ parents.category.name }}	
+				    {{ memberOf.description | truncate(100) }}
 				</td>
 			</tr>
 		{% endfor %}
@@ -43,3 +39,4 @@
 {% else %}
 	<div class="text-muted">Niet van toepassing.</div>
 {% endif %}
+

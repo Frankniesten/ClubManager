@@ -77,7 +77,11 @@
                 {% endfor %}
                 </tbody>
             </table>
-
+	  		De verenigingsagenda automatisch met je eigen persoonlijke agenda synchroniseren zodat je altijd automatisch de laatste wijzigingen ontvangt? Genereer op basis van je eigen wensen een persoonlijke url.
+	  		
+	  		{% set currentPath = path(app.request.attributes.get('_route'),
+                       app.request.attributes.get('_route_params')) %}
+                       {{currentPath}}
 		</div>
 	</div>
 </div>  
@@ -141,7 +145,7 @@
 			        </table>  
 		</div>
 	</div>
-</div>                       
+</div>                   
 {% endblock %}
 
 {% block javascripts %}

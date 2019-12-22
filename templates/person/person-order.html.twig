@@ -1,0 +1,87 @@
+{%if data.customer is not empty %}
+<!--Table -->
+<table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0">
+        <thead>
+            <tr>
+				<th width="20px"></th>
+                <th>Order</th>
+                <th>Datum</th>
+                <th>Orderstatus</th>
+                <th>Artikel</th>
+                <th>Totaal</th>
+            </tr>
+        </thead>
+        <tbody>
+       
+        {% for customer in data.customer %}
+			<tr>
+				<td align="center">
+					<!-- Dropdown menu -->
+					<div class="btn-group">
+					  	<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+				  		<div class="dropdown-menu">
+				  			<a class="dropdown-item" href=""><i class="mdi mdi-pencil"></i> Bewerken</a>
+				  			<a class="dropdown-item" href="" onclick="return confirm('Weet je zeker dat je wilt verwijderen?');"><i class="mdi mdi-delete text-danger" ></i> Verwijderen</a>
+				  		</div>
+					</div>
+					<!-- End dropdown menu -->
+				</td>
+			    <td>
+					<a href="{{ path('app_order', {'id': data.id, 'orderID': customer.id }) }}">#{{customer.id}}</a>
+			    </td>	
+			   <td>
+				{{ customer.orderDate ? customer.orderDate|date('d-m-Y') }}
+            </td>
+            <td>
+            	{% if customer.orderStatus == "In behandeling" %}
+            		<span class="badge badge-primary">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "Afgerond" %}
+            		<span class="badge badge-success">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "Geannuleerd" %}
+            		<span class="badge badge-secondary">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "In de wacht" %}
+            		<span class="badge badge-danger">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "Terugbetaald" %}
+            		<span class="badge badge-secondary">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            	{% if customer.orderStatus == "Wachtend op betaling" %}
+            		<span class="badge badge-danger">{{ customer.orderStatus }}</span>
+            	{% endif %}
+            </td>
+            <td>
+				{% for details in customer.orderItem %}
+            		
+            		<li>
+            			{{ details.orderedItem.alternateName }}
+            		</li>
+            	{% endfor %}            
+            </td>
+            <td>
+            	{% set totalPrice = 0 %}
+            	
+            	{% for details in customer.orderItem %}
+            		
+            		
+            		{% set price = details.orderedItem.price %}
+            		{% set quantity = details.orderQuantity|number_format %}
+            		{% set itemPrice = price * quantity %}
+            		
+            		{% set totalPrice = totalPrice + itemPrice %} 
+
+            	{% endfor %}
+            	€ {{ totalPrice|number_format(2, '.','') }}
+            			
+            </td>
+			</tr>
+		{% endfor %}
+        
+        </tbody>
+    </table>
+
+{% else %}
+	<div class="text-muted">Niet van toepassing.</div>
+{% endif %}

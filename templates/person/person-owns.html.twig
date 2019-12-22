@@ -1,18 +1,20 @@
-{%if data.parents is not empty %}
+{%if data.owns is not empty %}
 <!--Table -->
-<table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0">
+<table id="datatable-owns" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <tr>
 				<th width="20px"></th>
-                <th>Naam</th>
-                <th>Email</th>
-                <th>Categorie</th>
+                <th>Product</th>
+                <th>Model</th>
+                <th>Fabrikant</th>
+				<th>In bezit vanaf</th>
+				<th>In bezit tot</th>
             </tr>
         </thead>
 
         <tbody>
         
-        {% for parents in data.parents %}
+         {% for owns in data.owns %}
 			<tr>
 				<td align="center">
 					<!-- Dropdown menu -->
@@ -26,14 +28,20 @@
 					<!-- End dropdown menu -->
 				</td>
 			    <td>
-					<a href="{{ path('app_person_parents', {'id': parents.id}) }}">{{ parents.familyName }}, {{ parents.givenName }} {{ parents.additionalName }}</a>
+					<a href="{{ path('app_product', {'id': owns.typeofGood.id}) }}">{{ owns.typeofGood.name }}</a>
 			    </td>	
 			    <td>
-				    <a href="mailto:{{ parents.email }}">{{ parents.email }}</a>
-				</td>
-			    <td>
-				   	{{ parents.category.name }}	
-				</td>
+            		{{ owns.typeofGood.model }}
+            	</td>
+	            <td>
+		            {{ owns.typeofGood.manufacturer }}
+	            </td>
+	            <td>
+		            {{ owns.ownedFrom |date("d-m-Y")}}
+	            </td>
+				<td>
+		            {{ owns.ownedTrough ? owns.ownedTrough|date('d-m-Y') }}
+	            </td>
 			</tr>
 		{% endfor %}
         
