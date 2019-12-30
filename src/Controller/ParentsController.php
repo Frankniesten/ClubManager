@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Person;
 use App\Form\ParentsFormType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,7 +37,7 @@ class ParentsController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid()) {
 			
 			$person = $form->getData();
-			$person->setUpdatedAt(new \DateTime());
+			$person->setUpdatedAt(new DateTime());
 			$em->persist($person);
 			$em->flush();
 			

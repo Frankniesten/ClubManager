@@ -35,7 +35,8 @@
               
     </head>
 
-	<body>
+	<body data-spy="scroll" data-target="#list-menu" data-offset="40">
+	
 
 	    <!-- Begin page -->
 	    <div id="wrapper">
@@ -66,7 +67,9 @@
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item {{ app.request.get('_route') == 'person' ? 'active' }}" href="{{ path('person') }}">Personen</a>
 									<a class="dropdown-item" href="#">Organisaties</a>
+									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="#">Rollen</a>
+									<a class="dropdown-item" href="#">Tags</a>
 								</div>
 							</li>
 							<li class="nav-item">

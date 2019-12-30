@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
@@ -61,24 +62,24 @@ class OwnershipInfo
         return $this->id;
     }
 
-    public function getOwnedFrom(): ?\DateTimeInterface
+    public function getOwnedFrom(): ?DateTimeInterface
     {
         return $this->ownedFrom;
     }
 
-    public function setOwnedFrom(\DateTimeInterface $ownedFrom): self
+    public function setOwnedFrom(DateTimeInterface $ownedFrom): self
     {
         $this->ownedFrom = $ownedFrom;
 
         return $this;
     }
 
-    public function getOwnedTrough(): ?\DateTimeInterface
+    public function getOwnedTrough(): ?DateTimeInterface
     {
         return $this->ownedTrough;
     }
 
-    public function setOwnedTrough(?\DateTimeInterface $ownedTrough): self
+    public function setOwnedTrough(?DateTimeInterface $ownedTrough): self
     {
         $this->ownedTrough = $ownedTrough;
 

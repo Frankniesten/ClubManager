@@ -1,0 +1,60 @@
+{%if data is not empty %}
+<!--Table -->
+<table id="datatable-logs" class="table table-striped table-bordered" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Gebruiker</th>
+                <th>Event</th>
+                <th>Tijdstempel</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        
+        {% for data in data %}
+			<tr>
+			    <td>
+					{{data.username}}
+			    </td>	
+			    <td>
+				    {{data.action}}
+				</td>
+			    <td data-order="{{ data.loggedAt | date('Y/m/d - H:m') }}">
+				   	{{data.loggedAt | date('d-m-Y - H:m') }}	
+				</td>
+				<td width="50%">
+					<a class="btn btn-info btn-sm" data-toggle="collapse" href="#history-{{ loop.index }}" aria-expanded="false">
+						<i class="mdi mdi-arrow-down-bold-box-outline"></i>
+  					</a>
+  					<div class="collapse" id="history-{{ loop.index }}">
+	  					<br>
+  						<div class="card card-body">
+  							{% for key, data in data.data %}
+						        <li>{{ key }}: 
+						        
+						        {% if data is iterable %}
+						        	{% for key, data in data %}
+						        		{{data}}
+						        	{% endfor %}
+						        {% else %}
+						        	
+						        	{% if data.timestamp is defined %}
+										{{ data|date('d-m-Y') }}
+									{% else %}
+										{{ data }}
+									{% endif %}
+								{% endif %}
+						        </li>
+						    {% endfor %}	
+  						</div>
+					</div>
+			    </td>
+			</tr>
+		{% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+	<div class="text-muted">Niet van toepassing.</div>
+{% endif %}

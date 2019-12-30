@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\Category;
 use App\Form\EventFormType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ class EventsController extends AbstractController
 	    }
 	    else 
 	    {
-		    $startDate = $session->get('startDate', new \DateTime());
+		    $startDate = $session->get('startDate', new DateTime());
 	    }
 	    
 	    //Check endDate:       
@@ -40,7 +41,7 @@ class EventsController extends AbstractController
 	    }
 	    else 
 	    {
-		    $endDate = $session->get('endDate', new \DateTime('+1 year'));
+		    $endDate = $session->get('endDate', new DateTime('+1 year'));
 	    }
 	    
 	    //Check categorie:       

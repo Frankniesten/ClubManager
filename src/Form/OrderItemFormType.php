@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\OrderItem;
 use App\Entity\Offer;
+use DateTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,7 +26,7 @@ class OrderItemFormType extends AbstractType
 					    'query_builder' => function (EntityRepository $er) {
 					        return $er->createQueryBuilder('u')
 								->where('u.validFrom < :now AND u.validThrough > :now')
-								->setParameter('now', new \DateTime('now'))
+								->setParameter('now', new DateTime('now'))
 					            ->orderBy('u.alternateName', 'ASC');
 					    },
 					    'choice_label' => 'alternateName',
