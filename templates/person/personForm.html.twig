@@ -1,40 +1,42 @@
-{% extends 'base.html.twig' %}
-
-
+{% extends 'base_content_full_width.html.twig' %}
 
 {% block body %}
 
 {{ form_start(form) }}
 
-<div class="position-relative overflow-hidden p-3 p-md-1 m-md-1 mx-md-5 text-left">
-  	<div class="row">
-	    <div class="col-10">
-	      	{% if 'create' in app.request.uri  %}
-	       	<h3>Persoon toevoegen</h3>
-	        {% endif %}
-	        {% if 'edit' in app.request.uri  %}
-	       	<h3>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }} - bewerken</h3>
-	        {% endif %}
-	    </div>
-	    
-	    {% if is_granted('ROLE_PERSON_CREATE') %}
-	    <div class="col-2">
-	      	<div class="btn-group float-right">
-	        	<button type="submit" class="btn btn-info btn-sm"><i class="mdi mdi-content-save"></i></button>
-	        	{% if 'create' in app.request.uri  %}
-	       			<a href="{{ path('person') }}" class="btn btn-info btn-sm"><i class="mdi mdi-close"></i></a>
-		        {% endif %}
-		        {% if 'edit' in app.request.uri  %}
-		       		<a href="{{ path('person_id', {'id': data.id}) }}" class="btn btn-info btn-sm"><i class="mdi mdi-close"></i></a>
-		        {% endif %}
-	        </div>
-	    </div>
-	    {% endif %} 
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			{% if 'create' in app.request.uri  %}
+				<h3>Persoon toevoegen</h3>
+			{% endif %}
+			{% if 'edit' in app.request.uri  %}
+				<h3>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }} - bewerken</h3>
+			{% endif %}
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group float-right">
+				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}save{% endtrans %}</button>
+				{% if 'create' in app.request.uri  %}
+					<a href="{{ path('person') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}close{% endtrans %}</a>
+				{% endif %}
+				{% if 'edit' in app.request.uri  %}
+					<a href="{{ path('person_id', {'id': data.id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}close{% endtrans %}</a>
+				{% endif %}
+			</div>
+		</div>
 	</div>
-</div>
+	<!-- End Page header -->
+
+
+
+
+
+
 
 <!-- Content -->
-<div class="position-relative overflow-hidden p-3 p-md-1 m-md-2 mx-md-5 text-left">
+
 	<div class="card">
 		<div class="card-body">
 			
@@ -126,7 +128,6 @@
 
 		</div>
 	</div>
-</div>
 
 {{ form_end(form) }} 
 

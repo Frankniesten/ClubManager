@@ -5,7 +5,6 @@
         <tr>
             <th width="20px"></th>
             <th>{% trans %}reviews{% endtrans %}</th>
-            <th>{% trans %}date{% endtrans %}</th>
         </tr>
         </thead>
 
@@ -30,13 +29,16 @@
                     </a>
                     <div class="collapse" id="review-{{ loop.index }}">
                         <br>
-                        <div class="card card-body">
-                            {{review.reviewBody | raw }}
+                        <div class="card text-left">
+                            <div class="card-body">
+                                {{review.reviewBody | raw }}
+                            </div>
+                            <div class="card-footer text-muted small">
+                                <i class="mdi mdi-account"></i>&nbsp;&nbsp; {{ review.updatedBy }}&nbsp;&nbsp;|&nbsp;&nbsp;
+                                <i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ review.updatedAt |date("d-m-Y  - H:i")}}
+                            </div>
                         </div>
                     </div>
-                </td>
-                <td>
-                    {{ review.updatedAt |date("d-m-Y  - H:i")}}
                 </td>
             </tr>
         {% endfor %}

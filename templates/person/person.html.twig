@@ -130,6 +130,10 @@
 		<div class="card-body">
 			{{ include('person/person-info.html.twig', { 'data': data }) }}
 		</div>
+		<div class="card-footer text-muted small">
+			<i class="mdi mdi-account"></i>&nbsp;&nbsp; {{ data.updatedBy }}&nbsp;&nbsp;|&nbsp;&nbsp;
+			<i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ data.updatedAt |date("d-m-Y  - H:i")}}
+		</div>
 	</div>
 	<!-- End Personal info -->
 	<br>

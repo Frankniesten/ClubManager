@@ -29,6 +29,7 @@ user: User
 event: Event
 timestamp: Timestamp
 data: Data
+save: Save
 
 # Orders
 orders: Orders

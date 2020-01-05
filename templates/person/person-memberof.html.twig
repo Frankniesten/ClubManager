@@ -1,11 +1,11 @@
 {%if data.memberOf is not empty %}
 <!--Table -->
-<table id="datatable-memberOf" class="table table-striped table-bordered" cellspacing="0">
+<table id="datatable-memberOf" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
         <thead>
             <tr>
 				<th width="20px"></th>
                 <th>{% trans %}programMemberships_role{% endtrans %}</th>
-                <th>{% trans %}description{% endtrans %}</th>
+                <th class="desktop">{% trans %}description{% endtrans %}</th>
             </tr>
         </thead>
 

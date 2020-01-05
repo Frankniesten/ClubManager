@@ -6,13 +6,17 @@
          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
              <div class="sidebar-sticky">
                 <ul class="nav flex-column" id="list-menu">
-                        <!-- Content -->
-                        {% block sidebar %}{% endblock %}
-                        <!-- End content -->
+                    <!-- Content -->
+                    {% block sidebar %}{% endblock %}
+                    <!-- End content -->
                 </ul>
          </nav>
 
          <div class="col ml-sm-auto">
+             <!-- Flash Messages -->
+             {{ include('base_flash_messages.html.twig') }}
+             <!-- End Flash Messages -->
+
             {% block body %}{% endblock %}
 
             <!-- Footer -->
