@@ -6,7 +6,7 @@
 
 {{ form_start(form) }}
 
-<div class="position-relative overflow-hidden p-3 p-md-1 m-md-2 text-left">
+<div class="position-relative overflow-hidden p-3 p-md-1 m-md-1 mx-md-5 text-left">
   	<div class="row">
 	    <div class="col-10">
 	      	{% if 'create' in app.request.uri  %}
@@ -34,11 +34,11 @@
 </div>
 
 <!-- Content -->
-<div class="position-relative overflow-hidden p-3 p-md-1 m-md-2 text-left">
+<div class="position-relative overflow-hidden p-3 p-md-1 m-md-2 mx-md-5 text-left">
 	<div class="card">
 		<div class="card-body">
 			
-			<div class="row">
+			<div class="row mb-sm-4">
 		        <div class="col-sm">
 					{{ form_label(form.givenName) }}
 					{{ form_widget(form.givenName) }}
@@ -55,7 +55,7 @@
 		        </div>
 		    </div>
 
-		    <div class="row">
+		    <div class="row mb-sm-4">
 		        <div class="col-sm">
 					{{ form_label(form.birthDate) }}
 					{{ form_widget(form.birthDate, {'id': 'datepicker-autoclose'}) }}
@@ -67,14 +67,14 @@
 		        </div>
 		    </div>
 
-		    <div class="row">
+		    <div class="row mb-sm-4">
 			    <div class="col-sm">
 				    {{ form_label(form.email) }}
 					{{ form_widget(form.email) }}
 			    </div>
 		    </div>
 
-		    <div class="row">
+		    <div class="row mb-sm-4">
 		        <div class="col-sm">
 					{{ form_label(form.telephone) }}
 					{{ form_widget(form.telephone) }}
@@ -86,7 +86,7 @@
 		        </div>
 		    </div>
 
-		    <div class="row">
+		    <div class="row mb-sm-4">
 		        <div class="col-sm">
 					{{ form_label(form.streetAddress) }}
 					{{ form_widget(form.streetAddress) }}
@@ -98,7 +98,7 @@
 		        </div>
 		    </div>
 
-		    <div class="row">
+		    <div class="row mb-sm-4">
 		        <div class="col-sm">
 					{{ form_label(form.addressLocality) }}
 					{{ form_widget(form.addressLocality) }}
@@ -110,14 +110,14 @@
 		        </div>
 		    </div>
 
-		    <div class="row">
+		    <div class="row mb-sm-4">
 			    <div class="col-sm">
 				    {{ form_label(form.alumni) }}
 					{{ form_widget(form.alumni) }}
 			    </div>
 		    </div>
 
-		    <div class="row">
+		    <div class="row mb-sm-4">
 			    <div class="col-sm">
 				    {{ form_label(form.category) }}
 					{{ form_widget(form.category) }}

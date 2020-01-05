@@ -3,10 +3,10 @@
 <table id="datatable-logs" class="table table-striped table-bordered" cellspacing="0">
         <thead>
             <tr>
-                <th>Gebruiker</th>
-                <th>Event</th>
-                <th>Tijdstempel</th>
-                <th>Data</th>
+                <th>{% trans %}user{% endtrans %}</th>
+                <th>{% trans %}event{% endtrans %}</th>
+                <th>{% trans %}timestamp{% endtrans %}</th>
+                <th>{% trans %}data{% endtrans %}</th>
             </tr>
         </thead>
 
@@ -24,12 +24,10 @@
 				   	{{data.loggedAt | date('d-m-Y - H:m') }}	
 				</td>
 				<td width="50%">
-					<a class="btn btn-info btn-sm" data-toggle="collapse" href="#history-{{ loop.index }}" aria-expanded="false">
-						<i class="mdi mdi-arrow-down-bold-box-outline"></i>
-  					</a>
+					<button type="button" class="btn btn-primary btn-xs dropdown-toggle"
+							data-toggle="collapse" href="#history-{{ loop.index }}" aria-expanded="false"></button>
   					<div class="collapse" id="history-{{ loop.index }}">
 	  					<br>
-  						<div class="card card-body">
   							{% for key, data in data.data %}
 						        <li>{{ key }}: 
 						        
@@ -46,8 +44,7 @@
 									{% endif %}
 								{% endif %}
 						        </li>
-						    {% endfor %}	
-  						</div>
+						    {% endfor %}
 					</div>
 			    </td>
 			</tr>

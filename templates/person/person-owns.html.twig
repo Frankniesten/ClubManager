@@ -4,11 +4,11 @@
         <thead>
             <tr>
 				<th width="20px"></th>
-                <th>Product</th>
-                <th>Model</th>
-                <th>Fabrikant</th>
-				<th>In bezit vanaf</th>
-				<th>In bezit tot</th>
+                <th>{% trans %}product_product{% endtrans %}</th>
+                <th>{% trans %}product_model{% endtrans %}</th>
+                <th>{% trans %}product_manufacturer{% endtrans %}</th>
+				<th>{% trans %}product_owned_from{% endtrans %}</th>
+				<th>{% trans %}product_owned_till{% endtrans %}</th>
             </tr>
         </thead>
 
@@ -19,10 +19,10 @@
 				<td align="center">
 					<!-- Dropdown menu -->
 					<div class="btn-group">
-					  	<button type="button" class="btn btn-info btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+					  	<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 				  		<div class="dropdown-menu">
-				  			<a class="dropdown-item" href=""><i class="mdi mdi-pencil"></i> Bewerken</a>
-				  			<a class="dropdown-item" href="" onclick="return confirm('Weet je zeker dat je wilt verwijderen?');"><i class="mdi mdi-delete text-danger" ></i> Verwijderen</a>
+				  			<a class="dropdown-item" href=""><i class="mdi mdi-pencil"></i> {% trans %}edit{% endtrans %}</a>
+				  			<a class="dropdown-item" href="" onclick="return confirm('Weet je zeker dat je wilt verwijderen?');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}delete{% endtrans %}</a>
 				  		</div>
 					</div>
 					<!-- End dropdown menu -->

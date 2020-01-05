@@ -1,12 +1,4 @@
 
-# ---People--- #
-
-    
-app_person_delete:
-    path: /person/{id}/delete
-    controller: App\Controller\PeopleController::delete
-
-
 # Person - Parents:
 app_person_parents:
     path: /person/{id}/parents

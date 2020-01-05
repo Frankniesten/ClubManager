@@ -1,0 +1,79 @@
+# translations/messages.nl.yaml
+
+# Main Navigation
+navbar_dashboard: Dashboard
+navbar_contacts: Contacts
+navbar_person: Persons
+navbar_organizations: Organizations
+navbar_calendar: Calendar
+navbar_products: Inventory
+navbar_services: Services
+navbar_statistics: Statistics
+navbar_settings: Settings
+
+# Common
+date: Date
+dateAchieved: Date achieved
+delete: Delete
+description: Description
+diploma: Diploma
+close: Close
+edit: Edit
+endDate: End Date
+new: New
+startDate: Start Date
+school: School
+total: Total
+years: Years
+user: User
+event: Event
+timestamp: Timestamp
+data: Data
+
+# Orders
+orders: Orders
+orders_order_status: Order status
+orders_article: Article
+
+# Person Entities
+person_name: Name
+person_email: Email
+person_telephone: Telephone
+person_telephone_2: Mobile
+person_address: Address
+person_category: Category
+person_birthday: Birthday
+person_gender: Gender
+person_streetAddress: Street
+person_postalCode: Zip Code
+person_addressLocality: City
+person_addressCountry: Country
+
+# Person Nav
+person_nav_personal_information: Personal information
+person_nav_membership: Membership
+person_nav_musicalInstrument: Musical instrument
+person_nav_education: Education
+person_nav_parents: Parents
+
+person_nav_statistics: Statistics
+person_nav_log: Log
+person_nav_all: All persons
+
+# Product
+product_lease_lend: Lease-lend
+product_product: Product
+product_model: Model
+product_manufacturer: Manufacturer
+product_owned_from: Owned from
+product_owned_till: Owned Till
+
+# ProgramMemberships
+programMemberships: Roles
+programMemberships_role: Role
+
+# Reviews
+reviews: Notes
+
+# Tags
+tags: Tags

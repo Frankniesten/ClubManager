@@ -1,0 +1,30 @@
+# translations/messages.nl.yaml
+
+# Main Navigation
+navbar_dashboard: Dashboard
+navbar_contacts: Contacten
+navbar_person: Personen
+navbar_tags: Tags
+navbar_calendar: Agenda
+navbar_products: Inventaris
+navbar_services: Diensten
+navbar_statistics: Statistieken
+navbar_settings: Instellingen
+
+# Person Entities
+person_name: Naam
+person_email: Email
+person_telephone: Telefoon
+person_telephone_2: Mobiel
+person_address: Adres
+person_category: Categorie
+person_birthday: Geboortedatum
+person_gender: Geslacht
+person_streetAddress: Straat
+person_postalCode: Postcode
+person_addressLocality: Woonplaats
+person_addressCountry: Land
+
+# Person Nav
+
+

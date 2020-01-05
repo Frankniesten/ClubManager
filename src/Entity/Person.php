@@ -17,6 +17,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 
 /**
+ * @property ArrayCollection orders
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\PersonRepository")
  * @ApiFilter(PropertyFilter::class, arguments={"parameterName": "properties", "overrideDefaultProperties": false, "whitelist": null})

@@ -1,303 +1,303 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_content_sidebar.html.twig' %}
+
+{% block sidebar %}
+	<li class="nav-item">
+		<a class="nav-link" href="#personal-info"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}person_nav_personal_information{% endtrans %}</a>
+	</li>
+
+	{% if data.category.id == 1 or data.alumni == true  %}
+		<li class="nav-item">
+			<a class="nav-link" href="#membership"><i class="mdi mdi-account-star-outline"></i> {% trans %}person_nav_membership{% endtrans %}</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#musicalInstrument"><i class="mdi mdi-bugle"></i> {% trans %}person_nav_musicalInstrument{% endtrans %}</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#education"><i class="mdi mdi-school-outline"></i> {% trans %}person_nav_education{% endtrans %}
+			{%if data.education is not empty %}
+				<span class="badge badge-primary float-right">{{ data.education|length }}</span>
+			{% endif %}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#parents"><i class="mdi mdi-account-supervisor"></i> {% trans %}person_nav_parents{% endtrans %}
+			{%if data.parents is not empty %}
+				<span class="badge badge-primary float-right">{{ data.parents|length }}</span>
+			{% endif %}
+			</a>
+		</li>
+	{% endif %}
+
+	<li class="nav-item">
+		<a class="nav-link" href="#owns"><i class="mdi mdi-autorenew"></i> {% trans %}product_lease_lend{% endtrans %}
+		{%if data.owns is not empty %}
+			<span class="badge badge-primary float-right">{{ data.owns|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#order"><i class="mdi mdi-cart-arrow-down"></i> {% trans %}orders{% endtrans %}
+		{%if data.customer is not empty %}
+			<span class="badge badge-primary float-right">{{ data.customer|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#memberOf"><i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}programMemberships{% endtrans %}
+		{%if data.memberOf is not empty %}
+			<span class="badge badge-primary float-right">{{ data.memberOf|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#tags"><i class="mdi mdi-tag-outline"></i> {% trans %}tags{% endtrans %}
+		{%if data.memberOf is not empty %}
+			<span class="badge badge-primary float-right">{{ data.memberOf|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}reviews{% endtrans %}
+		{%if data.review is not empty %}
+			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#statistics"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}person_nav_statistics{% endtrans %}
+		{%if data.review is not empty %}
+			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}person_nav_log{% endtrans %}
+		{%if data.review is not empty %}
+			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+{% endblock %}
 
 {% block body %}
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			<h3>
+				{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}
 
-<div class="position-relative overflow-hidden p-3 p-md-1 m-md-2 text-left">
-	<div class="row">
-    	<div class="col-lg-3 d-print-none">
-			<div class="row">
-				<div class="col-lg-3 position-fixed">
-					<div class="d-none d-lg-block">
-					
-						<div id="list-menu" class="list-group">
-						  <a class="list-group-item list-group-item-action" href="#personal-info"><i class="mdi mdi-account-card-details-outline"></i> Persoonlijke informatie</a>
-						  <a class="list-group-item list-group-item-action" href="#membership"><i class="mdi mdi-account-star-outline"></i> Lidmaatschap</a>
-						  <a class="list-group-item list-group-item-action" href="#musicalInstrument"><i class="mdi mdi-bugle"></i> Instrument</a>
-						  <a class="list-group-item list-group-item-action" href="#education"><i class="mdi mdi-school-outline"></i> Opleiding
-						  		{%if data.education is not empty %}
-						  			<span class="badge badge-info">{{ data.education|length }}</span>
-						  		{% endif %}
-						  </a>
-						  <a class="list-group-item list-group-item-action" href="#parents"><i class="mdi mdi-account-supervisor"></i> Ouders 
-							  	{%if data.parents is not empty %}
-							  		<span class="badge badge-info">{{ data.parents|length }}</span>
-							  	{% endif %}
-						  </a>
-						  <a class="list-group-item list-group-item-action" href="#owns"><i class="mdi mdi-autorenew"></i> Bruikleen
-						  		{%if data.owns is not empty %}
-						  			<span class="badge badge-info">{{ data.owns|length }}</span>
-						  		{% endif %}
-						  </a>
-						  <a class="list-group-item list-group-item-action" href="#order"><i class="mdi mdi-cart-arrow-down"></i> Orders
-						  		{%if data.customer is not empty %}
-						  			<span class="badge badge-info">{{ data.customer|length }}</span>
-						  		{% endif %}
-						  </a>
-						  <a class="list-group-item list-group-item-action" href="#memberOf"><i class="mdi mdi-bookmark-multiple-outline"></i> Rollen
-						  		{%if data.memberOf is not empty %}
-						  			<span class="badge badge-info">{{ data.memberOf|length }}</span>
-						  		{% endif %}
-						  </a>
-						  <a class="list-group-item list-group-item-action" href="#tags"><i class="mdi mdi-tag-outline"></i> Tags
-						  		{%if data.memberOf is not empty %}
-						  			<span class="badge badge-info">{{ data.memberOf|length }}</span>
-						  		{% endif %}
-						  </a>
-						  <a class="list-group-item list-group-item-action" href="#review"><i class="mdi mdi-tooltip-outline"></i> Notities
-						  		{%if data.review is not empty %}
-						  			<span class="badge badge-info">{{ data.review|length }}</span>
-						  		{% endif %}
-						  </a>
-						  <a class="list-group-item list-group-item-action" href="#statistics"><i class="mdi mdi-chart-bell-curve-cumulative"></i> Statistieken
-						  		{%if data.review is not empty %}
-						  			<span class="badge badge-info">{{ data.review|length }}</span>
-						  		{% endif %}
-						  </a>
-						  <a class="list-group-item list-group-item-action" href="#history"><i class="mdi mdi-history"></i> Historie
-						  		{%if data.review is not empty %}
-						  			<span class="badge badge-info">{{ data.review|length }}</span>
-						  		{% endif %}
-						  </a>
-						</div>
-					</div>
+				<span class="badge badge-primary">{{ data.category.name }}</span>
+				{% if data.alumni == true  %}
+					<span class="badge badge-success">Oud Lid</span>
+				{% endif %}
+			</h3>
+		</div>
+
+
+		<div class="p-2">
+			<div class="btn-group btn-group-sm">
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary" href="{{ path('person') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}close{% endtrans %}</a>
+			{% endif %}
+
+				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<div class="dropdown-menu">
+					{% if is_granted('ROLE_PERSON_DELETE') %}
+					<a class="dropdown-item" href="{{ path('person_delete', {'id': data.id}) }}"
+					   onclick="return confirm('Weet je zeker dat je {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}wilt verwijderen?');"><i
+								class="mdi mdi-delete text-danger"></i> Verwijderen</a>
+					{% endif %}
 				</div>
-			</div>
-			
-    	</div>
-		
-		<div class="col-lg-9">
-			
-			<div class="position-relative overflow-hidden p-3 p-md-0 m-md-0 text-left">
-			  	
-			  	<div class="row">
-				    <div class="col-sm">
-				      	<h3 class="header-top">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}  
-					      	<span class="badge badge-info">{{ data.category.name }}</span>
-					      	
-					      	{% if data.alumni == true  %}       
-					        	<span class="badge badge-success">Oud Lid</span>
-					        {% endif %}
-					    </h3> 
-				    </div>
-				    
-				    <div class="col-sm">
-					    <div class="btn-group float-right">
-						    {% if is_granted('ROLE_PERSON_DELETE') %}
-				      			<a class="btn btn-danger btn-sm float-right" href="{{ path('app_person_delete', {'id': data.id}) }}" onclick="return confirm('Weet je zeker dat je {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}wilt verwijderen?');" role="button"><i class="mdi mdi-delete"></i></a>
-				      		{% endif %}
-				      		{% if is_granted('ROLE_PERSON_EDIT') %}
-				      			<a class="btn btn-info btn-sm" href="{{ path('person') }}" role="button"><i class="mdi mdi-window-close"></i></a>
-				      		{% endif %}
-					    </div>
-				    </div>
-				</div>
-			</div>
-			
 
-				<!-- Personal info -->
-				<div class="card">
-					<div class="card-header">
-						<a id="personal-info"><span class="align-middle">
-							<i class="mdi mdi-account-card-details-outline"></i> Persoonlijke informatie
-							<a class="btn btn-info btn-sm float-right" href="{{ path('person_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
-						</span></a>
-					</div>
-	  					
-	  				<div class="card-body">
-						{{ include('person/person-info.html.twig', { 'data': data }) }}
-					</div>
-		    	</div>
-		    	<!-- End Personal info -->
-		    	
-		    	<br>
-		    	
-		    	<!-- Membership -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="membership"><span class="align-middle">
-							<i class="mdi mdi-account-star-outline"></i> Lidmaatschap</a>
-							<a class="btn btn-info btn-sm float-right" href="{{ path('app_person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
-						</span></a>
-					</div>
-	  				<div class="card-body">
-						{{ include('person/person-membership.html.twig', { 'data': data }) }}
-					</div>
-		    	</div>
-		    	<!-- End Membership -->
-		    	
-		    	<br>
-		    	
-		    	<!-- Instrument -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="musicalInstrument"><span class="align-middle">
-							<i class="mdi mdi-bugle"></i> Instrument</a>
-							<a class="btn btn-info btn-sm float-right" href="{{ path('app_person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
-						</span></a>
-					</div>
-	  				<div class="card-body">
-						{{ include('person/person-musicalInstrument.html.twig', { 'data': data }) }}
-					</div>
-		    	</div>
-		    	<!-- End Instrument -->
-		    	
-		    	<br>
-		    	
-		    	<!-- Education -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="education"><span class="align-middle">
-							<i class="mdi mdi-school-outline"></i> Opleiding</a>
-							<a class="btn btn-info btn-sm float-right" href="{{ path('app_person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
-						</span></a>
-					</div>
-	  				<div class="card-body">
-						{{ include('person/person-education.html.twig', { 'data': data }) }}
-					</div>
-		    	</div>
-		    	<!-- End Education -->
-		    	
-		    	<br>
-		    	
-		    	<!-- Parents -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="parents"><span class="align-middle">
-							<i class="mdi mdi-account-supervisor"></i> Ouders
-							<a class="btn btn-info btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
-						</span></a>
-					</div>
-	  					
-	  				<div class="card-body">
-						{{ include('person/person-parents.html.twig', { 'data': data }) }}
-					</div>
-		    	</div>
-		    	<!-- End Parents -->
-		    	
-		    	<br>
-		    	
-		    	<!-- Owns -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="owns"><span class="align-middle">
-							<i class="mdi mdi-autorenew"></i> Bruikleen
-							<a class="btn btn-info btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
-						</span></a>
-					</div>
-	  					
-	  				<div class="card-body">
-						{{ include('person/person-owns.html.twig', { 'data': data }) }}
-					</div>
-		    	</div>
-		    	<!-- End Owns -->
-		    		    	
-		    	<br>
-		    	
-		    	<!-- Owns -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="order"><span class="align-middle">
-							<i class="mdi mdi-cart-arrow-down"></i> Orders
-							<a class="btn btn-info btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
-						</span></a>
-					</div>
-	  					
-	  				<div class="card-body">
-						{{ include('person/person-order.html.twig', { 'data': data }) }}
-					</div>
-		    	</div>
-		    	<!-- End Owns -->
-		    	
-		    	<br>
-		    	
-		    	<!-- memberOf -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="memberOf"><span class="align-middle">
-							<i class="mdi mdi-bookmark-multiple-outline"></i> Rollen
-							<a class="btn btn-info btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
-						</span></a>
-					</div>
-	  					
-	  				<div class="card-body">
-						{{ include('person/person-memberof.html.twig', { 'data': data }) }}
-					</div>
-		    	</div>
-		    	<!-- End memberOf -->
-		    	
-		    	<br>
-		    	
-		    	<!-- tags -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="tags"><span class="align-middle">
-							<i class="mdi mdi-tag-outline"></i> Tags
-							<a class="btn btn-info btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
-						</span></a>
-					</div>
-	  					
-	  				<div class="card-body">
-						
-					</div>
-		    	</div>
-		    	<!-- End Tags -->
-		    	
-		    	<br>
-		    	
-		    	<!-- Review -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="review"><span class="align-middle">
-							<i class="mdi mdi-tooltip-outline"></i> Notities
-							<a class="btn btn-info btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
-						</span></a>
-					</div>
-	  					
-	  				<div class="card-body">
-						
-					</div>
-		    	</div>
-		    	<!-- End Review -->
-		    	
-		    	<br>
-		    	
-		    	<!-- Review -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="statistics"><span class="align-middle">
-							<i class="mdi mdi-chart-bell-curve-cumulative"></i> Statistieken
-						</span></a>
-					</div>
-	  					
-	  				<div class="card-body">
-						
-					</div>
-		    	</div>
-		    	<!-- End Review -->
-		    	
-		    	<br>
-		    	
-		    	<!-- Review -->
-		    	<div class="card">
-					<div class="card-header">
-						<a id="history"><span class="align-middle">
-							<i class="mdi mdi-history"></i> Historie
-						</span></a>
-					</div>
-	  					
-	  				<div class="card-body">
-						{{ include('person/person-logs.html.twig', { 'data': logs }) }}
-					</div>
-		    	</div>
-		    	<!-- End Review -->
- 	
 
-	    </div>
+
+			</div>
+		</div>
 	</div>
-</div>
+	<!-- End Page header -->
 
- 
-	 
+	<!-- Personal info -->
+	<div class="card">
+		<div class="card-header" id="personal-info">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}person_nav_personal_information{% endtrans %}
+			</span>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		</div>
+
+		<div class="card-body">
+			{{ include('person/person-info.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Personal info -->
+	<br>
+
+	{% if data.category.id == 1 or data.alumni == true  %}
+	<!-- Membership -->
+	<div class="card">
+		<div class="card-header" id="membership">
+			<span class="align-middle">
+				<i class="mdi mdi-account-star-outline"></i> {% trans %}person_nav_membership{% endtrans %}
+			</span>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-membership.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Membership -->
+	<br>
+
+	<!-- Instrument -->
+	<div class="card">
+		<div class="card-header" id="musicalInstrument">
+			<span class="align-middle">
+						<i class="mdi mdi-bugle"></i> {% trans %}person_nav_musicalInstrument{% endtrans %}
+			</span>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-musicalInstrument.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Instrument -->
+	<br>
+
+	<!-- Education -->
+	<div class="card">
+		<div class="card-header" id="education">
+			<span class="align-middle">
+				<i class="mdi mdi-school-outline"></i> {% trans %}person_nav_education{% endtrans %}
+			</span>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-education.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Education -->
+	<br>
+
+	<!-- Parents -->
+	<div class="card">
+		<div class="card-header" id="parents">
+			<span class="align-middle">
+				<i class="mdi mdi-account-supervisor"></i> {% trans %}person_nav_parents{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-parents.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Parents -->
+	<br>
+	{% endif %}
+
+	<!-- Owns -->
+	<div class="card">
+		<div class="card-header" id="owns">
+			<span class="align-middle">
+				<i class="mdi mdi-autorenew"></i> {% trans %}product_lease_lend{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-owns.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Owns -->
+	<br>
+
+	<!-- Orders -->
+	<div class="card">
+		<div class="card-header" id="order">
+			<span class="align-middle">
+				<i class="mdi mdi-cart-arrow-down"></i> {% trans %}orders{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-order.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Orders -->
+	<br>
+
+	<!-- memberOf -->
+	<div class="card">
+		<div class="card-header" id="memberOf">
+			<span class="align-middle">
+				<i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}programMemberships{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-memberof.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End memberOf -->
+	<br>
+
+	<!-- tags -->
+	<div class="card">
+		<div class="card-header" id="tags">
+			<span class="align-middle">
+				<i class="mdi mdi-tag-outline"></i> {% trans %}tags{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			</span>
+		</div>
+
+		<div class="card-body">
+		</div>
+	</div>
+	<!-- End Tags -->
+	<br>
+
+	<!-- Review -->
+	<div class="card">
+		<div class="card-header" id="review">
+			<span class="align-middle">
+				<i class="mdi mdi-tooltip-outline"></i> {% trans %}reviews{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-review.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Review -->
+	<br>
+
+	<!-- Statistics -->
+	<div class="card">
+		<div class="card-header" id="statistics">
+			<span class="align-middle">
+				<i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}person_nav_statistics{% endtrans %}
+			</span>
+		</div>
+
+		<div class="card-body">
+		</div>
+	</div>
+	<!-- End Statistics -->
+	<br>
+
+	<!-- Log -->
+	<div class="card">
+		<div class="card-header" id="history">
+			<span class="align-middle">
+				<i class="mdi mdi-history"></i> {% trans %}person_nav_log{% endtrans %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-logs.html.twig', { 'data': logs }) }}
+		</div>
+	</div>
+	<!-- End Log -->
+
 {% endblock %}
 
 {% block javascripts %}
@@ -307,6 +307,23 @@
 	<script type="text/javascript">
         $(document).ready(function () {
 
+			//Datatable education
+			var table = $('#datatable-education').DataTable({
+				"lengthChange": false,
+				"bFilter": false,
+				"pageLength": 5,
+				"columnDefs": [
+					{ "orderable": false, "targets": 0 }
+				],
+				"order": [[ 2, "asc" ]],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable education
+
 			//Datatable owns
             var table = $('#datatable-owns').DataTable({
                 "lengthChange": false,
@@ -315,9 +332,11 @@
 				    { "orderable": false, "targets": 0 }
 				  ],
                 "order": [[ 1, "asc" ]],
-                "language": {
-                	"url": "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
-            	},
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
             });
             // End datatable owns
             
@@ -329,13 +348,30 @@
 				    { "orderable": false, "targets": 0 }
 				  ],
                 "order": [[ 1, "asc" ]],
-                "language": {
-                	"url": "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
-            	},
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
             });
             // End datatable memberOf
-            
-            
+
+			//Datatable Rveiw
+			var table = $('#datatable-review').DataTable({
+				"lengthChange": false,
+				"pageLength": 10,
+				"columnDefs": [
+					{ "orderable": false, "targets": 0 }
+				],
+				"order": [[ 2, "desc" ]],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable logs
+
             //Datatable Logs
             var table = $('#datatable-logs').DataTable({
                 "lengthChange": false,
@@ -344,11 +380,13 @@
 				    { "orderable": false, "targets": 0 }
 				  ],
                 "order": [[ 2, "desc" ]],
-                "language": {
-                	"url": "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
-            	},
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
             });
-            // End datatable logd
+            // End datatable logs
 
         });
     </script>

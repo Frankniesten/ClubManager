@@ -55,7 +55,7 @@ class MembershipController extends AbstractController
 			return $this->redirectToRoute('app_person_membership', array('id' => $id));			
 		}
 
-		return $this->render('membership/membershipForm.html.twig', [
+		return $this->render('person/person-membershipForm.html.twig', [
         	'form' => $form->createView(),
         	'id' => $id
 		]);	
@@ -94,7 +94,7 @@ class MembershipController extends AbstractController
 			return $this->redirectToRoute('app_person_membership', array('id' => $id));			
 		}
 		
-		return $this->render('membership/membershipForm.html.twig', [
+		return $this->render('person/person-membershipForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $membership,
         	'id' => $id
