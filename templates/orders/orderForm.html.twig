@@ -1,146 +1,87 @@
-{% extends 'base.html.twig' %}
+{% import _self as formMacros %}
 
-{% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
+{% macro printOrderItemRow(form) %}
+			<div class="row test">
 
-{% block stylesheets %}
+				<div class="col">
+					{{ form_widget(form.orderedItem) }}
+				</div>
+				<div class="col">
+					<div class="input-group mb-3">
+						{{ form_widget(form.orderQuantity) }}
+						<div class="input-group-append">
 
-	<link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}"  rel="stylesheet" type="text/css" />
-	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
-	<link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-	<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
-	
-	{{ parent() }}
-	        
-{% endblock %}
+						</div>
+					</div>
+				</div>
+			</div>
+{% endmacro %}
+
+
+
+{% extends 'base_content_full_width.html.twig' %}
+
 
 {% block body %}
 
- 	{{ form_start(form) }}
-	<div class="row align-items-center">
-        <div class="col">
-	       	
-	       	{% if 'create' in app.request.uri  %}
-	       		<h2>Order toevoegen</h2>
-	        {% endif %}
-	        {% if 'edit' in app.request.uri  %}
-	       		<h2>Order bewerken</h2>
-	        {% endif %}
-	        
-        </div>
-        
-        <div class="col-4  ">
-	        <div class="btn-group float-right">
-	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-	        	{% if 'create' in app.request.uri  %}
-	       			<a href="{{ path('app_person_customer', {'id': data.id }) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-		   		{% endif %}
-		   		{% if 'edit' in app.request.uri  %}
-	       			<a href="{{ path('app_order', {'id': id, 'orderID': data.id }) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-		   		{% endif %}
-				
-	        </div>
-        </div>
-        
+	{{ form_start(form) }}
+
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			{% if 'create' in app.request.uri  %}
+				<h3>{% trans %}Orders_add{% endtrans %}</h3>
+			{% endif %}
+			{% if 'edit' in app.request.uri  %}
+				<h3>{% trans %}Orders_edit{% endtrans %}</h3>
+			{% endif %}
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group float-right">
+				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+				<a href="{{ path('person_id', {'id': id}) }}#order" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+			</div>
+		</div>
 	</div>
-	
-	<!-- Order details -->
-	<div id="accordion">
-		<div class="card">
-	        <div class="card-header" id="headingOne">
-	            <h4 class="m-0">
-	                <a href="#collapseOne" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
-	                    Ordergegevens
-	                </a>
-	            </h4>
-	        </div>
-	
-	        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-	            <div class="card-body">
-	            
-		            <h4>Orderdatum</h4>
-		            <div class="row">
-				        <div class="col-6">
-							{{ form_widget(form.orderDate, {'id': 'datepicker-autoclose1'}) }}
-				        </div>
-				    </div>
-					<br>
-					<h4>Orderstatus</h4>
-		            <div class="row">
-				        <div class="col-6">
-							{{ form_widget(form.orderStatus) }}
-				        </div>
-				    </div>
-					<br>
+	<!-- End Page header -->
 
+	<!-- Content -->
+	<div class="card">
+		<div class="card-body">
+			<div class="row">
+				<div class="col">
+					{{ form_row(form.orderDate, {'id': 'datepicker-autoclose1'}) }}
+				</div>
 
-	            	<h4>Ordergegevens</h4>
-	            	<p>
-	            	
-	            	{% if 'create' in app.request.uri  %}
-	            		
-	            		{%if data.familyName is not empty %}
-			       			{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}<br>
-			       		{% else %}
-			       			-
-			       		{% endif %}
-			       		
-			       		{%if data.streetAddress is not empty %}	
-				   			{{ data.streetAddress }}<br>
-				   		{% else %}
-			       			-
-				   		{% endif %}
-				   		
-				   		{%if data.postalCode is not empty %}
-				   			{{ data.postalCode }}, {{ data.addressLocality }}
-						{% endif %}
-						
-			        {% endif %}
-			        {% if 'edit' in app.request.uri  %}
-			        	{%if data.person.familyName is not empty %}
-			       			{{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}<br>
-			       		{% else %}
-			       			-
-			       		{% endif %}
-			       		
-			       		{%if data.person.streetAddress is not empty %}	
-				   			{{ data.person.streetAddress }}<br>
-				   		{% else %}
-			       			-
-				   		{% endif %}
-				   		
-				   		{%if data.person.postalCode is not empty %}
-				   			{{ data.person.postalCode }}, {{ data.person.addressLocality }}
-						{% endif %}
-						
-			        {% endif %}
-	            	
-	            	</p>
-	            	
+				<div class="col">
+					{{ form_row(form.orderStatus) }}
+				</div>
+			</div>
 
-	            	<h4>Email</h4>
-	            	{% if 'create' in app.request.uri  %}
-	            		{%if data.email is not empty %}
-			       			{{ data.email }}<br>
-			       		{% else %}
-			       			-
-			       		{% endif %}
-			        {% endif %}
-			        
-			        {% if 'edit' in app.request.uri  %}
-			        	{%if data.person.email is not empty %}
-			       			{{ data.person.email }}<br>
-			       		{% else %}
-			       			-
-			       		{% endif %}
-			        {% endif %}
-	            		
-	            </div>
-	        </div>
-	    </div>
+	<div class="card">
+		<div class="card-body">
+
+			<div id="orderItem_list" data-prototype="{{ formMacros.printOrderItemRow(form.orderItem.vars.prototype)|e('html_attr') }}">
+				{% for form in form.orderItem %}
+					{{ formMacros.printOrderItemRow(form) }}
+				{% endfor %}
+			</div>
+</div>
 	</div>
-	<br>
+
+
+
+		</div>
+	</div>
+
+
+			{{ form_end(form) }}
+
+
+	<!-- End Content -->
 	
-	{{ form_end(form) }}
+
 
 {% endblock %}
 
@@ -155,72 +96,103 @@
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
-    <script type="text/javascript">
-        jQuery('#datepicker-autoclose1').datepicker({
-	        	format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: true
-            });
-    </script>
-    
-     <script type="text/javascript">
-        jQuery('#datepicker-autoclose2').datepicker({
-	        	format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: false
-            });
-    </script>
 
 
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-	        
-	        // Select2
-            $(".select2").select2();
+	<script language="JavaScript">
 
-            $(".select2-limiting").select2({
-                maximumSelectionLength: 2
-            });
+		var $collectionHolder;
+		var $addNewItem = $('<a href="#" class="btn btn-primary"> add new item</a>');
 
-                //advance multiselect start
-                $('#my_multi_select1').multiSelect({
-                    selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
-                    selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
-                    afterInit: function (ms) {
-                        var that = this,
-                                $selectableSearch = that.$selectableUl.prev(),
-                                $selectionSearch = that.$selectionUl.prev(),
-                                selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
-                                selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+		$(document).ready(function () {
 
-                        that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
-                                .on('keydown', function (e) {
-                                    if (e.which === 40) {
-                                        that.$selectableUl.focus();
-                                        return false;
-                                    }
-                                });
+			// get the contentholder:
+			$collectionHolder = $('#orderItem_list');
 
-                        that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
-                                .on('keydown', function (e) {
-                                    if (e.which == 40) {
-                                        that.$selectionUl.focus();
-                                        return false;
-                                    }
-                                });
-                    },
-                    afterSelect: function () {
-                        this.qs1.cache();
-                        this.qs2.cache();
-                    },
-                    afterDeselect: function () {
-                        this.qs1.cache();
-                        this.qs2.cache();
-                    }
-                });
+			$collectionHolder.append($addNewItem);
+			// add an index property to the collectionHolder which helps track the count of forms we have in the list
+			$collectionHolder.data('index', $collectionHolder.find('.test').length)
 
-                
+			// add remove button to existing items:
+			$collectionHolder.find('.test').each(function () {
+				addRemoveButton($(this));
+			});
 
-            });    </script>
-    
+			dropdown();
+
+			//handle new item click event:
+			$addNewItem.click(function (e) {
+				e.preventDefault();
+				//create new form:
+				addNewForm();
+				dropdown();
+			});
+
+		});
+		
+		function addNewForm() {
+			// getting the prototype
+			// the prototype is the form itself, plain html
+			var prototype = $collectionHolder.data('prototype');
+			// get the index
+			// this is the index we set when the document was ready, look above for more info
+			var index = $collectionHolder.data('index');
+			// create the form
+			var newForm = prototype;
+			// replace the __name__ string in the html using a regular expression with the index value
+			newForm = newForm.replace(/__name__/g, index);
+			// incrementing the index data and setting it again to the collectionHolder
+			$collectionHolder.data('index', index+1);
+			// create the panel
+			// this is the panel that will be appending to the collectionHolder
+			var $panel = $('<div></div>');
+			// create the panel-body and append the form to it
+			var $panelBody = $('<div></div>').append(newForm);
+			// append the body to the panel
+			$panel.append($panelBody);
+			// append the removebutton to the new panel
+			addRemoveButton($panel);
+			// append the panel to the addNewItem
+			// we are doing it this way to that the link is always at the bottom of the collectionHolder
+			$addNewItem.before($panel);
+
+		}
+		function addRemoveButton($test) {
+
+			var $removeButton = $('<button class="btn btn-primary" type="button">Button</button>');
+			var $panelFooter = $('<div></div>').append($removeButton);
+
+			$removeButton.click(function (e) {
+				e.preventDefault();
+				$(e.target).parents('.test').slideUp(1000, function () {
+					$(this).remove();
+				})
+			});
+
+			$test.append($panelFooter);
+		}
+
+		function dropdown(){
+			$('.select2').select2({
+				theme: "bootstrap4",
+				width: '100%'
+			});
+		};
+	</script>
+
+	<script type="text/javascript">
+		jQuery('#datepicker-autoclose1').datepicker({
+			format: 'dd-mm-yyyy',
+			autoclose: true,
+			todayHighlight: true
+		});
+	</script>
+
+	<script type="text/javascript">
+		jQuery('#datepicker-autoclose2').datepicker({
+			format: 'dd-mm-yyyy',
+			autoclose: true,
+			todayHighlight: false
+		});
+	</script>
+
 {% endblock %}

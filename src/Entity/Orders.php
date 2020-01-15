@@ -59,7 +59,7 @@ class Orders
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="orders", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderItem", mappedBy="orders", orphanRemoval=true, cascade="persist")
      */
     private $orderItem;
 

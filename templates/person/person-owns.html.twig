@@ -4,11 +4,11 @@
         <thead>
             <tr>
 				<th width="20px"></th>
-                <th>{% trans %}product_product{% endtrans %}</th>
-                <th class="desktop">{% trans %}product_model{% endtrans %}</th>
-                <th class="desktop">{% trans %}product_manufacturer{% endtrans %}</th>
-				<th class="desktop">{% trans %}product_owned_from{% endtrans %}</th>
-				<th class="desktop">{% trans %}product_owned_till{% endtrans %}</th>
+                <th>{% trans %}Product_product{% endtrans %}</th>
+                <th class="desktop">{% trans %}Product_model{% endtrans %}</th>
+                <th class="desktop">{% trans %}Product_manufacturer{% endtrans %}</th>
+				<th class="desktop">{% trans %}Product_owned_from{% endtrans %}</th>
+				<th class="desktop">{% trans %}Product_owned_till{% endtrans %}</th>
             </tr>
         </thead>
 
@@ -21,8 +21,8 @@
 					<div class="btn-group">
 					  	<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 				  		<div class="dropdown-menu">
-				  			<a class="dropdown-item" href=""><i class="mdi mdi-pencil"></i> {% trans %}edit{% endtrans %}</a>
-				  			<a class="dropdown-item" href="" onclick="return confirm('Weet je zeker dat je wilt verwijderen?');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}delete{% endtrans %}</a>
+				  			<a class="dropdown-item" href="{{ path('owns_edit', {'id': data.id, 'ownershipInfoID': owns.id}) }}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+				  			<a class="dropdown-item" href="{{ path('owns_delete', {'id': data.id, 'ownershipInfoID': owns.id}) }}" onclick="return confirm('{% trans %} Delete_message{% endtrans %} {{ owns.typeofGood.name }}');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}Delete{% endtrans %}</a>
 				  		</div>
 					</div>
 					<!-- End dropdown menu -->
@@ -49,5 +49,5 @@
     </table>
 
 {% else %}
-	<div class="text-muted">Niet van toepassing.</div>
+	<div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
 {% endif %}

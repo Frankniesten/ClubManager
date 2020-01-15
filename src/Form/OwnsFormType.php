@@ -21,8 +21,8 @@ class OwnsFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
-	    	->add('ownedFrom', DateType::class, ['label' => 'In bezit vanaf', 'required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-	    	->add('ownedTrough', DateType::class, ['label' => 'In bezit tot', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])			
+	    	->add('ownedFrom', DateType::class, ['required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
+	    	->add('ownedTrough', DateType::class, ['required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
 			->add('typeofGood', EntityType::class, array(
 					    'class' => Products::class,
 					    'query_builder' => function (EntityRepository $er) {
@@ -39,13 +39,11 @@ class OwnsFormType extends AbstractType
 						    
 						    },
 					    'required' => true,
-					    'label' => 'Product',
 					    'placeholder' => 'Selecteer...',
 					    'attr' => [
 							'class' => 'select2'
 						]
 					));
-	
 	} 
 	
 	public function configureOptions(OptionsResolver $resolver)

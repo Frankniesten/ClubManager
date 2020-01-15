@@ -1,12 +1,12 @@
 {%if data.membership is not empty %}
 <!--Table -->
-<table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0">
+<table id="datatable-membership" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
         <thead>
             <tr>
 				<th width="20px"></th>
-                <th>{% trans %}startDate{% endtrans %}</th>
-                <th>{% trans %}endDate{% endtrans %}</th>
-                <th>{% trans %}years{% endtrans %}</th>
+                <th class="desktop">{% trans %}Start date{% endtrans %}</th>
+                <th class="desktop">{% trans %}End date{% endtrans %}</th>
+                <th>{% trans %}Years{% endtrans %}</th>
             </tr>
         </thead>
 
@@ -19,8 +19,8 @@
 					<div class="btn-group">
 					  	<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 				  		<div class="dropdown-menu">
-				  			<a class="dropdown-item" href=""><i class="mdi mdi-pencil"></i> {% trans %}edit{% endtrans %}</a>
-				  			<a class="dropdown-item" href="" onclick="return confirm('Weet je zeker dat je wilt verwijderen?');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}delete{% endtrans %}</a>
+				  			<a class="dropdown-item" href="{{ path('person_membership_edit', {'id': data.id, 'membershipID': membership.id}) }}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+				  			<a class="dropdown-item" href="{{ path('person_membership_delete', {'id': data.id, 'membershipID': membership.id}) }}" onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ membership.startDate | date("d-m-Y") }}');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}Delete{% endtrans %}</a>
 				  		</div>
 					</div>
 					<!-- End dropdown menu -->
@@ -42,11 +42,11 @@
 			<tr>
 	            <td></td>
 	            <td></td>
-	            <td><b>{% trans %}total{% endtrans %}</b></td>
+	            <td><b>{% trans %}Total{% endtrans %}</b></td>
 	            <td><b>{{ data.membershipYears }}</b></td>
 	        </tr>
         </tbody>
     </table>
 {% else %}
-	<div class="text-muted">Niet van toepassing.</div>
+	<div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
 {% endif %}

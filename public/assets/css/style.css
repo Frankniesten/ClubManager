@@ -8739,3 +8739,16 @@ html {
 .sidebar .nav-link.active .feather {
     color: inherit;
 }
+
+.card-height {
+    min-height: 400px;
+}
+
+ .ms-container{
+     width: 100% !important;
+ }
+
+label.required:before {
+    content: "*";
+    color: red;
+}

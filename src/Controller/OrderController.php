@@ -4,12 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Orders;
 use App\Entity\Person;
-use App\Entity\Organization;
 use App\Form\OrderFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -17,7 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class OrderController extends AbstractController
 {
 	/**
-     * @Route("/orders", name="app_orders")
+     * @Route("/order", name="order")
      * @IsGranted("ROLE_SERVICES_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
@@ -31,10 +29,53 @@ class OrderController extends AbstractController
         	'club_name' => getenv('CLUB_NAME'),
 		]);
 	}
+
+
+    /**
+     * @Route("/person/{id}/order/create", name="person_order_create")
+     * @IsGranted("ROLE_SERVICES_CREATE")
+     */
+    public function new(EntityManagerInterface $em, Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository(Person::class)->find($id);
+
+        if (!$data) {
+            throw $this->createNotFoundException();
+        }
+
+        $form = $this->createForm(OrderFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $order = $form->getData();
+            $data->addCustomer($order);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($order);
+            $em->persist($data);
+            $em->flush();
+            $OrderID = $order->getId();
+
+            $this->addFlash('success', 'Nieuwe order #'.$OrderID.' is aangemaakt!');
+
+
+            return $this->redirectToRoute('app_orderItem_create', array('id' => $id, 'orderID' => $OrderID));
+        }
+
+        return $this->render('orders/orderForm.html.twig', [
+
+            'data' => $data,
+            'form' => $form->createView(),
+            'id' => $id,
+        ]);
+    }
+
 	
 	
 	/**
-     * @Route("/person/{id}/order/{orderID}", name="app_order")
+     * @Route("/person/{id}/order/{orderID}", name="person_order_id")
      * @IsGranted("ROLE_SERVICES_VIEW")
      */
 	public function show(EntityManagerInterface $em, Request $request, $id, $orderID)
@@ -54,51 +95,10 @@ class OrderController extends AbstractController
 	}
 	
 	
-	/**
-     * @Route("/person/{id}/order/create", name="app_order_create")
-     * @IsGranted("ROLE_SERVICES_CREATE")
-     */
-	public function new(EntityManagerInterface $em, Request $request, $id)
-	{
-		$em = $this->getDoctrine()->getManager();
-		
-		$data = $em->getRepository(Person::class)->find($id);   
-		
-		if (!$data) {
-        	throw $this->createNotFoundException('The product does not exist');
-    	} 
 
-		
-		$form = $this->createForm(OrderFormType::class);
-		$form->handleRequest($request);
-		
-		if ($form->isSubmitted() && $form->isValid()) {
-			
-			$order = $form->getData();
-			$data->addCustomer($order);
-			
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($order);
-			$em->persist($data);
-			$em->flush();
-			$OrderID = $order->getId();
-					
-			$this->addFlash('success', 'Nieuwe order #'.$OrderID.' is aangemaakt!');
-		
-		
-		    return $this->redirectToRoute('app_orderItem_create', array('id' => $id, 'orderID' => $OrderID));    		
-		}
-		
-		return $this->render('orders/orderForm.html.twig', [
-        	
-        	'data' => $data,
-        	'form' => $form->createView(),
-        	'id' => $id,
-		]);
-	}
 	
 	/**
-	* @Route("/person/{id}/order/{orderID}/edit", name="app_order_edit")
+	* @Route("/person/{id}/order/{orderID}/edit", name="person_order_edit")
 	* @IsGranted("ROLE_SERVICES_EDIT")
 	*/
 	public function edit(EntityManagerInterface $em, Request $request, $id, $orderID)
@@ -134,7 +134,7 @@ class OrderController extends AbstractController
 	}
 	
 	/**
-	* @Route("/person/{id}/order/{orderID}/delete", name="app_order_delete")
+	* @Route("/person/{id}/order/{orderID}/delete", name="person_order_delete")
 	* @IsGranted("ROLE_SERVICES_DELETE")
 	*/
 	public function delete(EntityManagerInterface $em, Request $request, $id, $orderID)

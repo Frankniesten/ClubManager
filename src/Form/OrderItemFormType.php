@@ -9,9 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityRepository;
 
 class OrderItemFormType extends AbstractType
@@ -25,15 +23,13 @@ class OrderItemFormType extends AbstractType
 					    'class' => Offer::class,
 					    'query_builder' => function (EntityRepository $er) {
 					        return $er->createQueryBuilder('u')
-								->where('u.validFrom < :now AND u.validThrough > :now')
-								->setParameter('now', new DateTime('now'))
+
 					            ->orderBy('u.alternateName', 'ASC');
 					    },
 					    'choice_label' => 'alternateName',
 					    'required' => true,
-					    'label' => 'Product',
 					    'multiple' => false,
-					    'placeholder' => 'Selecteer...',
+					    'placeholder' => 'blaat...',
 					    'attr' => [
 							'class' => 'select2'
 						]

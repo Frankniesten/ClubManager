@@ -4,9 +4,9 @@
         <thead>
             <tr>
 				<th width="20px"></th>
-                <th>{% trans %}diploma{% endtrans %}</th>
-                <th class="desktop">{% trans %}dateAchieved{% endtrans %}</th>
-                <th class="desktop">{% trans %}school{% endtrans %}</th>
+                <th>{% trans %}Certificate{% endtrans %}</th>
+                <th class="desktop">{% trans %}Date achieved{% endtrans %}</th>
+                <th class="desktop">{% trans %}Organization{% endtrans %}</th>
             </tr>
         </thead>
 
@@ -19,8 +19,8 @@
 					<div class="btn-group">
 					  	<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 				  		<div class="dropdown-menu">
-				  			<a class="dropdown-item" href=""><i class="mdi mdi-pencil"></i> {% trans %}edit{% endtrans %}</a>
-				  			<a class="dropdown-item" href="" onclick="return confirm('Weet je zeker dat je wilt verwijderen?');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}delete{% endtrans %}</a>
+				  			<a class="dropdown-item" href="{{ path('person_education_edit', {'id': data.id, 'educationID': education.id}) }}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+				  			<a class="dropdown-item" href="{{ path('person_education_delete', {'id': data.id, 'educationID': education.id}) }}" onclick="return confirm('{% trans %}Delete_message{%  endtrans %} {{ education.certificate }}');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}Delete{% endtrans %}</a>
 				  		</div>
 					</div>
 					<!-- End dropdown menu -->
@@ -29,11 +29,11 @@
 					{{ education.certificate }}
 			    </td>	
 			    <td>
-				    {{ education.dataAchieved is empty ? "" : education.dataAchieved |date("d-m-Y") }}
+					{{ education.dateAchieved is empty ? "" : education.dateAchieved |date("d-m-Y") }}
 				</td>
 			    <td>
 				   	{% if education.organization %}
-						{{ education.organization.legalName }} 
+						{{ education.organization.legalName }}
 					{% endif %}
 				</td>
 			</tr>
@@ -43,5 +43,5 @@
     </table>
 
 {% else %}
-	<div class="text-muted">Niet van toepassing.</div>
+	<div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
 {% endif %}

@@ -11,21 +11,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EmployeeController extends AbstractController
 {
     /**
-    * @Route("/organization/{id}/employee/EDIT", name="app_organization_employee_edit")
+    * @Route("/organization/{id}/employee/edit", name="organization_employee_edit")
     * @IsGranted("ROLE_ORGANIZATION_EDIT")
     */
-    public function edit(EntityManagerInterface $em, Request $request, $id)
+    public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
 		$organization = $em->getRepository(Organization::class)->find($id);
 		
 		if (!$organization) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
 	    
 		//generate Form.
@@ -39,13 +40,13 @@ class EmployeeController extends AbstractController
 			$employee = $form->getData();
 			$em->persist($employee);
 			$em->flush();
-			
-			$this->addFlash('success', 'Medewerker: toegevoegd!');
-					
-			return $this->redirectToRoute('app_organization_employee', array('id' => $id));			
+
+            $this->addFlash('success', $translator->trans('Employees').' '.$translator->trans('flash_message_edit'));
+
+            return $this->redirectToRoute('organization_id', array('id' => $id, '_fragment' => 'employee'));
 		}
 
-		return $this->render('employee/employeeForm.html.twig', [
+		return $this->render('organization/organization-employeeForm.html.twig', [
         	'form' => $form->createView(),
         	'id' => $id
 		]);	

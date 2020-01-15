@@ -6,10 +6,10 @@
 
     <!-- Page header -->
     <div class="d-flex justify-content-between flex-row">
-        <div class="p-2"><h3>{% trans %}navbar_person{% endtrans %}</h3></div>
+        <div class="p-2"><h3>{% trans %}Navbar_person{% endtrans %}</h3></div>
         <div class="p-2">
             {% if is_granted('ROLE_PERSON_CREATE') %}
-                <a class="btn btn-primary btn-sm float-right" href="{{ path('person_create') }}" role="button"><i class="mdi mdi-plus"></i> {% trans %}new{% endtrans %}</a>
+                <a class="btn btn-primary btn-sm float-right" href="{{ path('person_create') }}" role="button"><i class="mdi mdi-plus"></i> {% trans %}Person_add{% endtrans %}</a>
             {% endif %}
         </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-item nav-link {% if query == 'all' or query == null %}active {% endif %}"
-                   href="{{ path('person', {'category': 'all'} ) }}">{% trans %}person_nav_all{% endtrans %}</a>
+                   href="{{ path('person', {'category': 'all'} ) }}">{% trans %}Person_nav_all{% endtrans %}</a>
             </li>
 
             {% for data in category %}
@@ -44,12 +44,12 @@
                 <thead>
                 <tr>
                     <th class="desktop" width="20px"></th>
-                    <th class="all">{% trans %}person_name{% endtrans %}</th>
-                    <th class="desktop">{% trans %}person_email{% endtrans %}</th>
-                    <th class="desktop">{% trans %}person_telephone{% endtrans %}</th>
-                    <th class="desktop">{% trans %}person_telephone_2{% endtrans %}</th>
-                    <th class="desktop">{% trans %}person_address{% endtrans %}</th>
-                    <th class="desktop">{% trans %}person_category{% endtrans %}</th>
+                    <th class="all">{% trans %}Name{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Email{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Telephone{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Telephone 2{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Address{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Category{% endtrans %}</th>
                 </tr>
                 </thead>
 
@@ -64,10 +64,10 @@
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{ path('person_edit', {'id': data.id}) }}"><i
-                                                class="mdi mdi-pencil"></i> {% trans %}edit{% endtrans %}</a>
+                                                class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
                                     <a class="dropdown-item" href="{{ path('person_delete', {'id': data.id}) }}"
-                                       onclick="return confirm('Weet je zeker dat je {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}wilt verwijderen?');"><i
-                                                class="mdi mdi-delete text-danger"></i> {% trans %}delete{% endtrans %}</a>
+                                       onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}');"><i
+                                                class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
                                 </div>
                             </div>
                             <!-- End dropdown menu -->
@@ -158,7 +158,6 @@
                         table.buttons().container().appendTo( '#datatable-buttons_wrapper .col-md-6:eq(0)' );
                     }, 10 );
                 }
-
             });
         });
     </script>

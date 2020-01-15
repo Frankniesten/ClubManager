@@ -8,18 +8,25 @@
 
     {% block stylesheets %}
 
+
+
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/css/materialdesignicons.css') }}" rel="stylesheet" type="text/css"/>
 
         <!-- Plugin css -->
         <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet"/>
         <link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/plugins/select2/css/select2.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/plugins/select2/css/select2-bootstrap4.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}"  rel="stylesheet" type="text/css" />
+
+        <!-- Notification css (Toastr) -->
+        <link href="{{ asset('assets/plugins/toastr/toastr.min.css') }}" rel="stylesheet" type="text/css" />
         <!-- End Plugin css -->
 
     {% endblock %}
@@ -37,7 +44,6 @@
     {% block content %}{% endblock %}
 
 </div>
-
 
 {% block javascripts %}
 
@@ -63,20 +69,58 @@
     <script src="{{ asset('assets/plugins/datatables/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
+
+    <!-- Required datepicker js -->
     <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
+    <!-- Required select2 js -->
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
-    <script type="text/javascript">
-        window.setTimeout(function () {
-            $(".alert").fadeTo(500, 0).slideUp(500, function () {
-                $(this).remove();
-            });
-        }, 4000);
-    </script>
+    <!-- Required multiSelect js -->
+    <script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/jquery-quicksearch/jquery.quicksearch.js') }}"></script>
+
+    <!-- Toastr js -->
+    <script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
+
+    <!-- App js -->
+    <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
 
 {% endblock %}
+
+<script language="JavaScript">
+    $('document').ready(function(){
+        // Toastr options
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "4000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+        {% for message in app.flashes('success') %}
+            toastr.success("{{ message }}");
+        {% endfor %}
+
+        {% for message in app.flashes('warning') %}
+        toastr.warning("{{ message }}");
+        {% endfor %}
+
+        {% for message in app.flashes('danger') %}
+        toastr.danger("{{ message }}");
+        {% endfor %}
+    });
+
+</script>
 
 </body>
 </html>

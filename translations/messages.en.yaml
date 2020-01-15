@@ -1,80 +1,111 @@
-# translations/messages.nl.yaml
 
-# Main Navigation
-navbar_dashboard: Dashboard
-navbar_contacts: Contacts
-navbar_person: Persons
-navbar_organizations: Organizations
-navbar_calendar: Calendar
-navbar_products: Inventory
-navbar_services: Services
-navbar_statistics: Statistics
-navbar_settings: Settings
-
-# Common
-date: Date
-dateAchieved: Date achieved
-delete: Delete
-description: Description
-diploma: Diploma
-close: Close
-edit: Edit
-endDate: End Date
-new: New
-startDate: Start Date
-school: School
-total: Total
-years: Years
-user: User
-event: Event
-timestamp: Timestamp
-data: Data
-save: Save
-
-# Orders
-orders: Orders
-orders_order_status: Order status
-orders_article: Article
-
-# Person Entities
-person_name: Name
-person_email: Email
-person_telephone: Telephone
-person_telephone_2: Mobile
-person_address: Address
-person_category: Category
-person_birthday: Birthday
-person_gender: Gender
-person_streetAddress: Street
-person_postalCode: Zip Code
-person_addressLocality: City
-person_addressCountry: Country
-
-# Person Nav
-person_nav_personal_information: Personal information
-person_nav_membership: Membership
-person_nav_musicalInstrument: Musical instrument
-person_nav_education: Education
-person_nav_parents: Parents
-
-person_nav_statistics: Statistics
-person_nav_log: Log
-person_nav_all: All persons
-
-# Product
-product_lease_lend: Lease-lend
-product_product: Product
-product_model: Model
-product_manufacturer: Manufacturer
-product_owned_from: Owned from
-product_owned_till: Owned Till
-
-# ProgramMemberships
-programMemberships: Roles
-programMemberships_role: Role
-
-# Reviews
-reviews: Notes
-
-# Tags
-tags: Tags
+Add: Add
+Additional name: Additional name
+Address country: Country
+Address locality: City
+Address: Address
+Alumni: Alumni
+Birth date: Birthdate
+Category: Category
+Certificate: Certificate
+Close: Close
+Danger: 'Danger:'
+Data: Data
+Date achieved: Date achieved
+Date: Date
+Delete: Delete
+Delete_message: Are you sure you want to delete this item:
+Description: Description
+Edit: Edit
+Education: Training
+Education_add: Add training
+Education_edit: Edit training
+Email: Email
+Employee: Employee
+Employees: Employees
+Employees_add: Add employees
+Employees_edit: Edit employees
+End date: End date
+Event: Event
+Family name: Last name
+Female: Female
+Gender: Gender
+Given name: First name
+Legal name: Organization
+Lei code: Lei code
+Male: Male
+Membership: Membership
+Membership_add: Add membership
+Membership_edit: Edit membership
+Musical instrument: Musical instrument
+MusicalInstrument_add: Add musical instrument
+MusicalInstrument_edit: Edit musical instrument
+Name: Name
+Navbar_calendar: Calendar
+Navbar_contacts: Contacts
+Navbar_dashboard: Dashboard
+Navbar_organizations: Organizations
+Navbar_person: Persons
+Navbar_products: Inventory
+Navbar_services: Services
+Navbar_settings: Settings
+Navbar_statistics: Statistics
+New: New
+Not_applicable: Not applicable.
+Orders: Orders
+Orders_add: Add order
+Orders_article: Article
+Orders_order_status: Order status
+Organization: Organization
+Organization_add: Add Organization
+Organization_nav_all: All Organizations
+Organization_nav_organization_information: Organization information
+Owned from: Owned from
+Owned trough: Owned till
+Parents: Parents
+Parents_add: Add parents
+Parents_edit: Edit parents
+Person: Person
+Person_add: Add Person
+Person_nav_all: All Persons
+Person_nav_education: Education
+Person_nav_log: Log
+Person_nav_membership: Membership
+Person_nav_musicalInstrument: Musical instrument
+Person_nav_parents: Parents
+Person_nav_personal_information: Personal information
+Person_nav_statistics: Statistics
+Post office box number: P.O. Box
+Postal code: zip code
+Product: Product
+Product_add: Add Product
+Product_edit: Edit Product
+Product_lease_lend: Lease-lend
+Product_manufacturer: Manufacturer
+Product_model: Model
+Product_owned_from: Owned from
+Product_owned_till: Owned Till
+Product_product: Product
+ProgramMemberships: Roles
+ProgramMemberships_role: Role
+Reviews: Notes
+Save: Save
+Selecteer...: Select...
+Start date: Start date
+Street address: Street
+Success: 'Success:'
+Tags: Tags
+Telephone 2: Mobile
+Telephone: Telephone
+Timestamp: Timestamp
+Total: Total
+Typeof good: Product
+User: User
+Vat i d: VAT Id
+Warning: 'Warning:'
+Website: Website
+Years: Years
+flash_message_create: has been created!
+flash_message_delete: has been deleted!
+flash_message_edit: has been updated!
+orders_edit: Edit order

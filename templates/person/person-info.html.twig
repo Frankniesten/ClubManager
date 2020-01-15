@@ -1,45 +1,55 @@
 <table class="table table-bordered table-striped">   
     <tbody>
         <tr>
-            <td width="20%"><b>{% trans %}person_name{% endtrans %}</b></td>
+            <td width="20%"><b>{% trans %}Name{% endtrans %}</b></td>
             <td width="70%">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</td>
         </tr>
         <tr>
-            <td><b>{% trans %}person_birthday{% endtrans %}</b></td>
+            <td><b>{% trans %}Birth date{% endtrans %}</b></td>
             <td>{{ data.birthDate ? data.birthDate | date('d-m-Y') }}</td>
         </tr>
         <tr>
-            <td><b>{% trans %}person_gender{% endtrans %}</b></td>
-            <td>{{data.gender}}</td>
+            <td><b>{% trans %}Gender{% endtrans %}</b></td>
+            <td>
+                {% if data.gender == "Male" %}
+                    {% trans %}Male{% endtrans %}
+                {% elseif data.gender == "Female"%}
+                    {% trans %}Female{% endtrans %}
+                {% endif %}
+            </td>
         </tr>
         <tr>
-            <td><b>{% trans %}person_email{% endtrans %}</b></td>
+            <td><b>{% trans %}Email{% endtrans %}</b></td>
             <td><a href="mailto:{{data.email}}" target="_blank">{{data.email}}</a></td>
         </tr>
         <tr>
-            <td><b>{% trans %}person_telephone{% endtrans %}</b></td>
+            <td><b>{% trans %}Telephone{% endtrans %}</b></td>
             <td>{{data.telephone}}</td>
         </tr>
         <tr>
-            <td><b>{% trans %}person_telephone_2{% endtrans %}</b></td>
+            <td><b>{% trans %}Telephone 2{% endtrans %}</b></td>
             <td>{{data.telephone2}}</td>
         </tr>
 
         <tr>
-            <td><b>{% trans %}person_streetAddress{% endtrans %}</b></td>
+            <td><b>{% trans %}Street address{% endtrans %}</b></td>
             <td>{{data.streetAddress}}</td>
         </tr>
         <tr>
-            <td><b>{% trans %}person_postalCode{% endtrans %}</b></td>
+            <td><b>{% trans %}Postal code{% endtrans %}</b></td>
             <td>{{data.postalCode}}</td>
         </tr>
         <tr>
-            <td><b>{% trans %}person_addressLocality{% endtrans %}</b></td>
+            <td><b>{% trans %}Address locality{% endtrans %}</b></td>
             <td>{{data.addressLocality}}</td>
         </tr>
         <tr>
-            <td><b>{% trans %}person_addressCountry{% endtrans %}</b></td>
-            <td>{{data.addressCountry}}</td>
+            <td><b>{% trans %}Address country{% endtrans %}</b></td>
+            <td>
+                {%if data.addressCountry is not empty %}
+                    {{data.addressCountry|country_name }}
+                {% endif %}
+            </td>
         </tr>
     </tbody>
 </table>

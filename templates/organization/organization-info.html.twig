@@ -1,0 +1,60 @@
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td width="20%"><b>{% trans %}Organization{% endtrans %}</b></td>
+        <td width="70%">{{ data.legalName }}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Description{% endtrans %}</b></td>
+        <td>{{data.description }}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Email{% endtrans %}</b></td>
+        <td><a href="mailto:{{data.email}}" target="_blank">{{data.email}}</a></td>
+    </tr>
+    <tr>
+        <td><b>Website</b></td>
+        <td><a href="{{data.url}}" target="_blank">{{data.url}}</a></td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Telephone{% endtrans %}</b></td>
+        <td>{{data.telephone}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Telephone 2{% endtrans %}</b></td>
+        <td>{{data.telephone2}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Lei code{% endtrans %}</b></td>
+        <td>{{data.leiCode}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Vat i d{% endtrans %}</b></td>
+        <td>{{data.vatID}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Street address{% endtrans %}</b></td>
+        <td>{{data.streetAddress}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Postal code{% endtrans %}</b></td>
+        <td>{{data.postalCode}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Post office box number{% endtrans %}</b></td>
+        <td>{{data.postOfficeBoxNumber}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Address locality{% endtrans %}</b></td>
+        <td>{{data.addressLocality}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Address country{% endtrans %}</b></td>
+        <td>
+            {%if data.addressCountry is not empty %}
+                {{data.addressCountry|country_name }}
+            {% endif %}
+        </td>
+    </tr>
+    </tbody>
+</table>

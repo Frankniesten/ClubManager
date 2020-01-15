@@ -13,28 +13,28 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto nav-fill w-100">
             <li class="nav-item {{ app.request.get('_route') == 'dashboard' ? 'active' }}">
-                <a class="nav-link" href="{{ path('dashboard') }}"><i class="mdi mdi-view-dashboard"></i> {% trans %}navbar_dashboard{% endtrans %}</a>
+                <a class="nav-link" href="{{ path('dashboard') }}"><i class="mdi mdi-view-dashboard"></i> {% trans %}Navbar_dashboard{% endtrans %}</a>
             </li>
             <li class="nav-item {{  'person' in app.request.get('_route') ? 'active' }}">
-                <a class="nav-link" href="{{ path('person') }}"><i class="mdi mdi-account-multiple"></i> {% trans %}navbar_person{% endtrans %}<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ path('person') }}"><i class="mdi mdi-account-multiple"></i> {% trans %}Navbar_person{% endtrans %}<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item {{  'organization' in app.request.get('_route') ? 'active' }}">
+                <a class="nav-link" href="{{ path('organization') }}"><i class="mdi mdi-factory"></i> {% trans %}Navbar_organizations{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-factory"></i> {% trans %}navbar_organizations{% endtrans %}<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#"><i class="mdi mdi-calendar"></i> {% trans %}Navbar_calendar{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-calendar"></i> {% trans %}navbar_calendar{% endtrans %}<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#"><i class="mdi mdi-bugle"></i> {% trans %}Navbar_products{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-bugle"></i> {% trans %}navbar_products{% endtrans %}<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#"><i class="mdi mdi-cart"></i> {% trans %}Navbar_services{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-cart"></i> {% trans %}navbar_services{% endtrans %}<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Navbar_statistics{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}navbar_statistics{% endtrans %}<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-settings"></i> {% trans %}navbar_settings{% endtrans %}<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="#"><i class="mdi mdi-settings"></i> {% trans %}Navbar_settings{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>

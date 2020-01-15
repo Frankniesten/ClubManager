@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PersonController extends AbstractController
 {
@@ -26,7 +27,8 @@ class PersonController extends AbstractController
         //Check memberOf query:
         if ($query = $request->query->get('category')) {
             $session->set('people_query', $query);
-        } else {
+        }
+        else {
             $query = $session->get('people_query', 'all');
         }
 
@@ -36,7 +38,9 @@ class PersonController extends AbstractController
             $data = $this->getDoctrine()
                 ->getRepository(Person::class)
                 ->findAll();
-        } //Get persons from specific memberOf:
+        }
+
+        //Get persons from specific memberOf:
         else {
             $em = $this->getDoctrine()->getManager();
             $data = $em->getRepository(Person::class)->findByCategegory($query);
@@ -65,7 +69,7 @@ class PersonController extends AbstractController
      * @Route("/person/create", name="person_create")
      * @IsGranted("ROLE_PERSON_CREATE")
      */
-    public function new(EntityManagerInterface $em, Request $request)
+    public function create(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
     {
         $form = $this->createForm(PersonFormType::class);
 
@@ -78,9 +82,9 @@ class PersonController extends AbstractController
             $em->flush();
             $id = $data->getId();
 
-            $this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' is aangemaakt!');
+            $this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_create'));
 
-            return $this->redirectToRoute('person', array('id' => $id));
+            return $this->redirectToRoute('person_id', array('id' => $id));
         }
 
         return $this->render('person/personForm.html.twig', [
@@ -96,22 +100,19 @@ class PersonController extends AbstractController
     public function show(EntityManagerInterface $em, Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $person = $em->getRepository(Person::class)->find($id);
+        $data = $em->getRepository(Person::class)->find($id);
 
+        if (!$data) {
+            throw $this->createNotFoundException();
+        }
 
         //Call Log File:
         $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
         $log = $em->find('App\Entity\Person', $id);
         $logs = $repo->getLogEntries($log);
 
-// if article had changed relation, it would be re
-
-        if (!$person) {
-            throw $this->createNotFoundException('Deze persoon bestaat niet');
-        }
-
         return $this->render('person/person.html.twig', [
-            'data' => $person,
+            'data' => $data,
             'logs' => $logs
         ]);
     }
@@ -120,33 +121,33 @@ class PersonController extends AbstractController
      * @Route("/person/{id}/edit", name="person_edit")
      * @IsGranted("ROLE_PERSON_EDIT")
      */
-    public function edit(EntityManagerInterface $em, Request $request, $id)
+    public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {
         $em = $this->getDoctrine()->getManager();
-        $person = $em->getRepository(Person::class)->find($id);
+        $data = $em->getRepository(Person::class)->find($id);
 
-        if (!$person) {
-            throw $this->createNotFoundException('Deze persoon bestaat niet');
+        if (!$data) {
+            throw $this->createNotFoundException();
         }
 
-        $form = $this->createForm(PersonFormType::class, $person);
+        $form = $this->createForm(PersonFormType::class, $data);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $person = $form->getData();
+            $data = $form->getData();
 
-            $em->persist($person);
+            $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success', $person->getFamilyName() . ', ' . $person->getGivenName() . ' ' . $person->getAdditionalName() . ' is bijgewerkt!');
+            $this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_edit'));
 
             return $this->redirectToRoute('person_id', array('id' => $id));
         }
 
         return $this->render('person/personForm.html.twig', [
             'form' => $form->createView(),
-            'data' => $person
+            'data' => $data
         ]);
     }
 
@@ -155,19 +156,19 @@ class PersonController extends AbstractController
      * @Route("/person/{id}/delete", name="person_delete")
      * @IsGranted("ROLE_PERSON_DELETE")
      */
-    public function del(EntityManagerInterface $em, Request $request, $id)
+    public function del(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {
         $em = $this->getDoctrine()->getManager();
-        $person = $em->getRepository(Person::class)->find($id);
-        if (!$person) {
-            throw $this->createNotFoundException('Deze persoon bestaat niet');
+        $data = $em->getRepository(Person::class)->find($id);
+        if (!$data) {
+            throw $this->createNotFoundException();
         }
 
-        $em->remove($person);
+        $em->remove($data);
         $em->flush();
 
-        $this->addFlash('warning', 'Persoon is verwijderd!');
+        $this->addFlash('warning', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_delete'));
 
-        return $this->redirectToRoute('app_people');
+        return $this->redirectToRoute('person');
     }
 }

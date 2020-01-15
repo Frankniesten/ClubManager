@@ -2,25 +2,33 @@
 
 {% block sidebar %}
 	<li class="nav-item">
-		<a class="nav-link" href="#personal-info"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}person_nav_personal_information{% endtrans %}</a>
+		<a class="nav-link" href="#info"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Person_nav_personal_information{% endtrans %}</a>
 	</li>
 
 	{% if data.category.id == 1 or data.alumni == true  %}
 		<li class="nav-item">
-			<a class="nav-link" href="#membership"><i class="mdi mdi-account-star-outline"></i> {% trans %}person_nav_membership{% endtrans %}</a>
+			<a class="nav-link" href="#membership"><i class="mdi mdi-account-star-outline"></i> {% trans %}Person_nav_membership{% endtrans %}
+			{%if data.membership is not empty %}
+				<span class="badge badge-primary float-right">{{ data.membership|length }}</span>
+			{% endif %}
+			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#musicalInstrument"><i class="mdi mdi-bugle"></i> {% trans %}person_nav_musicalInstrument{% endtrans %}</a>
+			<a class="nav-link" href="#musicalInstrument"><i class="mdi mdi-bugle"></i> {% trans %}Person_nav_musicalInstrument{% endtrans %}
+			{%if data.musicalInstrument is not empty %}
+				<span class="badge badge-primary float-right">1</span>
+			{% endif %}
+			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#education"><i class="mdi mdi-school-outline"></i> {% trans %}person_nav_education{% endtrans %}
+			<a class="nav-link" href="#education"><i class="mdi mdi-school-outline"></i> {% trans %}Person_nav_education{% endtrans %}
 			{%if data.education is not empty %}
 				<span class="badge badge-primary float-right">{{ data.education|length }}</span>
 			{% endif %}
 			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="#parents"><i class="mdi mdi-account-supervisor"></i> {% trans %}person_nav_parents{% endtrans %}
+			<a class="nav-link" href="#parents"><i class="mdi mdi-account-supervisor"></i> {% trans %}Person_nav_parents{% endtrans %}
 			{%if data.parents is not empty %}
 				<span class="badge badge-primary float-right">{{ data.parents|length }}</span>
 			{% endif %}
@@ -29,49 +37,49 @@
 	{% endif %}
 
 	<li class="nav-item">
-		<a class="nav-link" href="#owns"><i class="mdi mdi-autorenew"></i> {% trans %}product_lease_lend{% endtrans %}
+		<a class="nav-link" href="#owns"><i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
 		{%if data.owns is not empty %}
 			<span class="badge badge-primary float-right">{{ data.owns|length }}</span>
 		{% endif %}
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#order"><i class="mdi mdi-cart-arrow-down"></i> {% trans %}orders{% endtrans %}
+		<a class="nav-link" href="#order"><i class="mdi mdi-cart-arrow-down"></i> {% trans %}Orders{% endtrans %}
 		{%if data.customer is not empty %}
 			<span class="badge badge-primary float-right">{{ data.customer|length }}</span>
 		{% endif %}
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#memberOf"><i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}programMemberships{% endtrans %}
+		<a class="nav-link" href="#memberOf"><i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
 		{%if data.memberOf is not empty %}
 			<span class="badge badge-primary float-right">{{ data.memberOf|length }}</span>
 		{% endif %}
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#tags"><i class="mdi mdi-tag-outline"></i> {% trans %}tags{% endtrans %}
+		<a class="nav-link" href="#tags"><i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
 		{%if data.memberOf is not empty %}
 			<span class="badge badge-primary float-right">{{ data.memberOf|length }}</span>
 		{% endif %}
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}reviews{% endtrans %}
+		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
 		{%if data.review is not empty %}
 			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
 		{% endif %}
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#statistics"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}person_nav_statistics{% endtrans %}
+		<a class="nav-link" href="#statistics"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Person_nav_statistics{% endtrans %}
 		{%if data.review is not empty %}
 			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
 		{% endif %}
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}person_nav_log{% endtrans %}
+		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Person_nav_log{% endtrans %}
 		{%if data.review is not empty %}
 			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
 		{% endif %}
@@ -97,7 +105,7 @@
 		<div class="p-2">
 			<div class="btn-group btn-group-sm">
 				{% if is_granted('ROLE_PERSON_EDIT') %}
-				<a class="btn btn-primary" href="{{ path('person') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}close{% endtrans %}</a>
+				<a class="btn btn-primary" href="{{ path('person') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
 			{% endif %}
 
 				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -106,13 +114,10 @@
 				<div class="dropdown-menu">
 					{% if is_granted('ROLE_PERSON_DELETE') %}
 					<a class="dropdown-item" href="{{ path('person_delete', {'id': data.id}) }}"
-					   onclick="return confirm('Weet je zeker dat je {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}wilt verwijderen?');"><i
+					   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}');"><i
 								class="mdi mdi-delete text-danger"></i> Verwijderen</a>
 					{% endif %}
 				</div>
-
-
-
 			</div>
 		</div>
 	</div>
@@ -120,9 +125,9 @@
 
 	<!-- Personal info -->
 	<div class="card">
-		<div class="card-header" id="personal-info">
+		<div class="card-header" id="info">
 			<span class="align-middle">
-				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}person_nav_personal_information{% endtrans %}
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Person_nav_personal_information{% endtrans %}
 			</span>
 			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 		</div>
@@ -143,9 +148,9 @@
 	<div class="card">
 		<div class="card-header" id="membership">
 			<span class="align-middle">
-				<i class="mdi mdi-account-star-outline"></i> {% trans %}person_nav_membership{% endtrans %}
+				<i class="mdi mdi-account-star-outline"></i> {% trans %}Person_nav_membership{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
 		</div>
 		<div class="card-body">
 			{{ include('person/person-membership.html.twig', { 'data': data }) }}
@@ -158,9 +163,9 @@
 	<div class="card">
 		<div class="card-header" id="musicalInstrument">
 			<span class="align-middle">
-						<i class="mdi mdi-bugle"></i> {% trans %}person_nav_musicalInstrument{% endtrans %}
+						<i class="mdi mdi-bugle"></i> {% trans %}Person_nav_musicalInstrument{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_musicalInstrument', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 		</div>
 		<div class="card-body">
 			{{ include('person/person-musicalInstrument.html.twig', { 'data': data }) }}
@@ -173,9 +178,9 @@
 	<div class="card">
 		<div class="card-header" id="education">
 			<span class="align-middle">
-				<i class="mdi mdi-school-outline"></i> {% trans %}person_nav_education{% endtrans %}
+				<i class="mdi mdi-school-outline"></i> {% trans %}Person_nav_education{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_education_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
 		</div>
 		<div class="card-body">
 			{{ include('person/person-education.html.twig', { 'data': data }) }}
@@ -188,8 +193,8 @@
 	<div class="card">
 		<div class="card-header" id="parents">
 			<span class="align-middle">
-				<i class="mdi mdi-account-supervisor"></i> {% trans %}person_nav_parents{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<i class="mdi mdi-account-supervisor"></i> {% trans %}Person_nav_parents{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -204,8 +209,8 @@
 	<div class="card">
 		<div class="card-header" id="owns">
 			<span class="align-middle">
-				<i class="mdi mdi-autorenew"></i> {% trans %}product_lease_lend{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'owns_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -219,8 +224,8 @@
 	<div class="card">
 		<div class="card-header" id="order">
 			<span class="align-middle">
-				<i class="mdi mdi-cart-arrow-down"></i> {% trans %}orders{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<i class="mdi mdi-cart-arrow-down"></i> {% trans %}Orders{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_order_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -234,8 +239,8 @@
 	<div class="card">
 		<div class="card-header" id="memberOf">
 			<span class="align-middle">
-				<i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}programMemberships{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -249,8 +254,8 @@
 	<div class="card">
 		<div class="card-header" id="tags">
 			<span class="align-middle">
-				<i class="mdi mdi-tag-outline"></i> {% trans %}tags{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			</span>
 		</div>
 
@@ -264,12 +269,12 @@
 	<div class="card">
 		<div class="card-header" id="review">
 			<span class="align-middle">
-				<i class="mdi mdi-tooltip-outline"></i> {% trans %}reviews{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('app_person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
-			{{ include('person/person-review.html.twig', { 'data': data }) }}
+			{{ include('global/review.html.twig', { 'data': data }) }}
 		</div>
 	</div>
 	<!-- End Review -->
@@ -279,7 +284,7 @@
 	<div class="card">
 		<div class="card-header" id="statistics">
 			<span class="align-middle">
-				<i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}person_nav_statistics{% endtrans %}
+				<i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Person_nav_statistics{% endtrans %}
 			</span>
 		</div>
 
@@ -293,11 +298,11 @@
 	<div class="card">
 		<div class="card-header" id="history">
 			<span class="align-middle">
-				<i class="mdi mdi-history"></i> {% trans %}person_nav_log{% endtrans %}
+				<i class="mdi mdi-history"></i> {% trans %}Person_nav_log{% endtrans %}
 			</span>
 		</div>
 		<div class="card-body">
-			{{ include('person/person-logs.html.twig', { 'data': logs }) }}
+			{{ include('global/logs.html.twig', { 'data': logs }) }}
 		</div>
 	</div>
 	<!-- End Log -->
@@ -311,15 +316,38 @@
 	<script type="text/javascript">
         $(document).ready(function () {
 
+			//Datatable membership
+			var table = $('#datatable-membership').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				columnDefs: [
+					{
+						orderable: false,
+						targets: 0
+					}
+				],
+				order: [[ 2, "asc" ]]
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable membership
+
 			//Datatable education
 			var table = $('#datatable-education').DataTable({
-				"lengthChange": false,
-				"bFilter": false,
-				"pageLength": 5,
-				"columnDefs": [
-					{ "orderable": false, "targets": 0 }
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 5,
+				columnDefs: [
+					{
+						orderable: false,
+						targets: 0
+					}
 				],
-				"order": [[ 2, "asc" ]],
+				order: [[ 2, "asc" ]],
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -328,14 +356,37 @@
 			});
 			// End datatable education
 
+			//Datatable parents
+			var table = $('#datatable-parents').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 5,
+				columnDefs: [
+					{
+						orderable: false,
+						targets: 0
+					}
+				],
+				order: [[ 2, "asc" ]],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable parents
+
 			//Datatable owns
             var table = $('#datatable-owns').DataTable({
-                "lengthChange": false,
-                "pageLength": 10,
-                "columnDefs": [
-				    { "orderable": false, "targets": 0 }
+                lengthChange: false,
+                pageLength: 10,
+                columnDefs: [
+				    {
+				    	orderable: false,
+						targets: 0
+				    }
 				  ],
-                "order": [[ 1, "asc" ]],
+                order: [[ 1, "asc" ]],
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -343,15 +394,38 @@
 				{%  endif %}
             });
             // End datatable owns
+
+			//Datatable orders
+			var table = $('#datatable-orders').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 5,
+				columnDefs: [
+					{
+						orderable: false,
+						targets: 0
+					}
+				],
+				order: [[ 2, "asc" ]],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable orders
             
             //Datatable memberOF
             var table = $('#datatable-memberOf').DataTable({
-                "lengthChange": false,
-                "pageLength": 10,
-                "columnDefs": [
-				    { "orderable": false, "targets": 0 }
+                lengthChange: false,
+                pageLength: 10,
+                columnDefs: [
+				    {
+				    	orderable: false,
+						targets: 0
+				    }
 				  ],
-                "order": [[ 1, "asc" ]],
+                order: [[ 1, "asc" ]],
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -360,30 +434,37 @@
             });
             // End datatable memberOf
 
-			//Datatable Rveiw
+			//Datatable review
 			var table = $('#datatable-review').DataTable({
-				"lengthChange": false,
-				"pageLength": 10,
-				"columnDefs": [
-					{ "orderable": false, "targets": 0 }
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 5,
+				columnDefs: [
+					{
+						orderable: false,
+						targets: 0
+					}
 				],
-				"order": [[ 2, "desc" ]],
+				order: [[ 1, "asc" ]],
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
 				},
 				{%  endif %}
 			});
-			// End datatable logs
+			// End datatable review
 
             //Datatable Logs
             var table = $('#datatable-logs').DataTable({
-                "lengthChange": false,
-                "pageLength": 10,
-                "columnDefs": [
-				    { "orderable": false, "targets": 0 }
+                lengthChange: false,
+                pageLength: 10,
+                columnDefs: [
+				    {
+				    	orderable: false,
+						targets: 0
+				    }
 				  ],
-                "order": [[ 2, "desc" ]],
+                order: [[ 2, "desc" ]],
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -392,7 +473,34 @@
             });
             // End datatable logs
 
+			$(document).on('click', 'a[href^="#"]', function (event) {
+				event.preventDefault();
+
+				$('html, body').animate({
+					scrollTop: $($.attr(this, 'href')).offset().top - 20
+				}, 800);
+			});
+
         });
     </script>
-    
+
+	<script language="JavaScript">jQuery ( document ).ready ( function($) {
+
+			var hash= window.location.hash
+
+			if ( hash == '' || hash == '#' || hash == undefined ) return false;
+
+			var target = $(hash);
+
+			headerHeight = 120;
+
+			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+
+			if (target.length) {
+				$('html,body').stop().animate({
+					scrollTop: target.offset().top - 20 //offsets for fixed header
+				}, 0);
+			}
+		} );
+	</script>
 {% endblock %}

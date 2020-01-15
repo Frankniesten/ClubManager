@@ -551,6 +551,9 @@
             "config/packages/twig_extensions.yaml"
         ]
     },
+    "twig/intl-extra": {
+        "version": "v3.0.1"
+    },
     "twig/twig": {
         "version": "v2.5.0"
     },

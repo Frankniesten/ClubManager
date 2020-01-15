@@ -11,21 +11,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ParentsController extends AbstractController
 {
     /**
-    * @Route("/person/{id}/parents/create", name="app_person_parents_create")
+    * @Route("/person/{id}/parents/edit", name="person_parents_edit")
     * @IsGranted("ROLE_PERSON_EDIT")
     */
-    public function edit(EntityManagerInterface $em, Request $request, $id)
+    public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
 		
 		if (!$person) {
-        	throw $this->createNotFoundException('The person does not exist');
+        	throw $this->createNotFoundException();
     	} 
 	    
 		//generate Form.
@@ -41,12 +42,12 @@ class ParentsController extends AbstractController
 			$em->persist($person);
 			$em->flush();
 			
-			$this->addFlash('success', 'Ouder(s) aan: '.$person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().' toegevoegd!');
-					
-			return $this->redirectToRoute('app_person_parents', array('id' => $id));			
+			$this->addFlash('success', $translator->trans('Parents').' '.$translator->trans('flash_message_edit'));
+
+            return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'parents'));
 		}
 
-		return $this->render('parents/parentsForm.html.twig', [
+		return $this->render('person/person-parentsForm.html.twig', [
         	'form' => $form->createView(),
         	'id' => $id
 		]);	

@@ -4,8 +4,8 @@
         <thead>
             <tr>
 				<th width="20px"></th>
-                <th>{% trans %}programMemberships_role{% endtrans %}</th>
-                <th class="desktop">{% trans %}description{% endtrans %}</th>
+                <th>{% trans %}ProgramMemberships_role{% endtrans %}</th>
+                <th class="desktop">{% trans %}Description{% endtrans %}</th>
             </tr>
         </thead>
 
@@ -18,8 +18,8 @@
 					<div class="btn-group">
 					  	<button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 				  		<div class="dropdown-menu">
-				  			<a class="dropdown-item" href=""><i class="mdi mdi-pencil"></i> {% trans %}edit{% endtrans %}</a>
-				  			<a class="dropdown-item" href="" onclick="return confirm('Weet je zeker dat je wilt verwijderen?');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}delete{% endtrans %}</a>
+				  			<a class="dropdown-item" href=""><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+				  			<a class="dropdown-item" href="" onclick="return confirm('Weet je zeker dat je wilt verwijderen?');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}Delete{% endtrans %}</a>
 				  		</div>
 					</div>
 					<!-- End dropdown menu -->
@@ -37,6 +37,6 @@
     </table>
 
 {% else %}
-	<div class="text-muted">Niet van toepassing.</div>
+	<div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
 {% endif %}
 

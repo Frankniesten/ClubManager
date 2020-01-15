@@ -1,0 +1,100 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+
+
+{% block body %}
+
+    {{ form_start(form) }}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            {% if 'create' in app.request.uri  %}
+                <h3>{% trans %}Product_add{% endtrans %}</h3>
+            {% endif %}
+            {% if 'edit' in app.request.uri  %}
+                <h3>{% trans %}Product_edit{% endtrans %}</h3>
+            {% endif %}
+        </div>
+
+        <div class="p-2">
+            <div class="btn-group float-right">
+                <button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+                <a href="{{ path('person_id', {'id': id}) }}#owns" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+            </div>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Content -->
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row mb-sm-4">
+                <div class="col-sm">
+                    {{ form_label(form.ownedFrom) }}
+                    {{ form_widget(form.ownedFrom, {'id': 'datepicker-autoclose1'}) }}
+                </div>
+
+                <div class="col-sm">
+                    {{ form_label(form.ownedTrough) }}
+                    {{ form_widget(form.ownedTrough, {'id': 'datepicker-autoclose2'}) }}
+                </div>
+
+
+            </div>
+
+            <div class="row mb-sm-4">
+                <div class="col">
+                    {{ form_label(form.typeofGood) }}
+                    {{ form_widget(form.typeofGood) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+	<!--form wysiwig js-->
+	<script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('assets/plugins/jquery-quicksearch/jquery.quicksearch.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+
+    <script type="text/javascript">
+        jQuery('#datepicker-autoclose1').datepicker({
+	        	format: 'dd-mm-yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
+    </script>
+    
+     <script type="text/javascript">
+        jQuery('#datepicker-autoclose2').datepicker({
+	        	format: 'dd-mm-yyyy',
+                autoclose: true,
+                todayHighlight: false
+            });
+    </script>
+
+
+    <script>
+        $(document).ready(function(){
+            $('.select2').select2({
+                theme: "bootstrap4",
+                width: '100%'
+            });
+        });
+    </script>
+    
+{% endblock %}
+
+
