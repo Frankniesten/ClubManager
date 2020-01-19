@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class OrderController extends AbstractController
@@ -35,7 +36,7 @@ class OrderController extends AbstractController
      * @Route("/person/{id}/order/create", name="person_order_create")
      * @IsGranted("ROLE_SERVICES_CREATE")
      */
-    public function new(EntityManagerInterface $em, Request $request, $id)
+    public function new(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {
         $em = $this->getDoctrine()->getManager();
         $data = $em->getRepository(Person::class)->find($id);
@@ -52,6 +53,7 @@ class OrderController extends AbstractController
             $order = $form->getData();
             $data->addCustomer($order);
 
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($order);
             $em->persist($data);
@@ -61,10 +63,10 @@ class OrderController extends AbstractController
             $this->addFlash('success', 'Nieuwe order #'.$OrderID.' is aangemaakt!');
 
 
-            return $this->redirectToRoute('app_orderItem_create', array('id' => $id, 'orderID' => $OrderID));
+            return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'order'));
         }
 
-        return $this->render('orders/orderForm.html.twig', [
+        return $this->render('person/person-orderForm.html.twig', [
 
             'data' => $data,
             'form' => $form->createView(),
@@ -72,19 +74,17 @@ class OrderController extends AbstractController
         ]);
     }
 
-	
-	
 	/**
      * @Route("/person/{id}/order/{orderID}", name="person_order_id")
      * @IsGranted("ROLE_SERVICES_VIEW")
      */
-	public function show(EntityManagerInterface $em, Request $request, $id, $orderID)
+	public function show(EntityManagerInterface $em, Request $request, $id, $orderID, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$order = $em->getRepository(Orders::class)->find($orderID);
 		
 		if (!$order) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
         
 		return $this->render('orders/orderDetails.html.twig', [
@@ -93,73 +93,64 @@ class OrderController extends AbstractController
         	'totalPrice' => 0
 		]);
 	}
-	
-	
 
-	
+
+
+
 	/**
 	* @Route("/person/{id}/order/{orderID}/edit", name="person_order_edit")
 	* @IsGranted("ROLE_SERVICES_EDIT")
 	*/
-	public function edit(EntityManagerInterface $em, Request $request, $id, $orderID)
-	{
-		$em = $this->getDoctrine()->getManager();
-		$order = $em->getRepository(Orders::class)->find($orderID);
-		
-		if (!$order) {
-        	throw $this->createNotFoundException('The product does not exist');
-    	} 
-	    
-		$form = $this->createForm(OrderFormType::class, $order);
-		
-		$form->handleRequest($request);
-		if ($form->isSubmitted() && $form->isValid()) {
-			
-			$order = $form->getData();
-			
-			$em->persist($order);
-			$em->flush();
-			$OrderID = $order->getId();
-           
-			$this->addFlash('success', 'Nieuwe order #'.$OrderID.' is bijgewerkt!');
-			
-			return $this->redirectToRoute('app_order', array('id' => $id, 'orderID' => $orderID));    			
-		}
-		
-		return $this->render('orders/orderForm.html.twig', [
-        	'form' => $form->createView(),
-        	'data' => $order,
-        	'id' => $id
-		]);
-	}
+    public function edit(EntityManagerInterface $em, Request $request, $id, $orderID, TranslatorInterface $translator)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $order = $em->getRepository(Orders::class)->find($orderID);
+
+        if (!$order) {
+            throw $this->createNotFoundException();
+        }
+
+        $form = $this->createForm(OrderFormType::class, $order);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $order = $form->getData();
+
+            $em->persist($order);
+            $em->flush();
+            $OrderID = $order->getId();
+
+            $this->addFlash('success', $translator->trans('order').' #'.$OrderID. ' ' . $translator->trans('flash_message_edit'));
+
+            return $this->redirectToRoute('person_id', array('id' => $id, 'orderID' => $orderID, '_fragment' => 'order'));
+        }
+
+        return $this->render('person/person-orderForm.html.twig', [
+            'form' => $form->createView(),
+            'data' => $order,
+            'id' => $id
+        ]);
+    }
 	
 	/**
 	* @Route("/person/{id}/order/{orderID}/delete", name="person_order_delete")
 	* @IsGranted("ROLE_SERVICES_DELETE")
 	*/
-	public function delete(EntityManagerInterface $em, Request $request, $id, $orderID)
+	public function delete(EntityManagerInterface $em, Request $request, $id, $orderID, TranslatorInterface $translator)
 	{
 		
 		$em = $this->getDoctrine()->getManager();
-		$order = $em->getRepository(Orders::class)->find($orderID);
+		$data = $em->getRepository(Orders::class)->find($orderID);
 		
-		if (!$order) {
-        	throw $this->createNotFoundException('The product does not exist');
+		if (!$data) {
+        	throw $this->createNotFoundException();
     	}
-		
-		        
-		$em->remove($order);
+
+		$em->remove($data);
 		$em->flush();
 		
-		$this->addFlash('warning', 'Order is verwijderd!');
+		$this->addFlash('warning', $translator->trans('order').' #'.$orderID. ' ' . $translator->trans('flash_message_delete'));
 		
-		return $this->redirectToRoute('app_person_customer', array('id' => $id));    	
-	} 
-
-	
-	
-
-	
-    
-
+		return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'order'));
+	}
 }

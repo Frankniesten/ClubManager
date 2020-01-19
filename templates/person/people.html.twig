@@ -79,6 +79,9 @@
 
                         <td>
                             {{ data.email }}
+                            {%if data.email is not empty %}
+                            <a href="mailto:{{ data.email }}"></href><i class="mdi mdi-email-send text-primary" style="font-size: large; line-height: 1.3;"></i></a>
+                            {% endif %}
                         </td>
                         <td>
                             {{ data.telephone }}

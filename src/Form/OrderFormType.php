@@ -23,13 +23,13 @@ class OrderFormType extends AbstractType
 	    	->add('orderDate', DateType::class, ['required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
 			->add('orderStatus', ChoiceType::class, array(
 				'choices'  => array(
-					'In behandeling' => 'In behandeling',
-					'Afgerond' => 'Afgerond',
-					'Geannuleerd' => 'Geannuleerd',
-					'In de wacht' => 'In de wacht',
-					'Terugbetaald' => 'Terugbetaald',
-					'Wachtend op betaling' => 'Wachtend op betaling'),
-					'placeholder' => 'Selecteer...',
+					'In progress' => 'In progress',
+					'Finished' => 'Finished',
+					'Canceled' => 'Canceled',
+					'On hold' => 'On hold',
+					'Refunded' => 'Refunded',
+					'Waiting for payment' => 'Waiting for payment'),
+					'placeholder' => 'Select...',
 					'attr' => [
 							'class' => 'select2'
 						]
@@ -38,7 +38,8 @@ class OrderFormType extends AbstractType
             'entry_type' => OrderItemFormType::class,
             'entry_options' => ['label' => false],
             'allow_add' => true,
-
+            'allow_delete' => true,
+            'by_reference' => false,
         ]);
 	}
 

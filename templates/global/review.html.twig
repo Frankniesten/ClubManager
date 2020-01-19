@@ -1,4 +1,26 @@
 {%if data.review is not empty %}
+
+    {% if 'person' in app.request.uri %}
+        {% set entity = 'person' %}
+    {% endif %}
+
+    {% if 'organization' in app.request.uri %}
+        {% set entity = 'organization' %}
+    {% endif %}
+
+    {% if 'product' in app.request.uri %}
+        {% set entity = 'product' %}
+    {% endif %}
+
+    {% if 'event' in app.request.uri %}
+        {% set entity = 'event' %}
+    {% endif %}
+
+    {% if 'service' in app.request.uri %}
+        {% set entity = 'service' %}
+    {% endif %}
+
+
     <!--Table -->
     <table id="datatable-review" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
         <thead>
@@ -17,30 +39,49 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href=""><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
-                            <a class="dropdown-item" href="" onclick="return confirm('Weet je zeker dat je wilt verwijderen?');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}Delete{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path( 'review_edit', {'entity': entity, 'id': data.id, 'reviewID': review.id} ) }}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path( 'review_delete', {'entity': entity, 'id': data.id, 'reviewID': review.id} ) }}" onclick="return confirm('{% trans %}Delete_message{%  endtrans %} {{ review.reviewAspect }}');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}Delete{% endtrans %}</a>
                         </div>
                     </div>
                     <!-- End dropdown menu -->
                 </td>
                 <td>
-                    <a data-toggle="collapse" href="#review-{{ loop.index }}" aria-expanded="false">
-                        {{ review.updatedAt |date("d-m-Y")}} - {{review.reviewAspect}}
+                    <a data-toggle="modal" href=".modal-{{ loop.index }}" aria-expanded="false">
+                        {{review.reviewAspect}}
                     </a>
-                    <div class="collapse" id="review-{{ loop.index }}">
-                        <br>
-                        <div class="card text-left">
-                            <div class="card-body">
-                                {{review.reviewBody | raw }}
-                            </div>
-                            <div class="card-footer text-muted small">
-                                <i class="mdi mdi-account"></i>&nbsp;&nbsp; {{ review.updatedBy }}&nbsp;&nbsp;|&nbsp;&nbsp;
-                                <i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ review.updatedAt |date("d-m-Y  - H:i")}}
-                            </div>
-                        </div>
-                    </div>
                 </td>
             </tr>
+
+
+            <!--  Modal -->
+            <div class="modal fade modal-{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{review.reviewAspect}}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{review.reviewBody | raw }}</p>
+                        </div>
+                        <div class="modal-footer text-muted small">
+                            <i class="mdi mdi-account"></i>{{ review.updatedBy }} |
+                            <i class="mdi mdi-calendar"></i>{{ review.updatedAt | date("d-m-Y  - H:i")}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+
+
+
+
+
+
+
+
         {% endfor %}
 
         </tbody>

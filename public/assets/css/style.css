@@ -8748,7 +8748,7 @@ html {
      width: 100% !important;
  }
 
-label.required:before {
+label.required:after {
     content: "*";
     color: red;
 }

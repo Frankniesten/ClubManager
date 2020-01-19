@@ -28,7 +28,10 @@
 					<a href="{{ path('person_id', {'id': parents.id}) }}">{{ parents.familyName }}, {{ parents.givenName }} {{ parents.additionalName }}</a>
 			    </td>	
 			    <td>
-				    <a href="mailto:{{ parents.email }}">{{ parents.email }}</a>
+				   {{ parents.email }}
+					{%if parents.email is not empty %}
+						<a href="mailto:{{ parents.email }}"><i class="mdi mdi-email-send text-primary" style="font-size: large; line-height: 1.3;"></i></a>
+					{% endif %}
 				</td>
 			    <td>
 					<span class="badge badge-primary">{{ parents.category.name }}</span>

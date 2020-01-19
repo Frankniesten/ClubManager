@@ -35,7 +35,13 @@
 			</a>
 		</li>
 	{% endif %}
-
+	<li class="nav-item">
+		<a class="nav-link" href="#organizations"><i class="mdi mdi-factory"></i> {% trans %}Organizations{% endtrans %}
+			{%if data.organizations is not empty %}
+				<span class="badge badge-primary float-right">{{ data.organizations|length }}</span>
+			{% endif %}
+		</a>
+	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="#owns"><i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
 		{%if data.owns is not empty %}
@@ -72,18 +78,10 @@
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#statistics"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Person_nav_statistics{% endtrans %}
-		{%if data.review is not empty %}
-			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
-		{% endif %}
-		</a>
+		<a class="nav-link" href="#statistics"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Person_nav_statistics{% endtrans %}</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Person_nav_log{% endtrans %}
-		{%if data.review is not empty %}
-			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
-		{% endif %}
-		</a>
+		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Person_nav_log{% endtrans %}</a>
 	</li>
 {% endblock %}
 
@@ -205,6 +203,22 @@
 	<br>
 	{% endif %}
 
+	<!-- Organizations -->
+	<div class="card">
+		<div class="card-header" id="organizations">
+			<span class="align-middle">
+				<i class="mdi mdi-autorenew"></i> {% trans %}Organizations{% endtrans %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'person_organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-organizations.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Organizations -->
+	<br>
+
+
 	<!-- Owns -->
 	<div class="card">
 		<div class="card-header" id="owns">
@@ -240,7 +254,7 @@
 		<div class="card-header" id="memberOf">
 			<span class="align-middle">
 				<i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_memberOf', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -255,7 +269,7 @@
 		<div class="card-header" id="tags">
 			<span class="align-middle">
 				<i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="}" role="button"><i class="mdi mdi-pencil"></i></a>
 			</span>
 		</div>
 
@@ -270,7 +284,7 @@
 		<div class="card-header" id="review">
 			<span class="align-middle">
 				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'person', 'id': data.id} ) }}" role="button"><i class="mdi mdi-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -318,7 +332,7 @@
 
 			//Datatable membership
 			var table = $('#datatable-membership').DataTable({
-				lengthChange: false,
+				lengthChange: true,
 				bFilter: false,
 				pageLength: 10,
 				columnDefs: [
@@ -338,9 +352,9 @@
 
 			//Datatable education
 			var table = $('#datatable-education').DataTable({
-				lengthChange: false,
+				lengthChange: true,
 				bFilter: false,
-				pageLength: 5,
+				pageLength: 10,
 				columnDefs: [
 					{
 						orderable: false,
@@ -358,9 +372,9 @@
 
 			//Datatable parents
 			var table = $('#datatable-parents').DataTable({
-				lengthChange: false,
+				lengthChange: true,
 				bFilter: false,
-				pageLength: 5,
+				pageLength: 10,
 				columnDefs: [
 					{
 						orderable: false,
@@ -376,9 +390,29 @@
 			});
 			// End datatable parents
 
+			//Datatable organizations
+			var table = $('#datatable-organizations').DataTable({
+				lengthChange: true,
+				bFilter: false,
+				pageLength: 10,
+				columnDefs: [
+					{
+						orderable: false,
+						targets: 0
+					}
+				],
+				order: [[ 2, "asc" ]],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable organizations
+
 			//Datatable owns
             var table = $('#datatable-owns').DataTable({
-                lengthChange: false,
+                lengthChange: true,
                 pageLength: 10,
                 columnDefs: [
 				    {
@@ -397,9 +431,9 @@
 
 			//Datatable orders
 			var table = $('#datatable-orders').DataTable({
-				lengthChange: false,
+				lengthChange: true,
 				bFilter: false,
-				pageLength: 5,
+				pageLength: 10,
 				columnDefs: [
 					{
 						orderable: false,
@@ -417,7 +451,7 @@
             
             //Datatable memberOF
             var table = $('#datatable-memberOf').DataTable({
-                lengthChange: false,
+                lengthChange: true,
                 pageLength: 10,
                 columnDefs: [
 				    {
@@ -436,9 +470,9 @@
 
 			//Datatable review
 			var table = $('#datatable-review').DataTable({
-				lengthChange: false,
+				lengthChange: true,
 				bFilter: false,
-				pageLength: 5,
+				pageLength: 10,
 				columnDefs: [
 					{
 						orderable: false,
@@ -456,7 +490,7 @@
 
             //Datatable Logs
             var table = $('#datatable-logs').DataTable({
-                lengthChange: false,
+                lengthChange: true,
                 pageLength: 10,
                 columnDefs: [
 				    {

@@ -20,7 +20,11 @@
         </tr>
         <tr>
             <td><b>{% trans %}Email{% endtrans %}</b></td>
-            <td><a href="mailto:{{data.email}}" target="_blank">{{data.email}}</a></td>
+            <td>{{data.email}}
+                {%if data.email is not empty %}
+                    <a href="mailto:{{ data.email }}"><i class="mdi mdi-email-send text-primary" style="font-size: large; line-height: 1.3;"></i></a>
+                {% endif %}
+            </td>
         </tr>
         <tr>
             <td><b>{% trans %}Telephone{% endtrans %}</b></td>

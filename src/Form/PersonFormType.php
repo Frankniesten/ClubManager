@@ -42,7 +42,7 @@ class PersonFormType extends AbstractType
 	    		[
 	    			'required' => false, 
 	    			'attr' => ['class' => 'select2'], 
-	    			'placeholder' => 'Selecteer...', 
+	    			'placeholder' => 'Select...',
 	    			'choices'  => array(
 			        	'Male' => 'Male',
 						'Female' => 'Female')
@@ -71,7 +71,7 @@ class PersonFormType extends AbstractType
 				[
 		    		'required' => false,
 		    		'attr' => ['class' => 'select2'],
-					'placeholder' => 'Selecteer...',
+					'placeholder' => 'Select...',
 				])
 			->add('alumni', CheckboxType::class, 
 				[
@@ -87,7 +87,7 @@ class PersonFormType extends AbstractType
 				        	->setParameter('additionalType', 'person')
 				            ->orderBy('u.name', 'ASC');
 				    },
-				    'placeholder' => 'Selecteer...',
+				    'placeholder' => 'Select...',
 				    'choice_label' => 'name',
 				    'required' => true,
 				    'attr' => ['class' => 'select2']

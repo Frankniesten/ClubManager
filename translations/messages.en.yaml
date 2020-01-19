@@ -14,7 +14,7 @@ Data: Data
 Date achieved: Date achieved
 Date: Date
 Delete: Delete
-Delete_message: Are you sure you want to delete this item:
+Delete_message: 'Are you sure you want to delete this item:'
 Description: Description
 Edit: Edit
 Education: Training
@@ -53,6 +53,7 @@ Navbar_statistics: Statistics
 New: New
 Not_applicable: Not applicable.
 Orders: Orders
+Order: Order
 Orders_add: Add order
 Orders_article: Article
 Orders_order_status: Order status
@@ -90,7 +91,7 @@ ProgramMemberships: Roles
 ProgramMemberships_role: Role
 Reviews: Notes
 Save: Save
-Selecteer...: Select...
+Select...: Select...
 Start date: Start date
 Street address: Street
 Success: 'Success:'
@@ -109,3 +110,22 @@ flash_message_create: has been created!
 flash_message_delete: has been deleted!
 flash_message_edit: has been updated!
 orders_edit: Edit order
+Order date: Order date
+Order status: Order status
+Waiting for payment: Waiting for payment
+Refunded: Refunded
+On hold: On hold
+Canceled: Canceled
+Finished: Finished
+In progress: In progress
+Orders_edit: Edit order
+MemberOf_edit: Edit Roles
+Member of: Roles
+MemberOf_updated: Roles have been updated!
+Review_add: Add note
+Review_edit: Edit note
+Review aspect: Title
+Review body: Note
+Organizations: Organizations
+Organizations_add: Add organizations
+Organizations_edit: Edit Organizations

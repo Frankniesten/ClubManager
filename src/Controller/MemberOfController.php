@@ -2,31 +2,30 @@
 
 namespace App\Controller;
 
-use App\Entity\ProgramMembership;
 use App\Entity\Person;
 use App\Form\MemberOfFormType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class MemberOfController extends AbstractController
 {
     /**
-    * @Route("/person/{id}/memberof/create", name="app_person_memberOf_edit")
+    * @Route("/person/{id}/memberof/create", name="person_memberOf")
     * @IsGranted("ROLE_PERSON_EDIT")
     */
-    public function edit(EntityManagerInterface $em, Request $request, $id)
+    public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {
 	    //get person object.
 	    $em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
 		
 		if (!$person) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
 	    
 		//generate Form.
@@ -42,12 +41,12 @@ class MemberOfController extends AbstractController
 			$em->persist($person);
 			$em->flush();
            
-			$this->addFlash('success', 'Rol bij: '.$person->getFamilyName().', '.$person->getGivenName().' '.$person->getAdditionalName().'aangepast!');
+			$this->addFlash('success', $translator->trans('MemberOf_updated'));
 					
-			return $this->redirectToRoute('app_person_memberOf', array('id' => $id));			
+			return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'memberOf'));
 		}
 
-		return $this->render('member_of/memberofForm.html.twig', [
+		return $this->render('person/person-memberofForm.html.twig', [
         	'form' => $form->createView(),
         	'id' => $id
 		]);	

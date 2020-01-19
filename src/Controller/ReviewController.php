@@ -11,19 +11,19 @@ use App\Entity\Event;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ReviewFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class ReviewController extends AbstractController
 {
     /**
-	* @Route("/{entity}/{id}/review/create", name="app_person_review_create")
+	* @Route("/{entity}/{id}/review/create", name="review_create")
 	* @IsGranted("ROLE_REVIEW_CREATE")
 	*/
-	public function new (EntityManagerInterface $em, Request $request, $entity, $id)
+	public function new (EntityManagerInterface $em, Request $request, $entity, $id, TranslatorInterface $translator)
 	{
 	    $em = $this->getDoctrine()->getManager();
 	    
@@ -49,7 +49,7 @@ class ReviewController extends AbstractController
 	    }
 	    
 	    if (!$data) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
 	    
 	    $form = $this->createForm(ReviewFormType::class);
@@ -65,31 +65,31 @@ class ReviewController extends AbstractController
 			$em->persist($data);
 			$em->flush();
 			
-			$this->addFlash('success', 'Notitie is toegevoegd!');
+			$this->addFlash('success', $review->getReviewAspect() . ' ' . $translator->trans('flash_message_create'));
 			
 			if ($entity == 'person') 
 		    {
-			    return $this->redirectToRoute('app_person', array('id' => $id));    
+			    return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'review'));
 		    }
 		    if ($entity == 'organization') 
 		    {
-			    return $this->redirectToRoute('app_organization', array('id' => $id));    
+			    return $this->redirectToRoute('organization_id', array('id' => $id, '_fragment' => 'review'));
 		    }	
 		    if ($entity == 'product') 
 		    {
-			    return $this->redirectToRoute('app_product', array('id' => $id));    
+			    return $this->redirectToRoute('app_product', array('id' => $id, '_fragment' => 'review'));
 		    }
 		    if ($entity == 'event') 
 		    {
-			    return $this->redirectToRoute('app_event', array('id' => $id));    
+			    return $this->redirectToRoute('app_event', array('id' => $id, '_fragment' => 'review'));
 		    }
 		    if ($entity == 'service') 
 		    {
-			    return $this->redirectToRoute('app_service', array('id' => $id));    
+			    return $this->redirectToRoute('app_service', array('id' => $id, '_fragment' => 'review'));  
 		    }					
 		}
 		
-		return $this->render('review/reviewForm.html.twig', [
+		return $this->render('global/reviewForm.html.twig', [
 	    	'form' => $form->createView(),
 	    	'id' => $id
 		]);
@@ -97,16 +97,16 @@ class ReviewController extends AbstractController
 	
 
 	/**
-	* @Route("/{entity}/{id}/review/{reviewID}/edit", name="app_review_edit")
+	* @Route("/{entity}/{id}/review/{reviewID}/edit", name="review_edit")
 	* @IsGranted("ROLE_REVIEW_EDIT")
 	*/
-	public function edit(EntityManagerInterface $em, Request $request, $entity, $id, $reviewID)
+	public function edit(EntityManagerInterface $em, Request $request, $entity, $id, $reviewID, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$review = $em->getRepository(Review::class)->find($reviewID);
 		
 		if (!$review) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
 		        
 		$form = $this->createForm(ReviewFormType::class, $review);
@@ -119,31 +119,31 @@ class ReviewController extends AbstractController
 			$em->persist($review);
 			$em->flush();
            
-			$this->addFlash('success', 'Notitie is bijgewerkt!');
+			$this->addFlash('success', $review->getReviewAspect() . ' ' . $translator->trans('flash_message_edit'));
 			
 			if ($entity == 'person') 
 		    {
-			    return $this->redirectToRoute('app_person', array('id' => $id));    
-		    }
+			    return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'review'));
+            }
 		    if ($entity == 'organization') 
 		    {
-			    return $this->redirectToRoute('app_organization', array('id' => $id));    
-		    }
+			    return $this->redirectToRoute('organization_id', array('id' => $id, '_fragment' => 'review'));
+            }
 		    if ($entity == 'product') 
 		    {
-			    return $this->redirectToRoute('app_product', array('id' => $id));    
+			    return $this->redirectToRoute('app_product', array('id' => $id, '_fragment' => 'review'));   
 		    }
 		    if ($entity == 'event') 
 		    {
-			    return $this->redirectToRoute('app_event', array('id' => $id));    
+			    return $this->redirectToRoute('app_event', array('id' => $id, '_fragment' => 'review'));   
 		    }
 		    if ($entity == 'service') 
 		    {
-			    return $this->redirectToRoute('app_service', array('id' => $id));    
+			    return $this->redirectToRoute('app_service', array('id' => $id, '_fragment' => 'review'));   
 		    }			
 		}
 		
-		return $this->render('review/reviewForm.html.twig', [
+		return $this->render('global/reviewForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $review,
         	'id' => $id,
@@ -153,43 +153,43 @@ class ReviewController extends AbstractController
 	}
 	
 	/**
-	* @Route("/{entity}/{id}/review/{reviewID}/delete", name="app_review_delete")
+	* @Route("/{entity}/{id}/review/{reviewID}/delete", name="review_delete")
 	* @IsGranted("ROLE_REVIEW_DELETE")
 	*/
-	public function delete(EntityManagerInterface $em, Request $request, $entity, $id, $reviewID)
+	public function delete(EntityManagerInterface $em, Request $request, $entity, $id, $reviewID, TranslatorInterface $translator)
 	{
 		
 		$em = $this->getDoctrine()->getManager();
 		$review = $em->getRepository(Review::class)->find($reviewID);
 		
 		if (!$review) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
 		        
 		$em->remove($review);
 		$em->flush();
 		
-		$this->addFlash('success', 'Notitie is verwijderd!');
+		$this->addFlash('success', $review->getReviewAspect() . ' ' . $translator->trans('flash_message_delete'));
 		
 		if ($entity == 'person') 
 	    {
-		    return $this->redirectToRoute('app_person', array('id' => $id));    
+		    return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'review'));
 	    }
 	    if ($entity == 'product') 
 	    {
-		    return $this->redirectToRoute('app_product', array('id' => $id));    
+		    return $this->redirectToRoute('app_product', array('id' => $id, '_fragment' => 'review'));    
 	    }	
 	    if ($entity == 'organization') 
 	    {
-		    return $this->redirectToRoute('app_organization', array('id' => $id));    
+		    return $this->redirectToRoute('organization_id', array('id' => $id, '_fragment' => 'review'));
 	    }	
 	    if ($entity == 'service') 
 	    {
-		    return $this->redirectToRoute('app_service', array('id' => $id));    
+		    return $this->redirectToRoute('app_service', array('id' => $id, '_fragment' => 'review'));
 	    }	
 	    if ($entity == 'event') 
 	    {
-		    return $this->redirectToRoute('app_event', array('id' => $id));    
+		    return $this->redirectToRoute('app_event', array('id' => $id, '_fragment' => 'review'));   
 	    }	
 	}     
 }
