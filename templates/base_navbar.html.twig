@@ -15,20 +15,28 @@
             <li class="nav-item {{ app.request.get('_route') == 'dashboard' ? 'active' }}">
                 <a class="nav-link" href="{{ path('dashboard') }}"><i class="mdi mdi-view-dashboard"></i> {% trans %}Navbar_dashboard{% endtrans %}</a>
             </li>
-            <li class="nav-item {{  'person' in app.request.get('_route') ? 'active' }}">
-                <a class="nav-link" href="{{ path('person') }}"><i class="mdi mdi-account-multiple"></i> {% trans %}Navbar_person{% endtrans %}<span class="sr-only">(current)</span></a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Relationships
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="nav-link {{  'person' in app.request.get('_route') ? 'active' }}" href="{{ path('person') }}"><i class="mdi mdi-account-multiple"></i> {% trans %}Navbar_person{% endtrans %}<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ path('organization') }}"><i class="mdi mdi-factory"></i> {% trans %}Navbar_organizations{% endtrans %}<span class="sr-only">(current)</span></a>
+                    <div class="dropdown-divider"></div>
+                    <a class="nav-link {{  'role' in app.request.get('_route') ? 'active' }}" href="{{ path('person') }}"><i class="mdi mdi-account-multiple"></i> {% trans %}Navbar_person{% endtrans %}<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ path('organization') }}"><i class="mdi mdi-factory"></i> {% trans %}Navbar_organizations{% endtrans %}<span class="sr-only">(current)</span></a>
+                </div>
             </li>
-            <li class="nav-item {{  'organization' in app.request.get('_route') ? 'active' }}">
-                <a class="nav-link" href="{{ path('organization') }}"><i class="mdi mdi-factory"></i> {% trans %}Navbar_organizations{% endtrans %}<span class="sr-only">(current)</span></a>
-            </li>
+
+
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="mdi mdi-calendar"></i> {% trans %}Navbar_calendar{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="mdi mdi-bugle"></i> {% trans %}Navbar_products{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-cart"></i> {% trans %}Navbar_services{% endtrans %}<span class="sr-only">(current)</span></a>
+            <li class="nav-item {{  'service' in app.request.get('_route') ? 'active' }}">
+                <a class="nav-link" href="{{ path('service') }}"><i class="mdi mdi-cart"></i> {% trans %}Navbar_services{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Navbar_statistics{% endtrans %}<span class="sr-only">(current)</span></a>

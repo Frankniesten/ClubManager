@@ -35,7 +35,7 @@
                 {% endif %}
 
                 {% if 'service' in app.request.uri %}
-                    <a href="{{ path('app_service', {'id': id}) }}#review" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+                    <a href="{{ path('service_id', {'id': id}) }}#review" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
                 {% endif %}
 
             </div>

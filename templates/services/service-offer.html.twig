@@ -1,0 +1,62 @@
+{%if data.offers is not empty %}
+    <!--Table -->
+    <table id="datatable-offers" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th width="20px"></th>
+            <th>{% trans %}Name{% endtrans %}</th>
+            <th class="desktop">{% trans %}Email{% endtrans %}</th>
+            <th class="desktop">{% trans %}Category{% endtrans %}</th>
+            <th>{% trans %}Name{% endtrans %}</th>
+            <th class="desktop">{% trans %}Email{% endtrans %}</th>
+            <th class="desktop">{% trans %}Category{% endtrans %}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for offers in data.offers %}
+            <tr>
+                <td align="center">
+                    <!-- Dropdown menu -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('offer_edit', { 'id': data.id, 'offerID': offers.id}) }}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path('offer_delete', { 'id': data.id, 'offerID': offers.id}) }}"
+                               onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ offers.alternateName }}');"><i
+                                        class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                        </div>
+                    </div>
+                    <!-- End dropdown menu -->
+                </td>
+                <td>
+                    {{ offers.alternateName }}
+                </td>
+                <td>
+                    € {{ offers.price|number_format(2, '.','') }}
+                </td>
+                <td>
+                    {{ offers.availability }}
+                </td>
+                <td>
+                    {{ offers.inventoryLevel }}
+                </td>
+                <td>
+                    {{ offers.validFrom is empty ? "" : offers.validFrom|date("d-m-Y") }} -
+                    {{ offers.validThrough is empty ? "" : offers.validThrough|date("d-m-Y") }}
+                </td>
+                <td>
+                    {{ offers.availabilityStarts is empty ? "" : offers.availabilityStarts|date("d-m-Y") }} -
+                    {{ offers.availabilityEnds is empty ? "" : offers.availabilityEnds|date("d-m-Y") }}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% else %}
+    <div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
+{% endif %}

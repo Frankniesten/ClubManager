@@ -8,21 +8,23 @@ use App\Form\ServiceFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ServicesController extends AbstractController
 {
     /**
-     * @Route("/services", name="app_services")
+     * @Route("/service", name="service")
      * @IsGranted("ROLE_SERVICES_VIEW")
      */
     public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
     {
+        $query = null;
+
 	    //Check categorie:       
-	    if ($query = $request->query->get('query'))
+	    if ($query = $request->query->get('category'))
 	    {
 		    $session->set('service_query', $query);
 	    }
@@ -56,31 +58,12 @@ class ServicesController extends AbstractController
         	'query' => $query
         ]);
     }
-    
+
     /**
-     * @Route("/service/{id}", name="app_service")
-     * @IsGranted("ROLE_SERVICES_VIEW")
-     */
-	public function show(EntityManagerInterface $em, Request $request, $id)
-	{
-		$em = $this->getDoctrine()->getManager();
-		$service = $em->getRepository(Service::class)->find($id);
-		
-		if (!$service) {
-        	throw $this->createNotFoundException('Dit product bestaat niet.');
-    	}
-    			        
-		return $this->render('services/service.html.twig', [
-        	'data' => $service
-		]);
-	}
-    
-    
-    /**
-     * @Route("/service/create", name="app_service_create")
+     * @Route("/service/create", name="service_create")
      * @IsGranted("ROLE_SERVICES_CREATE")
      */
-	public function new(EntityManagerInterface $em, Request $request)
+	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
 		$form = $this->createForm(ServiceFormType::class);
 		
@@ -92,28 +75,52 @@ class ServicesController extends AbstractController
 			$em->persist($service);
 			$em->flush();
 			$id = $service->getId();
-           
-			//$this->addFlash('success', $service->getName(). ' is nieuw toegevoegd!');
-			
-			return $this->redirectToRoute('app_service', array('id' => $id));			
+
+            $this->addFlash('success', $service->getServiceType(). ' ' . $translator->trans('flash_message_create'));
+
+            return $this->redirectToRoute('service_id', array('id' => $id));
 		}
 		
 		return $this->render('services/serviceForm.html.twig', [
         	'form' => $form->createView()
 		]);
 	}
+
+    /**
+     * @Route("/service/{id}", name="service_id")
+     * @IsGranted("ROLE_SERVICES_VIEW")
+     */
+    public function show(EntityManagerInterface $em, Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $service = $em->getRepository(Service::class)->find($id);
+
+        if (!$service) {
+            throw $this->createNotFoundException();
+        }
+
+        //Call Log File:
+        $repo = $em->getRepository('Gedmo\Loggable\Entity\LogEntry');
+        $log = $em->find('App\Entity\Service', $id);
+        $logs = $repo->getLogEntries($log);
+
+        return $this->render('services/service.html.twig', [
+            'data' => $service,
+            'logs' => $logs
+        ]);
+    }
 	
 	/**
-     * @Route("/servcie/{id}/edit", name="app_service_edit")
+     * @Route("/service/{id}/edit", name="service_edit")
      * @IsGranted("ROLE_SERVICES_EDIT")
      */
-	public function edit(EntityManagerInterface $em, Request $request, $id)
+	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$service = $em->getRepository(Service::class)->find($id);
 		
 		if (!$service) {
-        	throw $this->createNotFoundException('Deze dienst bestaat niet.');
+        	throw $this->createNotFoundException();
     	}
 		            
 		$form = $this->createForm(ServiceFormType::class, $service);
@@ -125,10 +132,10 @@ class ServicesController extends AbstractController
 			
 			$em->persist($service);
 			$em->flush();
-           
-			$this->addFlash('success', $service->getServiceType(). ' is bijgewerkt!');
+
+            $this->addFlash('success', $service->getServiceType(). ' ' . $translator->trans('flash_message_edit'));
 			
-			return $this->redirectToRoute('app_service', array('id' => $id));			
+			return $this->redirectToRoute('service_id', array('id' => $id));
 		}
 		
 		return $this->render('services/serviceForm.html.twig', [
@@ -141,22 +148,20 @@ class ServicesController extends AbstractController
      * @Route("/service/{id}/delete", name="service_delete")
      * @IsGranted("ROLE_SERVICES_DELETE")
      */
-	public function del(EntityManagerInterface $em, Request $request, $id)
+	public function del(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$service = $em->getRepository(Service::class)->find($id);
 		
 		if (!$service) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
 
 			$em->remove($service);
 			$em->flush();
-           
-			$this->addFlash('success', 'Dienst is verwijderd!');
+
+        $this->addFlash('warning', $service->getServiceType(). ' ' . $translator->trans('flash_message_delete'));
 			
-			return $this->redirectToRoute('app_services');			
+			return $this->redirectToRoute('service');
 	}
-
-
 }

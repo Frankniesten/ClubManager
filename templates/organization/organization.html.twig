@@ -2,7 +2,7 @@
 
 {% block sidebar %}
 	<li class="nav-item">
-		<a class="nav-link" href="#info"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Organization_nav_organization_information{% endtrans %}</a>
+		<a class="nav-link" href="#info"><i class="mdi mdi-factory"></i> {% trans %}Organization_nav_organization_information{% endtrans %}</a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="#employee"><i class="mdi mdi-account-tie"></i> {% trans %}Employees{% endtrans %}
@@ -69,7 +69,7 @@
 	<div class="card">
 		<div class="card-header" id="info">
 			<span class="align-middle">
-				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Organization_nav_organization_information{% endtrans %}
+				<i class="mdi mdi-factory"></i> {% trans %}Organization_nav_organization_information{% endtrans %}
 			</span>
 			<a class="btn btn-primary btn-sm float-right" href="{{ path('organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 		</div>
@@ -90,7 +90,7 @@
 		<div class="card-header" id="employee">
 			<span class="align-middle">
 				<i class="mdi mdi-account-tie"></i> {% trans %}Employees{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('organization_employee_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('organization_employee_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -105,7 +105,7 @@
 		<div class="card-header" id="tags">
 			<span class="align-middle">
 				<i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			</span>
 		</div>
 
@@ -120,7 +120,7 @@
 		<div class="card-header" id="review">
 			<span class="align-middle">
 				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'organization', 'id': data.id} ) }}" role="button"><i class="mdi mdi-plus"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'organization', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			</span>
 		</div>
 		<div class="card-body">

@@ -85,7 +85,7 @@ class ReviewController extends AbstractController
 		    }
 		    if ($entity == 'service') 
 		    {
-			    return $this->redirectToRoute('app_service', array('id' => $id, '_fragment' => 'review'));  
+			    return $this->redirectToRoute('service_id', array('id' => $id, '_fragment' => 'review'));
 		    }					
 		}
 		
@@ -139,7 +139,7 @@ class ReviewController extends AbstractController
 		    }
 		    if ($entity == 'service') 
 		    {
-			    return $this->redirectToRoute('app_service', array('id' => $id, '_fragment' => 'review'));   
+			    return $this->redirectToRoute('service_id', array('id' => $id, '_fragment' => 'review'));
 		    }			
 		}
 		
@@ -185,7 +185,7 @@ class ReviewController extends AbstractController
 	    }	
 	    if ($entity == 'service') 
 	    {
-		    return $this->redirectToRoute('app_service', array('id' => $id, '_fragment' => 'review'));
+		    return $this->redirectToRoute('service_id', array('id' => $id, '_fragment' => 'review'));
 	    }	
 	    if ($entity == 'event') 
 	    {
