@@ -127,7 +127,7 @@
 			<span class="align-middle">
 				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Person_nav_personal_information{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 		</div>
 
 		<div class="card-body">
@@ -148,7 +148,7 @@
 			<span class="align-middle">
 				<i class="mdi mdi-account-star-outline"></i> {% trans %}Person_nav_membership{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 		</div>
 		<div class="card-body">
 			{{ include('person/person-membership.html.twig', { 'data': data }) }}
@@ -163,7 +163,7 @@
 			<span class="align-middle">
 						<i class="mdi mdi-bugle"></i> {% trans %}Person_nav_musicalInstrument{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_musicalInstrument', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_musicalInstrument', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 		</div>
 		<div class="card-body">
 			{{ include('person/person-musicalInstrument.html.twig', { 'data': data }) }}
@@ -178,7 +178,7 @@
 			<span class="align-middle">
 				<i class="mdi mdi-school-outline"></i> {% trans %}Person_nav_education{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_education_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_education_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 		</div>
 		<div class="card-body">
 			{{ include('person/person-education.html.twig', { 'data': data }) }}
@@ -192,7 +192,7 @@
 		<div class="card-header" id="parents">
 			<span class="align-middle">
 				<i class="mdi mdi-account-supervisor"></i> {% trans %}Person_nav_parents{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -208,7 +208,7 @@
 		<div class="card-header" id="organizations">
 			<span class="align-middle">
 				<i class="mdi mdi-autorenew"></i> {% trans %}Organizations{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'person_organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'person_organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -224,7 +224,7 @@
 		<div class="card-header" id="owns">
 			<span class="align-middle">
 				<i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'owns_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'owns_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -239,7 +239,7 @@
 		<div class="card-header" id="order">
 			<span class="align-middle">
 				<i class="mdi mdi-cart-arrow-down"></i> {% trans %}Orders{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_order_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-plus"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_order_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -254,7 +254,7 @@
 		<div class="card-header" id="memberOf">
 			<span class="align-middle">
 				<i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_memberOf', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_memberOf', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -269,7 +269,7 @@
 		<div class="card-header" id="tags">
 			<span class="align-middle">
 				<i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="}" role="button"><i class="mdi mdi-pencil"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			</span>
 		</div>
 
@@ -284,7 +284,7 @@
 		<div class="card-header" id="review">
 			<span class="align-middle">
 				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'person', 'id': data.id} ) }}" role="button"><i class="mdi mdi-plus"></i></a>
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'person', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			</span>
 		</div>
 		<div class="card-body">
@@ -332,7 +332,7 @@
 
 			//Datatable membership
 			var table = $('#datatable-membership').DataTable({
-				lengthChange: true,
+				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
 				columnDefs: [
@@ -352,7 +352,7 @@
 
 			//Datatable education
 			var table = $('#datatable-education').DataTable({
-				lengthChange: true,
+				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
 				columnDefs: [
@@ -372,7 +372,7 @@
 
 			//Datatable parents
 			var table = $('#datatable-parents').DataTable({
-				lengthChange: true,
+				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
 				columnDefs: [
@@ -392,7 +392,7 @@
 
 			//Datatable organizations
 			var table = $('#datatable-organizations').DataTable({
-				lengthChange: true,
+				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
 				columnDefs: [
@@ -412,7 +412,7 @@
 
 			//Datatable owns
             var table = $('#datatable-owns').DataTable({
-                lengthChange: true,
+                lengthChange: false,
                 pageLength: 10,
                 columnDefs: [
 				    {
@@ -431,7 +431,7 @@
 
 			//Datatable orders
 			var table = $('#datatable-orders').DataTable({
-				lengthChange: true,
+				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
 				columnDefs: [
@@ -451,7 +451,7 @@
             
             //Datatable memberOF
             var table = $('#datatable-memberOf').DataTable({
-                lengthChange: true,
+                lengthChange: false,
                 pageLength: 10,
                 columnDefs: [
 				    {
@@ -470,8 +470,7 @@
 
 			//Datatable review
 			var table = $('#datatable-review').DataTable({
-				lengthChange: true,
-				bFilter: false,
+				lengthChange: false,
 				pageLength: 10,
 				columnDefs: [
 					{
@@ -490,7 +489,7 @@
 
             //Datatable Logs
             var table = $('#datatable-logs').DataTable({
-                lengthChange: true,
+                lengthChange: false,
                 pageLength: 10,
                 columnDefs: [
 				    {

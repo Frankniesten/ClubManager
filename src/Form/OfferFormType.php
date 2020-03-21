@@ -2,18 +2,16 @@
 	
 namespace App\Form;
 
-use App\Entity\Service;
 use App\Entity\Offer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 
 class OfferFormType extends AbstractType
 {
@@ -22,7 +20,7 @@ class OfferFormType extends AbstractType
 	    $builder
 	    	->add('alternateName', TextType::class, ['required' => true])
 	    	->add('price', MoneyType::class, ['required' => true, 'grouping' => false])
-	    	->add('inventoryLevel', TextType::class, ['required' => false])
+	    	->add('inventoryLevel', IntegerType::class, ['required' => false])
 	    	->add('availability', ChoiceType::class, [
 	    		'required' => true,
 	    		'placeholder' => 'Select...',
@@ -33,10 +31,32 @@ class OfferFormType extends AbstractType
 			        'In stock' => 'In stock',
 			        'Out of stock' => 'Out of stock',
 			        'Reorder' => 'Reorder')])
-			->add('validFrom', DateType::class, ['required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-			->add('validThrough', DateType::class, ['required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-			->add('availabilityStarts', DateType::class, ['required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-			->add('availabilityEnds', DateType::class, ['required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
+			->add('validFrom', DateType::class, [
+			    'required' => true,
+                'widget' => 'single_text',
+                'html5' => false,
+                'format' => 'dd-MM-yyyy',
+                'help' => 'ValidFrom-help'
+            ])
+			->add('validThrough', DateType::class, [
+			    'required' => true,
+                'widget' => 'single_text',
+                'html5' => false,
+                'format' => 'dd-MM-yyyy'
+                ])
+			->add('availabilityStarts', DateType::class, [
+			    'required' => true,
+                'widget' => 'single_text',
+                'html5' => false,
+                'format' => 'dd-MM-yyyy',
+                'help' => 'AvailabilityStarts-help'
+            ])
+			->add('availabilityEnds', DateType::class, [
+			    'required' => true,
+                'widget' => 'single_text',
+                'html5' => false,
+                'format' => 'dd-MM-yyyy'
+            ])
 	    	;
 	} 
 	

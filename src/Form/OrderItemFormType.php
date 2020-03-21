@@ -19,11 +19,12 @@ class OrderItemFormType extends AbstractType
 	    	->add('orderQuantity', IntegerType::class, array( 'required' => true))
 			->add('orderedItem', EntityType::class, array(
 					    'class' => Offer::class,
-					    'query_builder' => function (EntityRepository $er) {
-					        return $er->createQueryBuilder('u')
-
-					            ->orderBy('u.alternateName', 'ASC');
-					    },
+                        'query_builder' => function (EntityRepository $er) {
+                            return $er->createQueryBuilder('u')
+                                ->where('u.validFrom < :now AND u.validThrough > :now')
+                                ->setParameter('now', new \DateTime('now'))
+                                ->orderBy('u.alternateName', 'ASC');
+                        },
 					    'choice_label' => 'alternateName',
 					    'required' => true,
 					    'multiple' => false,

@@ -8,7 +8,6 @@ use App\Form\OfferFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -29,7 +28,6 @@ class OffersController extends AbstractController
     	} 
 
 		$form = $this->createForm(OfferFormType::class);
-		
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
@@ -42,7 +40,7 @@ class OffersController extends AbstractController
 			$em->persist($data);
 			$em->flush();
 
-            $this->addFlash('succes', $offer->getItemOffered(). ' ' . $translator->trans('flash_message_create'));
+            $this->addFlash('success', $offer->getAlternateName(). ' ' . $translator->trans('flash_message_create'));
 			
 			return $this->redirectToRoute('service_id', array('id' => $id));
 		}
@@ -77,7 +75,7 @@ class OffersController extends AbstractController
 			$em->persist($offer);
 			$em->flush();
 
-            $this->addFlash('succes', $offer->getItemOffered(). ' ' . $translator->trans('flash_message_edit'));
+            $this->addFlash('success', $offer->getAlternateName(). ' ' . $translator->trans('flash_message_edit'));
 			
 			return $this->redirectToRoute('service_id', array('id' => $id));
 		}
@@ -106,7 +104,7 @@ class OffersController extends AbstractController
 		$em->remove($offer);
 		$em->flush();
 
-        $this->addFlash('warning', $offer->getItemOffered(). ' ' . $translator->trans('flash_message_delete'));
+        $this->addFlash('warning', $offer->getAlternateName(). ' ' . $translator->trans('flash_message_delete'));
 		
 		return $this->redirectToRoute('service_id', array('id' => $id));
 	}   

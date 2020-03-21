@@ -45,6 +45,7 @@ Navbar_calendar: Calendar
 Navbar_contacts: Contacts
 Navbar_dashboard: Dashboard
 Navbar_organizations: Organizations
+Navbar_relations: Relations
 Navbar_person: Persons
 Navbar_products: Inventory
 Navbar_services: Services
@@ -138,3 +139,15 @@ Service type: Name of service
 Available channel: The service is available via the communication channel
 Regular: Regular
 Webshop: Webshop
+Channel: Channel
+Alternate name: Offer
+Price: Price
+Inventory level: Inventory level
+Availability: Availability
+Valid from: Valid from
+ValidFrom-help: The date when the item becomes valid.
+Availability starts: Availability starts
+AvailabilityStarts-help: The beginning of the availability of service.
+In stock: In stock
+Out of stock: Out of stock
+Reorder: Reorder
