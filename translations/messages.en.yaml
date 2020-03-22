@@ -47,6 +47,7 @@ Navbar_dashboard: Dashboard
 Navbar_organizations: Organizations
 Navbar_relations: Relations
 Navbar_person: Persons
+Navbar_roles: Roles
 Navbar_products: Inventory
 Navbar_services: Services
 Navbar_settings: Settings
@@ -68,6 +69,7 @@ Parents: Parents
 Parents_add: Add parents
 Parents_edit: Edit parents
 Person: Person
+Persons: Persons
 Person_add: Add Person
 Person_nav_all: All Persons
 Person_nav_education: Education
@@ -151,3 +153,6 @@ AvailabilityStarts-help: The beginning of the availability of service.
 In stock: In stock
 Out of stock: Out of stock
 Reorder: Reorder
+Role_add: Add Role
+View: View
+Role_add_persons: Add persons to role
