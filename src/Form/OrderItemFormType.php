@@ -21,8 +21,6 @@ class OrderItemFormType extends AbstractType
 					    'class' => Offer::class,
                         'query_builder' => function (EntityRepository $er) {
                             return $er->createQueryBuilder('u')
-                                ->where('u.validFrom < :now AND u.validThrough > :now')
-                                ->setParameter('now', new \DateTime('now'))
                                 ->orderBy('u.alternateName', 'ASC');
                         },
 					    'choice_label' => 'alternateName',

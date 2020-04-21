@@ -1,0 +1,138 @@
+{% extends 'base_content_sidebar.html.twig' %}
+
+{% block sidebar %}
+<
+<li class="nav-item">
+    <a class="nav-link" href="#Invoice"><i class="mdi mdi-file-pdf-box-outline"></i> {% trans %}Invoice{% endtrans %}</a>
+</li>
+{% endblock %}
+
+{% block body %}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            <h3>
+                {% trans %}OrderDetails{% endtrans %} #{{ data.id }} - {{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}
+            </h3>
+        </div>
+
+        <div class="p-2">
+            <div class="btn-group btn-group-sm">
+                {% if is_granted('ROLE_PERSON_EDIT') %}
+                    <a class="btn btn-primary" href="{{ path('order') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                    {% if is_granted('ROLE_PERSON_DELETE') %}
+                        <a class="dropdown-item" href="{{ path('order_delete', {'id': data.id}) }}"
+                           onclick="return confirm('{% trans %}Delete_message{% endtrans %} #{{ data.id }}');"><i
+                                    class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Education -->
+    <div class="card">
+
+        <div class="card-header" id="info">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Person_nav_personal_information{% endtrans %}
+			</span>
+            <a class="btn btn-primary btn-sm float-right" href="{{ path('order_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <b>{% trans %}OrderId{% endtrans %}:</b> {{ data.id }}<br>
+                <b>{% trans %}Date{% endtrans %}Datum:</b> {{ data.orderDate ? data.orderDate|date('d-m-Y') }}<br>
+                <b>{% trans %}OrderStatus{% endtrans %}</b>
+                    {% if data.orderStatus == "In progress" %}
+                        <span class="badge badge-info">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "Finished" %}
+                        <span class="badge badge-success">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "Canceled" %}
+                        <span class="badge badge-secondary">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "On hold" %}
+                        <span class="badge badge-danger">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "Refunded" %}
+                        <span class="badge badge-secondary">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "Waiting for payment" %}
+                        <span class="badge badge-primary">{{ data.orderStatus }}</span>
+                    {% endif %}<br>
+                <b>{% trans %}Customer{% endtrans %}:</b>
+                    {%if data.person.familyName is not empty %}
+                        {{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}
+                    {% else %}
+                        -
+                    {% endif %}
+            </p>
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table m-t-30">
+                            <thead>
+                            <tr><th>#</th>
+                                <th>{% trans %}Item{% endtrans %}</th>
+                                <th>{% trans %}Quantity{% endtrans %}</th>
+                                <th>{% trans %}UnitCost{% endtrans %}</th>
+                                <th>{% trans %}Total{% endtrans %}</th>
+                            </tr></thead>
+                            <tbody>
+                            {% set totalPrice = 0 %}
+                            {% for data in data.orderItem %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ data.orderedItem.alternateName}}</td>
+                                <td>{{ data.orderQuantity }}</td>
+                                <td>{{ data.orderedItem.price }}</td>
+                                <td>
+                                    {% set price = data.orderedItem.price %}
+                                    {% set quantity = data.orderQuantity %}
+                                    {% set itemPrice = price * quantity %}
+
+                                    € {{ itemPrice|number_format(2, '.','') }}
+
+                                    {% set totalPrice = totalPrice + itemPrice %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            <thead>
+                            <tr><th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Subtotaal</th>
+                                <th>
+                                    € {{ totalPrice|number_format(2, '.','') }}
+                                </th>
+                            </tr></thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- End Education -->
+
+
+
+{% endblock %}

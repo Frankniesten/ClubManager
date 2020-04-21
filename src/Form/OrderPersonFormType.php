@@ -3,40 +3,20 @@
 namespace App\Form;
 
 use App\Entity\Orders;
-use App\Entity\Offer;
-use App\Entity\Person;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Doctrine\ORM\EntityRepository;
 
 
-class OrderFormType extends AbstractType
+class OrderPersonFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
 	    	->add('orderDate', DateType::class, ['required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-            ->add('person', EntityType::class, [
-                'class' => Person::class,
-                'choice_label' => function (Person $person) { return
-                    $person->getFamilyName(). ', ' .
-                    $person->getGivenName(). ' ' .
-                    $person->getAdditionalName();
-                },
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->orderBy('u.familyName', 'ASC');
-                },
-                'attr' => ['class' => 'select2'],
-                'required' => true,
-                'placeholder' => 'Select...'
-            ])
 			->add('orderStatus', ChoiceType::class, array(
 				'choices'  => array(
 					'In progress' => 'In progress',

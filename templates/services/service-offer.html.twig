@@ -8,7 +8,6 @@
             <th class="desktop">{% trans %}Price{% endtrans %}</th>
             <th class="desktop">{% trans %}Availability{% endtrans %}</th>
             <th>{% trans %}Inventory level{% endtrans %}</th>
-            <th class="desktop">{% trans %}Valid from{% endtrans %}</th>
             <th class="desktop">{% trans %}Availability starts{% endtrans %}</th>
         </tr>
         </thead>
@@ -42,10 +41,6 @@
                 </td>
                 <td>
                     {{ offers.inventoryLevel }}
-                </td>
-                <td>
-                    {{ offers.validFrom is empty ? "" : offers.validFrom|date("d-m-Y") }} -
-                    {{ offers.validThrough is empty ? "" : offers.validThrough|date("d-m-Y") }}
                 </td>
                 <td>
                     {{ offers.availabilityStarts is empty ? "" : offers.availabilityStarts|date("d-m-Y") }} -

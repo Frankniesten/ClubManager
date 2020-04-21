@@ -31,19 +31,6 @@ class OfferFormType extends AbstractType
 			        'In stock' => 'In stock',
 			        'Out of stock' => 'Out of stock',
 			        'Reorder' => 'Reorder')])
-			->add('validFrom', DateType::class, [
-			    'required' => true,
-                'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'dd-MM-yyyy',
-                'help' => 'ValidFrom-help'
-            ])
-			->add('validThrough', DateType::class, [
-			    'required' => true,
-                'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'dd-MM-yyyy'
-                ])
 			->add('availabilityStarts', DateType::class, [
 			    'required' => true,
                 'widget' => 'single_text',

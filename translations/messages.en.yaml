@@ -52,6 +52,7 @@ Navbar_products: Inventory
 Navbar_services: Services
 Navbar_settings: Settings
 Navbar_statistics: Statistics
+Navbar_orders: Orders
 New: New
 Not_applicable: Not applicable.
 Orders: Orders
@@ -156,3 +157,16 @@ Reorder: Reorder
 Role_add: Add Role
 View: View
 Role_add_persons: Add persons to role
+People: Persons
+Customer: Customer
+Status: Status
+Offer: Offer
+Invoice: Invoice
+Order_add: Add Order
+OrderItem: Order item
+OrderDetails: Order details
+OrderStatus: Order status
+OrderId: Order id
+Item: Item
+UnitCost: Unit cost
+Quantity: Quantity

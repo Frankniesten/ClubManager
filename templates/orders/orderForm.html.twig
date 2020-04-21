@@ -1,0 +1,183 @@
+{% import _self as formMacros %}
+
+{% macro printOrderItemRow(form) %}
+
+    <div class="order-item">
+        <div class="row  mb-sm-2">
+            <div class="col-sm-9 align-self-end">
+                {{ form_widget(form.orderedItem) }}
+            </div>
+            <div class="col-sm-2 align-self-end">
+                {{ form_widget(form.orderQuantity) }}
+            </div>
+            <div class="col-sm-1 align-self-end">
+                <a href="#" class="js-remove-orderItem btn btn-primary ">
+                    <i class="mdi mdi-trash-can"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endmacro %}
+
+{% extends 'base_content_full_width.html.twig' %}
+
+
+{% block body %}
+
+    {{ form_start(form) }}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            {% if 'create' in app.request.uri  %}
+                <h3>{% trans %}Orders_add{% endtrans %}</h3>
+            {% endif %}
+            {% if 'edit' in app.request.uri  %}
+                <h3>{% trans %}Orders_edit{% endtrans %}</h3>
+            {% endif %}
+        </div>
+
+        <div class="p-2">
+            <div class="btn-group float-right">
+                <button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+                <a href="{{ path('order') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+            </div>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Content -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.orderDate, {'id': 'datepicker-autoclose1'}) }}
+                </div>
+
+                <div class="col">
+                    {{ form_row(form.orderStatus) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.person) }}
+                </div>
+            </div>
+
+            <div class="order-item">
+                <div class="row  mb-sm-2">
+                    <div class="col-sm-9">
+                        Item<span style="color: red">*</span>
+                    </div>
+                    <div class="col-sm-3">
+                        aantal<span style="color: red">*</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="orderItem_wrapper" data-prototype="{{ formMacros.printOrderItemRow(form.orderItem.vars.prototype)|e('html_attr') }}" data-index="{{ form.orderItem|length }}">
+
+                {% for form in form.orderItem %}
+                    {{ formMacros.printOrderItemRow(form) }}
+                {% endfor %}
+
+                <a href="#" class="js-genus-scientist-add btn btn-primary">
+                    <i class="mdi mdi-plus"></i>Add Order Item
+                </a>
+            </div>
+        </div>
+    </div>
+    {{ form_widget(form.orderItem) }}
+
+    {{ form_end(form) }}
+
+
+    <!-- End Content -->
+
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
+
+    <script language="JavaScript">
+
+        (function ($) {
+            $(document).ready(function() {
+
+                $('.select2').select2({
+                    theme: "bootstrap4",
+                    width: '100%'
+                });
+
+                var $wrapper = $('.orderItem_wrapper');
+
+                $wrapper.on('click', '.js-remove-orderItem', function(e) {
+
+                    e.preventDefault();
+
+                    $(this).closest('.order-item')
+                        .fadeOut()
+                        .remove();
+                });
+
+                $wrapper.on('click', '.js-genus-scientist-add', function(e) {
+                    e.preventDefault();
+
+                    // Get the data-prototype explained earlier
+                    var prototype = $wrapper.data('prototype');
+
+                    // get the new index
+                    var index = $wrapper.data('index');
+
+                    // Replace '__name__' in the prototype's HTML to
+                    // instead be a number based on how many items we have
+                    var newForm = prototype.replace(/__name__/g, index);
+
+                    // increase the index with one for the next item
+                    $wrapper.data('index', index + 1);
+
+                    // Display the form in the page before the "new" link
+                    $(this).before(newForm);
+
+                    dropdown();
+
+                });
+            });
+        })(jQuery);
+
+        function dropdown(){
+            $('.select2').select2({
+                theme: "bootstrap4",
+                width: '100%'
+            });
+        };
+
+    </script>
+
+    <script type="text/javascript">
+
+        jQuery('#datepicker-autoclose1').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+        $('.select3').select2({
+        theme: "bootstrap4",
+        width: '100%'
+        });
+        });
+    </script>
+
+{% endblock %}
