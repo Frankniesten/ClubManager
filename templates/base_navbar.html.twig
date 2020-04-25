@@ -57,7 +57,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item {{ app.request.get('_route') == 'users' ? 'active' }}" href="{{ path('users') }}">{% trans %}Navbar_users{% endtrans %}</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item {{ app.request.get('_route') == 'users' ? 'active' }}" href="{{ path('users') }}">{% trans %}Navbar_categories{% endtrans %}</a>
+                    <a class="dropdown-item {{ app.request.get('_route') == 'category' ? 'active' }}" href="{{ path('category') }}">{% trans %}Navbar_categories{% endtrans %}</a>
                     <a class="dropdown-item {{ app.request.get('_route') == 'users' ? 'active' }}" href="{{ path('users') }}">{% trans %}Navbar_musicalInstrument{% endtrans %}</a>
                     <a class="dropdown-item {{ app.request.get('_route') == 'users' ? 'active' }}" href="{{ path('users') }}">{% trans %}Navbar_venue{% endtrans %}</a>
                 </div>

@@ -15,19 +15,19 @@ class CategoryFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
-	    	->add('name', TextType::class, ['label' => 'Categorie'])
-	    	->add('description', TextType::class, ['label' => 'Omschrijving'])
+	    	->add('name', TextType::class)
+	    	->add('description')
 	    	->add('additionalType', ChoiceType::class, array(
 				'attr' => [
 							'class' => 'select2'
 						],
-				'placeholder' => 'Selecteer...',
+				'placeholder' => 'Select...',
 				'choices'  => array(
-					'Personen' => 'person',
-					'Organisaties' => 'organization',
+					'Persons' => 'person',
+					'Organizations' => 'organization',
 					'Events' => 'event',
-					'Inventaris' => 'product',
-					'Producten' => 'service')));    
+					'Inventory' => 'product',
+					'Service' => 'service')));
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

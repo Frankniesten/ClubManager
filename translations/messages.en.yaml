@@ -1,14 +1,22 @@
-
 Add: Add
 Additional name: Additional name
 Address country: Country
 Address locality: City
 Address: Address
+Alternate name: Offer
 Alumni: Alumni
+Availability starts: Availability starts
+Availability: Availability
+AvailabilityStarts-help: The beginning of the availability of service.
+Available channel: The service is available via the communication channel
 Birth date: Birthdate
+Canceled: Canceled
 Category: Category
 Certificate: Certificate
+Channel: Channel
 Close: Close
+Create: Create
+Customer: Customer
 Danger: 'Danger:'
 Data: Data
 Date achieved: Date achieved
@@ -27,13 +35,24 @@ Employees_add: Add employees
 Employees_edit: Edit employees
 End date: End date
 Event: Event
+Events: Events
 Family name: Last name
 Female: Female
+Finished: Finished
 Gender: Gender
 Given name: First name
+In progress: In progress
+In stock: In stock
+Inventory level: Inventory level
+Inventory: Inventory
+Invoice: Invoice
+Item: Item
 Legal name: Organization
 Lei code: Lei code
 Male: Male
+Member of: Roles
+MemberOf_edit: Edit Roles
+MemberOf_updated: Roles have been updated!
 Membership: Membership
 Membership_add: Add membership
 Membership_edit: Edit membership
@@ -42,35 +61,55 @@ MusicalInstrument_add: Add musical instrument
 MusicalInstrument_edit: Edit musical instrument
 Name: Name
 Navbar_calendar: Calendar
+Navbar_categories: Categories
 Navbar_contacts: Contacts
 Navbar_dashboard: Dashboard
+Navbar_musicalInstrument: Musical instruments
+Navbar_orders: Orders
 Navbar_organizations: Organizations
-Navbar_relations: Relations
 Navbar_person: Persons
-Navbar_roles: Roles
 Navbar_products: Inventory
+Navbar_relations: Relations
+Navbar_roles: Roles
 Navbar_services: Services
 Navbar_settings: Settings
 Navbar_statistics: Statistics
-Navbar_orders: Orders
+Navbar_users: Users
+Navbar_venue: Venues
 New: New
 Not_applicable: Not applicable.
-Orders: Orders
+Notes: Notes
+Offer: Offer
+Offers: Offers
+On hold: On hold
+Order date: Order date
+Order status: Order status
 Order: Order
+OrderDetails: Order details
+OrderId: Order id
+OrderItem: Order item
+OrderStatus: Order status
+Order_add: Add Order
+Orders: Orders
 Orders_add: Add order
 Orders_article: Article
+Orders_edit: Edit order
 Orders_order_status: Order status
 Organization: Organization
 Organization_add: Add Organization
 Organization_nav_all: All Organizations
 Organization_nav_organization_information: Organization information
+Organizations: Organizations
+Organizations_add: Add organizations
+Organizations_edit: Edit Organizations
+Out of stock: Out of stock
 Owned from: Owned from
 Owned trough: Owned till
 Parents: Parents
 Parents_add: Add parents
 Parents_edit: Edit parents
+People: Persons
 Person: Person
-Persons: Persons
 Person_add: Add Person
 Person_nav_all: All Persons
 Person_nav_education: Education
@@ -80,8 +119,10 @@ Person_nav_musicalInstrument: Musical instrument
 Person_nav_parents: Parents
 Person_nav_personal_information: Personal information
 Person_nav_statistics: Statistics
+Persons: Persons
 Post office box number: P.O. Box
 Postal code: zip code
+Price: Price
 Product: Product
 Product_add: Add Product
 Product_edit: Edit Product
@@ -93,10 +134,29 @@ Product_owned_till: Owned Till
 Product_product: Product
 ProgramMemberships: Roles
 ProgramMemberships_role: Role
+Quantity: Quantity
+Refunded: Refunded
+Regular: Regular
+Reorder: Reorder
+Review aspect: Title
+Review body: Note
+Review_add: Add note
+Review_edit: Edit note
 Reviews: Notes
+Role_add: Add Role
+Role_add_persons: Add persons to role
+Roles: Roles
 Save: Save
 Select...: Select...
+Service type: Name of service
+Service: Service
+Service_add: Add Service
+Service_nav_all: All services
+Service_nav_service_information: Service information
+Services: Services
+Settings: Settings
 Start date: Start date
+Status: Status
 Street address: Street
 Success: 'Success:'
 Tags: Tags
@@ -105,84 +165,27 @@ Telephone: Telephone
 Timestamp: Timestamp
 Total: Total
 Typeof good: Product
+UnitCost: Unit cost
+User roles: user roles
 User: User
+User_add: Add User
+Users: Users
+Valid from: Valid from
+ValidFrom-help: The date when the item becomes valid.
 Vat i d: VAT Id
+View: View
+Waiting for payment: Waiting for payment
 Warning: 'Warning:'
+Webshop: Webshop
 Website: Website
 Years: Years
+displayName: Display name
 flash_message_create: has been created!
 flash_message_delete: has been deleted!
 flash_message_edit: has been updated!
 orders_edit: Edit order
-Order date: Order date
-Order status: Order status
-Waiting for payment: Waiting for payment
-Refunded: Refunded
-On hold: On hold
-Canceled: Canceled
-Finished: Finished
-In progress: In progress
-Orders_edit: Edit order
-MemberOf_edit: Edit Roles
-Member of: Roles
-MemberOf_updated: Roles have been updated!
-Review_add: Add note
-Review_edit: Edit note
-Review aspect: Title
-Review body: Note
-Organizations: Organizations
-Organizations_add: Add organizations
-Organizations_edit: Edit Organizations
-Service: Service
-Service_nav_all: All services
-Service_add: Add Service
-Offers: Offers
-Service_nav_service_information: Service information
-Service type: Name of service
-Available channel: The service is available via the communication channel
-Regular: Regular
-Webshop: Webshop
-Channel: Channel
-Alternate name: Offer
-Price: Price
-Inventory level: Inventory level
-Availability: Availability
-Valid from: Valid from
-ValidFrom-help: The date when the item becomes valid.
-Availability starts: Availability starts
-AvailabilityStarts-help: The beginning of the availability of service.
-In stock: In stock
-Out of stock: Out of stock
-Reorder: Reorder
-Role_add: Add Role
-View: View
-Role_add_persons: Add persons to role
-People: Persons
-Customer: Customer
-Status: Status
-Offer: Offer
-Invoice: Invoice
-Order_add: Add Order
-OrderItem: Order item
-OrderDetails: Order details
-OrderStatus: Order status
-OrderId: Order id
-Item: Item
-UnitCost: Unit cost
-Quantity: Quantity
-Navbar_users: Users
-Navbar_categories: Categories
-Navbar_venue: Venues
-Navbar_musicalInstrument: Musical instruments
-User_add: Add User
-displayName: Display name
 username: Username
-Roles: Roles
-Users: Users
-Notes: Notes
-Services: Services
-Create: Create
-Inventory: Inventory
-Events: Events
-Settings: Settings
-User roles: user roles
+Categorie_add: Add categorie
+Category_nav_all: All categories
+Type: Type
+Additional type: Type
