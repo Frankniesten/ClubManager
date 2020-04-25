@@ -3,117 +3,113 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Entity\Person;
-use App\Form\UserCreateFormType;
 use App\Form\UserEditFormType;
+use App\Form\UserFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class UserController extends AbstractController
 {
     /**
-     * @Route("/users", name="app_users")
+     * @Route("/settings/users", name="users")
      * @IsGranted("ROLE_USERS_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
-		$users = $this->getDoctrine()
+        $data = $this->getDoctrine()
         ->getRepository(User::class)
         ->findAll();
 				
 		return $this->render('user/users.html.twig', [
-        	'data' => $users,
+        	'data' => $data,
 		]);
 	}
 	
 	/**
-     * @Route("/user/create", name="app_user_create")
+     * @Route("/settings/user/create", name="user_create")
      * @IsGranted("ROLE_USERS_EDIT")
      */
-	public function new(EntityManagerInterface $em, Request $request)
+	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
-		$form = $this->createForm(UserCreateFormType::class);
+		$form = $this->createForm(UserFormType::class);
 		$form->handleRequest($request);
 				
 		if ($form->isSubmitted() && $form->isValid()) {
 
-			$user = $form->getData();			
-			$user->setUsername(strtolower($user->getPerson()->getGivenName().$user->getPerson()->getFamilyName()));
-			$user->setDisplayName($user->getPerson()->getFamilyName().', '.$user->getPerson()->getGivenName().' '.$user->getPerson()->getAdditionalName());
+            $data = $form->getData();
+            $data->setUsername(strtolower($data->getPerson()->getGivenName().$data->getPerson()->getFamilyName()));
+            $data->setDisplayName($data->getPerson()->getFamilyName().', '.$data->getPerson()->getGivenName().' '.$data->getPerson()->getAdditionalName());
 			
-			$em->persist($user);
+			$em->persist($data);
 			$em->flush();
-			$id = $user->getId();
+			$id = $data->getId();
 
-			$this->addFlash('success', 'Gebruiker '.$user->getPerson()->getFamilyName().', '.$user->getPerson()->getGivenName().' '.$user->getPerson()->getAdditionalName().' is aangemaakt!');
-			
-			return $this->redirectToRoute('app_user_edit', array('id' => $id));			
+            $this->addFlash('success', $data->getPerson()->getFamilyName() . ', ' . $data->getPerson()->getGivenName() . ' ' . $data->getPerson()->getAdditionalName() . ' ' . $translator->trans('flash_message_create'));
+
+			return $this->redirectToRoute('users', array('id' => $id));
 		}
 
-		return $this->render('user/userCreateForm.html.twig', [
+		return $this->render('user/userForm.html.twig', [
         	'form' => $form->createView()
 		]);
 	}
 	
 	/**
-     * @Route("/user/{id}/edit", name="app_user_edit")
+     * @Route("/settings/user/{id}/edit", name="user_edit")
      * @IsGranted("ROLE_USERS_EDIT")
      */
-	public function edit(EntityManagerInterface $em, Request $request, $id)
+	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$user = $em->getRepository(User::class)->find($id);
+        $data = $em->getRepository(User::class)->find($id);
 		
-		if (!$user) {
-        	throw $this->createNotFoundException('Deze dienst bestaat niet.');
+		if (!$data) {
+        	throw $this->createNotFoundException();
     	}
 
-		          
-		$form = $this->createForm(UserEditFormType::class, $user);
-		
-		
+		$form = $this->createForm(UserEditFormType::class, $data);
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
 			
-			$user = $form->getData();
-			
-			$em->persist($user);
+			$em->persist($data);
 			$em->flush();
-           
-			$this->addFlash('success', 'Gebruiker '.$user->getPerson()->getFamilyName().', '.$user->getPerson()->getGivenName().' '.$user->getPerson()->getAdditionalName().' is bijgewerkt!');
+
+            $this->addFlash('success', $data->getPerson()->getFamilyName() . ', ' . $data->getPerson()->getGivenName() . ' ' . $data->getPerson()->getAdditionalName() . ' ' . $translator->trans('flash_message_edit'));
 			
-			return $this->redirectToRoute('app_users');			
+			return $this->redirectToRoute('users');
 		}
 		
-		return $this->render('user/userEditForm.html.twig', [
+		return $this->render('user/userForm.html.twig', [
         	'form' => $form->createView(),
-        	'data' => $user
+        	'data' => $data
 		]);
 	}
 	
 	/**
-     * @Route("/user/{id}/delete", name="user_delete")
+     * @Route("/settings/user/{id}/delete", name="user_delete")
      * @IsGranted("ROLE_USERS_DELETE")
      */
-	public function delete(EntityManagerInterface $em, Request $request, $id)
+	public function delete(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$user = $em->getRepository(User::class)->find($id);
+        $data = $em->getRepository(User::class)->find($id);
 		
-		if (!$user) {
-        	throw $this->createNotFoundException('Deze dienst bestaat niet.');
+		if (!$data) {
+        	throw $this->createNotFoundException();
     	}
 
-			$em->remove($user);
+			$em->remove($data);
 			$em->flush();
-           
-			$this->addFlash('warning', 'gebruiker is verwijderd!');
+
+        $this->addFlash('warning', $data->getPerson()->getFamilyName(). ', ' . $data->getPerson()->getGivenName() . $data->getPerson()->getAdditionalName() . ' ' . $translator->trans('flash_message_delete'));
 			
-			return $this->redirectToRoute('app_users');			
+			return $this->redirectToRoute('users');
 	}
 }

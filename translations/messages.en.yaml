@@ -170,3 +170,11 @@ OrderId: Order id
 Item: Item
 UnitCost: Unit cost
 Quantity: Quantity
+Navbar_users: Users
+Navbar_categories: Categories
+Navbar_venue: Venues
+Navbar_musicalInstrument: Musical instruments
+User_add: Add User
+displayName: Display name
+username: Username
+Roles: Roles

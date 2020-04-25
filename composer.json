@@ -25,6 +25,7 @@
         "symfony/options-resolver": "4.4.*",
         "symfony/orm-pack": "*",
         "symfony/process": "4.4.*",
+        "symfony/property-info": "4.4.*",
         "symfony/security-bundle": "4.4.*",
         "symfony/serializer-pack": "*",
         "symfony/swiftmailer-bundle": "^3.1",
