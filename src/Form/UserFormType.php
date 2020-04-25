@@ -24,7 +24,7 @@ class UserFormType extends AbstractType
                         ->where('u.id IS NULL AND p.email IS NOT NULL')
                     ->orderBy('p.familyName', 'ASC');
                     },
-                'placeholder' => 'Selecteer...',
+                'placeholder' => 'Select...',
                 'choice_label' => function (Person $person) { return
                     $person->getFamilyName(). ', ' .
                     $person->getGivenName(). ' ' .

@@ -18,13 +18,13 @@ class UserRoleFormType extends AbstractType
 	    $builder
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Personen' => [
+                    'Persons' => [
                         'View' => 'ROLE_PERSON_VIEW',
                         'Create'   => 'ROLE_PERSON_CREATE',
                         'Edit' => 'ROLE_PERSON_EDIT',
                         'Delete' => 'ROLE_PERSON_DELETE',
                     ],
-                    'Organisaties' => [
+                    'Organizations' => [
                         'View' => 'ROLE_ORGANIZATION_VIEW',
                         'Create'   => 'ROLE_ORGANIZATION_CREATE',
                         'Edit' => 'ROLE_ORGANIZATION_EDIT',
@@ -36,31 +36,31 @@ class UserRoleFormType extends AbstractType
                         'Edit' => 'ROLE_EVENT_EDIT',
                         'Delete' => 'ROLE_EVENT_DELETE',
                     ],
-                    'Inventaris' => [
+                    'Inventory' => [
                         'View' => 'ROLE_PRODUCT_VIEW',
                         'Create'   => 'ROLE_PRODUCT_CREATE',
                         'Edit' => 'ROLE_PRODUCT_EDIT',
                         'Delete' => 'ROLE_PRODUCT_DELETE',
                     ],
-                    'Producten' => [
+                    'Services' => [
                         'View' => 'ROLE_SERVICES_VIEW',
                         'Create'   => 'ROLE_SERVICES_CREATE',
                         'Edit' => 'ROLE_SERVICES_EDIT',
                         'Delete' => 'ROLE_SERVICES_DELETE',
                     ],
-                    'Parameters' => [
+                    'Settings' => [
                         'View' => 'ROLE_SETTINGS_VIEW',
                         'Create'   => 'ROLE_SETTINGS_CREATE',
                         'Edit' => 'ROLE_SETTINGS_EDIT',
                         'Delete' => 'ROLE_SETTINGS_DELETE',
                     ],
-                    'Notities' => [
+                    'Notes' => [
                         'View' => 'ROLE_REVIEW_VIEW',
                         'Create' => 'ROLE_REVIEW_CREATE',
                         'Edit' => 'ROLE_REVIEW_EDIT',
                         'Delete' => 'ROLE_REVIEW_DELETE',
                     ],
-                    'Gebruikers' => [
+                    'Users' => [
                         'View' => 'ROLE_USERS_VIEW',
                         'Create' => 'ROLE_USERS_CREATE',
                         'Edit' => 'ROLE_USERS_EDIT',
