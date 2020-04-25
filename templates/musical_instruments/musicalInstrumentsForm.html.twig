@@ -1,37 +1,41 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}<i class="mdi mdi-tag-multiple"></i> Instellingen > Muziekinstrumenten{% endblock %}
-
+{% extends 'base_content_full_width.html.twig' %}
 
 {% block body %}
 
- 	{{ form_start(form) }}
-	<div class="row align-items-center">
-        <div class="col">
-	        {% if 'create' in app.request.uri  %}
-	       		<h2>Muziekinstrument Toevoegen</h2>
-	        {% endif %}
-	        {% if 'edit' in app.request.uri  %}
-	       		<h2>{{ data.musicalInstrument }} - bewerken</h2>
-	        {% endif %}
-        </div>
-        
-        <div class="col-4  ">
-	        <div class="btn-group float-right">
-	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_settings_musical_instruments') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-	        </div>
-        </div>
-        
+
+	{{ form_start(form) }}
+
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			{% if 'create' in app.request.uri  %}
+				<h3>{% trans %}MusicalInstrument_add{% endtrans %}</h3>
+			{% endif %}
+			{% if 'edit' in app.request.uri  %}
+				<h3>{{ data.musicalInstrument }} - {% trans %}Edit{% endtrans %}</h3>
+			{% endif %}
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group float-right">
+				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+				<a href="{{ path('musical_instrument') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+			</div>
+		</div>
 	</div>
-	
-    <!-- Card Box -->
-    <div class="card-box table-responsive">
-        
-		{{ form_widget(form) }}
-		
-		{{ form_end(form) }}
-            
-    </div>      
+	<!-- End Page header -->
+
+	<!-- Content -->
+	<div class="card">
+		<div class="card-body">
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.musicalInstrument) }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{ form_end(form) }}
 
 {% endblock %}
