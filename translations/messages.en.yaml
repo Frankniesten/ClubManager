@@ -113,7 +113,7 @@ Person: Person
 Person_add: Add Person
 Person_nav_all: All Persons
 Person_nav_education: Education
-Person_nav_log: Log
+Log: Log
 Person_nav_membership: Membership
 Person_nav_musicalInstrument: Musical instrument
 Person_nav_parents: Parents
@@ -193,3 +193,22 @@ MusicalInstrument: Musical instrument
 Venue_add: Add venue
 Venues: Venues
 Venue: Venue
+Product_nav_all: All items
+On loan: On loan
+Model: Model
+Manufacturer: manufacturer
+Product i d: ProductID
+Loan: Loan
+Information: information
+AssetTag: Asset tag
+Purchase date: Purchase date
+Mutiple: Mutiple products
+Unique product: Unique product
+Images: Images
+RelatedProducts: Related products
+Asset_Add: Add asset
+Identifier: Asset tag
+Tenant: Tenant
+Related product: related product
+Is related to: Product is related to
+flash_message_edit_relatedProducts: related products have been updated.

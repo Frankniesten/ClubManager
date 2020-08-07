@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\OwnershipInfo;
-use App\Entity\Product;
 use App\Entity\Person;
 use App\Form\OwnsFormType;
 use App\Form\OwnsEditFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Service\ProductsOnLoan;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -18,9 +19,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OwnsController extends AbstractController
 {
-	/**
+    /**
      * @Route("/person/{id}/owns/create", name="owns_create")
      * @IsGranted("ROLE_PRODUCT_CREATE")
+     * @param EntityManagerInterface $em
+     * @param ProductsOnLoan $productsOnLoan
+     * @param Request $request
+     * @param $id
+     * @param TranslatorInterface $translator
+     * @return RedirectResponse|Response
      */
 	public function new(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, Request $request, $id, TranslatorInterface $translator)
 	{
@@ -43,7 +50,7 @@ class OwnsController extends AbstractController
 			$this->addFlash('success', $translator->trans('Product').' '. $translator->trans('flash_message_create'));
 			
 			//Process products in loan
-			$loan = $productsOnLoan->processProduct($owns->getTypeofGood()->getId());
+			$productsOnLoan->processProduct($owns->getTypeofGood()->getId());
 
             return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'owns'));
 		}
@@ -53,12 +60,18 @@ class OwnsController extends AbstractController
         	'id' => $id
 		]);
 	}
-	
-	
-	/**
-	* @Route("/person/{id}/owns/{ownershipInfoID}/edit", name="owns_edit")
-	* @IsGranted("ROLE_PRODUCT_EDIT")
-	*/
+
+    /**
+     * @Route("/person/{id}/owns/{ownershipInfoID}/edit", name="owns_edit")
+     * @IsGranted("ROLE_PRODUCT_EDIT")
+     * @param EntityManagerInterface $em
+     * @param ProductsOnLoan $productsOnLoan
+     * @param Request $request
+     * @param $id
+     * @param $ownershipInfoID
+     * @param TranslatorInterface $translator
+     * @return RedirectResponse|Response
+     */
 	public function edit(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, Request $request, $id, $ownershipInfoID, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
@@ -81,7 +94,7 @@ class OwnsController extends AbstractController
 			
 			//Process products in loan
 			$productID = $owns->getTypeofGood()->getId();
-			$loan = $productsOnLoan->processProduct($productID);
+			$productsOnLoan->processProduct($productID);
            
 			$this->addFlash('success', $translator->trans('Product').' '. $translator->trans('flash_message_edit'));
 
@@ -96,11 +109,17 @@ class OwnsController extends AbstractController
 	}
 
 
-	/**
-	* @Route("/person/{id}/owns/{ownershipInfoID}/delete", name="owns_delete")
-	* @IsGranted("ROLE_PRODUCT_DELETE")
-	*/
-	public function delete(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, Request $request, $id, $ownershipInfoID, TranslatorInterface $translator)
+    /**
+     * @Route("/person/{id}/owns/{ownershipInfoID}/delete", name="owns_delete")
+     * @IsGranted("ROLE_PRODUCT_DELETE")
+     * @param EntityManagerInterface $em
+     * @param ProductsOnLoan $productsOnLoan
+     * @param $id
+     * @param $ownershipInfoID
+     * @param TranslatorInterface $translator
+     * @return RedirectResponse
+     */
+	public function delete(EntityManagerInterface $em, ProductsOnLoan $productsOnLoan, $id, $ownershipInfoID, TranslatorInterface $translator)
 	{
 		
 		$em = $this->getDoctrine()->getManager();
@@ -115,7 +134,7 @@ class OwnsController extends AbstractController
 		
 		//Process products in loan
 		$productID = $owns->getTypeofGood()->getId();
-		$loan = $productsOnLoan->processProduct($productID);
+		$productsOnLoan->processProduct($productID);
 		
 		$this->addFlash('warning', $translator->trans('Product').' '. $translator->trans('flash_message_delete'));
 

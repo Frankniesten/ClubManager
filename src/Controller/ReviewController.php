@@ -77,7 +77,7 @@ class ReviewController extends AbstractController
 		    }	
 		    if ($entity == 'product') 
 		    {
-			    return $this->redirectToRoute('app_product', array('id' => $id, '_fragment' => 'review'));
+			    return $this->redirectToRoute('product_id', array('id' => $id, '_fragment' => 'review'));
 		    }
 		    if ($entity == 'event') 
 		    {
@@ -131,7 +131,7 @@ class ReviewController extends AbstractController
             }
 		    if ($entity == 'product') 
 		    {
-			    return $this->redirectToRoute('app_product', array('id' => $id, '_fragment' => 'review'));   
+			    return $this->redirectToRoute('product_id', array('id' => $id, '_fragment' => 'review'));
 		    }
 		    if ($entity == 'event') 
 		    {
@@ -169,7 +169,7 @@ class ReviewController extends AbstractController
 		$em->remove($review);
 		$em->flush();
 		
-		$this->addFlash('success', $review->getReviewAspect() . ' ' . $translator->trans('flash_message_delete'));
+		$this->addFlash('warning', $review->getReviewAspect() . ' ' . $translator->trans('flash_message_delete'));
 		
 		if ($entity == 'person') 
 	    {
@@ -177,7 +177,7 @@ class ReviewController extends AbstractController
 	    }
 	    if ($entity == 'product') 
 	    {
-		    return $this->redirectToRoute('app_product', array('id' => $id, '_fragment' => 'review'));    
+		    return $this->redirectToRoute('product_id', array('id' => $id, '_fragment' => 'review'));
 	    }	
 	    if ($entity == 'organization') 
 	    {

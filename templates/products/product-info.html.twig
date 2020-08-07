@@ -1,0 +1,45 @@
+<table class="table table-bordered table-striped">
+    <tbody>
+
+    <tr>
+        <td width="20%"><b>{% trans %}Name{% endtrans %}</b></td>
+        <td width="70%">{{ data.name }}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Product i d{% endtrans %}</b></td>
+        <td>{{data.productID}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Model{% endtrans %}</b></td>
+        <td>{{data.model}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Manufacturer{% endtrans %}</b></td>
+        <td>{{data.manufacturer}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Description{% endtrans %}</b></td>
+        <td>{{data.description }}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Purchase date{% endtrans %}</b></td>
+        <td>{{data.purchaseDate | date("d-m-Y") }}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}AssetTag{% endtrans %}</b></td>
+        <td>{{data.identifier}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Type{% endtrans %}</b></td>
+        <td>
+            {% if data.uniqueProduct == true  %}
+                {% trans %}Unique product{% endtrans %}
+            {% endif %}
+            {% if data.uniqueProduct == false  %}
+                {% trans %}Mutiple{% endtrans %}
+            {% endif %}
+        </td>
+    </tr>
+
+    </tbody>
+</table>

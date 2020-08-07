@@ -35,13 +35,13 @@
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="mdi mdi-calendar"></i> {% trans %}Navbar_calendar{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-bugle"></i> {% trans %}Navbar_products{% endtrans %}<span class="sr-only">(current)</span></a>
+            <li class="nav-item {{  'product' in app.request.get('_route') ? 'active' }}">
+                <a class="nav-link" href="{{ path('product') }}"><i class="mdi mdi-bugle"></i> {% trans %}Navbar_products{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item {{  'service' in app.request.get('_route') ? 'active' }}">
                 <a class="nav-link" href="{{ path('service') }}"><i class="mdi mdi-cart"></i> {% trans %}Navbar_services{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{  'order' in app.request.get('_route') ? 'active' }}">
                 <a class="nav-link" href="{{ path('order') }}"><i class="mdi mdi-cart"></i> {% trans %}Navbar_orders{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
@@ -50,7 +50,11 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle
                     {% if app.request.attributes.get('_route') in [
-                    'settings',
+                    'users',
+                    'category',
+                    'musical_instrument',
+                    'postaladdress'
+
                 ] %}active{% endif %}"
                    href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-settings"></i> {% trans %}Navbar_settings{% endtrans %}<span class="sr-only">(current)</span>
                 </a>

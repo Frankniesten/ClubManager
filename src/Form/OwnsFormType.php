@@ -2,18 +2,13 @@
 	
 namespace App\Form;
 
-use App\Entity\Person;
-use App\Entity\Organization;
 use App\Entity\Products;
 use App\Entity\OwnershipInfo;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityRepository;
 
 class OwnsFormType extends AbstractType
@@ -39,7 +34,7 @@ class OwnsFormType extends AbstractType
 						    
 						    },
 					    'required' => true,
-					    'placeholder' => 'Selecteer...',
+					    'placeholder' => 'Select...',
 					    'attr' => [
 							'class' => 'select2'
 						]

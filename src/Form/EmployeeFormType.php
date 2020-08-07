@@ -28,7 +28,7 @@ class EmployeeFormType extends AbstractType
 						    
 						    },
 					    'required' => false,
-					    'multiple' => true 
+					    'multiple' => false
 					));
 	
 	}

@@ -1,0 +1,43 @@
+{%if data.ownershipInfos is not empty %}
+    <!--Table -->
+    <table id="datatable-ownershipInfos" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th width="20px"></th>
+            <th>{% trans %}Tenant{% endtrans %}</th>
+            <th class="desktop">{% trans %}Product_owned_from{% endtrans %}</th>
+            <th class="desktop">{% trans %}Product_owned_till{% endtrans %}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for dataOwnershipInfos in data.ownershipInfos %}
+            <tr>
+                <td align="center">
+                    <!-- Dropdown menu -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path( 'ownership_info_edit', {'id': data.id, 'ownershipID': dataOwnershipInfos.id} ) }}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                            <a class="dropdown-item" href="{{ path( 'ownership_info_delete', {'id': data.id, 'ownershipID': dataOwnershipInfos.id} ) }}" onclick="return confirm('{% trans %} Delete_message{% endtrans %} {{ dataOwnershipInfos.person.familyName }}, {{ dataOwnershipInfos.person.givenName }} {{ dataOwnershipInfos.person.additionalName }}');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}Delete{% endtrans %}</a>
+                        </div>
+                    </div>
+                    <!-- End dropdown menu -->
+                </td>
+                <td>
+                    <a href="{{ path('person_id', {'id': dataOwnershipInfos.person.id}) }}">{{ dataOwnershipInfos.person.familyName }}, {{ dataOwnershipInfos.person.givenName }} {{ dataOwnershipInfos.person.additionalName }}</a>
+                </td>
+                <td>
+                    {{ dataOwnershipInfos.ownedFrom |date("d-m-Y")}}
+                </td>
+                <td>
+                    {{ dataOwnershipInfos.ownedTrough ? dataOwnershipInfos.ownedTrough|date('d-m-Y') }}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% else %}
+    <div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
+{% endif %}

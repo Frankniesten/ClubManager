@@ -1,68 +1,53 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}<i class="mdi mdi-wrench"></i> Inventaris{% endblock %}
-
-{% block stylesheets %}
-	
-	{{ parent() }}
-	<link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}"  rel="stylesheet" type="text/css" />
-	
-	
-	<style>
-	.ms-container{
-		
-		width: 100%;
-	}
-	</style>
-
-	        
-{% endblock %}
+{% extends 'base_content_full_width.html.twig' %}
 
 {% block body %}
 
- 	{{ form_start(form) }}
-	<div class="row align-items-center">
-        <div class="col">
-	       	
-	       	{% if 'create' in app.request.uri  %}
-	       		<h2>Gerelateerd product toevoegen</h2>
-	        {% endif %}
-	        {% if 'edit' in app.request.uri  %}
-	       		<h2>Gerelateerd product bewerken</h2>
-	        {% endif %}
-	        
+    {{ form_start(form) }}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            {% if 'create' in app.request.uri  %}
+                <h3>{% trans %}Add{% endtrans %} {% trans %}Related product{% endtrans %}</h3>
+            {% endif %}
+            {% if 'edit' in app.request.uri  %}
+                <h3>{% trans %}Edit{% endtrans %} {% trans %}Related product{% endtrans %}</h3>
+            {% endif %}
         </div>
-        
-        <div class="col-4  ">
-	        <div class="btn-group float-right">
-	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_product_isRelatedTo', {'id': id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-	        </div>
+
+        <div class="p-2">
+            <div class="btn-group float-right">
+                <button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+                {% if 'create' in app.request.uri  %}
+                    <a href="{{ path('product') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+                {% if 'edit' in app.request.uri  %}
+                    <a href="{{ path('product_id', {'id': data.id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+            </div>
         </div>
-        
-	</div>
-	
-    <!-- Card Box -->
-    <div class="card-box table-responsive">
-	    
-	    <div class="col-12">
-		       {{ form_label(form.isRelatedTo) }}
-			   {{ form_widget(form.isRelatedTo, {'id': 'my_multi_select1', 'attr': {'class': 'multi-select', 'data-plugin': 'multi-select', multiple: 'multiple'}}) }}
-	        </div>
-		{{ form_end(form) }}
-            
-    </div>    
+    </div>
+    <!-- End Page header -->
+    <!-- Content -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-sm-4">
+                <div class="col-sm">
+                    {{ form_row(form.isRelatedTo, {'id': 'my_multi_select1', 'attr': {'class': 'multi-select', 'data-plugin': 'multi-select', multiple: 'multiple'}}) }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
 {% endblock %}
 
 
 {% block javascripts %}
 
 	{{ parent() }}
-	
-	<!--form wysiwig js-->
-	<script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('assets/plugins/jquery-quicksearch/jquery.quicksearch.js') }}"></script>
-
 
     <script type="text/javascript">
         jQuery(document).ready(function() {
@@ -103,8 +88,6 @@
                         this.qs2.cache();
                     }
                 });
-
-                
 
             });    </script>
     

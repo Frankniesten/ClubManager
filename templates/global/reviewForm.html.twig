@@ -27,7 +27,7 @@
                 {% endif %}
 
                 {% if 'product' in app.request.uri %}
-                    <a href="{{ path('app_product', {'id': id}) }}#review" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+                    <a href="{{ path('product', {'id': id}) }}#review" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
                 {% endif %}
 
                 {% if 'event' in app.request.uri %}
