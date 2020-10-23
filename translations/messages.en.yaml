@@ -212,3 +212,6 @@ Tenant: Tenant
 Related product: related product
 Is related to: Product is related to
 flash_message_edit_relatedProducts: related products have been updated.
+Additional property: Storage location
+Image: Image
+flash_message_upload: has been uploaded!

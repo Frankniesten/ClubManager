@@ -83,7 +83,6 @@ class PersonController extends AbstractController
             $id = $data->getId();
 
             $this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_create'));
-
             return $this->redirectToRoute('person_id', array('id' => $id));
         }
 
@@ -91,7 +90,6 @@ class PersonController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
 
     /**
      * @Route("/person/{id}", name="person_id")

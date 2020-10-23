@@ -25,9 +25,13 @@
         <td><b>{% trans %}Purchase date{% endtrans %}</b></td>
         <td>{{data.purchaseDate | date("d-m-Y") }}</td>
     </tr>
-    <tr>
+        <tr>
         <td><b>{% trans %}AssetTag{% endtrans %}</b></td>
         <td>{{data.identifier}}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Additional property{% endtrans %}</b></td>
+        <td>{{data.additionalProperty}}</td>
     </tr>
     <tr>
         <td><b>{% trans %}Type{% endtrans %}</b></td>

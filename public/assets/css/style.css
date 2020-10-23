@@ -8766,3 +8766,56 @@ label.required:after {
     content: "*";
     color: red;
 }
+
+/* Container needed to position the button. Adjust the width as needed */
+.image-container {
+    position: relative;
+    width: 120px;
+    float:left;
+    margin: 4px;
+}
+
+/* Make the image responsive */
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.image-container .btn1 {
+    position: absolute;
+    top: 50%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #262626;
+    color: white;
+    font-size: 20px;
+    padding: 0px 4px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.image-container .btn2 {
+    position: absolute;
+    top: 50%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #262626;
+    color: white;
+    font-size: 20px;
+    padding: 0px 4px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.image-container .btn1:hover {
+    background-color: #009ee0;
+}
+.image-container .btn2:hover {
+    background-color: red;
+}

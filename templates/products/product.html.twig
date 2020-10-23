@@ -97,7 +97,7 @@
 	<div class="card-header" id="images">
 		<span class="align-middle">
 			<i class="mdi mdi-image"></i> {% trans %}Images{% endtrans %}
-			<a class="btn btn-primary btn-sm float-right" href="#" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('image_upload', {'id': data.id} )}}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 		</span>
 	</div>
 	<div class="card-body">
@@ -280,5 +280,12 @@
 				}, 0);
 			}
 		} );
+	</script>
+
+	<script>
+		function display() {
+			var x = document.getElementById("myFile").name;
+			alert("The name of the file button is: " + x);
+		}
 	</script>
 {% endblock %}

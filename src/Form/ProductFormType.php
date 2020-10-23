@@ -26,6 +26,7 @@ class ProductFormType extends AbstractType
 			->add('purchaseDate', DateType::class, ['required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
 			->add('uniqueProduct', CheckboxType::class, ['required' => false, 'data' => true, 'attr' => ['data-plugin' => 'switchery']])
 			->add('identifier', TextType::class, ['required' => false])
+            ->add('additionalProperty', TextType::class, ['required' => false])
 			->add('category', EntityType::class, array(
 					    'class' => Category::class,
 					    'query_builder' => function (EntityRepository $er) {
@@ -39,7 +40,7 @@ class ProductFormType extends AbstractType
 					    'attr' => [
 							'class' => 'select2'
 						]
-					)); 
+					));
 	} 
 	
 	public function configureOptions(OptionsResolver $resolver)

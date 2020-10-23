@@ -1,0 +1,20 @@
+{%if data.image is not empty %}
+
+    {% for data in data.image %}
+
+        <div class="image-container">
+            <img src="{{ vich_uploader_asset(data, 'imageFile') | imagine_filter('thumb_filter') }}" alt="{{ data.imageName }}" class="rounded" data-title="test">
+
+            <a href="{{ vich_uploader_asset(data, 'imageFile')  }}" data-lightbox="images">
+                <button class="btn1"><i class="mdi mdi-magnify"></i></button>
+            </a>
+            <a href="{{ path('image_delete', {'product_id': id, 'image_id': data.id } )}}" onclick="return confirm('{% trans %}Delete_message{% endtrans %}');">
+                <button class="btn2"><i class="mdi mdi-delete"></i></button>
+            </a>
+        </div>
+
+    {% endfor %}
+
+{% else %}
+    <div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
+{% endif %}
