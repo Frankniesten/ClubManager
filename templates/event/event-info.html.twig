@@ -1,0 +1,76 @@
+<table class="table table-bordered table-striped">   
+    <tbody>
+        <tr>
+            <td width="20%"><b>{% trans %}About{% endtrans %}</b></td>
+            <td width="70%">{{ data.about }}</td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}Description{% endtrans %}</b></td>
+            <td>{{ data.description }}</td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}Start date{% endtrans %}</b></td>
+            <td>{{ data.startDate | date('d-m-Y') }}</td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}Door time{% endtrans %}</b></td>
+            <td>{{ data.doorTime | date('H:i') }}</td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}Start time{% endtrans %}</b></td>
+            <td>{{ data.startTime | date('H:i') }}</td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}End time{% endtrans %}</b></td>
+            <td>{{ data.endDate | date('d-m-Y') }}</td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}End date{% endtrans %}</b></td>
+            <td>{{ data.endTime | date('H:i') }}</td>
+        </tr>
+        <tr>
+            <td><b>Status</b></td>
+            <td>
+                {% if data.eventStatus == 'Confirmed'  %}
+                    <span class="badge badge-success">{% trans %}Confirmed{% endtrans %}</span>
+                {% endif %}
+                {% if data.eventStatus == 'Tentative'  %}
+                    <span class="badge badge-secondary">{% trans %}Tentative{% endtrans %}</span>
+                {% endif %}
+                {% if data.eventStatus == 'Canceled'  %}
+                    <span class="badge badge-danger">{% trans %}Canceled{% endtrans %}</span>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}Venue{% endtrans %}</b></td>
+            <td>{{ data.location.venue }}</td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}Street address{% endtrans %}</b></td>
+            <td>{{ data.location.streetaddress }}</td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}Postal code{% endtrans %}</b></td>
+            <td>{{ data.location.postalcode }}</td>
+        </tr>
+        <tr>
+            <td><b>{% trans %}Address locality{% endtrans %}</b></td>
+            <td>{{ data.location.addressLocality }}</td>
+        </tr>
+        {% if data.isAccessibleForFree  %}
+            <tr>
+                <td><b>{% trans %}Is accessible for free{% endtrans %}</b></td>
+                <td><i class="mdi mdi-check-circle"></i></td>
+            </tr>
+            <tr>
+                <td><b>{% trans %}Maximum attendee capacity{% endtrans %}</b></td>
+                <td>{{ data.maximumAttendeeCapacity }}</td>
+            </tr>
+            <tr>
+                <td><b>{% trans %}Remaining attendee capacity{% endtrans %}</b></td>
+                <td>{{ data.remainingAttendeeCapacity }}</td>
+            </tr>
+        {% endif %}
+    </tbody>
+</table>

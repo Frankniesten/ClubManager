@@ -53,6 +53,7 @@ Male: Male
 Member of: Roles
 MemberOf_edit: Edit Roles
 MemberOf_updated: Roles have been updated!
+Organizer_updated: Organizer have been updated!
 Membership: Membership
 Membership_add: Add membership
 Membership_edit: Edit membership
@@ -112,6 +113,7 @@ People: Persons
 Person: Person
 Person_add: Add Person
 Person_nav_all: All Persons
+Calendar_nav_all: All Events
 Person_nav_education: Education
 Log: Log
 Person_nav_membership: Membership
@@ -212,6 +214,39 @@ Tenant: Tenant
 Related product: related product
 Is related to: Product is related to
 flash_message_edit_relatedProducts: related products have been updated.
+Performer_updated: performer have been updated.
 Additional property: Storage location
 Image: Image
 flash_message_upload: has been uploaded!
+Event_add: Add event
+About: Event
+Time: Time
+Location: Location
+eventStatus: Status
+Organizer: Organizer
+Performer: Performer
+Suppliers: Suppliers
+Sponsor: Sponsor
+Contributor: Contributor
+Attendee: Attendee
+Review: Review
+Door time: Door time
+Start time: Start time
+End time: End time
+Event status: Event status
+Confirmed: Confirmed
+Tentative: Tentative
+Is accessible for free: Is not accessible for free
+Maximum attendee capacity: Maximum attendee capacity
+Remaining attendee capacity: Remaining attendee capacity
+Organizer_edit: Edit organizer
+Performer_edit: Edit performer
+Copy: Copy
+Supplier_updated: Suppliers have been updated.
+Suppliers_edit: Edit suppliers
+Attendee_updated: Attendees have been updated.
+Contributor_updated: Contributors have been updated.
+Sponsor_updated: Sponsors have been updated.
+Sponsor_edit: Edit sponsor
+Attendee_edit: Edit attendee
+Contributor_edit: Edit contributor

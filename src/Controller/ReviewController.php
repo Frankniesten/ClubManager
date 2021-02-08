@@ -81,7 +81,7 @@ class ReviewController extends AbstractController
 		    }
 		    if ($entity == 'event') 
 		    {
-			    return $this->redirectToRoute('app_event', array('id' => $id, '_fragment' => 'review'));
+			    return $this->redirectToRoute('event_id', array('id' => $id, '_fragment' => 'review'));
 		    }
 		    if ($entity == 'service') 
 		    {

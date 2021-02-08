@@ -12,41 +12,56 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto nav-fill w-100">
-            <li class="nav-item {{ app.request.get('_route') == 'dashboard' ? 'active' }}">
-                <a class="nav-link" href="{{ path('dashboard') }}"><i class="mdi mdi-view-dashboard"></i> {% trans %}Navbar_dashboard{% endtrans %}</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle
-                    {% if app.request.attributes.get('_route') in [
-                    'person',
-                    'organization',
-                    'program_memberships'
-                ] %}active{% endif %}"
-                   href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Navbar_relations{% endtrans %}<span class="sr-only">(current)</span>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item {{ app.request.get('_route') == 'person' ? 'active' }}" href="{{ path('person') }}">Persons</a>
-                    <a class="dropdown-item {{ app.request.get('_route') == 'organization' ? 'active' }}" href="{{ path('organization') }}">Organizations</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item {{ app.request.get('_route') == 'program_memberships' ? 'active' }}" href="{{ path('program_memberships') }}">{% trans %}Navbar_roles{% endtrans %}</a>
-                    <a class="dropdown-item" href="#">Tags</a>
-                </div>
-            </li>
+            {% if is_granted('ROLE_DASHBOARD_VIEW') %}
+                <li class="nav-item {{ app.request.get('_route') == 'dashboard' ? 'active' }}">
+                    <a class="nav-link" href="{{ path('dashboard') }}"><i class="mdi mdi-view-dashboard"></i> {% trans %}Navbar_dashboard{% endtrans %}</a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_PERSON_VIEW') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle
+                        {% if app.request.attributes.get('_route') in [
+                        'person',
+                        'organization',
+                        'program_memberships'
+                    ] %}active{% endif %}"
+                       href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Navbar_relations{% endtrans %}<span class="sr-only">(current)</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item {{ app.request.get('_route') == 'person' ? 'active' }}" href="{{ path('person') }}">Persons</a>
+                        <a class="dropdown-item {{ app.request.get('_route') == 'organization' ? 'active' }}" href="{{ path('organization') }}">Organizations</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item {{ app.request.get('_route') == 'program_memberships' ? 'active' }}" href="{{ path('program_memberships') }}">{% trans %}Navbar_roles{% endtrans %}</a>
+                        <a class="dropdown-item" href="#">Tags</a>
+                    </div>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_EVENT_VIEW') %}
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-calendar"></i> {% trans %}Navbar_calendar{% endtrans %}<span class="sr-only">(current)</span></a>
+                <a class="nav-link {{  'event' in app.request.get('_route') ? 'active' }}" href="{{ path('event') }}"><i class="mdi mdi-calendar"></i> {% trans %}Navbar_calendar{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
+            {% endif %}
+            {% if is_granted('ROLE_PRODUCT_VIEW') %}
             <li class="nav-item {{  'product' in app.request.get('_route') ? 'active' }}">
                 <a class="nav-link" href="{{ path('product') }}"><i class="mdi mdi-bugle"></i> {% trans %}Navbar_products{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
+            {% endif %}
+            {% if is_granted('ROLE_SERVICES_VIEW') %}
             <li class="nav-item {{  'service' in app.request.get('_route') ? 'active' }}">
                 <a class="nav-link" href="{{ path('service') }}"><i class="mdi mdi-cart"></i> {% trans %}Navbar_services{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
+            {% endif %}
+            {% if is_granted('ROLE_ORDER_VIEW') %}
             <li class="nav-item {{  'order' in app.request.get('_route') ? 'active' }}">
                 <a class="nav-link" href="{{ path('order') }}"><i class="mdi mdi-cart"></i> {% trans %}Navbar_orders{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
+            {% endif %}
+            {% if is_granted('ROLE_STATISTICS_VIEW') %}
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Navbar_statistics{% endtrans %}<span class="sr-only">(current)</span></a>
             </li>
+            {% endif %}
+            {% if is_granted('ROLE_SETTINGS_VIEW') %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle
                     {% if app.request.attributes.get('_route') in [
@@ -66,6 +81,7 @@
                     <a class="dropdown-item {{ app.request.get('_route') == 'postaladdress' ? 'active' }}" href="{{ path('postaladdress') }}">{% trans %}Navbar_venue{% endtrans %}</a>
                 </div>
             </li>
+            {% endif %}
         </ul>
     </div>
 </nav>

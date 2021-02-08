@@ -18,6 +18,9 @@ class UserRoleFormType extends AbstractType
 	    $builder
             ->add('roles', ChoiceType::class, [
                 'choices' => [
+                    'Dashboard' => [
+                        'View' => 'ROLE_DASHBOARD_VIEW',
+                    ],
                     'Persons' => [
                         'View' => 'ROLE_PERSON_VIEW',
                         'Create'   => 'ROLE_PERSON_CREATE',
@@ -53,6 +56,12 @@ class UserRoleFormType extends AbstractType
                         'Create'   => 'ROLE_SETTINGS_CREATE',
                         'Edit' => 'ROLE_SETTINGS_EDIT',
                         'Delete' => 'ROLE_SETTINGS_DELETE',
+                    ],
+                    'Statistics' => [
+                        'View' => 'ROLE_STATISTICS_VIEW',
+                    ],
+                    'ORDER' => [
+                        'View' => 'ROLE_ORDER_VIEW',
                     ],
                     'Notes' => [
                         'View' => 'ROLE_REVIEW_VIEW',

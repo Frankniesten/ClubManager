@@ -119,37 +119,37 @@ class Event
     private $review;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization")
      * @ORM\JoinTable(name="event_organizers")
      */
     private $organizer;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization")
      * @ORM\JoinTable(name="event_performer")
      */
     private $performer;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization")
      * @ORM\JoinTable(name="event_supplier")
      */
     private $suppliers;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true, inversedBy="sponsor")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="sponsor")
      * @ORM\JoinTable(name="event_sponsor")
      */
     private $sponsor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true, inversedBy="contributor")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="contributor")
      * @ORM\JoinTable(name="event_contributor")
      */
     private $contributor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\person", orphanRemoval=true, inversedBy="attendee")
+     * @ORM\ManyToMany(targetEntity="App\Entity\person", inversedBy="attendee")
      * @ORM\JoinTable(name="event_attendee")
      */
     private $attendee;

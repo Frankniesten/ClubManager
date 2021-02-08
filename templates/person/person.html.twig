@@ -78,9 +78,6 @@
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#statistics"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Person_nav_statistics{% endtrans %}</a>
-	</li>
-	<li class="nav-item">
 		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}</a>
 	</li>
 {% endblock %}
@@ -102,20 +99,21 @@
 
 		<div class="p-2">
 			<div class="btn-group btn-group-sm">
-				{% if is_granted('ROLE_PERSON_EDIT') %}
+			{% if is_granted('ROLE_PERSON_VIEW') %}
 				<a class="btn btn-primary" href="{{ path('person') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
 			{% endif %}
 
+			{% if is_granted('ROLE_PERSON_DELETE') %}
 				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="sr-only">Toggle Dropdown</span>
 				</button>
 				<div class="dropdown-menu">
-					{% if is_granted('ROLE_PERSON_DELETE') %}
+
 					<a class="dropdown-item" href="{{ path('person_delete', {'id': data.id}) }}"
 					   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}');"><i
 								class="mdi mdi-delete text-danger"></i> Verwijderen</a>
-					{% endif %}
 				</div>
+			{% endif %}
 			</div>
 		</div>
 	</div>
@@ -127,7 +125,9 @@
 			<span class="align-middle">
 				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Person_nav_personal_information{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{% endif %}
 		</div>
 
 		<div class="card-body">
@@ -148,7 +148,9 @@
 			<span class="align-middle">
 				<i class="mdi mdi-account-star-outline"></i> {% trans %}Person_nav_membership{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% if is_granted('ROLE_PERSON_create') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
 		</div>
 		<div class="card-body">
 			{{ include('person/person-membership.html.twig', { 'data': data }) }}
@@ -163,7 +165,9 @@
 			<span class="align-middle">
 						<i class="mdi mdi-bugle"></i> {% trans %}Person_nav_musicalInstrument{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_musicalInstrument', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+		{% if is_granted('ROLE_PERSON_EDIT') %}
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_musicalInstrument', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		{% endif %}
 		</div>
 		<div class="card-body">
 			{{ include('person/person-musicalInstrument.html.twig', { 'data': data }) }}
@@ -178,7 +182,9 @@
 			<span class="align-middle">
 				<i class="mdi mdi-school-outline"></i> {% trans %}Person_nav_education{% endtrans %}
 			</span>
+		{% if is_granted('ROLE_PERSON_CREATE') %}
 			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_education_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+		{% endif %}
 		</div>
 		<div class="card-body">
 			{{ include('person/person-education.html.twig', { 'data': data }) }}
@@ -192,7 +198,9 @@
 		<div class="card-header" id="parents">
 			<span class="align-middle">
 				<i class="mdi mdi-account-supervisor"></i> {% trans %}Person_nav_parents{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+		{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -208,7 +216,9 @@
 		<div class="card-header" id="organizations">
 			<span class="align-middle">
 				<i class="mdi mdi-autorenew"></i> {% trans %}Organizations{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'person_organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'person_organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -224,7 +234,9 @@
 		<div class="card-header" id="owns">
 			<span class="align-middle">
 				<i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
+			{% if is_granted('ROLE_PERSON_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'owns_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -239,7 +251,9 @@
 		<div class="card-header" id="order">
 			<span class="align-middle">
 				<i class="mdi mdi-cart-arrow-down"></i> {% trans %}Orders{% endtrans %}
+			{% if is_granted('ROLE_PERSON_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_order_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -254,7 +268,9 @@
 		<div class="card-header" id="memberOf">
 			<span class="align-middle">
 				<i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_memberOf', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_memberOf', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -269,7 +285,9 @@
 		<div class="card-header" id="tags">
 			<span class="align-middle">
 				<i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
+			{% if is_granted('ROLE_PERSON_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
 			</span>
 		</div>
 
@@ -284,7 +302,9 @@
 		<div class="card-header" id="review">
 			<span class="align-middle">
 				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+			{% if is_granted('ROLE_PERSON_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'person', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -292,20 +312,6 @@
 		</div>
 	</div>
 	<!-- End Review -->
-	<br>
-
-	<!-- Statistics -->
-	<div class="card">
-		<div class="card-header" id="statistics">
-			<span class="align-middle">
-				<i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Person_nav_statistics{% endtrans %}
-			</span>
-		</div>
-
-		<div class="card-body">
-		</div>
-	</div>
-	<!-- End Statistics -->
 	<br>
 
 	<!-- Log -->

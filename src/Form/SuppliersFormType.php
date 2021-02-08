@@ -26,7 +26,6 @@ class SuppliersFormType extends AbstractType
 						    
 						    },
 					    'required' => false,
-					    'label' => 'Leveranciers',
 					    'multiple' => true 
 					));
 	}
@@ -38,5 +37,3 @@ class SuppliersFormType extends AbstractType
         ]);
     }
 }
-
-

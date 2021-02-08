@@ -1,0 +1,201 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% set pdfCat = '' %}
+
+{% block body %}
+
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2"><h3>{% trans %}Navbar_calendar{% endtrans %}</h3></div>
+		<div class="p-2">
+			{% if is_granted('ROLE_PERSON_CREATE') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('event_create') }}" role="button"><i class="mdi mdi-plus"></i> {% trans %}Event_add{% endtrans %}</a>
+			{% endif %}
+		</div>
+	</div>
+	<!-- End Page header -->
+
+	<!--Tabs -->
+	<nav>
+		<div class="nav nav-tabs">
+			<li class="nav-item">
+				<a class="nav-item nav-link {% if query == 'all' or query == null %}active {% endif %}"
+				   href="{{ path('event', {'category': 'all'} ) }}">{% trans %}Calendar_nav_all{% endtrans %}</a>
+			</li>
+
+			{% for data in category %}
+				<li class="nav-item">
+					<a class="nav-item nav-link {% if query == data.id %}active {% endif %}"
+					   href="{{ path('event', {'category': data.id}) }}">{{ data.name }}</a>
+				</li>
+			{% endfor %}
+
+		</div>
+	</nav>
+	<!-- End tabs -->
+
+	<!-- Content -->
+	<div class="card">
+		<div class="card-body">
+
+			<!-- Date Filter -->
+			<form method="get">
+				<div class="col-md-4">
+					<div class="input-group input-group-sm mb-3 input-daterange" id="date-range">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroup-sizing-sm">Van:</span>
+						</div>
+						<input type="text" class="form-control" id="datepicker-autoclose" name="startDate" value="{{ startDate | date('Y-m-d') }}">
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="inputGroup-sizing-sm">Tot:</span>
+						</div>
+						<input type="text" class="form-control" id="datepicker-autoclose2" name="endDate" value="{{ endDate | date('Y-m-d') }}">
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-dark btn-sm">Filter</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- End Date Filter -->
+
+			<!--Table -->
+			<table id="datatable-buttons" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+				<thead>
+				<tr>
+					<th class="desktop" width="20px"></th>
+					<th class="all">{% trans %}About{% endtrans %}</th>
+					<th class="desktop">{% trans %}Date{% endtrans %}</th>
+					<th class="desktop">{% trans %}Time{% endtrans %}</th>
+					<th class="desktop">{% trans %}Location{% endtrans %}</th>
+					<th class="desktop">{% trans %}eventStatus{% endtrans %}</th>
+					<th class="desktop">{% trans %}Category{% endtrans %}</th>
+				</tr>
+				</thead>
+
+				<tbody>
+
+				{% for data in data %}
+					<tr>
+						<td align="center">
+							<!-- Dropdown menu -->
+							<div class="btn-group">
+								<button type="button" class="btn btn-primary btn-xs dropdown-toggle"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item" href="{{ path('event_edit', {'id': data.id}) }}"><i
+												class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+									<a class="dropdown-item" href="{{ path('event_copy', {'id': data.id}) }}"><i
+												class="mdi mdi-content-copy"></i> {% trans %}Copy{% endtrans %}</a>
+									<a class="dropdown-item" href="{{ path('event_delete', {'id': data.id}) }}"
+									   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.about }}');"><i
+												class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+								</div>
+							</div>
+							<!-- End dropdown menu -->
+						</td>
+
+						<td>
+							<a href="{{ path('event_id', {'id': data.id}) }}"> {{ data.about }}</a>
+						</td>
+
+						<td data-order="{{ data.startDate | date('Y/m/d') }}">
+							{{ data.startDate | date('d-m-Y') }}</td>
+						</td>
+						<td>
+							{{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}
+						</td>
+						<td>
+							{{ data.location.venue }}
+						</td>
+						<td>
+							{% if data.eventStatus == 'Confirmed'  %}
+								<span class="badge badge-success">Confirmed</span>
+							{% endif %}
+							{% if data.eventStatus == 'Tentative'  %}
+								<span class="badge badge-secondary">Tentative</span>
+							{% endif %}
+							{% if data.eventStatus == 'Canceled'  %}
+								<span class="badge badge-danger">Canceled</span>
+							{% endif %}
+						</td>
+
+						<td>
+							{% for data in data.category %}<span class="badge badge-primary">{{ data.name }}</span> {% endfor %}
+						</td>
+					</tr>
+				{% endfor %}
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+
+	{% for data in category %}
+		{% if query == data.id %}
+			{% set pdfCat = data.name %}
+		{% endif %}
+	{% endfor %}
+	{% if query == 'all' or query == null %}
+		{% set pdfCat = 'Alles' %}
+	{% endif %}
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			var table = $('#datatable-buttons').DataTable({
+				lengthChange: false,
+				pageLength: 50,
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[2, "asc"]],
+				buttons: [
+					{
+						extend: 'csv',
+						exportOptions: {
+							columns: [1, 2, 3, 4, 5]
+						}
+					},
+					{
+						extend: 'print',
+						exportOptions: {
+							columns: [1, 2, 3, 4, 5]
+						}
+					},
+					{
+						extend: 'pdfHtml5',
+						title: '{{ club_name }} - Events. Category: {{ pdfCat }} - Version: {{ "now"|date("m-d-y") }}',
+						orientation: 'landscape',
+						pageSize: 'A4',
+						exportOptions: {
+							columns: [1, 2, 3, 4, 5]
+						}
+					}],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+				initComplete: function () {
+					setTimeout( function () {
+						table.buttons().container().appendTo( '#datatable-buttons_wrapper .col-md-6:eq(0)' );
+					}, 10 );
+				}
+			});
+		});
+
+		jQuery('#date-range').datepicker({
+			format: 'yyyy-mm-dd',
+			clearBtn: true,
+			toggleActive: true
+		});
+	</script>
+{% endblock %}
+
+
