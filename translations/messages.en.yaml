@@ -1,20 +1,38 @@
+About: Event
 Add: Add
 Additional name: Additional name
+Additional property: Storage location
+Additional type: Type
 Address country: Country
 Address locality: City
 Address: Address
+Age-build-up: Age build up
 Alternate name: Offer
 Alumni: Alumni
+AssetTag: Asset tag
+Asset_Add: Add asset
+Attendee: Attendee
+Attendee_edit: Edit attendee
+Attendee_updated: Attendees have been updated.
 Availability starts: Availability starts
 Availability: Availability
 AvailabilityStarts-help: The beginning of the availability of service.
 Available channel: The service is available via the communication channel
 Birth date: Birthdate
+Calendar_nav_all: All Events
 Canceled: Canceled
+Categorie_add: Add categorie
 Category: Category
+Category_nav_all: All categories
 Certificate: Certificate
 Channel: Channel
 Close: Close
+Club statistics: Club statistics
+Confirmed: Confirmed
+Contributor: Contributor
+Contributor_edit: Edit contributor
+Contributor_updated: Contributors have been updated.
+Copy: Copy
 Create: Create
 Customer: Customer
 Danger: 'Danger:'
@@ -22,8 +40,9 @@ Data: Data
 Date achieved: Date achieved
 Date: Date
 Delete: Delete
-Delete_message: 'Are you sure you want to delete this item:'
+Delete_message: 'Are you sure you want to delete this item?:'
 Description: Description
+Door time: Door time
 Edit: Edit
 Education: Training
 Education_add: Add training
@@ -34,35 +53,53 @@ Employees: Employees
 Employees_add: Add employees
 Employees_edit: Edit employees
 End date: End date
+End time: End time
+Event status: Event status
 Event: Event
+Event_add: Add event
 Events: Events
 Family name: Last name
 Female: Female
 Finished: Finished
 Gender: Gender
 Given name: First name
+Identifier: Asset tag
+Image: Image
+Images: Images
 In progress: In progress
 In stock: In stock
+Information: information
 Inventory level: Inventory level
 Inventory: Inventory
 Invoice: Invoice
+Is accessible for free: Is not accessible for free
+Is related to: Product is related to
 Item: Item
+Jubilee: Anniversaries
 Legal name: Organization
 Lei code: Lei code
+Loan: Loan
+Location: Location
+Log: Log
 Male: Male
+Manufacturer: manufacturer
+Maximum attendee capacity: Maximum attendee capacity
 Member of: Roles
 MemberOf_edit: Edit Roles
 MemberOf_updated: Roles have been updated!
-Organizer_updated: Organizer have been updated!
 Membership: Membership
 Membership_add: Add membership
 Membership_edit: Edit membership
+Model: Model
 Musical instrument: Musical instrument
+MusicalInstrument: Musical instrument
 MusicalInstrument_add: Add musical instrument
 MusicalInstrument_edit: Edit musical instrument
+Mutiple: Mutiple products
 Name: Name
 Navbar_calendar: Calendar
 Navbar_categories: Categories
+Navbar_club: Club
 Navbar_contacts: Contacts
 Navbar_dashboard: Dashboard
 Navbar_musicalInstrument: Musical instruments
@@ -83,6 +120,7 @@ Notes: Notes
 Offer: Offer
 Offers: Offers
 On hold: On hold
+On loan: On loan
 Order date: Order date
 Order status: Order status
 Order: Order
@@ -103,6 +141,9 @@ Organization_nav_organization_information: Organization information
 Organizations: Organizations
 Organizations_add: Add organizations
 Organizations_edit: Edit Organizations
+Organizer: Organizer
+Organizer_edit: Edit organizer
+Organizer_updated: Organizer have been updated!
 Out of stock: Out of stock
 Owned from: Owned from
 Owned trough: Owned till
@@ -110,12 +151,13 @@ Parents: Parents
 Parents_add: Add parents
 Parents_edit: Edit parents
 People: Persons
+Performer: Performer
+Performer_edit: Edit performer
+Performer_updated: performer have been updated.
 Person: Person
 Person_add: Add Person
 Person_nav_all: All Persons
-Calendar_nav_all: All Events
 Person_nav_education: Education
-Log: Log
 Person_nav_membership: Membership
 Person_nav_musicalInstrument: Musical instrument
 Person_nav_parents: Parents
@@ -125,23 +167,31 @@ Persons: Persons
 Post office box number: P.O. Box
 Postal code: zip code
 Price: Price
+Product i d: ProductID
 Product: Product
 Product_add: Add Product
 Product_edit: Edit Product
 Product_lease_lend: Lease-lend
 Product_manufacturer: Manufacturer
 Product_model: Model
+Product_nav_all: All items
 Product_owned_from: Owned from
 Product_owned_till: Owned Till
 Product_product: Product
 ProgramMemberships: Roles
 ProgramMemberships_role: Role
+Purchase date: Purchase date
 Quantity: Quantity
 Refunded: Refunded
 Regular: Regular
+Related product: related product
+RelatedProducts: Related products
+Remaining attendee capacity: Remaining attendee capacity
 Reorder: Reorder
+Revenue: Revenue
 Review aspect: Title
 Review body: Note
+Review: Review
 Review_add: Add note
 Review_edit: Edit note
 Reviews: Notes
@@ -157,16 +207,28 @@ Service_nav_all: All services
 Service_nav_service_information: Service information
 Services: Services
 Settings: Settings
+Sponsor: Sponsor
+Sponsor_edit: Edit sponsor
+Sponsor_updated: Sponsors have been updated.
 Start date: Start date
+Start time: Start time
 Status: Status
 Street address: Street
 Success: 'Success:'
+Supplier_updated: Suppliers have been updated.
+Suppliers: Suppliers
+Suppliers_edit: Edit suppliers
 Tags: Tags
 Telephone 2: Mobile
 Telephone: Telephone
+Tenant: Tenant
+Tentative: Tentative
+Time: Time
 Timestamp: Timestamp
 Total: Total
+Type: Type
 Typeof good: Product
+Unique product: Unique product
 UnitCost: Unit cost
 User roles: user roles
 User: User
@@ -175,6 +237,9 @@ Users: Users
 Valid from: Valid from
 ValidFrom-help: The date when the item becomes valid.
 Vat i d: VAT Id
+Venue: Venue
+Venue_add: Add venue
+Venues: Venues
 View: View
 Waiting for payment: Waiting for payment
 Warning: 'Warning:'
@@ -182,76 +247,15 @@ Webshop: Webshop
 Website: Website
 Years: Years
 displayName: Display name
+eventStatus: Status
 flash_message_create: has been created!
 flash_message_delete: has been deleted!
 flash_message_edit: has been updated!
+flash_message_edit_relatedProducts: related products have been updated.
+flash_message_upload: has been uploaded!
 orders_edit: Edit order
 username: Username
-Categorie_add: Add categorie
-Category_nav_all: All categories
-Type: Type
-Additional type: Type
-MusicalInstrument: Musical instrument
-Venue_add: Add venue
-Venues: Venues
-Venue: Venue
-Product_nav_all: All items
-On loan: On loan
-Model: Model
-Manufacturer: manufacturer
-Product i d: ProductID
-Loan: Loan
-Information: information
-AssetTag: Asset tag
-Purchase date: Purchase date
-Mutiple: Mutiple products
-Unique product: Unique product
-Images: Images
-RelatedProducts: Related products
-Asset_Add: Add asset
-Identifier: Asset tag
-Tenant: Tenant
-Related product: related product
-Is related to: Product is related to
-flash_message_edit_relatedProducts: related products have been updated.
-Performer_updated: performer have been updated.
-Additional property: Storage location
-Image: Image
-flash_message_upload: has been uploaded!
-Event_add: Add event
-About: Event
-Time: Time
-Location: Location
-eventStatus: Status
-Organizer: Organizer
-Performer: Performer
-Suppliers: Suppliers
-Sponsor: Sponsor
-Contributor: Contributor
-Attendee: Attendee
-Review: Review
-Door time: Door time
-Start time: Start time
-End time: End time
-Event status: Event status
-Confirmed: Confirmed
-Tentative: Tentative
-Is accessible for free: Is not accessible for free
-Maximum attendee capacity: Maximum attendee capacity
-Remaining attendee capacity: Remaining attendee capacity
-Organizer_edit: Edit organizer
-Performer_edit: Edit performer
-Copy: Copy
-Supplier_updated: Suppliers have been updated.
-Suppliers_edit: Edit suppliers
-Attendee_updated: Attendees have been updated.
-Contributor_updated: Contributors have been updated.
-Sponsor_updated: Sponsors have been updated.
-Sponsor_edit: Edit sponsor
-Attendee_edit: Edit attendee
-Contributor_edit: Edit contributor
-Revenue: Revenue
-Navbar_club: Club
-Age-build-up: Age build up
-Club statistics: Club statistics
-Jubilee: Anniversaries
+Statistics: Statistics
+Dashboard: Dashboard
+Relations: Relations
+add_person: Add person

@@ -65,7 +65,7 @@
                    href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-cash-multiple"></i> {% trans %}Revenue{% endtrans %}<span class="sr-only">(current)</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item {{ app.request.get('_route') == 'service' ? 'active' }}" href="{{ path('service') }}">Services</a>
+                    <a class="dropdown-item {{ app.request.get('_route') == 'service' ? 'active' }}" href="{{ path('service') }}">{% trans %}Services{% endtrans %}</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item {{ app.request.get('_route') == 'order' ? 'active' }}" href="{{ path('order') }}">{% trans %}Navbar_orders{% endtrans %}</a>
                 </div>

@@ -68,13 +68,6 @@
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#tags"><i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
-		{%if data.memberOf is not empty %}
-			<span class="badge badge-primary float-right">{{ data.memberOf|length }}</span>
-		{% endif %}
-		</a>
-	</li>
-	<li class="nav-item">
 		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
 		{%if data.review is not empty %}
 			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
@@ -288,23 +281,6 @@
 		</div>
 	</div>
 	<!-- End memberOf -->
-	<br>
-
-	<!-- tags -->
-	<div class="card">
-		<div class="card-header" id="tags">
-			<span class="align-middle">
-				<i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
-			{% if is_granted('ROLE_PERSON_EDIT') %}
-				<a class="btn btn-primary btn-sm float-right" href="}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
-			{% endif %}
-			</span>
-		</div>
-
-		<div class="card-body">
-		</div>
-	</div>
-	<!-- End Tags -->
 	<br>
 
 	<!-- Review -->
