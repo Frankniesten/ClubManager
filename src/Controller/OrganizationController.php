@@ -18,7 +18,7 @@ class OrganizationController extends AbstractController
 {
     /**
      * @Route("/organization", name="organization")
-     * @IsGranted("ROLE_ORGANIZATION_VIEW")
+     * @IsGranted("ROLE_PERSON_VIEW")
      */
     public function list(SessionInterface $session, EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
     {
@@ -62,7 +62,7 @@ class OrganizationController extends AbstractController
     
     /**
      * @Route("/organization/create", name="organization_create")
-     * @IsGranted("ROLE_ORGANIZATION_CREATE")
+     * @IsGranted("ROLE_PERSON_CREATE")
      */
 	public function create(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
@@ -89,7 +89,7 @@ class OrganizationController extends AbstractController
 	
 	/**
      * @Route("/organization/{id}", name="organization_id")
-     * @IsGranted("ROLE_ORGANIZATION_VIEW")
+     * @IsGranted("ROLE_PERSON_VIEW")
      */
 	public function show(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
@@ -113,7 +113,7 @@ class OrganizationController extends AbstractController
 	
 	/**
      * @Route("/organization/{id}/edit", name="organization_edit")
-     * @IsGranted("ROLE_ORGANIZATION_EDIT")
+     * @IsGranted("ROLE_PERSON_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
@@ -146,7 +146,7 @@ class OrganizationController extends AbstractController
 	
 	/**
      * @Route("/organization/{id}/delete", name="organization_delete")
-     * @IsGranted("ROLE_ORGANIZATION_DELETE")
+     * @IsGranted("ROLE_PERSON_DELETE")
      */
 	public function del(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{

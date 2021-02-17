@@ -3,7 +3,9 @@
     <table id="datatable-orders" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
         <thead>
         <tr>
-            <th width="20px"></th>
+            {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                <th width="20px"></th>
+            {% endif %}
             <th class="desktop">{% trans %}Orders{% endtrans %}</th>
             <th class="desktop">{% trans %}Date{% endtrans %}</th>
             <th class="desktop">{% trans%}Orders_order_status{% endtrans %}</th>
@@ -15,20 +17,26 @@
 
         {% for customer in data.customer %}
             <tr>
+                {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
                 <td align="center">
                     <!-- Dropdown menu -->
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"></button>
                         <div class="dropdown-menu">
+                            {% if is_granted('ROLE_SERVICES_EDIT') %}
                             <a class="dropdown-item" href="{{ path('person_order_edit', { 'id': data.id, 'orderID': customer.id}) }}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                            {% endif %}
+                            {% if is_granted('ROLE_SERVICES_DELETE') %}
                             <a class="dropdown-item" href="{{ path('person_order_delete', { 'id': data.id, 'orderID': customer.id}) }}"
                                onclick="return confirm('{% trans %}Delete_message{% endtrans %} #{{ customer.id }}');"><i
                                         class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                            {%  endif %}
                         </div>
                     </div>
                     <!-- End dropdown menu -->
                 </td>
+                {% endif %}
                 <td>
                     #{{ customer.id }}
                 </td>

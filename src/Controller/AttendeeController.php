@@ -15,7 +15,7 @@ class AttendeeController extends AbstractController
 {
     /**
     * @Route("/event/{id}/attendee/edit", name="attendee_edit")
-    * @IsGranted("ROLE_EVENT_EDIT")
+    * @IsGranted("ROLE_PERSON_EDIT")
     */
     public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {

@@ -21,17 +21,11 @@ class UserRoleFormType extends AbstractType
                     'Dashboard' => [
                         'View' => 'ROLE_DASHBOARD_VIEW',
                     ],
-                    'Persons' => [
+                    'Relations' => [
                         'View' => 'ROLE_PERSON_VIEW',
                         'Create'   => 'ROLE_PERSON_CREATE',
                         'Edit' => 'ROLE_PERSON_EDIT',
                         'Delete' => 'ROLE_PERSON_DELETE',
-                    ],
-                    'Organizations' => [
-                        'View' => 'ROLE_ORGANIZATION_VIEW',
-                        'Create'   => 'ROLE_ORGANIZATION_CREATE',
-                        'Edit' => 'ROLE_ORGANIZATION_EDIT',
-                        'Delete' => 'ROLE_ORGANIZATION_DELETE',
                     ],
                     'Events' => [
                         'View' => 'ROLE_EVENT_VIEW',
@@ -45,11 +39,14 @@ class UserRoleFormType extends AbstractType
                         'Edit' => 'ROLE_PRODUCT_EDIT',
                         'Delete' => 'ROLE_PRODUCT_DELETE',
                     ],
-                    'Services' => [
+                    'Revenue' => [
                         'View' => 'ROLE_SERVICES_VIEW',
                         'Create'   => 'ROLE_SERVICES_CREATE',
                         'Edit' => 'ROLE_SERVICES_EDIT',
                         'Delete' => 'ROLE_SERVICES_DELETE',
+                    ],
+                    'Statistics' => [
+                        'View' => 'ROLE_STATISTICS_VIEW',
                     ],
                     'Settings' => [
                         'View' => 'ROLE_SETTINGS_VIEW',
@@ -57,25 +54,6 @@ class UserRoleFormType extends AbstractType
                         'Edit' => 'ROLE_SETTINGS_EDIT',
                         'Delete' => 'ROLE_SETTINGS_DELETE',
                     ],
-                    'Statistics' => [
-                        'View' => 'ROLE_STATISTICS_VIEW',
-                    ],
-                    'ORDER' => [
-                        'View' => 'ROLE_ORDER_VIEW',
-                    ],
-                    'Notes' => [
-                        'View' => 'ROLE_REVIEW_VIEW',
-                        'Create' => 'ROLE_REVIEW_CREATE',
-                        'Edit' => 'ROLE_REVIEW_EDIT',
-                        'Delete' => 'ROLE_REVIEW_DELETE',
-                    ],
-                    'Users' => [
-                        'View' => 'ROLE_USERS_VIEW',
-                        'Create' => 'ROLE_USERS_CREATE',
-                        'Edit' => 'ROLE_USERS_EDIT',
-                        'Delete' => 'ROLE_USERS_DELETE',
-                    ],
-
                 ],
                 'multiple' => true,
                 'attr' => [

@@ -14,8 +14,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PostalAddressController extends AbstractController
 {
     /**
-     * @Route("/settings/postaladdress", name="postaladdress")
-     * @IsGranted("ROLE_SETTINGS_VIEW")
+     * @Route("/postaladdress", name="postaladdress")
+     * @IsGranted("ROLE_EVENT_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
@@ -29,8 +29,8 @@ class PostalAddressController extends AbstractController
 	}
 
 	/**
-     * @Route("/settings/postaladdress/create", name="postaladdress_create")
-     * @IsGranted("ROLE_SETTINGS_CREATE")
+     * @Route("/postaladdress/create", name="postaladdress_create")
+     * @IsGranted("ROLE_EVENT_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
@@ -56,8 +56,8 @@ class PostalAddressController extends AbstractController
 	}
 	
 	/**
-     * @Route("/settings/postaladdress/{id}/edit", name="postaladdress_edit")
-     * @IsGranted("ROLE_SETTINGS_EDIT")
+     * @Route("/postaladdress/{id}/edit", name="postaladdress_edit")
+     * @IsGranted("ROLE_EVENT_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
@@ -90,8 +90,8 @@ class PostalAddressController extends AbstractController
 	}
 	
 	/**
-     * @Route("/settings/postaladdress/{id}/delete", name="postaladdress_delete")
-     * @IsGranted("ROLE_SETTINGS_DELETE")
+     * @Route("/postaladdress/{id}/delete", name="postaladdress_delete")
+     * @IsGranted("ROLE_EVENT_DELETE")
      */
 	public function delete(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{

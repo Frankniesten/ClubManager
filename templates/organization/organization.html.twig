@@ -11,13 +11,7 @@
 			{% endif %}
 		</a>
 	</li>
-	<li class="nav-item">
-		<a class="nav-link" href="#tags"><i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
-			{%if data.review is not empty %}
-				<span class="badge badge-primary float-right">{{ data.review|length }}</span>
-			{% endif %}
-		</a>
-	</li>
+
 	<li class="nav-item">
 		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
 			{%if data.review is not empty %}
@@ -26,7 +20,7 @@
 		</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Person_nav_log{% endtrans %}
+		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}
 			{%if data.review is not empty %}
 				<span class="badge badge-primary float-right">{{ data.review|length }}</span>
 			{% endif %}
@@ -46,20 +40,21 @@
 
 		<div class="p-2">
 			<div class="btn-group btn-group-sm">
-				{% if is_granted('ROLE_PERSON_EDIT') %}
+				{% if is_granted('ROLE_PERSON_VIEW') %}
 					<a class="btn btn-primary" href="{{ path('organization') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
 				{% endif %}
 
+				{% if is_granted('ROLE_PERSON_DELETE') %}
 				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="sr-only">Toggle Dropdown</span>
 				</button>
 				<div class="dropdown-menu">
-					{% if is_granted('ROLE_PERSON_DELETE') %}
+
 						<a class="dropdown-item" href="{{ path('organization_delete', {'id': data.id}) }}"
 						   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.legalName }}');"><i
 									class="mdi mdi-delete text-danger"></i> Verwijderen</a>
-					{% endif %}
 				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
@@ -71,7 +66,9 @@
 			<span class="align-middle">
 				<i class="mdi mdi-factory"></i> {% trans %}Organization_nav_organization_information{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% if is_granted('ROLE_PERSON_EDIT') %}
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{% endif %}
 		</div>
 
 		<div class="card-body">
@@ -90,7 +87,9 @@
 		<div class="card-header" id="employee">
 			<span class="align-middle">
 				<i class="mdi mdi-account-tie"></i> {% trans %}Employees{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('organization_employee_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('organization_employee_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{%  endif %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -100,27 +99,14 @@
 	<!-- End Employees -->
 	<br>
 
-	<!-- tags -->
-	<div class="card">
-		<div class="card-header" id="tags">
-			<span class="align-middle">
-				<i class="mdi mdi-tag-outline"></i> {% trans %}Tags{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
-			</span>
-		</div>
-
-		<div class="card-body">
-		</div>
-	</div>
-	<!-- End Tags -->
-	<br>
-
 	<!-- Review -->
 	<div class="card">
 		<div class="card-header" id="review">
 			<span class="align-middle">
 				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'organization', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -134,7 +120,7 @@
 	<div class="card">
 		<div class="card-header" id="history">
 			<span class="align-middle">
-				<i class="mdi mdi-history"></i> {% trans %}Person_nav_log{% endtrans %}
+				<i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -157,13 +143,17 @@
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 5,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -177,13 +167,17 @@
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 5,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 1, "asc" ]],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"

@@ -17,7 +17,7 @@ class ImageController extends AbstractController
 {
     /**
      * @Route("/product/{id}/image/upload", name="image_upload")
-     * @IsGranted("ROLE_PERSON_CREATE")
+     * @IsGranted("ROLE_PRODUCT_CREATE")
      */
     public function index(EntityManagerInterface $em, Request $request, TranslatorInterface $translator, $id)
     {
@@ -32,7 +32,7 @@ class ImageController extends AbstractController
 
     /**
      * @Route("/product/{id}/image/dropzone", name="image_dropzone")
-     * @IsGranted("ROLE_PERSON_CREATE")
+     * @IsGranted("ROLE_PRODUCT_CREATE")
      */
     public function image_dropzone(EntityManagerInterface $em, Request $request, $id)
     {
@@ -62,7 +62,7 @@ class ImageController extends AbstractController
 
     /**
      * @Route("/product/{product_id}/image/{image_id}/delete", name="image_delete")
-     * @IsGranted("ROLE_PERSON_DELETE")
+     * @IsGranted("ROLE_PRODUCT_DELETE")
      */
     public function del(EntityManagerInterface $em, Request $request, $product_id, $image_id, TranslatorInterface $translator)
     {

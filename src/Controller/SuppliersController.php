@@ -15,7 +15,7 @@ class SuppliersController extends AbstractController
 {
     /**
     * @Route("/event/{id}/suppliers/edit", name="suppliers_edit")
-    * @IsGranted("ROLE_EVENT_EDIT")
+    * @IsGranted("ROLE_PERSON_EDIT")
     */
     public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {

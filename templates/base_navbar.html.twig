@@ -12,11 +12,9 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto nav-fill w-100">
-            {% if is_granted('ROLE_DASHBOARD_VIEW') %}
                 <li class="nav-item {{ app.request.get('_route') == 'dashboard' ? 'active' }}">
                     <a class="nav-link" href="{{ path('dashboard') }}"><i class="mdi mdi-view-dashboard"></i> {% trans %}Navbar_dashboard{% endtrans %}</a>
                 </li>
-            {% endif %}
             {% if is_granted('ROLE_PERSON_VIEW') %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle
@@ -28,18 +26,29 @@
                        href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Navbar_relations{% endtrans %}<span class="sr-only">(current)</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item {{ app.request.get('_route') == 'person' ? 'active' }}" href="{{ path('person') }}">Persons</a>
+                        <a class="dropdown-item {{ app.request.get('_route') == 'person' ? 'active' }}" href="{{ path('person') }}">{% trans %}Navbar_person{% endtrans %}</a>
                         <a class="dropdown-item {{ app.request.get('_route') == 'organization' ? 'active' }}" href="{{ path('organization') }}">Organizations</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item {{ app.request.get('_route') == 'program_memberships' ? 'active' }}" href="{{ path('program_memberships') }}">{% trans %}Navbar_roles{% endtrans %}</a>
-                        <a class="dropdown-item" href="#">Tags</a>
                     </div>
                 </li>
             {% endif %}
             {% if is_granted('ROLE_EVENT_VIEW') %}
-            <li class="nav-item">
-                <a class="nav-link {{  'event' in app.request.get('_route') ? 'active' }}" href="{{ path('event') }}"><i class="mdi mdi-calendar"></i> {% trans %}Navbar_calendar{% endtrans %}<span class="sr-only">(current)</span></a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle
+                {% if app.request.attributes.get('_route') in [
+                    'event',
+                    'postaladdress',
+                ] %}active{% endif %}"
+                   href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-calendar"></i> {% trans %}Event{% endtrans %}<span class="sr-only">(current)</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item {{ app.request.get('_route') == 'event' ? 'active' }}" href="{{ path('event') }}">{% trans %}Navbar_calendar{% endtrans %}</a>
+                    <a class="dropdown-item {{ app.request.get('_route') == 'postaladdress' ? 'active' }}" href="{{ path('postaladdress') }}">{% trans %}Navbar_venue{% endtrans %}</a>
+                </div>
             </li>
+
+
             {% endif %}
             {% if is_granted('ROLE_PRODUCT_VIEW') %}
             <li class="nav-item {{  'product' in app.request.get('_route') ? 'active' }}">
@@ -47,18 +56,32 @@
             </li>
             {% endif %}
             {% if is_granted('ROLE_SERVICES_VIEW') %}
-            <li class="nav-item {{  'service' in app.request.get('_route') ? 'active' }}">
-                <a class="nav-link" href="{{ path('service') }}"><i class="mdi mdi-cart"></i> {% trans %}Navbar_services{% endtrans %}<span class="sr-only">(current)</span></a>
-            </li>
-            {% endif %}
-            {% if is_granted('ROLE_ORDER_VIEW') %}
-            <li class="nav-item {{  'order' in app.request.get('_route') ? 'active' }}">
-                <a class="nav-link" href="{{ path('order') }}"><i class="mdi mdi-cart"></i> {% trans %}Navbar_orders{% endtrans %}<span class="sr-only">(current)</span></a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle
+                    {% if app.request.attributes.get('_route') in [
+                    'service',
+                    '',
+                ] %}active{% endif %}"
+                   href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-cash-multiple"></i> {% trans %}Revenue{% endtrans %}<span class="sr-only">(current)</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item {{ app.request.get('_route') == 'service' ? 'active' }}" href="{{ path('service') }}">Services</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item {{ app.request.get('_route') == 'order' ? 'active' }}" href="{{ path('order') }}">{% trans %}Navbar_orders{% endtrans %}</a>
+                </div>
             </li>
             {% endif %}
             {% if is_granted('ROLE_STATISTICS_VIEW') %}
-            <li class="nav-item">
-                <a class="nav-link" href="#"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Navbar_statistics{% endtrans %}<span class="sr-only">(current)</span></a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle
+                {% if app.request.attributes.get('_route') in [
+                    'statistics',
+                ] %}active{% endif %}"
+                   href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Navbar_statistics{% endtrans %}<span class="sr-only">(current)</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item {{ app.request.get('_route') == 'statistics' ? 'active' }}" href="{{ path('statistics_club') }}">{% trans %}Navbar_club{% endtrans %}</a>
+                </div>
             </li>
             {% endif %}
             {% if is_granted('ROLE_SETTINGS_VIEW') %}
@@ -68,7 +91,6 @@
                     'users',
                     'category',
                     'musical_instrument',
-                    'postaladdress'
 
                 ] %}active{% endif %}"
                    href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-settings"></i> {% trans %}Navbar_settings{% endtrans %}<span class="sr-only">(current)</span>
@@ -78,7 +100,6 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item {{ app.request.get('_route') == 'category' ? 'active' }}" href="{{ path('category') }}">{% trans %}Navbar_categories{% endtrans %}</a>
                     <a class="dropdown-item {{ app.request.get('_route') == 'musical_instrument' ? 'active' }}" href="{{ path('musical_instrument') }}">{% trans %}Navbar_musicalInstrument{% endtrans %}</a>
-                    <a class="dropdown-item {{ app.request.get('_route') == 'postaladdress' ? 'active' }}" href="{{ path('postaladdress') }}">{% trans %}Navbar_venue{% endtrans %}</a>
                 </div>
             </li>
             {% endif %}

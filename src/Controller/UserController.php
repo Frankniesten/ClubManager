@@ -16,7 +16,7 @@ class UserController extends AbstractController
 {
     /**
      * @Route("/settings/users", name="users")
-     * @IsGranted("ROLE_USERS_VIEW")
+     * @IsGranted("ROLE_SETTINGS_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
@@ -31,7 +31,7 @@ class UserController extends AbstractController
 	
 	/**
      * @Route("/settings/user/create", name="user_create")
-     * @IsGranted("ROLE_USERS_EDIT")
+     * @IsGranted("ROLE_SETTINGS_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
@@ -60,7 +60,7 @@ class UserController extends AbstractController
 	
 	/**
      * @Route("/settings/user/{id}/edit", name="user_edit")
-     * @IsGranted("ROLE_USERS_EDIT")
+     * @IsGranted("ROLE_SETTINGS_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
@@ -94,7 +94,7 @@ class UserController extends AbstractController
 	
 	/**
      * @Route("/settings/user/{id}/delete", name="user_delete")
-     * @IsGranted("ROLE_USERS_DELETE")
+     * @IsGranted("ROLE_SETTINGS_DELETE")
      */
 	public function delete(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{

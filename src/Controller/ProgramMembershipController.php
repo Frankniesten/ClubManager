@@ -16,8 +16,8 @@ class ProgramMembershipController extends AbstractController
 {
 	
     /**
-     * @Route("/programmemberships", name="program_memberships")
-     * @IsGranted("ROLE_SETTINGS_VIEW")
+     * @Route("/programmembership", name="program_memberships")
+     * @IsGranted("ROLE_PERSON_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
@@ -33,8 +33,8 @@ class ProgramMembershipController extends AbstractController
 	
 	
 	/**
-     * @Route("/settings/programmembership/create", name="program_membership_create")
-     * @IsGranted("ROLE_SETTINGS_CREATE")
+     * @Route("/programmembership/create", name="program_membership_create")
+     * @IsGranted("ROLE_PERSON_CREATE")
      */
 	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
@@ -61,8 +61,8 @@ class ProgramMembershipController extends AbstractController
 	
 	
 	/**
-     * @Route("/settings/programmembership/{id}/edit", name="program_membership_edit")
-     * @IsGranted("ROLE_SETTINGS_EDIT")
+     * @Route("/programmembership/{id}/edit", name="program_membership_edit")
+     * @IsGranted("ROLE_PERSON_EDIT")
      */
 	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
@@ -96,8 +96,8 @@ class ProgramMembershipController extends AbstractController
 
 
     /**
-     * @Route("/settings/programmembership/{id}/add", name="program_membership_add")
-     * @IsGranted("ROLE_SETTINGS_EDIT")
+     * @Route("/programmembership/{id}/add", name="program_membership_add")
+     * @IsGranted("ROLE_PERSON_EDIT")
      */
     public function add(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {
@@ -133,8 +133,8 @@ class ProgramMembershipController extends AbstractController
 	
 	
 	/**
-     * @Route("/settings/programmembership/{id}/delete", name="program_membership_delete")
-     * @IsGranted("ROLE_SETTINGS_DELETE")
+     * @Route("/programmembership/{id}/delete", name="program_membership_delete")
+     * @IsGranted("ROLE_PERSON_DELETE")
      */
 	public function delete(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{

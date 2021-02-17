@@ -42,6 +42,7 @@
 			{% endif %}
 		</a>
 	</li>
+	{% if is_granted('ROLE_PRODUCT_VIEW') or is_granted('ROLE_PRODUCT_CREATE') or is_granted('ROLE_PRODUCT_EDIT') or is_granted('ROLE_PRODUCT_DELETE') %}
 	<li class="nav-item">
 		<a class="nav-link" href="#owns"><i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
 		{%if data.owns is not empty %}
@@ -49,6 +50,8 @@
 		{% endif %}
 		</a>
 	</li>
+	{% endif %}
+	{% if is_granted('ROLE_SERVICES_VIEW') %}
 	<li class="nav-item">
 		<a class="nav-link" href="#order"><i class="mdi mdi-cart-arrow-down"></i> {% trans %}Orders{% endtrans %}
 		{%if data.customer is not empty %}
@@ -56,6 +59,7 @@
 		{% endif %}
 		</a>
 	</li>
+	{% endif %}
 	<li class="nav-item">
 		<a class="nav-link" href="#memberOf"><i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
 		{%if data.memberOf is not empty %}
@@ -148,7 +152,7 @@
 			<span class="align-middle">
 				<i class="mdi mdi-account-star-outline"></i> {% trans %}Person_nav_membership{% endtrans %}
 			</span>
-			{% if is_granted('ROLE_PERSON_create') %}
+			{% if is_granted('ROLE_PERSON_CREATE') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			{% endif %}
 		</div>
@@ -230,11 +234,12 @@
 
 
 	<!-- Owns -->
+	{% if is_granted('ROLE_PRODUCT_VIEW') or is_granted('ROLE_PRODUCT_CREATE') or is_granted('ROLE_PRODUCT_EDIT') or is_granted('ROLE_PRODUCT_DELETE') %}
 	<div class="card">
 		<div class="card-header" id="owns">
 			<span class="align-middle">
 				<i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
-			{% if is_granted('ROLE_PERSON_EDIT') %}
+			{% if is_granted('ROLE_PRODUCT_CREATE') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'owns_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			{% endif %}
 			</span>
@@ -243,15 +248,18 @@
 			{{ include('person/person-owns.html.twig', { 'data': data }) }}
 		</div>
 	</div>
-	<!-- End Owns -->
 	<br>
+	{% endif %}
+	<!-- End Owns -->
+
 
 	<!-- Orders -->
+	{% if is_granted('ROLE_SERVICES_VIEW') %}
 	<div class="card">
 		<div class="card-header" id="order">
 			<span class="align-middle">
 				<i class="mdi mdi-cart-arrow-down"></i> {% trans %}Orders{% endtrans %}
-			{% if is_granted('ROLE_PERSON_EDIT') %}
+			{% if is_granted('ROLE_SERVICES_CREATE') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_order_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			{% endif %}
 			</span>
@@ -260,8 +268,10 @@
 			{{ include('person/person-order.html.twig', { 'data': data }) }}
 		</div>
 	</div>
-	<!-- End Orders -->
 	<br>
+	{% endif %}
+	<!-- End Orders -->
+
 
 	<!-- memberOf -->
 	<div class="card">
@@ -341,13 +351,17 @@
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]]
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -361,13 +375,17 @@
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -381,13 +399,17 @@
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -401,13 +423,17 @@
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -420,13 +446,17 @@
             var table = $('#datatable-owns').DataTable({
                 lengthChange: false,
                 pageLength: 10,
-                columnDefs: [
-				    {
-				    	orderable: false,
-						targets: 0
-				    }
-				  ],
-                order: [[ 1, "asc" ]],
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -440,13 +470,17 @@
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -459,13 +493,17 @@
             var table = $('#datatable-memberOf').DataTable({
                 lengthChange: false,
                 pageLength: 10,
-                columnDefs: [
-				    {
-				    	orderable: false,
-						targets: 0
-				    }
-				  ],
-                order: [[ 1, "asc" ]],
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -478,13 +516,17 @@
 			var table = $('#datatable-review').DataTable({
 				lengthChange: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 1, "asc" ]],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"

@@ -40,14 +40,11 @@
                     {{ form_label(form.ownedTrough) }}
                     {{ form_widget(form.ownedTrough, {'id': 'datepicker-autoclose2'}) }}
                 </div>
-
-
             </div>
 
             <div class="row mb-sm-4">
                 <div class="col">
-                    {{ form_label(form.typeofGood) }}
-                    {{ form_widget(form.typeofGood) }}
+                    {{ form_row(form.person) }}
                 </div>
             </div>
         </div>
@@ -61,22 +58,22 @@
 
 {% block javascripts %}
 
-	{{ parent() }}
+    {{ parent() }}
 
     <script type="text/javascript">
         jQuery('#datepicker-autoclose1').datepicker({
-	        	format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: true
-            });
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true
+        });
     </script>
-    
-     <script type="text/javascript">
+
+    <script type="text/javascript">
         jQuery('#datepicker-autoclose2').datepicker({
-	        	format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: false
-            });
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: false
+        });
     </script>
 
 
@@ -88,7 +85,7 @@
             });
         });
     </script>
-    
+
 {% endblock %}
 
 

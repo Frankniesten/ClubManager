@@ -24,7 +24,7 @@ class ProductFormType extends AbstractType
 			->add('model', TextType::class, ['required' => false])
 			->add('manufacturer', TextType::class, ['required' => false])
 			->add('purchaseDate', DateType::class, ['required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-			->add('uniqueProduct', CheckboxType::class, ['required' => false, 'data' => true, 'attr' => ['data-plugin' => 'switchery']])
+			->add('uniqueProduct', CheckboxType::class, ['required' => false, 'attr' => ['data-plugin' => 'switchery']])
 			->add('identifier', TextType::class, ['required' => false])
             ->add('additionalProperty', TextType::class, ['required' => false])
 			->add('category', EntityType::class, array(

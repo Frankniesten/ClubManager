@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between flex-row">
         <div class="p-2"><h3>{% trans %}Navbar_roles{% endtrans %}</h3></div>
         <div class="p-2">
-            {% if is_granted('ROLE_SETTINGS_CREATE') %}
+            {% if is_granted('ROLE_PERSON_CREATE') %}
                 <a class="btn btn-primary btn-sm float-right" href="{{ path('program_membership_create') }}" role="button"><i class="mdi mdi-plus"></i> {% trans %}Role_add{% endtrans %}</a>
             {% endif %}
         </div>
@@ -22,7 +22,9 @@
             <table id="datatable-buttons" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
                 <thead>
                 <tr>
-                    <th class="desktop" width="20px"></th>
+                    {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+                        <th width="20px"></th>
+                    {% endif %}
                     <th>Rol</th>
                     <th>Omschrijving</th>
                     <th>Personen</th>
@@ -33,23 +35,31 @@
 
                 {% for data in data %}
                     <tr>
+                        {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
                         <td align="center">
                             <!-- Dropdown menu -->
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary btn-xs dropdown-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                 <div class="dropdown-menu">
+                                    {% if is_granted('ROLE_PERSON_EDIT')%}
                                     <a class="dropdown-item" href="{{ path('program_membership_add', {'id': data.id}) }}"><i
                                                 class="mdi mdi-plus"></i> {% trans %}Add{% endtrans %} {% trans %}Persons{% endtrans %}</a>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_PERSON_EDIT')%}
                                     <a class="dropdown-item" href="{{ path('program_membership_edit', {'id': data.id}) }}"><i
                                                 class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                                    {%  endif %}
+                                    {% if is_granted('ROLE_PERSON_DELETE')%}
                                     <a class="dropdown-item" href="{{ path('program_membership_delete', {'id': data.id}) }}"
                                        onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.programName }}');"><i
                                                 class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                                    {% endif %}
                                 </div>
                             </div>
                             <!-- End dropdown menu -->
                         </td>
+                        {% endif %}
 
                         <td>
                             {{ data.programName }}
@@ -85,7 +95,13 @@
                 columnDefs: [
                     {"orderable": false, "targets": 0}
                 ],
+                {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
                 order: [[1, "asc"]],
+                {% else %}
+                order: [[0, "asc"]],
+                {% endif %}
+
+
                 {% if app.request.getLocale() == 'nl' %}
                 language: {
                     url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"

@@ -19,7 +19,7 @@ class OwnershipInfoController extends AbstractController
 {
     /**
      * @Route("/product/{id}/ownershipinfo/create", name="ownership_info_create")
-     * @IsGranted("ROLE_PRODUCT_EDIT")
+     * @IsGranted("ROLE_PERSON_CREATE")
      * @param $id
      * @param ProductsOnLoan $productsOnLoan
      * @param Request $request
@@ -60,7 +60,7 @@ class OwnershipInfoController extends AbstractController
 
     /**
      * @Route("/product/{id}/ownershipinfo/{ownershipID}/edit", name="ownership_info_edit")
-     * @IsGranted("ROLE_PRODUCT_EDIT")
+     * @IsGranted("ROLE_PERSON_EDIT")
      * @param $id
      * @param $ownershipID
      * @param Request $request

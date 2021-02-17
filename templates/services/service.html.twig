@@ -19,7 +19,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Person_nav_log{% endtrans %}</a>
+        <a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}</a>
     </li>
 {% endblock %}
 
@@ -35,20 +35,20 @@
 
         <div class="p-2">
             <div class="btn-group btn-group-sm">
-                {% if is_granted('ROLE_PERSON_EDIT') %}
+                {% if is_granted('ROLE_SERVICES_VIEW') %}
                     <a class="btn btn-primary" href="{{ path('service') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
                 {% endif %}
 
+                {% if is_granted('ROLE_SERVICES_DELETE') %}
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                    {% if is_granted('ROLE_PERSON_DELETE') %}
                         <a class="dropdown-item" href="{{ path('service_delete', {'id': data.id}) }}"
                            onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.serviceType }}');"><i
                                     class="mdi mdi-delete text-danger"></i> Verwijderen</a>
-                    {% endif %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -60,7 +60,9 @@
 			<span class="align-middle">
 				<i class="mdi mdi-cart"></i> {% trans %}Service_nav_service_information{% endtrans %}
 			</span>
-            <a class="btn btn-primary btn-sm float-right" href="{{ path('service_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+            {% if is_granted('ROLE_SERVICES_EDIT') %}
+            <a class="btn btn-primary btn-sm float-right" href="{{ path('service_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+            {% endif %}
         </div>
 
         <div class="card-body">
@@ -79,8 +81,10 @@
         <div class="card-header" id="offers">
 			<span class="align-middle">
 				<i class="mdi mdi-tag-outline"></i> {% trans %}Offers{% endtrans %}
+                {% if is_granted('ROLE_SERVICES_CREATE') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path('offer_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
-			</span>
+			    {% endif %}
+            </span>
         </div>
         <div class="card-body">
             {{ include('services/service-offer.html.twig', { 'data': data }) }}
@@ -94,8 +98,10 @@
         <div class="card-header" id="review">
 			<span class="align-middle">
 				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'service', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
-			</span>
+                {% if is_granted('ROLE_SERVICES_EDIT') %}
+                <a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'service', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			    {% endif %}
+            </span>
         </div>
         <div class="card-body">
             {{ include('global/review.html.twig', { 'data': data }) }}
@@ -108,7 +114,7 @@
     <div class="card">
         <div class="card-header" id="history">
 			<span class="align-middle">
-				<i class="mdi mdi-history"></i> {% trans %}Person_nav_log{% endtrans %}
+				<i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}
 			</span>
         </div>
         <div class="card-body">
@@ -130,13 +136,17 @@
             var table = $('#datatable-offers').DataTable({
                 lengthChange: false,
                 pageLength: 10,
+                {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
                 columnDefs: [
-                    {
-                        orderable: false,
-                        targets: 0
-                    }
+                    {"orderable": false, "targets": 0}
                 ],
-                order: [[ 1, "desc" ]],
+                order: [[1, "asc"]],
+                {%  else %}
+                columnDefs: [
+                    {"orderable": true, "targets": 0}
+                ],
+                order: [[0, "asc"]],
+                {%  endif %}
                 {% if app.request.getLocale() == 'nl' %}
                 language: {
                     url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"

@@ -5,6 +5,7 @@
 		<a class="nav-link" href="#about"><i class="mdi mdi-calendar"></i> {% trans %}About{% endtrans %}</a>
 	</li>
 
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<li class="nav-item">
 		<a class="nav-link" href="#organizer"><i class="mdi mdi-developer-board"></i> {% trans %}Organizer{% endtrans %}
 			{%if data.organizer is not empty %}
@@ -12,7 +13,8 @@
 			{% endif %}
 		</a>
 	</li>
-
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<li class="nav-item">
 		<a class="nav-link" href="#performer"><i class="mdi mdi-drama-masks"></i> {% trans %}Performer{% endtrans %}
 			{%if data.performer is not empty %}
@@ -20,6 +22,8 @@
 			{% endif %}
 		</a>
 	</li>
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<li class="nav-item">
 		<a class="nav-link" href="#suppliers"><i class="mdi mdi-truck"></i> {% trans %}Suppliers{% endtrans %}
 			{%if data.suppliers is not empty %}
@@ -27,6 +31,8 @@
 			{% endif %}
 		</a>
 	</li>
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<li class="nav-item">
 		<a class="nav-link" href="#sponsor"><i class="mdi mdi-gift"></i> {% trans %}Sponsor{% endtrans %}
 			{%if data.sponsor is not empty %}
@@ -34,6 +40,8 @@
 			{% endif %}
 		</a>
 	</li>
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<li class="nav-item">
 		<a class="nav-link" href="#contributor"><i class="mdi mdi-hand"></i> {% trans %}Contributor{% endtrans %}
 			{%if data.contributor is not empty %}
@@ -41,6 +49,8 @@
 			{% endif %}
 		</a>
 	</li>
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<li class="nav-item">
 		<a class="nav-link" href="#attendee"><i class="mdi mdi-account-group"></i> {% trans %}Attendee{% endtrans %}
 			{%if data.attendee is not empty %}
@@ -48,14 +58,16 @@
 			{% endif %}
 		</a>
 	</li>
+	{% endif %}
 
 	<li class="nav-item">
-		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Review{% endtrans %}
+		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
 			{%if data.review is not empty %}
 				<span class="badge badge-primary float-right">{{ data.review|length }}</span>
 			{% endif %}
 		</a>
 	</li>
+
 
 	<li class="nav-item">
 		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}</a>
@@ -77,20 +89,22 @@
 
 		<div class="p-2">
 			<div class="btn-group btn-group-sm">
-				{% if is_granted('ROLE_PERSON_EDIT') %}
+				{% if is_granted('ROLE_EVENT_VIEW') %}
 					<a class="btn btn-primary" href="{{ path('event') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
 				{% endif %}
 
+				{% if is_granted('ROLE_EVENT_DELETE') %}
 				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="sr-only">Toggle Dropdown</span>
 				</button>
 				<div class="dropdown-menu">
-					{% if is_granted('ROLE_PERSON_DELETE') %}
+
 						<a class="dropdown-item" href="{{ path('event_delete', {'id': data.id}) }}"
 						   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.about }}');"><i
 									class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
-					{% endif %}
+
 				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
@@ -102,7 +116,9 @@
 			<span class="align-middle">
 				<i class="mdi mdi-calendar"></i> {% trans %}Person_nav_personal_information{% endtrans %}
 			</span>
-			<a class="btn btn-primary btn-sm float-right" href="{{ path('event_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% if is_granted('ROLE_EVENT_EDIT') %}
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('event_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{%  endif %}
 		</div>
 
 		<div class="card-body">
@@ -116,95 +132,127 @@
 	<!-- End Personal info -->
 	<br>
 	<!-- Organizer -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<div class="card">
 		<div class="card-header" id="organizer">
 			<span class="align-middle">
 				<i class="mdi mdi-developer-board"></i> {% trans %}Organizer{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'organizer_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'organizer_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{%  endif %}
 			</span>
 		</div>
 		<div class="card-body">
 			{{ include('event/event-organizer.html.twig', { 'data': data }) }}
 		</div>
 	</div>
-	<!-- End Organizer -->
 	<br>
+	{% endif %}
+	<!-- End Organizer -->
+
 	<!-- Performer -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<div class="card">
 		<div class="card-header" id="performer">
 			<span class="align-middle">
 				<i class="mdi mdi-drama-masks"></i> {% trans %}Performer{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'performer_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'performer_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
 			{{ include('event/event-performer.html.twig', { 'data': data }) }}
 		</div>
 	</div>
-	<!-- End Performer -->
 	<br>
+	{% endif %}
+	<!-- End Performer -->
+
 	<!-- Supplier -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<div class="card">
 		<div class="card-header" id="suppliers">
 			<span class="align-middle">
 				<i class="mdi mdi-truck"></i> {% trans %}Suppliers{% endtrans %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'suppliers_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'suppliers_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{%  endif %}
 			</span>
 		</div>
 		<div class="card-body">
 			{{ include('event/event-suppliers.html.twig', { 'data': data }) }}
 		</div>
 	</div>
-	<!-- End Supplier -->
 	<br>
+	{% endif %}
+	<!-- End Supplier -->
+
 	<!-- Sponsor -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<div class="card">
 		<div class="card-header" id="sponsor">
 			<span class="align-middle">
 				<i class="mdi mdi-gift"></i> {% trans %}Sponsor{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'sponsor_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{%  endif %}
 			</span>
 		</div>
 		<div class="card-body">
 			{{ include('event/event-sponsor.html.twig', { 'data': data }) }}
 		</div>
 	</div>
-	<!-- End Sponsor -->
 	<br>
+	{% endif %}
+	<!-- End Sponsor -->
+
 	<!-- Contributor -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<div class="card">
 		<div class="card-header" id="contributor">
 			<span class="align-middle">
 				<i class="mdi mdi-hand"></i> {% trans %}Contributor{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'contributor_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
 			{{ include('event/event-contributor.html.twig', { 'data': data }) }}
 		</div>
 	</div>
-	<!-- End Contributor -->
 	<br>
+	{% endif %}
+	<!-- End Contributor -->
+
 	<!-- Attendee -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<div class="card">
 		<div class="card-header" id="attendee">
 			<span class="align-middle">
 				<i class="mdi mdi-account-group"></i> {% trans %}Attendee{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'attendee_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{%  endif %}
 			</span>
 		</div>
 		<div class="card-body">
 			{{ include('event/event-attendee.html.twig', { 'data': data }) }}
 		</div>
 	</div>
-	<!-- End Attendee -->
 	<br>
+	{% endif %}
+	<!-- End Attendee -->
+
 	<!-- Review -->
 	<div class="card">
 		<div class="card-header" id="review">
 			<span class="align-middle">
 				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+				{% if is_granted('ROLE_EVENT_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'event', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% endif %}
 			</span>
 		</div>
 		<div class="card-body">
@@ -236,155 +284,165 @@
 	<script type="text/javascript">
 		$(document).ready(function () {
 
-			//Datatable membership
-			var table = $('#datatable-membership').DataTable({
+			//Datatable organizer
+			var table = $('#datatable-organizer').DataTable({
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]]
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
 				},
 				{%  endif %}
 			});
-			// End datatable membership
+			// End datatable organizer
 
-			//Datatable education
-			var table = $('#datatable-education').DataTable({
+			//Datatable performer
+			var table = $('#datatable-performer').DataTable({
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
 				},
 				{%  endif %}
 			});
-			// End datatable education
+			// End datatable performer
 
-			//Datatable parents
-			var table = $('#datatable-parents').DataTable({
+			//Datatable suppliers
+			var table = $('#datatable-suppliers').DataTable({
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
 				},
 				{%  endif %}
 			});
-			// End datatable parents
+			// End datatable suppliers
 
-			//Datatable organizations
-			var table = $('#datatable-organizations').DataTable({
+			//Datatable sponsor
+			var table = $('#datatable-sponsor').DataTable({
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
 				},
 				{%  endif %}
 			});
-			// End datatable organizations
+			// End datatable sponsor
 
-			//Datatable owns
-			var table = $('#datatable-owns').DataTable({
+			//Datatable contributor
+			var table = $('#datatable-contributor').DataTable({
 				lengthChange: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 1, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
 				},
 				{%  endif %}
 			});
-			// End datatable owns
+			// End datatable contributor
 
-			//Datatable orders
-			var table = $('#datatable-orders').DataTable({
+			//Datatable attendee
+			var table = $('#datatable-attendee').DataTable({
 				lengthChange: false,
 				bFilter: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 2, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
 				},
 				{%  endif %}
 			});
-			// End datatable orders
+			// End datatable attendee
 
-			//Datatable memberOF
-			var table = $('#datatable-memberOf').DataTable({
-				lengthChange: false,
-				pageLength: 10,
-				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
-				],
-				order: [[ 1, "asc" ]],
-				{% if app.request.getLocale() == 'nl' %}
-				language: {
-					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
-				},
-				{%  endif %}
-			});
-			// End datatable memberOf
 
 			//Datatable review
 			var table = $('#datatable-review').DataTable({
 				lengthChange: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 1, "asc" ]],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"

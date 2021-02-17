@@ -15,7 +15,7 @@ class PerformerController extends AbstractController
 {
     /**
     * @Route("/event/{id}/performer/edit", name="performer_edit")
-    * @IsGranted("ROLE_EVENT_EDIT")
+    * @IsGranted("ROLE_PERSON_EDIT")
     */
     public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {

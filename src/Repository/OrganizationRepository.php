@@ -33,6 +33,20 @@ class OrganizationRepository extends ServiceEntityRepository
         ;
     }
 
+    // /**
+    //  * @return Person[] Returns an array of Person objects from category 1
+    //  */
+    public function CountByCategegory($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->andWhere('p.category = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
     /*
     public function findOneBySomeField($value): ?Organization
     {

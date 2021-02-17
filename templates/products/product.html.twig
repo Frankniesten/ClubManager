@@ -14,6 +14,7 @@
 		<a class="nav-link" href="#related"><i class="mdi mdi-transit-connection"></i> {% trans %}RelatedProducts{% endtrans %}</a>
 	</li>
 
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
 	<li class="nav-item">
 		<a class="nav-link" href="#ownershipInfos"><i class="mdi mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
 			{% if data.loan == true  %}
@@ -21,6 +22,7 @@
 			{% endif %}
 		</a>
 	</li>
+	{% endif %}
 
 	<li class="nav-item">
 		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
@@ -53,32 +55,36 @@
 
 	<div class="p-2">
 		<div class="btn-group btn-group-sm">
-			{% if is_granted('ROLE_PERSON_EDIT') %}
+			{% if is_granted('ROLE_PRODUCT_VIEW') %}
 				<a class="btn btn-primary" href="{{ path('product') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
 			{% endif %}
 
+			{% if is_granted('ROLE_PRODUCT_DELETE') %}
 			<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<span class="sr-only">Toggle Dropdown</span>
 			</button>
 			<div class="dropdown-menu">
-				{% if is_granted('ROLE_PERSON_DELETE') %}
+				{% if is_granted('ROLE_PRODUCT_DELETE') %}
 					<a class="dropdown-item" href="{{ path('product_delete', {'id': data.id}) }}"
 					   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.name }}');"><i
 								class="mdi mdi-delete text-danger"></i> Verwijderen</a>
 				{% endif %}
 			</div>
+			{%  endif %}
 		</div>
 	</div>
 </div>
 <!-- End Page header -->
 
-<!-- Personal info -->
+<!-- Product info -->
 <div class="card">
 	<div class="card-header" id="info">
 			<span class="align-middle">
 				<i class="mdi mdi-bugle"></i> {% trans %}Product{% endtrans %} {% trans %}Information{% endtrans %}
 			</span>
-		<a class="btn btn-primary btn-sm float-right" href="{{ path('product_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+		{% if is_granted('ROLE_PRODUCT_EDIT') %}
+		<a class="btn btn-primary btn-sm float-right" href="{{ path('product_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		{%  endif %}
 	</div>
 
 	<div class="card-body">
@@ -89,7 +95,7 @@
 		<i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ data.updatedAt |date("d-m-Y  - H:i")}}
 	</div>
 </div>
-<!-- End Personal info -->
+<!-- End Product info -->
 <br>
 
 <!-- Images -->
@@ -97,7 +103,9 @@
 	<div class="card-header" id="images">
 		<span class="align-middle">
 			<i class="mdi mdi-image"></i> {% trans %}Images{% endtrans %}
+			{% if is_granted('ROLE_PRODUCT_CREATE') %}
 			<a class="btn btn-primary btn-sm float-right" href="{{ path('image_upload', {'id': data.id} )}}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
 		</span>
 	</div>
 	<div class="card-body">
@@ -112,7 +120,9 @@
 	<div class="card-header" id="related">
 <span class="align-middle">
 <i class="mdi mdi-transit-connection"></i> {% trans %}RelatedProducts{% endtrans %}
-<a class="btn btn-primary btn-sm float-right" href="{{ path('product_isRelatedTo_edit', {'id': data.id} )}}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+	{% if is_granted('ROLE_PRODUCT_EDIT') %}
+<a class="btn btn-primary btn-sm float-right" href="{{ path('product_isRelatedTo_edit', {'id': data.id} )}}" role="button"><i class="mdi mdi-pencil"></i></a>
+	{%  endif %}
 </span>
 	</div>
 	<div class="card-body">
@@ -123,27 +133,34 @@
 <br>
 
 <!-- OwnershipInfos -->
-<div class="card">
-	<div class="card-header" id="ownershipInfos">
-	<span class="align-middle">
-		<i class="mdi mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
-		<a class="btn btn-primary btn-sm float-right {% if data.loan == true  %}disabled{% endif %}
-" href="{{ path( 'ownership_info_create', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
-	</span>
+{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<div class="card">
+		<div class="card-header" id="ownershipInfos">
+		<span class="align-middle">
+			<i class="mdi mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
+	{% if is_granted('ROLE_PERSON_CREATE') %}
+			<a class="btn btn-primary btn-sm float-right {% if data.loan == true  %}disabled{% endif %}
+	" href="{{ path( 'ownership_info_create', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+		{%  endif %}
+		</span>
+		</div>
+		<div class="card-body">
+			{{ include('products/product-ownershipInfo.html.twig', { 'data': data }) }}
+		</div>
 	</div>
-	<div class="card-body">
-		{{ include('products/product-ownershipInfo.html.twig', { 'data': data }) }}
-	</div>
-</div>
+	<br>
+{% endif %}
 <!-- End OwnershipInfos -->
-<br>
+
 
 <!-- Review -->
 <div class="card">
 	<div class="card-header" id="review">
 			<span class="align-middle">
 				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+				{% if is_granted('ROLE_PRODUCT_EDIT') %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'product', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% endif %}
 			</span>
 	</div>
 	<div class="card-body">
@@ -179,13 +196,17 @@
 			var table = $('#datatable-isRelatedTo').DataTable({
 				lengthChange: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PRODUCT_EDIT') or is_granted('ROLE_PRODUCT_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 1, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -198,13 +219,17 @@
 			var table = $('#datatable-ownershipInfos').DataTable({
 				lengthChange: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 1, "asc" ]],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
@@ -217,13 +242,17 @@
 			var table = $('#datatable-review').DataTable({
 				lengthChange: false,
 				pageLength: 10,
+				{% if is_granted('ROLE_PRODUCT_EDIT') or is_granted('ROLE_PRODUCT_DELETE') %}
 				columnDefs: [
-					{
-						orderable: false,
-						targets: 0
-					}
+					{"orderable": false, "targets": 0}
 				],
-				order: [[ 1, "asc" ]],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
 				{% if app.request.getLocale() == 'nl' %}
 				language: {
 					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"

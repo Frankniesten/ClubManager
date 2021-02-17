@@ -20,7 +20,7 @@ class EventController extends AbstractController
 	    
     /**
      * @Route("/event", name="event")
-     * @IsGranted("ROLE_PRODUCT_VIEW")
+     * @IsGranted("ROLE_EVENT_VIEW")
      */
     public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
     {
@@ -98,6 +98,31 @@ class EventController extends AbstractController
     }
 
     /**
+     * @Route("/event/create", name="event_create")
+     * @IsGranted("ROLE_EVENT_CREATE")
+     */
+    public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
+    {
+        $form = $this->createForm(EventFormType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+            $em->persist($data);
+            $em->flush();
+            $id = $data->getId();
+
+            $this->addFlash('success', $data->getAbout().' ' . $translator->trans('flash_message_create'));
+            return $this->redirectToRoute('event_id', array('id' => $id));
+        }
+
+        return $this->render('event/eventForm.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/event/{id}", name="event_id")
      * @IsGranted("ROLE_EVENT_VIEW")
      */
@@ -120,31 +145,8 @@ class EventController extends AbstractController
             'logs' => $logs
         ]);
     }
-    
-    /**
-     * @Route("/event/create", name="event_create")
-     * @IsGranted("ROLE_EVENT_CREATE")
-     */
-	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
-	{
-		$form = $this->createForm(EventFormType::class);
-		
-		$form->handleRequest($request);
-		if ($form->isSubmitted() && $form->isValid()) {
 
-			$data = $form->getData();
-			$em->persist($data);
-			$em->flush();
-            $id = $data->getId();
 
-            $this->addFlash('success', $data->getAbout().' ' . $translator->trans('flash_message_create'));
-			return $this->redirectToRoute('event_id', array('id' => $id));
-		}
-		
-		return $this->render('event/eventForm.html.twig', [
-        	'form' => $form->createView()
-		]);
-	}
 	
 	/**
      * @Route("/event/{id}/copy", name="event_copy")

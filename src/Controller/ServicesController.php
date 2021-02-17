@@ -162,8 +162,6 @@ class ServicesController extends AbstractController
 
             $this->addFlash('warning', $service->getServiceType(). ' ' . $translator->trans('flash_message_delete'));
 
-
-			
 			return $this->redirectToRoute('service');
 	}
 }

@@ -21,7 +21,6 @@ class ReviewController extends AbstractController
 {
     /**
 	* @Route("/{entity}/{id}/review/create", name="review_create")
-	* @IsGranted("ROLE_REVIEW_CREATE")
 	*/
 	public function new (EntityManagerInterface $em, Request $request, $entity, $id, TranslatorInterface $translator)
 	{

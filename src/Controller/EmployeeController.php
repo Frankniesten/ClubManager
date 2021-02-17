@@ -17,7 +17,7 @@ class EmployeeController extends AbstractController
 {
     /**
     * @Route("/organization/{id}/employee/edit", name="organization_employee_edit")
-    * @IsGranted("ROLE_ORGANIZATION_EDIT")
+    * @IsGranted("ROLE_PERSON_EDIT")
     */
     public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {

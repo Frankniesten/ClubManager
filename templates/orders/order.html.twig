@@ -1,10 +1,7 @@
 {% extends 'base_content_sidebar.html.twig' %}
 
 {% block sidebar %}
-<
-<li class="nav-item">
-    <a class="nav-link" href="#Invoice"><i class="mdi mdi-file-pdf-box-outline"></i> {% trans %}Invoice{% endtrans %}</a>
-</li>
+
 {% endblock %}
 
 {% block body %}
@@ -19,33 +16,36 @@
 
         <div class="p-2">
             <div class="btn-group btn-group-sm">
-                {% if is_granted('ROLE_PERSON_EDIT') %}
+                {% if is_granted('ROLE_SERVICES_VIEW') %}
                     <a class="btn btn-primary" href="{{ path('order') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
                 {% endif %}
 
+                {% if is_granted('ROLE_SERVICES_DELETE') %}
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
                 <div class="dropdown-menu">
-                    {% if is_granted('ROLE_PERSON_DELETE') %}
+
                         <a class="dropdown-item" href="{{ path('order_delete', {'id': data.id}) }}"
                            onclick="return confirm('{% trans %}Delete_message{% endtrans %} #{{ data.id }}');"><i
                                     class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
-                    {% endif %}
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>
     <!-- End Page header -->
 
-    <!-- Education -->
+    <!-- Order -->
     <div class="card">
 
         <div class="card-header" id="info">
 			<span class="align-middle">
 				<i class="mdi mdi-cart"></i> {% trans %}OrderDetails{% endtrans %}
 			</span>
-            <a class="btn btn-primary btn-sm float-right" href="{{ path('order_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+            {% if is_granted('ROLE_SERVICES_EDIT') %}
+            <a class="btn btn-primary btn-sm float-right" href="{{ path('order_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+            {% endif %}
         </div>
 
         <div class="card-body">
@@ -131,7 +131,7 @@
 
         </div>
     </div>
-    <!-- End Education -->
+    <!-- End Order -->
 
 
 
