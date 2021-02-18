@@ -120,39 +120,49 @@
 			var table = $('#datatable-buttons').DataTable({
 				lengthChange: false,
 				pageLength: 50,
-			{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
 				columnDefs: [
 					{"orderable": false, "targets": 0}
 				],
 				order: [[1, "asc"]],
-			{%  else %}
+				{%  else %}
 				columnDefs: [
 					{"orderable": true, "targets": 0}
 				],
 				order: [[0, "asc"]],
-			{%  endif %}
-
-
+				{%  endif %}
 				buttons: [
 					{
 						extend: 'csv',
 						exportOptions: {
-							columns: [1, 2, 3, 4, 5]
+							{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+							columns: [1, 2, 3]
+							{%  else %}
+							columns: [0, 1, 2]
+							{% endif %}
 						}
 					},
 					{
 						extend: 'print',
 						exportOptions: {
-							columns: [1, 2, 3, 4, 5]
+							{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+							columns: [1, 2, 3]
+							{%  else %}
+							columns: [0, 1, 2]
+							{% endif %}
 						}
 					},
 					{
 						extend: 'pdfHtml5',
-						title: '{{ club_name }} - Personenlijst. Categorie: {{ pdfCat }} - Versie: {{ "now"|date("m-d-y") }}',
+						title: '{{ club_name }} - {% trans %}Organization_list{% endtrans %} ({% trans %}Category{% endtrans %} {{ pdfCat }}) - v{{ "now"|date("m-d-y") }}',
 						orientation: 'landscape',
 						pageSize: 'A4',
 						exportOptions: {
-							columns: [1, 2, 3, 4, 5]
+							{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+							columns: [1, 2, 3]
+							{%  else %}
+							columns: [0, 1, 2]
+							{% endif %}
 						}
 					}],
 				{% if app.request.getLocale() == 'nl' %}

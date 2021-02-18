@@ -139,22 +139,34 @@
 					{
 						extend: 'csv',
 						exportOptions: {
-							columns: [0, 1, 2, 3, 4]
+							{% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+							columns: [1, 2, 3, 4, 5, 6]
+							{%  else %}
+							columns: [0, 1, 2, 3, 4, 5]
+							{% endif %}
 						}
 					},
 					{
 						extend: 'print',
 						exportOptions: {
-							columns: [0, 1, 2, 3, 4]
+							{% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+							columns: [1, 2, 3, 4, 5, 6]
+							{%  else %}
+							columns: [0, 1, 2, 3, 4, 5]
+							{% endif %}
 						}
 					},
 					{
 						extend: 'pdfHtml5',
-						title: '{{ club_name }} - Personenlijst. Categorie: {{ pdfCat }} - Versie: {{ "now"|date("m-d-y") }}',
+						title: '{{ club_name }} - {% trans %}Order_list{% endtrans %} ({% trans %}Category{% endtrans %} {{ pdfCat }}) - v{{ "now"|date("m-d-y") }}',
 						orientation: 'landscape',
 						pageSize: 'A4',
 						exportOptions: {
-							columns: [0, 1, 2, 3, 4]
+							{% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+							columns: [1, 2, 3, 4, 5, 6]
+							{%  else %}
+							columns: [0, 1, 2, 3, 4, 5]
+							{% endif %}
 						}
 					}],
 				{% if app.request.getLocale() == 'nl' %}

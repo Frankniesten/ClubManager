@@ -119,13 +119,13 @@
 						</td>
 						<td>
 							{% if data.eventStatus == 'Confirmed'  %}
-								<span class="badge badge-success">Confirmed</span>
+								<span class="badge badge-success">{% trans %}Confirmed{% endtrans %}</span>
 							{% endif %}
 							{% if data.eventStatus == 'Tentative'  %}
-								<span class="badge badge-secondary">Tentative</span>
+								<span class="badge badge-secondary">{% trans %}Tentative{% endtrans %}</span>
 							{% endif %}
 							{% if data.eventStatus == 'Canceled'  %}
-								<span class="badge badge-danger">Canceled</span>
+								<span class="badge badge-danger">{% trans %}Canceled{% endtrans %}</span>
 							{% endif %}
 						</td>
 
@@ -176,22 +176,34 @@
 					{
 						extend: 'csv',
 						exportOptions: {
-							columns: [1, 2, 3, 4, 5]
+							{% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
+							columns: [1, 2, 3, 4, 5, 6]
+							{%  else %}
+							columns: [0, 1, 2, 3, 4, 5]
+							{% endif %}
 						}
 					},
 					{
 						extend: 'print',
 						exportOptions: {
-							columns: [1, 2, 3, 4, 5]
+							{% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
+							columns: [1, 2, 3, 4, 5, 6]
+							{%  else %}
+							columns: [0, 1, 2, 3, 4, 5]
+							{% endif %}
 						}
 					},
 					{
 						extend: 'pdfHtml5',
-						title: '{{ club_name }} - Events. Category: {{ pdfCat }} - Version: {{ "now"|date("m-d-y") }}',
+						title: '{{ club_name }} - {% trans %}Event_list{% endtrans %} ({% trans %}Category{% endtrans %} {{ pdfCat }}) - v{{ "now"|date("m-d-y") }}',
 						orientation: 'landscape',
 						pageSize: 'A4',
 						exportOptions: {
-							columns: [1, 2, 3, 4, 5]
+							{% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
+							columns: [1, 2, 3, 4, 5, 6]
+							{%  else %}
+							columns: [0, 1, 2, 3, 4, 5]
+							{% endif %}
 						}
 					}],
 				{% if app.request.getLocale() == 'nl' %}

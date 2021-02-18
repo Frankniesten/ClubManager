@@ -259,3 +259,8 @@ Statistics: Statistics
 Dashboard: Dashboard
 Relations: Relations
 add_person: Add person
+Person_list: Person list
+Event_list: Event list
+Organization_list: Organization list
+Product_list: Inventory list
+Order_list: Order list
