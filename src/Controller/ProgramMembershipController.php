@@ -3,20 +3,21 @@
 namespace App\Controller;
 
 use App\Entity\ProgramMembership;
+use App\Form\ProgramMembershipAddFormType;
 use App\Form\ProgramMembershipFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
  
 class ProgramMembershipController extends AbstractController
 {
 	
     /**
-     * @Route("/programmemberships", name="app_program_memberships")
-     * @IsGranted("ROLE_SETTINGS_VIEW")
+     * @Route("/programmembership", name="program_memberships")
+     * @IsGranted("ROLE_PERSON_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
@@ -32,10 +33,10 @@ class ProgramMembershipController extends AbstractController
 	
 	
 	/**
-     * @Route("/settings/programmembership/create", name="app_program_membership_create")
-     * @IsGranted("ROLE_SETTINGS_CREATE")
+     * @Route("/programmembership/create", name="program_membership_create")
+     * @IsGranted("ROLE_PERSON_CREATE")
      */
-	public function new(EntityManagerInterface $em, Request $request)
+	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
 		
 		$form = $this->createForm(ProgramMembershipFormType::class);
@@ -47,10 +48,10 @@ class ProgramMembershipController extends AbstractController
 						
 			$em->persist($programMembership);
 			$em->flush();
-           
-			$this->addFlash('success', 'Rol: '.$programMembership->getProgramName().' is toegevoegd!');
+
+            $this->addFlash('success', $programMembership->getProgramName().' '. $translator->trans('flash_message_create'));
 			
-			return $this->redirectToRoute('app_program_memberships');			
+			return $this->redirectToRoute('program_memberships');
 		}
 		
 		return $this->render('programMemberships/programMembershipsForm.html.twig', [
@@ -60,16 +61,16 @@ class ProgramMembershipController extends AbstractController
 	
 	
 	/**
-     * @Route("/settings/programmembership/{id}/edit", name="app_program_membership_edit")
-     * @IsGranted("ROLE_SETTINGS_EDIT")
+     * @Route("/programmembership/{id}/edit", name="program_membership_edit")
+     * @IsGranted("ROLE_PERSON_EDIT")
      */
-	public function edit(EntityManagerInterface $em, Request $request, $id)
+	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$programMembership = $em->getRepository(ProgramMembership::class)->find($id);
 		        
         if (!$programMembership) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
     	
 		$form = $this->createForm(ProgramMembershipFormType::class, $programMembership);
@@ -81,10 +82,10 @@ class ProgramMembershipController extends AbstractController
 			
 			$em->persist($programMembership);
 			$em->flush();
-           
-			$this->addFlash('success', 'Rol: '.$programMembership->getProgramName().' is bijgewerkt!');
+
+            $this->addFlash('success', $programMembership->getProgramName().' '. $translator->trans('flash_message_edit'));
 			
-			return $this->redirectToRoute('app_program_memberships');			
+			return $this->redirectToRoute('program_memberships');
 		}
 		
 		return $this->render('programMemberships/programMembershipsForm.html.twig', [
@@ -92,28 +93,63 @@ class ProgramMembershipController extends AbstractController
         	'data' => $programMembership
 		]);
 	}
+
+
+    /**
+     * @Route("/programmembership/{id}/add", name="program_membership_add")
+     * @IsGranted("ROLE_PERSON_EDIT")
+     */
+    public function add(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $programMembership = $em->getRepository(ProgramMembership::class)->find($id);
+
+        if (!$programMembership) {
+            throw $this->createNotFoundException();
+        }
+
+
+
+        $form = $this->createForm(ProgramMembershipAddFormType::class, $programMembership);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $programMembership = $form->getData();
+
+            $em->persist($programMembership);
+            $em->flush();
+
+            $this->addFlash('success', $programMembership->getProgramName().' '. $translator->trans('flash_message_edit'));
+
+            return $this->redirectToRoute('program_memberships');
+        }
+
+        return $this->render('programMemberships/programMembershipsAddForm.html.twig', [
+            'form' => $form->createView(),
+            'data' => $programMembership
+        ]);
+    }
 	
 	
 	/**
-     * @Route("/settings/programmembership/{id}/delete", name="app_program_membership_delete")
-     * @IsGranted("ROLE_SETTINGS_DELETE")
+     * @Route("/programmembership/{id}/delete", name="program_membership_delete")
+     * @IsGranted("ROLE_PERSON_DELETE")
      */
-	public function delete(EntityManagerInterface $em, Request $request, $id)
+	public function delete(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$programMembership = $em->getRepository(ProgramMembership::class)->find($id);
 		
 		if (!$programMembership) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
 
 			$em->remove($programMembership);
 			$em->flush();
-           
-			$this->addFlash('warning', 'De rol is verwijderd!');
+
+        $this->addFlash('warning', $programMembership->getProgramName().' '. $translator->trans('flash_message_delete'));
 			
-			return $this->redirectToRoute('app_program_memberships');			
+			return $this->redirectToRoute('program_memberships');
 	}
-
-
 }

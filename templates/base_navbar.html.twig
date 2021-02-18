@@ -1,0 +1,98 @@
+<nav class="navbar navbar-expand-xl navbar-dark bg-primary">
+
+    <a class="navbar-brand" href="#">
+        <img src="{{ asset('assets/logo.svg') }}" height="40">
+    </a>
+
+    <button class="navbar-toggler ml-auto hidden-sm-up float-xs-right" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto nav-fill w-100">
+                <li class="nav-item {{ app.request.get('_route') == 'dashboard' ? 'active' }}">
+                    <a class="nav-link" href="{{ path('dashboard') }}"><i class="mdi mdi-view-dashboard"></i> {% trans %}Navbar_dashboard{% endtrans %}</a>
+                </li>
+            {% if is_granted('ROLE_PERSON_VIEW') %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle
+                        {% if  'person' in app.request.get('_route')%}active{% endif %}
+                        {% if  'organization' in app.request.get('_route')%}active{% endif %}
+                        {% if  'program_memberships' in app.request.get('_route')%}active{% endif %}"
+                       href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Navbar_relations{% endtrans %}<span class="sr-only">(current)</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item {% if  'person' in app.request.get('_route')%}active{% endif %}" href="{{ path('person') }}">{% trans %}Navbar_person{% endtrans %}</a>
+                        <a class="dropdown-item {% if  'organization' in app.request.get('_route')%}active{% endif %}" href="{{ path('organization') }}">{% trans %}Navbar_organizations{% endtrans %}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item " href="{{ path('program_memberships') }}">{% trans %}Navbar_roles{% endtrans %}</a>
+                    </div>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_EVENT_VIEW') %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle
+                    {% if  'event' in app.request.get('_route')%}active{% endif %}
+                    {% if  'postaladdress' in app.request.get('_route')%}active{% endif %}"
+                   href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-calendar"></i> {% trans %}Event{% endtrans %}<span class="sr-only">(current)</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item {% if  'event' in app.request.get('_route')%}active{% endif %}" href="{{ path('event') }}">{% trans %}Navbar_calendar{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'postaladdress' in app.request.get('_route')%}active{% endif %}" href="{{ path('postaladdress') }}">{% trans %}Navbar_venue{% endtrans %}</a>
+                </div>
+            </li>
+
+
+            {% endif %}
+            {% if is_granted('ROLE_PRODUCT_VIEW') %}
+            <li class="nav-item {{  'product' in app.request.get('_route') ? 'active' }}">
+                <a class="nav-link" href="{{ path('product') }}"><i class="mdi mdi-bugle"></i> {% trans %}Navbar_products{% endtrans %}<span class="sr-only">(current)</span></a>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_SERVICES_VIEW') %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle
+                    {% if  'service' in app.request.get('_route')%}active{% endif %}
+                    {% if  'order' in app.request.get('_route')%}active{% endif %}"
+                   href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-cash-multiple"></i> {% trans %}Revenue{% endtrans %}<span class="sr-only">(current)</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item {% if  'service' in app.request.get('_route')%}active{% endif %}" href="{{ path('service') }}">{% trans %}Services{% endtrans %}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item {% if  'order' in app.request.get('_route')%}active{% endif %}" href="{{ path('order') }}">{% trans %}Navbar_orders{% endtrans %}</a>
+                </div>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_STATISTICS_VIEW') %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle
+                {% if  'statistics' in app.request.get('_route')%}active{% endif %}"
+                   href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Navbar_statistics{% endtrans %}<span class="sr-only">(current)</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item {% if  'statistics' in app.request.get('_route')%}active{% endif %}" href="{{ path('statistics_club') }}">{% trans %}Navbar_club{% endtrans %}</a>
+                </div>
+            </li>
+            {% endif %}
+            {% if is_granted('ROLE_SETTINGS_VIEW') %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle
+                    {% if  'user' in app.request.get('_route')%}active{% endif %}
+                    {% if  'category' in app.request.get('_route')%}active{% endif %}
+                    {% if  'musical_instrument' in app.request.get('_route')%}active{% endif %}"
+                   href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-settings"></i> {% trans %}Navbar_settings{% endtrans %}<span class="sr-only">(current)</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item {% if  'user' in app.request.get('_route')%}active{% endif %}" href="{{ path('users') }}">{% trans %}Navbar_users{% endtrans %}</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item {% if  'category' in app.request.get('_route')%}active{% endif %}" href="{{ path('category') }}">{% trans %}Navbar_categories{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'musical_instrument' in app.request.get('_route')%}active{% endif %}" href="{{ path('musical_instrument') }}">{% trans %}Navbar_musicalInstrument{% endtrans %}</a>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+

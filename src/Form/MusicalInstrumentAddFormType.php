@@ -26,8 +26,7 @@ class MusicalInstrumentAddFormType extends AbstractType
 					    'attr' => [
 							'class' => 'select2'
 						],
-					    'required' => false,
-					    'label' => 'Muziekinstrument'
+					    'required' => false
 					));
 	}
 

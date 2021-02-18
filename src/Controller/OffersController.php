@@ -8,67 +8,60 @@ use App\Form\OfferFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OffersController extends AbstractController
 {
     /**
-     * @Route("/service/{id}/offer/create", name="app_offer_create")
+     * @Route("/service/{id}/offer/create", name="offer_create")
      * @IsGranted("ROLE_SERVICES_CREATE")
      */
-	public function new(EntityManagerInterface $em, Request $request, $id)
+	public function new(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$data = $em->getRepository(Service::class)->find($id);   
 		
 		if (!$data) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	} 
-	    
-		
+
 		$form = $this->createForm(OfferFormType::class);
-		
 		$form->handleRequest($request);
 		
 		if ($form->isSubmitted() && $form->isValid()) {
 			
 			$offer = $form->getData();
-			
-			//Hier zou je dan eventueel de data naar centen kunnen omzetten
-			
-			
 			$data->addOffer($offer);
 			
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($offer);
 			$em->persist($data);
 			$em->flush();
-					
-			$this->addFlash('success', 'Nieuw aanbod is aangemaakt!');
+
+            $this->addFlash('success', $offer->getAlternateName(). ' ' . $translator->trans('flash_message_create'));
 			
-			return $this->redirectToRoute('app_service_offer', array('id' => $id));
-					
+			return $this->redirectToRoute('service_id', array('id' => $id));
 		}
 		
-		return $this->render('offers/offerForm.html.twig', [
+		return $this->render('services/service-offerForm.html.twig', [
         	'form' => $form->createView(),
         	'id' => $id
 		]);
 	}
 	
 	/**
-	* @Route("/service/{id}/offer/{offerID}/edit", name="app_offer_edit")
+	* @Route("/service/{id}/offer/{offerID}/edit", name="offer_edit")
 	* @IsGranted("ROLE_SERVICES_EDIT")
 	*/
-	public function edit(EntityManagerInterface $em, Request $request, $id, $offerID)
+	public function edit(EntityManagerInterface $em, Request $request, $id, $offerID, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$offer = $em->getRepository(Offer::class)->find($offerID);
 		        
         if (!$offer) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
     	
 		$form = $this->createForm(OfferFormType::class, $offer);
@@ -81,13 +74,13 @@ class OffersController extends AbstractController
 			
 			$em->persist($offer);
 			$em->flush();
-           
-			$this->addFlash('success', 'Aanbod is bijgewerkt!');
+
+            $this->addFlash('success', $offer->getAlternateName(). ' ' . $translator->trans('flash_message_edit'));
 			
-			return $this->redirectToRoute('app_service_offer', array('id' => $id));			
+			return $this->redirectToRoute('service_id', array('id' => $id));
 		}
 		
-		return $this->render('offers/offerForm.html.twig', [
+		return $this->render('services/service-offerForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $offer,
         	'id' => $id
@@ -95,24 +88,24 @@ class OffersController extends AbstractController
 	}
 		
 	/**
-	* @Route("/service/{id}/offer/{mofferID}/delete", name="app_offer_delete")
+	* @Route("/service/{id}/offer/{offerID}/delete", name="offer_delete")
 	* @IsGranted("ROLE_SERVICES_DELETE")
 	*/
-	public function delete(EntityManagerInterface $em, Request $request, $id, $offerID)
+	public function delete(EntityManagerInterface $em, Request $request, $id, $offerID, TranslatorInterface $translator)
 	{
 		
 		$em = $this->getDoctrine()->getManager();
 		$offer = $em->getRepository(Offer::class)->find($offerID);
 		
 		if (!$offer) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}
 		        
 		$em->remove($offer);
 		$em->flush();
+
+        $this->addFlash('warning', $offer->getAlternateName(). ' ' . $translator->trans('flash_message_delete'));
 		
-		$this->addFlash('warning', 'Aanbod is verwijderd!');
-		
-		return $this->redirectToRoute('app_service_offer', array('id' => $id));	
+		return $this->redirectToRoute('service_id', array('id' => $id));
 	}   
 }

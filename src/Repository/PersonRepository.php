@@ -82,6 +82,7 @@ class PersonRepository extends ServiceEntityRepository
             	p.membershipYears = 15 OR 
             	p.membershipYears = 20 OR
             	p.membershipYears = 25 OR
+            	p.membershipYears = 30 OR
             	p.membershipYears = 40 OR
             	p.membershipYears = 50 OR
             	p.membershipYears = 60 OR

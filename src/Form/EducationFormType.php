@@ -18,8 +18,8 @@ class EducationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
-	    	->add('certificate', TextType::class, ['label' => 'Diploma', 'required' => true])
-	    	->add('dataAchieved', DateType::class, ['label' => 'Behaald', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
+	    	->add('certificate', TextType::class, ['required' => true])
+	    	->add('dateAchieved', DateType::class, ['required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
 	    	->add('organization', EntityType::class, array(
 					    'class' => Organization::class,
 					    'query_builder' => function (EntityRepository $er) {
@@ -29,7 +29,6 @@ class EducationFormType extends AbstractType
 					    'choice_label' => 'legalName',
 					    'required' => false,
 					    'placeholder' => 'Selecteer...',
-					    'label' => 'Muziekschool',
 					    'attr' => [
 							'class' => 'select2'
 						]

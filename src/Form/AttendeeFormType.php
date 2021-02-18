@@ -8,7 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Doctrine\ORM\EntityRepository;
 
 class AttendeeFormType extends AbstractType
@@ -29,10 +28,8 @@ class AttendeeFormType extends AbstractType
 						    
 						    },
 					    'required' => false,
-					    'label' => 'Sponsoren',
 					    'multiple' => true 
 					));
-	
 	}
 
 	public function configureOptions(OptionsResolver $resolver)
@@ -42,5 +39,3 @@ class AttendeeFormType extends AbstractType
         ]);
     }
 }
-
-

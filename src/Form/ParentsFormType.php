@@ -31,7 +31,6 @@ class ParentsFormType extends AbstractType
 						    
 						 },
 					    'required' => false,
-					    'label' => 'Ouders',
 					    'multiple' => true
 					));
 	}

@@ -1,194 +1,142 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_content_sidebar.html.twig' %}
 
-{% block stylesheets %}
-	    
-	<!--Morris Chart CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/plugins/morris/morris.css') }}">
-    
-    {{ parent() }}
-	
+{% block sidebar %}
+    <li class="nav-item">
+		<a class="nav-link" href="#info"><i class="mdi mdi-account-card-details-outline"></i> Tekst</a>
+	</li>
+
 {% endblock %}
 
-
-{% block title %}<i class="mdi mdi-chart-bar"></i> Statistieken{% endblock %}
-
 {% block body %}
-<div class="row">
-	<!-- total members in each category -->
-   	<div class="col-xl-4 col-md-8">
-		<div class="card-box">
-			<h4 class="header-title m-t-0 m-b-30">Contacten: contacten per categorie</h4>
-            <div id="totalMembers" style="height: 250px;"></div>
+    <!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			<h3>
+                Statistics
+			</h3>
 		</div>
-    </div>
-    
-    <!-- Gender distribution-->
-   	<div class="col-xl-4 col-md-8">
-		<div class="card-box">
-			<h4 class="header-title m-t-0 m-b-30">Leden: verdeling man, vrouw</h4>
-			<div id="genderDist" style="height: 250px;"></div>
-		</div>
-    </div>
-    
-    <!-- Average age-->
-   	<div class="col-xl-4 col-md-8">
-		<div class="card-box">
-			<h4 class="header-title m-t-0 m-b-30">Leden: gemiddelde leeftijd</h4>
-				<div class="widget-box-2">
-                    <div class="widget-detail-2">
-                        
-                        <h2 class="mb-0"> {{ averageAge.averageAge | number_format(1) }} </h2>
-                        <p class="text-muted m-b-25">
-                        	<i class="mdi mdi-arrow-up-bold"></i> {{ averageAge.maxAge }} jaar<br>
-                        	<i class="mdi mdi-arrow-down-bold"></i> {{ averageAge.minAge }} jaar <br>
-							
+	</div>
+	<!-- End Page header -->
+        <div class="row">
+            <div class="col-sm">
+                <div class="card">
+                    <div class="card-header" id="info">
+                        Number of people per category
                     </div>
-                    <div class="progress progress-bar-success-alt progress-sm mb-0">
-                        <div class="progress-bar progress-bar-success" role="progressbar"
-                             aria-valuenow="{{ averageAge.averageAge }}" aria-valuemin="{{ averageAge.minAge }}" aria-valuemax="{{ averageAge.maxAge }}"
-                             style="width: {{ averageAge.averageAge }}%;">
-                        </div>
+                    <div class="card-body">
+                        <div id="total-person" style="height: 200px;"></div>
                     </div>
-                </div>  
-		</div>
-    </div>
-</div>
+                </div>
+            </div>
+        </div>
 
-<div class="row">	
-	<div class="col-xl-12">
-        <div class="card-box">
-          
-			<h4 class="header-title mt-0 m-b-30">Leden: leeftijdsopbouw per 5 jaar </h4>
-			
-			<div id="bar" style="height: 250px;"></div>
+
+
+    <br>
+
+
+
+    <div class="card">
+        <div class="card-header" id="info">
+            Relations
+        </div>
+
+        <div class="card-body">
+            <div id="age-build-up" style="height: 250px;"></div>
+
+
+
 
         </div>
     </div>
-</div>
+    <br>
 
-<div class="row">
-	<div class="col-xl-6 col-md-8">
-    	<div class="card-box">                              
-			<h4 class="header-title m-t-0 m-b-30">Leden: aanstaande verjaardagen (komende 14 dagen)</h4>
 
-			    <ul class="list-group m-b-0 user-list">
-			    	{% for data in birthdays %}
-			    	
-			    	{% set difference = date("now"|date()).diff(date(data.birthDate)) %}    	
-			    	
-			    	
-			        <li class="list-group-item">
-			            <a href="{{ path('app_person', {'id': data.id}) }}" class="user-list-item">
-			                <div class="avatar">
-			                    
-			                    {% if "now"|date("m/d/") > data.birthDate|date("m/d/") %}
-				                    <i class="mdi mdi-circle text-muted"></i>
-			                    {% else %}
-			                    	<i class="mdi mdi-circle text-purple"></i>
-			                    {% endif %}
-			                  
-			                </div>
-			                <div class="user-desc">
-			                    <span class="name">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</span>
-			                    {% if "now"|date("m/d/") > data.birthDate|date("m/d/") %}
-				                    <span class="desc">{{ data.birthDate | date('d-m-Y') }}, is {{ difference.y }} jaar geworden.</span>
-			                    {% else %}
-			                    	<span class="desc">{{ data.birthDate | date('d-m-Y') }}, wordt {{ difference.y + 1 }} jaar.</span>
-			                    {% endif %}
-			                    
-			                    
-			                </div>
-			            </a>
-			        </li>
-			        
-			        {% endfor %}
-			    </ul>
-			</div>
-		</div>
-		
-	<div class="col-xl-6 col-md-8">
-    	<div class="card-box">                              
-			<h4 class="header-title m-t-0 m-b-30">Leden: jubilarissen</h4>
 
-			    <ul class="list-group m-b-0 user-list">
-			    	{% for data in jubilee %}
-   	
-			        <li class="list-group-item">
-			            <a href="{{ path('app_person', {'id': data.id}) }}" class="user-list-item">
-			                <div class="avatar">
-			                    <i class="mdi mdi-circle text-purple"></i>
-			                </div>
-			                <div class="user-desc">
-			                    <span class="name">{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}</span>
-			                    <span class="desc">{{ data.membershipYears }} Jaar </span>
-			                </div>
-			            </a>
-			        </li>
-			        
-			        {% endfor %}
-			    </ul>
-		</div>
-	</div>
-</div>
-<!-- end row -->
-
-                        
-{% endblock %}
+{%  endblock %}
 
 {% block javascripts %}
 
 
     {{ parent() }}
-    
-    <!--Morris Chart-->
-    <script src="{{ asset('assets/plugins/morris/morris.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/raphael/raphael-min.js') }}"></script>
-	
-	<script type="text/javascript">
-	
-	new Morris.Donut({
-	  // ID of the element in which to draw the chart.
-	  element: 'totalMembers',
-	  // Chart data records -- each entry in this array corresponds to a point on
-	  // the chart.
-	  data: [
-		{% for data in totalMembers %}
-	    { label: '{{data.name}}', value: {{data.count}} },
-	    {% endfor %}
-	  ],
-	  colors: ['#ff8acc', '#5b69bc', "#35b8e0"]
-	});
-	
-	new Morris.Donut({
-	  
-	  // ID of the element in which to draw the chart.
-	  element: 'genderDist',
-	  // Chart data records -- each entry in this array corresponds to a point on
-	  // the chart.
-	  data: [
-		{% for data in genderDistribution %}
-	    { label: '{{data.name}}', value: {{data.count}} },
-	    {% endfor %}
-	  ],
-	  colors: ['#ff8acc', '#5b69bc', "#35b8e0"]
-	});
+    <script language = "javascript">
+        $(document).ready(function(event){
+            $.ajax({
+                url:        '/statistics/total-items?category=person',
+                type:       'POST',
+                dataType:   'json',
+                async:      true,
 
- 	new Morris.Bar({
-	 	element: 'bar',
+                success: function(data, status) {
 
-	 	data: [
-	 		{% for data in ageDifference %}
-	 			{ y: '{{data.name}}', a: {{data.count}} },	
-	 		{% endfor %}
-	 		
-	 	],
-	 	xkey: 'y',	
-	 	ykeys: 'a',
-	 	barColors: ['#5b69bc', "#35b8e0"],
-	 	labels: ['leden'],
-	 	hideHover: 'true'
-	 	}); 
-     
-	</script>
-       
+                    var chart = [];
+
+                    for (i = 0; i < data.length; i++) {
+
+                        dat = {};
+                        dat.label = data[i].name;
+                        dat.value = data[i].count;
+                        chart.push(dat);
+                    }
+                    new Morris.Donut({
+                        // ID of the element in which to draw the chart.
+                        element: 'total-person',
+                        // Chart data records -- each entry in this array corresponds to a point on
+                        // the chart.
+                        data: chart,
+                        colors: ['#08194f', '#009ee0', "#ffc105"],
+                        resize: 'true'
+                    });
+                },
+                error : function(xhr, textStatus, errorThrown) {
+                    console.log('Ajax request failed');
+                }
+            });
+        });
+    </script>
+
+    <script language = "javascript">
+        $(document).ready(function(event){
+            $.ajax({
+                url:        '/statistics/relations/age-build-up',
+                type:       'POST',
+                dataType:   'json',
+                async:      true,
+
+                success: function(data, status) {
+
+                    var chart = [];
+                    for (i = 0; i < data.length; i++) {
+
+                        dat = {};
+                        dat.y = data[i].name;
+                        dat.a = data[i].count;
+                        chart.push(dat);
+                    }
+
+                    new Morris.Bar({
+                        element: 'age-build-up',
+                        data: chart,
+                        xkey: 'y',
+                        ykeys: 'a',
+                        barColors: ['#08194f', "#35b8e0"],
+                        labels: ['leden'],
+                        hideHover: 'true',
+                        resize: 'true'
+                    });
+                },
+                error : function(xhr, textStatus, errorThrown) {
+                    console.log('Ajax request failed');
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
 {% endblock %}

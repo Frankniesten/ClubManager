@@ -8,17 +8,17 @@ use App\Form\EducationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EducationController extends AbstractController
 {
     /**
-     * @Route("/person/{id}/education/create", name="app_person_education_create")
+     * @Route("/person/{id}/education/create", name="person_education_create")
      * @IsGranted("ROLE_PERSON_CREATE")
      */
-	public function new(EntityManagerInterface $em, Request $request, $id)
+	public function new(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$person = $em->getRepository(Person::class)->find($id);
@@ -38,27 +38,29 @@ class EducationController extends AbstractController
 			$em->persist($education);
 			$em->persist($person);
 			$em->flush();
-			
-			return $this->redirectToRoute('app_person_education', array('id' => $id));				
+
+            $this->addFlash('success', $translator->trans('Education').' '. $translator->trans('flash_message_create'));
+
+            return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'education'));
 		}
 		
-		return $this->render('education/educationForm.html.twig', [
+		return $this->render('person/person-educationForm.html.twig', [
         	'form' => $form->createView(),
 			'id' => $id
 		]);
 	}
 	
 	/**
-	* @Route("/person/{id}/education/{educationID}/edit", name="app_person_education_edit")
+	* @Route("/person/{id}/education/{educationID}/edit", name="person_education_edit")
 	* @IsGranted("ROLE_PERSON_EDIT")
 	*/
-	public function edit(EntityManagerInterface $em, Request $request, $id, $educationID)
+	public function edit(EntityManagerInterface $em, Request $request, $id, $educationID, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$education = $em->getRepository(Education::class)->find($educationID);
 		
 		if (!$education) {
-        	throw $this->createNotFoundException('The product does not exist');
+        	throw $this->createNotFoundException();
     	}    
         
 		$form = $this->createForm(EducationFormType::class, $education);
@@ -70,13 +72,13 @@ class EducationController extends AbstractController
 			
 			$em->persist($education);
 			$em->flush();
-           
-			$this->addFlash('success', 'Opleiding is bijgewerkt!');
-			
-			return $this->redirectToRoute('app_person_education', array('id' => $id));			
+
+            $this->addFlash('success', $translator->trans('Education').' '. $translator->trans('flash_message_edit'));
+
+            return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'education'));
 		}
 		
-		return $this->render('education/educationForm.html.twig', [
+		return $this->render('person/person-educationForm.html.twig', [
         	'form' => $form->createView(),
         	'data' => $education,
         	'id' => $id
@@ -85,10 +87,10 @@ class EducationController extends AbstractController
 
 
 	/**
-	* @Route("/person/{id}/education/{educationID}/delete", name="app_person_education_delete")
+	* @Route("/person/{id}/education/{educationID}/delete", name="person_education_delete")
 	* @IsGranted("ROLE_PERSON_DELETE")
 	*/
-	public function delete(EntityManagerInterface $em, Request $request, $id, $educationID)
+	public function delete(EntityManagerInterface $em, Request $request, $id, $educationID, TranslatorInterface $translator)
 	{
 		
 		$em = $this->getDoctrine()->getManager();
@@ -100,9 +102,9 @@ class EducationController extends AbstractController
     	    
 		$em->remove($education);
 		$em->flush();
-		
-		$this->addFlash('warning', 'Opleiding is verwijderd!');
-		
-		return $this->redirectToRoute('app_person_education', array('id' => $id));	
+
+        $this->addFlash('warning', $translator->trans('Education').' '. $translator->trans('flash_message_delete'));
+
+        return $this->redirectToRoute('person_id', array('id' => $id, '_fragment' => 'education'));
 	} 
 }

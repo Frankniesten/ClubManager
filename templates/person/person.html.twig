@@ -1,0 +1,563 @@
+{% extends 'base_content_sidebar.html.twig' %}
+
+{% block sidebar %}
+	<li class="nav-item">
+		<a class="nav-link" href="#info"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Person_nav_personal_information{% endtrans %}</a>
+	</li>
+
+	{% if data.category.id == 1 or data.alumni == true  %}
+		<li class="nav-item">
+			<a class="nav-link" href="#membership"><i class="mdi mdi-account-star-outline"></i> {% trans %}Person_nav_membership{% endtrans %}
+			{%if data.membership is not empty %}
+				<span class="badge badge-primary float-right">{{ data.membership|length }}</span>
+			{% endif %}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#musicalInstrument"><i class="mdi mdi-bugle"></i> {% trans %}Person_nav_musicalInstrument{% endtrans %}
+			{%if data.musicalInstrument is not empty %}
+				<span class="badge badge-primary float-right">1</span>
+			{% endif %}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#education"><i class="mdi mdi-school-outline"></i> {% trans %}Person_nav_education{% endtrans %}
+			{%if data.education is not empty %}
+				<span class="badge badge-primary float-right">{{ data.education|length }}</span>
+			{% endif %}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#parents"><i class="mdi mdi-account-supervisor"></i> {% trans %}Person_nav_parents{% endtrans %}
+			{%if data.parents is not empty %}
+				<span class="badge badge-primary float-right">{{ data.parents|length }}</span>
+			{% endif %}
+			</a>
+		</li>
+	{% endif %}
+	<li class="nav-item">
+		<a class="nav-link" href="#organizations"><i class="mdi mdi-factory"></i> {% trans %}Organizations{% endtrans %}
+			{%if data.organizations is not empty %}
+				<span class="badge badge-primary float-right">{{ data.organizations|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	{% if is_granted('ROLE_PRODUCT_VIEW') or is_granted('ROLE_PRODUCT_CREATE') or is_granted('ROLE_PRODUCT_EDIT') or is_granted('ROLE_PRODUCT_DELETE') %}
+	<li class="nav-item">
+		<a class="nav-link" href="#owns"><i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
+		{%if data.owns is not empty %}
+			<span class="badge badge-primary float-right">{{ data.owns|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	{% endif %}
+	{% if is_granted('ROLE_SERVICES_VIEW') %}
+	<li class="nav-item">
+		<a class="nav-link" href="#order"><i class="mdi mdi-cart-arrow-down"></i> {% trans %}Orders{% endtrans %}
+		{%if data.customer is not empty %}
+			<span class="badge badge-primary float-right">{{ data.customer|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	{% endif %}
+	<li class="nav-item">
+		<a class="nav-link" href="#memberOf"><i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
+		{%if data.memberOf is not empty %}
+			<span class="badge badge-primary float-right">{{ data.memberOf|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+		{%if data.review is not empty %}
+			<span class="badge badge-primary float-right">{{ data.review|length }}</span>
+		{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}</a>
+	</li>
+{% endblock %}
+
+{% block body %}
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			<h3>
+				{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}
+
+				<span class="badge badge-primary">{{ data.category.name }}</span>
+				{% if data.alumni == true  %}
+					<span class="badge badge-success">Oud Lid</span>
+				{% endif %}
+			</h3>
+		</div>
+
+
+		<div class="p-2">
+			<div class="btn-group btn-group-sm">
+			{% if is_granted('ROLE_PERSON_VIEW') %}
+				<a class="btn btn-primary" href="{{ path('person') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
+			{% endif %}
+
+			{% if is_granted('ROLE_PERSON_DELETE') %}
+				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<div class="dropdown-menu">
+
+					<a class="dropdown-item" href="{{ path('person_delete', {'id': data.id}) }}"
+					   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}');"><i
+								class="mdi mdi-delete text-danger"></i> Verwijderen</a>
+				</div>
+			{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- End Page header -->
+
+	<!-- Personal info -->
+	<div class="card">
+		<div class="card-header" id="info">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Person_nav_personal_information{% endtrans %}
+			</span>
+			{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{% endif %}
+		</div>
+
+		<div class="card-body">
+			{{ include('person/person-info.html.twig', { 'data': data }) }}
+		</div>
+		<div class="card-footer text-muted small">
+			<i class="mdi mdi-account"></i>&nbsp;&nbsp; {{ data.updatedBy }}&nbsp;&nbsp;|&nbsp;&nbsp;
+			<i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ data.updatedAt |date("d-m-Y  - H:i")}}
+		</div>
+	</div>
+	<!-- End Personal info -->
+	<br>
+
+	{% if data.category.id == 1 or data.alumni == true  %}
+	<!-- Membership -->
+	<div class="card">
+		<div class="card-header" id="membership">
+			<span class="align-middle">
+				<i class="mdi mdi-account-star-outline"></i> {% trans %}Person_nav_membership{% endtrans %}
+			</span>
+			{% if is_granted('ROLE_PERSON_CREATE') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
+		</div>
+		<div class="card-body">
+			{{ include('person/person-membership.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Membership -->
+	<br>
+
+	<!-- Instrument -->
+	<div class="card">
+		<div class="card-header" id="musicalInstrument">
+			<span class="align-middle">
+						<i class="mdi mdi-bugle"></i> {% trans %}Person_nav_musicalInstrument{% endtrans %}
+			</span>
+		{% if is_granted('ROLE_PERSON_EDIT') %}
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_musicalInstrument', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		{% endif %}
+		</div>
+		<div class="card-body">
+			{{ include('person/person-musicalInstrument.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Instrument -->
+	<br>
+
+	<!-- Education -->
+	<div class="card">
+		<div class="card-header" id="education">
+			<span class="align-middle">
+				<i class="mdi mdi-school-outline"></i> {% trans %}Person_nav_education{% endtrans %}
+			</span>
+		{% if is_granted('ROLE_PERSON_CREATE') %}
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_education_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+		{% endif %}
+		</div>
+		<div class="card-body">
+			{{ include('person/person-education.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Education -->
+	<br>
+
+	<!-- Parents -->
+	<div class="card">
+		<div class="card-header" id="parents">
+			<span class="align-middle">
+				<i class="mdi mdi-account-supervisor"></i> {% trans %}Person_nav_parents{% endtrans %}
+		{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-parents.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Parents -->
+	<br>
+	{% endif %}
+
+	<!-- Organizations -->
+	<div class="card">
+		<div class="card-header" id="organizations">
+			<span class="align-middle">
+				<i class="mdi mdi-autorenew"></i> {% trans %}Organizations{% endtrans %}
+			{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'person_organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-organizations.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Organizations -->
+	<br>
+
+
+	<!-- Owns -->
+	{% if is_granted('ROLE_PRODUCT_VIEW') or is_granted('ROLE_PRODUCT_CREATE') or is_granted('ROLE_PRODUCT_EDIT') or is_granted('ROLE_PRODUCT_DELETE') %}
+	<div class="card">
+		<div class="card-header" id="owns">
+			<span class="align-middle">
+				<i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
+			{% if is_granted('ROLE_PRODUCT_CREATE') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'owns_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-owns.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	<!-- End Owns -->
+
+
+	<!-- Orders -->
+	{% if is_granted('ROLE_SERVICES_VIEW') %}
+	<div class="card">
+		<div class="card-header" id="order">
+			<span class="align-middle">
+				<i class="mdi mdi-cart-arrow-down"></i> {% trans %}Orders{% endtrans %}
+			{% if is_granted('ROLE_SERVICES_CREATE') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_order_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-order.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	<!-- End Orders -->
+
+
+	<!-- memberOf -->
+	<div class="card">
+		<div class="card-header" id="memberOf">
+			<span class="align-middle">
+				<i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
+			{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_memberOf', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-memberof.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End memberOf -->
+	<br>
+
+	<!-- Review -->
+	<div class="card">
+		<div class="card-header" id="review">
+			<span class="align-middle">
+				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+			{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'person', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('global/review.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Review -->
+	<br>
+
+	<!-- Log -->
+	<div class="card">
+		<div class="card-header" id="history">
+			<span class="align-middle">
+				<i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('global/logs.html.twig', { 'data': logs }) }}
+		</div>
+	</div>
+	<!-- End Log -->
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+	
+	<script type="text/javascript">
+        $(document).ready(function () {
+
+			//Datatable membership
+			var table = $('#datatable-membership').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable membership
+
+			//Datatable education
+			var table = $('#datatable-education').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable education
+
+			//Datatable parents
+			var table = $('#datatable-parents').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable parents
+
+			//Datatable organizations
+			var table = $('#datatable-organizations').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable organizations
+
+			//Datatable owns
+            var table = $('#datatable-owns').DataTable({
+                lengthChange: false,
+                pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+            });
+            // End datatable owns
+
+			//Datatable orders
+			var table = $('#datatable-orders').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable orders
+            
+            //Datatable memberOF
+            var table = $('#datatable-memberOf').DataTable({
+                lengthChange: false,
+                pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+            });
+            // End datatable memberOf
+
+			//Datatable review
+			var table = $('#datatable-review').DataTable({
+				lengthChange: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable review
+
+            //Datatable Logs
+            var table = $('#datatable-logs').DataTable({
+                lengthChange: false,
+                pageLength: 10,
+                columnDefs: [
+				    {
+				    	orderable: false,
+						targets: 0
+				    }
+				  ],
+                order: [[ 2, "desc" ]],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+            });
+            // End datatable logs
+
+			$(document).on('click', 'a[href^="#"]', function (event) {
+				event.preventDefault();
+
+				$('html, body').animate({
+					scrollTop: $($.attr(this, 'href')).offset().top - 20
+				}, 800);
+			});
+
+        });
+    </script>
+
+	<script language="JavaScript">jQuery ( document ).ready ( function($) {
+
+			var hash= window.location.hash
+
+			if ( hash == '' || hash == '#' || hash == undefined ) return false;
+
+			var target = $(hash);
+
+			headerHeight = 120;
+
+			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+
+			if (target.length) {
+				$('html,body').stop().animate({
+					scrollTop: target.offset().top - 20 //offsets for fixed header
+				}, 0);
+			}
+		} );
+	</script>
+{% endblock %}

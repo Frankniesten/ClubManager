@@ -12,6 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 
 /**
@@ -26,7 +28,16 @@ class User implements UserInterface
 {
 	use TimestampableEntity;
 	use BlameableEntity;
-      
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addConstraint(new UniqueEntity([
+            'fields' => ['person'],
+            'errorPath' => 'person',
+            'message' => 'This user already exists!',
+        ]));
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

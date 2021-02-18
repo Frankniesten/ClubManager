@@ -7,34 +7,32 @@ use App\Form\PostalAddressFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PostalAddressController extends AbstractController
 {
     /**
-     * @Route("/settings/postaladdresses", name="app_settings_postaladdresses")
-     * @IsGranted("ROLE_SETTINGS_VIEW")
+     * @Route("/postaladdress", name="postaladdress")
+     * @IsGranted("ROLE_EVENT_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
 	{
-		$musicalInstrument = $this->getDoctrine()
+		$data = $this->getDoctrine()
         ->getRepository(PostalAddress::class)
         ->findAll();
 		
-				
 		return $this->render('postal_address/postaladdresses.html.twig', [
-        	'data' => $musicalInstrument
+        	'data' => $data
 		]);
 	}
-	
-	
+
 	/**
-     * @Route("/settings/postaladdress/create", name="app_settings_postaladdress_create")
-     * @IsGranted("ROLE_SETTINGS_CREATE")
+     * @Route("/postaladdress/create", name="postaladdress_create")
+     * @IsGranted("ROLE_EVENT_CREATE")
      */
-	public function new(EntityManagerInterface $em, Request $request)
+	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
 		
 		$form = $this->createForm(PostalAddressFormType::class);
@@ -42,14 +40,14 @@ class PostalAddressController extends AbstractController
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			
-			$postalAddress = $form->getData();
+			$data = $form->getData();
 						
-			$em->persist($postalAddress);
+			$em->persist($data);
 			$em->flush();
-           
-			$this->addFlash('success', 'Event locatie: '.$postalAddress->getVenue().' is toegevoegd!');
+
+            $this->addFlash('success', $data->getVenue() . ' ' . $translator->trans('flash_message_create'));
 			
-			return $this->redirectToRoute('app_settings_postaladdresses');			
+			return $this->redirectToRoute('postaladdress');
 		}
 		
 		return $this->render('postal_address/postaladdressForm.html.twig', [
@@ -58,58 +56,56 @@ class PostalAddressController extends AbstractController
 	}
 	
 	/**
-     * @Route("/settings/postaladdress/{id}/edit", name="app_settings_postaladdress_edit")
-     * @IsGranted("ROLE_SETTINGS_EDIT")
+     * @Route("/postaladdress/{id}/edit", name="postaladdress_edit")
+     * @IsGranted("ROLE_EVENT_EDIT")
      */
-	public function edit(EntityManagerInterface $em, Request $request, $id)
+	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$postalAddress = $em->getRepository(PostalAddress::class)->find($id);
+		$data = $em->getRepository(PostalAddress::class)->find($id);
 		
-		if (!$postalAddress) {
-        	throw $this->createNotFoundException('Event locatie bestaat niet.');
+		if (!$data) {
+        	throw $this->createNotFoundException();
     	}
-		        
-        
-		$form = $this->createForm(PostalAddressFormType::class, $postalAddress);
+
+		$form = $this->createForm(PostalAddressFormType::class, $data);
 		
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
 			
-			$postalAddress = $form->getData();
+			$data = $form->getData();
 			
-			$em->persist($postalAddress);
+			$em->persist($data);
 			$em->flush();
-           
-			$this->addFlash('success', 'Event locatie: '.$postalAddress->getVenue().' is bijgewerkt!');
+
+            $this->addFlash('success', $data->getVenue() . ' ' . $translator->trans('flash_message_edit'));
 			
-			return $this->redirectToRoute('app_settings_postaladdresses');			
+			return $this->redirectToRoute('postaladdress');
 		}
 		
 		return $this->render('postal_address/postaladdressForm.html.twig', [
         	'form' => $form->createView(),
-        	'data' => $postalAddress
+        	'data' => $data
 		]);
 	}
 	
 	/**
-     * @Route("/settings/postaladdress/{id}/delete", name="app_settings_postaladdress_delete")
-     * @IsGranted("ROLE_SETTINGS_DELETE")
+     * @Route("/postaladdress/{id}/delete", name="postaladdress_delete")
+     * @IsGranted("ROLE_EVENT_DELETE")
      */
-	public function delete(EntityManagerInterface $em, Request $request, $id)
+	public function delete(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$postalAddress = $em->getRepository(PostalAddress::class)->find($id);
+		$data = $em->getRepository(PostalAddress::class)->find($id);
 		
-		if (!$postalAddress) {
-        	throw $this->createNotFoundException('Event locatie bestaat niet.');
+		if (!$data) {
+        	throw $this->createNotFoundException();
     	}
-
-			$em->remove($postalAddress);
+			$em->remove($data);
 			$em->flush();
-           
-			$this->addFlash('warning', 'De event locatie is verwijderd!');
+
+        $this->addFlash('warning', $data->getVenue() . ' ' . $translator->trans('flash_message_delete'));
 			
-			return $this->redirectToRoute('app_settings_postaladdresses');			
+			return $this->redirectToRoute('postaladdress');
 	}
 }

@@ -1,74 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-	        
-    {{ parent() }}
-	
-{% endblock %}
-
-
-{% block title %}<i class="mdi mdi-view-dashboard"></i> Dashboard{% endblock %}
-
 {% block body %}
-   
+    <h3>{% trans %}navbar_dashboard{% endtrans %}</h3>
 
-
-<div class="row">
-
-	<div class="col-xl-12">
-        <div class="card-box">
-          
-			<h4 class="header-title mt-0 m-b-30">Aankomende Events (komende 14 dagen)</h4>
-
-            <div class="table-responsive">
-                <table class="table mb-0">
-                    <thead>
-                    <tr>
-                        <th>Event</th>
-                        <th>Datum</th>
-                        <th>Tijd</th>
-                        <th>Locatie</th>
-                        <th>Status</th>
-                        <th>Categorie</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for data in events %}
-                        <tr>
-                            <td><a href="{{ path('app_event', {'id': data.id}) }}">{{ data.about }}</a></td>
-                            <td>{{ data.startDate | date('d-m-Y') }}</td>
-                            <td>{{ data.startTime | date('H:i') }} - {{ data.endTime | date('H:i') }}</td>
-                            <td>{{ data.location.venue }}</td>
-                            <td>
-								{% if data.eventStatus == 'Bevestigd'  %}    
-							        <span class="badge badge-purple">Bevestigd</span>
-							    {% endif %}
-							    {% if data.eventStatus == 'Voorlopig'  %}    
-							        <span class="badge badge-pink">Voorlopig</span>
-							    {% endif %}
-							    {% if data.eventStatus == 'Geannuleerd'  %}    
-							        <span class="badge badge-inverse">Geannuleerd</span>
-							    {% endif %}
-							</td>
-                            <td>{% for data in data.category %}<span class="badge badge-purple">{{ data.name }}</span> {% endfor %}</td>
-                        </tr>                                               
-                    {% endfor %}
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- end col -->
-	
-</div>
-<!-- end row -->
-
-                        
 {% endblock %}
 
 {% block javascripts %}
 
-    {{ parent() }}
-     
+	{{ parent() }}
+	
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#profiletable-buttons').dataTable({
+                lengthChange: false,
+                "pageLength": 50,
+                "columnDefs": [
+				    { "orderable": true, "targets": 0 }
+				  ],
+                "order": [[ 1, "asc" ]],
+            });
+        });
+    </script>
+    
 {% endblock %}

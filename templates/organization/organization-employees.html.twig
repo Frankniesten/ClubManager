@@ -1,0 +1,51 @@
+{%if data.employee is not empty %}
+    <!--Table -->
+    <table id="datatable-employees" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            {% if is_granted('ROLE_PERSON_EDIT') %}
+                <th width="20px"></th>
+            {% endif %}
+            <th>{% trans %}Name{% endtrans %}</th>
+            <th class="desktop">{% trans %}Email{% endtrans %}</th>
+            <th class="desktop">{% trans %}Category{% endtrans %}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for employee in data.employee %}
+            <tr>
+                {% if is_granted('ROLE_PERSON_EDIT') %}
+                <td align="center">
+                    <!-- Dropdown menu -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('organization_employee_edit', {'id': data.id}) }}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                        </div>
+                    </div>
+                    <!-- End dropdown menu -->
+                </td>
+                {%  endif %}
+                <td>
+                    <a href="{{ path('person_id', {'id': employee.id}) }}">{{ employee.familyName }}, {{ employee.givenName }} {{ employee.additionalName }}</a>
+                </td>
+                <td>
+                    {{ employee.email }}
+                    {%if employee.email is not empty %}
+                        <a href="mailto:{{ employee.email }}"><i class="mdi mdi-email-send text-primary" style="font-size: large; line-height: 1.3;"></i></a>
+                    {% endif %}
+                </td>
+                <td>
+                    <span class="badge badge-primary">{{ employee.category.name }}</span>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+{% else %}
+    <div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
+{% endif %}

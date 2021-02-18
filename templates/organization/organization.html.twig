@@ -1,0 +1,238 @@
+{% extends 'base_content_sidebar.html.twig' %}
+
+{% block sidebar %}
+	<li class="nav-item">
+		<a class="nav-link" href="#info"><i class="mdi mdi-factory"></i> {% trans %}Organization_nav_organization_information{% endtrans %}</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#employee"><i class="mdi mdi-account-tie"></i> {% trans %}Employees{% endtrans %}
+			{%if data.employee is not empty %}
+				<span class="badge badge-primary float-right">{{ data.employee|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+			{%if data.review is not empty %}
+				<span class="badge badge-primary float-right">{{ data.review|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}
+			{%if data.review is not empty %}
+				<span class="badge badge-primary float-right">{{ data.review|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+{% endblock %}
+
+{% block body %}
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			<h3>
+				{{ data.legalName }}
+				<span class="badge badge-primary">{{ data.category.name }}</span>
+			</h3>
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group btn-group-sm">
+				{% if is_granted('ROLE_PERSON_VIEW') %}
+					<a class="btn btn-primary" href="{{ path('organization') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+
+				{% if is_granted('ROLE_PERSON_DELETE') %}
+				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<div class="dropdown-menu">
+
+						<a class="dropdown-item" href="{{ path('organization_delete', {'id': data.id}) }}"
+						   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.legalName }}');"><i
+									class="mdi mdi-delete text-danger"></i> Verwijderen</a>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- End Page header -->
+
+	<!-- Organization info -->
+	<div class="card">
+		<div class="card-header" id="info">
+			<span class="align-middle">
+				<i class="mdi mdi-factory"></i> {% trans %}Organization_nav_organization_information{% endtrans %}
+			</span>
+			{% if is_granted('ROLE_PERSON_EDIT') %}
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{% endif %}
+		</div>
+
+		<div class="card-body">
+			{{ include('organization/organization-info.html.twig', { 'data': data }) }}
+		</div>
+		<div class="card-footer text-muted small">
+			<i class="mdi mdi-account"></i>&nbsp;&nbsp; {{ data.updatedBy }}&nbsp;&nbsp;|&nbsp;&nbsp;
+			<i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ data.updatedAt |date("d-m-Y  - H:i")}}
+		</div>
+	</div>
+	<!-- End Personal info -->
+	<br>
+
+	<!-- Employees -->
+	<div class="card">
+		<div class="card-header" id="employee">
+			<span class="align-middle">
+				<i class="mdi mdi-account-tie"></i> {% trans %}Employees{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path('organization_employee_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{%  endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('organization/organization-employees.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Employees -->
+	<br>
+
+	<!-- Review -->
+	<div class="card">
+		<div class="card-header" id="review">
+			<span class="align-middle">
+				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'organization', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('global/review.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Review -->
+	<br>
+
+	<!-- Log -->
+	<div class="card">
+		<div class="card-header" id="history">
+			<span class="align-middle">
+				<i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('global/logs.html.twig', { 'data': logs }) }}
+		</div>
+	</div>
+	<!-- End Log -->
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			//Datatable Employees
+			var table = $('#datatable-employees').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 5,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable Employees
+
+			//Datatable review
+			var table = $('#datatable-review').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 5,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable review
+
+			//Datatable Logs
+			var table = $('#datatable-logs').DataTable({
+				lengthChange: false,
+				pageLength: 10,
+				columnDefs: [
+					{
+						orderable: false,
+						targets: 0
+					}
+				],
+				order: [[ 2, "desc" ]],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable logs
+
+			$(document).on('click', 'a[href^="#"]', function (event) {
+				event.preventDefault();
+
+				$('html, body').animate({
+					scrollTop: $($.attr(this, 'href')).offset().top - 20
+				}, 800);
+			});
+
+		});
+	</script>
+
+	<script language="JavaScript">jQuery ( document ).ready ( function($) {
+
+			var hash= window.location.hash
+
+			if ( hash == '' || hash == '#' || hash == undefined ) return false;
+
+			var target = $(hash);
+
+			headerHeight = 120;
+
+			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+
+			if (target.length) {
+				$('html,body').stop().animate({
+					scrollTop: target.offset().top - 20 //offsets for fixed header
+				}, 0);
+			}
+		} );
+	</script>
+{% endblock %}

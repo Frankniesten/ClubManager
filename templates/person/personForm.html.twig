@@ -1,0 +1,138 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+
+{{ form_start(form) }}
+
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			{% if 'create' in app.request.uri  %}
+				<h3>{% trans %}add_person{% endtrans %}</h3>
+			{% endif %}
+			{% if 'edit' in app.request.uri  %}
+				<h3>{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }} - {% trans %}Edit{% endtrans %}</h3>
+			{% endif %}
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group float-right">
+				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+				{% if 'create' in app.request.uri  %}
+					<a href="{{ path('person') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+				{% if 'edit' in app.request.uri  %}
+					<a href="{{ path('person_id', {'id': data.id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- End Page header -->
+
+	<!-- Content -->
+	<div class="card">
+		<div class="card-body">
+			
+			<div class="row mb-sm-4">
+		        <div class="col-sm">
+					{{ form_row(form.givenName) }}
+		        </div>
+		        
+		        <div class="col-sm">
+				   {{ form_row(form.additionalName) }}
+		        </div>
+		        
+		        <div class="col-sm">
+				   {{ form_row(form.familyName) }}
+		        </div>
+		    </div>
+
+		    <div class="row mb-sm-4">
+		        <div class="col-sm">
+					{{ form_row(form.birthDate, {'id': 'datepicker-autoclose'}) }}
+		        </div>
+		        
+		        <div class="col-sm">
+				   {{ form_row(form.gender) }}
+		        </div>
+		    </div>
+
+		    <div class="row mb-sm-4">
+			    <div class="col-sm">
+					{{ form_row(form.email) }}
+			    </div>
+		    </div>
+
+		    <div class="row mb-sm-4">
+		        <div class="col-sm">
+					{{ form_row(form.telephone) }}
+		        </div>
+		        
+		        <div class="col-sm">
+				   {{ form_row(form.telephone_2) }}
+		        </div>
+		    </div>
+
+		    <div class="row mb-sm-4">
+		        <div class="col-sm">
+					{{ form_row(form.streetAddress) }}
+		        </div>
+		        
+		        <div class="col-sm">
+				   {{ form_row(form.postalCode) }}
+		        </div>
+		    </div>
+
+		    <div class="row mb-sm-4">
+		        <div class="col-sm">
+					{{ form_row(form.addressLocality) }}
+		        </div>
+		        
+		        <div class="col-sm">
+				   {{ form_row(form.addressCountry) }}
+		        </div>
+		    </div>
+
+		    <div class="row mb-sm-4">
+			    <div class="col-sm">
+					{{ form_row(form.alumni) }}
+			    </div>
+		    </div>
+
+		    <div class="row mb-sm-4">
+			    <div class="col-sm">
+					{{ form_row(form.category) }}
+			    </div>
+		    </div>
+
+		</div>
+	</div>
+
+{{ form_end(form) }} 
+
+{% endblock %}
+
+{% block javascripts %}
+
+	<script type="text/javascript" src="{{ asset('assets/plugins/switchery/switchery.min.js') }}"></script>
+	
+	{{ parent() }}
+	
+	<script>
+		$(document).ready(function(){
+			$('.select2').select2({
+				theme: "bootstrap4",
+				width: '100%'
+			});
+		});
+	</script>
+
+    <script type="text/javascript">
+        jQuery('#datepicker-autoclose').datepicker({
+	        	format: 'dd-mm-yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
+    </script>
+    
+{% endblock %}

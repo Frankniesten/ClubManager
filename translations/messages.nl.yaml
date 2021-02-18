@@ -1,0 +1,266 @@
+About: Evenement
+Add: Voeg toe
+Additional name: Tussenvoegsel
+Additional property: Opslag locatie
+Additional type: Type
+Address country: Land
+Address locality: Woonplaats
+Address: Adres
+Age-build-up: Leeftijdsopbouw
+Alternate name: Aanbod
+Alumni: Alumni
+AssetTag: Asset tag
+Asset_Add: Bezitting toevoegen
+Attendee: Publiek
+Attendee_edit: Publiek bewerken
+Attendee_updated: Publiek is bijgewerkt.
+Availability starts: Beschikbaarheid begint
+Availability: Beschikbaarheid
+AvailabilityStarts-help: Het begin van de beschikbaarheid van de dienst.
+Available channel: De dienst is beschikbaar via het communicatiekanaal
+Birth date: Geboortedatum
+Calendar_nav_all: Alle evenementen
+Canceled: Geannuleerd
+Categorie_add: Categorie toevoegen
+Category: Categorie
+Category_nav_all: Alle categoriën
+Certificate: Diploma
+Channel: Kanaal
+Close: Sluiten
+Club statistics: Vereniging statistieken
+Confirmed: Bevestigd
+Contributor: Bijdrager
+Contributor_edit: Bijdrager bewerken
+Contributor_updated: Bijdragers zijn bijgewerkt.
+Copy: Kopie
+Create: Toevoegen
+Customer: Klant
+Danger: 'Waarschuwing:'
+Data: Data
+Date achieved: Datum behaald
+Date: Datum
+Delete: Verwijderen
+Delete_message: 'Weet u zeker dat u dit item wilt verwijderen?:'
+Description: Omschrijving
+Door time: Zaal opend
+Edit: Bewerken
+Education: Opleiding
+Education_add: Opleiding toevoegen
+Education_edit: Opleiding bewerken
+Email: Email
+Employee: Medewerker
+Employees: Medewerkers
+Employees_add: Medewerker toevoegen
+Employees_edit: Medewerker bewerken
+End date: Einddatum
+End time: Eindtijd
+Event status: Evenement status
+Event: Evenement
+Event_add: Evenement toevoegen
+Events: Evenementen
+Family name: Achternaam
+Female: Vrouw
+Finished: Afgerond
+Gender: Geslacht
+Given name: Voornaam
+Identifier: Asset tag
+Image: Afbeelding
+Images: Afbeeldingen
+In progress: In voortgang
+In stock: Op voorraad
+Information: Informatie
+Inventory level: Voorraadniveau
+Inventory: Bezittingen
+Invoice: Factuur
+Is accessible for free: Is niet gratis toegankelijk
+Is related to: Product is gerelateerd aan
+Item: Item
+Jubilee: Jubilarissen
+Legal name: Organisatie
+Lei code: Kvk-nummer
+Loan: Uitleen
+Location: Locatie
+Log: Log
+Male: Man
+Manufacturer: Fabrikant
+Maximum attendee capacity: Maximale bezoekerscapaciteit
+Member of: Rollen
+MemberOf_edit: Rollen bewerken
+MemberOf_updated: Rollen zijn bijgewerkt!
+Membership: Lidmaatschap
+Membership_add: Lidmaatschap toevoegen
+Membership_edit: Lidmaatschap bewerken
+Model: Model
+Musical instrument: Muziekinstrument
+MusicalInstrument: Muziekinstrument
+MusicalInstrument_add: Muziekinstrument toevoegen
+MusicalInstrument_edit: Muziekinstrument bewerken
+Mutiple: Meerdere producten
+Name: Naam
+Navbar_calendar: Agenda
+Navbar_categories: Categoriën
+Navbar_club: Vereniging
+Navbar_contacts: Contacten
+Navbar_dashboard: Dashboard
+Navbar_musicalInstrument: Muziekinstrumenten
+Navbar_orders: Orders
+Navbar_organizations: Organisaties
+Navbar_person: Relaties
+Navbar_products: Bezittingen
+Navbar_relations: Relaties
+Navbar_roles: Rollen
+Navbar_services: Diensten
+Navbar_settings: Instellingen
+Navbar_statistics: Statistieken
+Navbar_users: Gebruikers
+Navbar_venue: Locaties
+New: Nieuw
+Not_applicable: Niet toepasbaar.
+Notes: Notities
+Offer: Aanbieding
+Offers: Aanbiedingen
+On hold: In de wacht
+On loan: Uitgeleend
+Order date: Order datum
+Order status: Order status
+Order: Order
+OrderDetails: Order details
+OrderId: Order id
+OrderItem: Order item
+OrderStatus: Order status
+Order_add: Order toevoegen
+Orders: Orders
+Orders_add: Orders toevoegen
+Orders_article: Artikel
+Orders_edit: Order bewerken
+Orders_order_status: Order status
+Organization: Organisatie
+Organization_add: Organisatie toevoegen
+Organization_nav_all: Alle organisaties
+Organization_nav_organization_information: Organisatie informatie
+Organizations: Organisaties
+Organizations_add: Organisaties toevoegen
+Organizations_edit: organisaties bewerken
+Organizer: Organisator
+Organizer_edit: Organisator bewerken
+Organizer_updated: Organisator is bijgewerkt!
+Out of stock: Uitverkocht
+Owned from: In bezit vanaf
+Owned trough: In bezit tot
+Parents: Ouders
+Parents_add: Ouders toevoegen
+Parents_edit: Ouders bewerken
+People: Personen
+Performer: Artiest
+Performer_edit: Artiest bewerken
+Performer_updated: Artiest is bijgewerkt!
+Person: Persoon
+Person_add: Persoon toevoegen
+Person_nav_all: Alle personen
+Person_nav_education: Opleiding
+Person_nav_membership: Lidmaatschap
+Person_nav_musicalInstrument: Muziekinstrument
+Person_nav_parents: Ouders
+Person_nav_personal_information: Persoonlijke informatie
+Person_nav_statistics: Statistieken
+Persons: Personen
+Post office box number: Postbus
+Postal code: Postcode
+Price: Prijs
+Product i d: Product ID
+Product: Product
+Product_add: Product toevoegen
+Product_edit: Product bewerken
+Product_lease_lend: Bruikleen
+Product_manufacturer: Fabrikant
+Product_model: Model
+Product_nav_all: Alle items
+Product_owned_from: In bezit vanaf
+Product_owned_till: In bezit tot
+Product_product: Product
+ProgramMemberships: Rollen
+ProgramMemberships_role: Rol
+Purchase date: Aankoop datum
+Quantity: Aantal
+Refunded: Terugbetaald
+Regular: Regulier
+Related product: Gerelateerd product
+RelatedProducts: Gerelateerde producten
+Remaining attendee capacity: Resterende bezoekerscapaciteit
+Reorder: Herordenen
+Revenue: Inkomsten
+Review aspect: Titel
+Review body: Notitie
+Review: Notitie
+Review_add: Notitie toevoegen
+Review_edit: Notitie bewerken
+Reviews: Notities
+Role_add: Rol toevoegen
+Role_add_persons: Personen aan rol toevoegen
+Roles: Rollen
+Save: Opslaan
+Select...: Selecteren...
+Service type: Naam van de dienst
+Service: Dienst
+Service_add: Dienst toevoegen
+Service_nav_all: Alle diensten
+Service_nav_service_information: Dienst informatie
+Services: Diensten
+Settings: Instellingen
+Sponsor: Sponsor
+Sponsor_edit: Sponsor bewerken
+Sponsor_updated: Sponsoren zijn bijgewerkt!
+Start date: Startdatum
+Start time: Starttijd
+Status: Status
+Street address: Straat
+Success: 'Succes:'
+Supplier_updated: Leveranciers zijn bijgewerkt!
+Suppliers: Leveranciers
+Suppliers_edit: Leveranciers bewerken
+Tags: Tags
+Telephone 2: Mobiel
+Telephone: Telefoon
+Tenant: Huurder
+Tentative: Voorlopig
+Time: Tijd
+Timestamp: Timestamp
+Total: Totaal
+Type: Type
+Typeof good: Product
+Unique product: Uniek product
+UnitCost: Prijs per stuk
+User roles: Gebruikersrollen
+User: Gebruiker
+User_add: Gebruiker toevoegen
+Users: Gebruikers
+Valid from: Beschikbaar vanaf
+ValidFrom-help: De datum waarop het item beschikbaar komt.
+Vat i d: BTW nummer
+Venue: Locatie
+Venue_add: Locatie toevoegen
+Venues: locaties
+View: View
+Waiting for payment: Wachtend op betaling
+Warning: 'Waarschuwing:'
+Webshop: Webshop
+Website: Website
+Years: Jaren
+displayName: Schermnaam
+eventStatus: Status
+flash_message_create: is aangemaakt!
+flash_message_delete: is verwijderd!
+flash_message_edit: is bijgewerkt!
+flash_message_edit_relatedProducts: gerelateerde producten zijn bijgewerkt!
+flash_message_upload: is toegevoegd!
+orders_edit: Order bewerken
+username: Gebruikersnaam
+Statistics: Statistieken
+Dashboard: Dashboard
+Relations: Relaties
+add_person: Persoon toevoegen
+Person_list: Personen lijst
+Event_list: Evenententen lijst
+Organization_list: Organisaties lijst
+Product_list: Bezittingen lijst
+Order_list: Order lijst

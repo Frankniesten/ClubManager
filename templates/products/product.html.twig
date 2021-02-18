@@ -1,253 +1,320 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_content_sidebar.html.twig' %}
 
-{% block stylesheets %}
-	
-{{ parent() }}
+{% block sidebar %}
 
-	<!-- DataTables -->
-    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
-    
-    
-    <style>
-	.card-drop {
-	    color: $muted;
-	    font-size: 20px !important;
-	    height: 0px !important;
-	    line-height: 22px !important;
-	    display: inline-block;
-	}
-	</style>
+	<li class="nav-item">
+		<a class="nav-link" href="#info"><i class="mdi mdi-bugle"></i> {% trans %}Product{% endtrans %} {% trans %}Information{% endtrans %}</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="#images"><i class="mdi mdi-image"></i> {% trans %}Images{% endtrans %}</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="#related"><i class="mdi mdi-transit-connection"></i> {% trans %}RelatedProducts{% endtrans %}</a>
+	</li>
+
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<li class="nav-item">
+		<a class="nav-link" href="#ownershipInfos"><i class="mdi mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
+			{% if data.loan == true  %}
+				<span class="badge badge-primary float-right">{% trans %}On loan{% endtrans %}</span>
+			{% endif %}
+		</a>
+	</li>
+	{% endif %}
+
+	<li class="nav-item">
+		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+			{%if data.review is not empty %}
+				<span class="badge badge-primary float-right">{{ data.review|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}</a>
+	</li>
 
 {% endblock %}
 
-{% block title %}<i class="mdi mdi-wrench"></i> Inventaris{% endblock %}
-
 
 {% block body %}
-	<div class="row align-items-center">
-        <div class="col">
-	        <h2>{{ data.name }}&nbsp;<span class="badge badge-purple">{{ data.category.name }}</span>
-		    
-	        {% if data.loan == true  %}       
-		        <span class="badge badge-pink">In Bruikleen</span>
-		    {% endif %}
-	        
-	        </h2>
-        </div>
-        
-        <div class="col-4  ">
-	        <div class="btn-group float-right">
-	        {% if is_granted('ROLE_PRODUCT_EDIT') %}
-	        	<a href="{{ path('app_product_edit', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-pencil"></i>  Bewerken</a>
-	        {% endif %}
-	        {% if is_granted('ROLE_PRODUCT_DELETE') %}
-	        	<a href="{{ path('app_product_delete', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-trash"></i>  Delete</a>
-	        {% endif %}
-				<a href="{{ path('app_products') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-	        </div>
-        </div>
-        
-	</div>
-	
-    <!-- Card Box -->
-    <div id="accordion">
-		<div class="card">
-	        <div class="card-header" id="headingOne">
-	            <h4 class="m-0">
-	                <a href="#collapseOne" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
-	                    Productgegevens
-	                </a>
-	            </h4>
-	        </div>
-	
-	        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-	            <div class="card-body">
-	                <table class="table table-bordered table-striped">   
-			            <tbody>
-				            <tr>
-				                <td width="20%"><b>Naam</b></td>
-				                <td width="70%">{{ data.name }}</td>
-				            </tr>
-				            <tr>
-				                <td><b>Serienummer</b></td>
-				                <td>{{data.productID}}</td>
-				            </tr>
-				            <tr>
-				                <td><b>Model</b></td>
-				                <td>{{data.model}}</td>
-				            </tr>
-				            <tr>
-				                <td><b>Fabrikant</b></td>
-				                <td>{{data.manufacturer}}</td>
-				            </tr>
-				            <tr>
-				                <td><b>Omschrijving</b></td>
-				                <td>{{data.description }}</td>
-				            </tr>
-				            <tr>
-				                <td><b>Aankoopdatum</b></td>
-				                <td>{{data.purchaseDate | date("d-m-Y") }}</td>
-				            </tr>
-				            <tr>
-				                <td><b>Asset tag</b></td>
-				                <td>{{data.identifier}}</td>
-				            </tr>
-				            <tr>
-				                <td><b>Type Product</b></td>
-				                <td>
-					                {% if data.uniqueProduct == true  %}       
-								    	Uniek
-								    {% endif %}
-								    {% if data.uniqueProduct == false  %}       
-								    	Meerdere
-								    {% endif %}
-
-				                
-				                
-				                </td>
-				            </tr>
-			            </tbody>
-			        </table>
-	            </div>
-	        </div>
-	    </div>
+<!-- Page header -->
+<div class="d-flex justify-content-between flex-row">
+	<div class="p-2">
+		<h3>
+			{{ data.name }}
+			<span class="badge badge-primary">{{ data.category.name }}</span>
+			{% if data.loan == true  %}
+				<span class="badge badge-secondary">{% trans %}On loan{% endtrans %}</span>
+			{% endif %}
+		</h3>
 	</div>
 
-    <br>
-    <!-- Details -->
-    
-    <ul class="nav nav-tabs nav-justified">
-        
-        <li class="nav-item">
-            <a href="#reviews" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_product' ? 'active' }}">
-                Notities <span class="badge badge-purple">{{ data.review|length }}</span>
-            </a>
-        </li>
-        
-        {%if data.ownershipInfos is not empty %}
-        <li class="nav-item">
-            <a href="#owns" data-toggle="tab" aria-expanded="true" class="nav-link">
-                Bruikleen <span class="badge badge-purple">{{ data.ownershipInfos|length }}</span>
-            </a>
-        </li>
-        {% endif %} 
-        
-        <li class="nav-item">
-            <a href="#relatedTo" data-toggle="tab" aria-expanded="true" class="nav-link {{ app.request.get('_route') == 'app_product_isRelatedTo' ? 'active' }}">
-                Gerelateerde producten <span class="badge badge-purple">{{ data.isRelatedTo|length }}</span>
-            </a>
-        </li>
-    </ul>
-		    
-		    
- <div class="card-box tab-content">
-	    	<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_product' ? 'show active' }}" id="reviews">
-			
-				{{ include('review/reviews.html.twig', { 
-					'data': data
-				}) }}
-				
-			</div>
-			
-			<div role="tabpanel" class="tab-pane fade" id="owns">
-			
-{%if data.ownershipInfos is not empty %}
-<table id="datatable-buttons" class="table table-striped table-bordered" cellspacing="0" width="100%">  
-    
-        <thead>
-            <tr>
-            	<th><b>Gebruiker</b></th>
-            	<th><b>In bezit vanaf</b></th>
-            	<th><b>In bezit tot</b></th>
-        	</tr>
-        </thead>
-			<tbody>
-			
-			    {% for owns in data.ownershipInfos %}
-			        <tr>
-			            
-			            <td>
-			            {% if owns.person.id is defined %}
-			            	<a href="{{ path('app_person_owns', {'id': owns.person.id}) }}">{{ owns.person.familyName }}, {{ owns.person.givenName }} {{ owns.person.additionalName }}</a>
-                        {% endif %}
-                        {% if owns.organization.id is defined %}
-							<a href="{{ path('app_organization_owns', {'id': owns.organization.id}) }}">{{ owns.organization.legalName }}
-                        {% endif %}
-                        
-				            
-				            
-			            </td>
-			            <td>
-				            {{ owns.ownedFrom |date("d-m-Y")}}
-			            </td>
-						<td>
-				            {{ owns.ownedTrough ? owns.ownedTrough|date('d-m-Y') }}
-			            </td>    
-			        </tr>
-			    {% endfor %} 
-			   
-    </tbody>
-</table>
-{% endif %} 
-					
-			</div>
-			
-			<div role="tabpanel" class="tab-pane fade {{ app.request.get('_route') == 'app_product_isRelatedTo' ? 'show active' }}" id="relatedTo">
-        
-				    {{ include('/product_related_to/isrelatedto.html.twig', {
-					'data': data })
-				}} 
-	        
-    		</div>
 
-			
-	    </div>
+	<div class="p-2">
+		<div class="btn-group btn-group-sm">
+			{% if is_granted('ROLE_PRODUCT_VIEW') %}
+				<a class="btn btn-primary" href="{{ path('product') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
+			{% endif %}
 
-    
-    
-    
-    
+			{% if is_granted('ROLE_PRODUCT_DELETE') %}
+			<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="sr-only">Toggle Dropdown</span>
+			</button>
+			<div class="dropdown-menu">
+				{% if is_granted('ROLE_PRODUCT_DELETE') %}
+					<a class="dropdown-item" href="{{ path('product_delete', {'id': data.id}) }}"
+					   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.name }}');"><i
+								class="mdi mdi-delete text-danger"></i> Verwijderen</a>
+				{% endif %}
+			</div>
+			{%  endif %}
+		</div>
+	</div>
+</div>
+<!-- End Page header -->
+
+<!-- Product info -->
+<div class="card">
+	<div class="card-header" id="info">
+			<span class="align-middle">
+				<i class="mdi mdi-bugle"></i> {% trans %}Product{% endtrans %} {% trans %}Information{% endtrans %}
+			</span>
+		{% if is_granted('ROLE_PRODUCT_EDIT') %}
+		<a class="btn btn-primary btn-sm float-right" href="{{ path('product_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+		{%  endif %}
+	</div>
+
+	<div class="card-body">
+		{{ include('products/product-info.html.twig', { 'data': data }) }}
+	</div>
+	<div class="card-footer text-muted small">
+		<i class="mdi mdi-account"></i>&nbsp;&nbsp; {{ data.updatedBy }}&nbsp;&nbsp;|&nbsp;&nbsp;
+		<i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ data.updatedAt |date("d-m-Y  - H:i")}}
+	</div>
+</div>
+<!-- End Product info -->
+<br>
+
+<!-- Images -->
+<div class="card">
+	<div class="card-header" id="images">
+		<span class="align-middle">
+			<i class="mdi mdi-image"></i> {% trans %}Images{% endtrans %}
+			{% if is_granted('ROLE_PRODUCT_CREATE') %}
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('image_upload', {'id': data.id} )}}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% endif %}
+		</span>
+	</div>
+	<div class="card-body">
+		{{ include('products/product-images.html.twig', { 'data': data }) }}
+	</div>
+</div>
+<!-- End Images -->
+<br>
+
+<!-- isRelatedTo -->
+<div class="card">
+	<div class="card-header" id="related">
+<span class="align-middle">
+<i class="mdi mdi-transit-connection"></i> {% trans %}RelatedProducts{% endtrans %}
+	{% if is_granted('ROLE_PRODUCT_EDIT') %}
+<a class="btn btn-primary btn-sm float-right" href="{{ path('product_isRelatedTo_edit', {'id': data.id} )}}" role="button"><i class="mdi mdi-pencil"></i></a>
+	{%  endif %}
+</span>
+	</div>
+	<div class="card-body">
+		{{ include('products/product-isRelatedTo.html.twig', { 'data': data }) }}
+	</div>
+</div>
+<!-- End isRelatedTo -->
+<br>
+
+<!-- OwnershipInfos -->
+{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<div class="card">
+		<div class="card-header" id="ownershipInfos">
+		<span class="align-middle">
+			<i class="mdi mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
+	{% if is_granted('ROLE_PERSON_CREATE') %}
+			<a class="btn btn-primary btn-sm float-right {% if data.loan == true  %}disabled{% endif %}
+	" href="{{ path( 'ownership_info_create', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+		{%  endif %}
+		</span>
+		</div>
+		<div class="card-body">
+			{{ include('products/product-ownershipInfo.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+{% endif %}
+<!-- End OwnershipInfos -->
+
+
+<!-- Review -->
+<div class="card">
+	<div class="card-header" id="review">
+			<span class="align-middle">
+				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+				{% if is_granted('ROLE_PRODUCT_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'product', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% endif %}
+			</span>
+	</div>
+	<div class="card-body">
+		{{ include('global/review.html.twig', { 'data': data }) }}
+	</div>
+</div>
+<!-- End Review -->
+<br>
+
+<!-- Log -->
+<div class="card">
+	<div class="card-header" id="history">
+			<span class="align-middle">
+				<i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}
+			</span>
+	</div>
+	<div class="card-body">
+		{{ include('global/logs.html.twig', { 'data': logs }) }}
+	</div>
+</div>
+<!-- End Log -->
+
 {% endblock %}
 
 {% block javascripts %}
 
 	{{ parent() }}
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+	<script type="text/javascript">
+		$(document).ready(function () {
 
-                var table = $('#datatable-buttons').DataTable({
-                    lengthChange: false,
-                    "pageLength": 50,
-                    "columnDefs": [
-					    { "orderable": false, "targets": 0 }
-					  ],
-                    "order": [[ 0, "asc" ]],
-                    buttons: [
-	                    {
-			                extend: 'csv',
-			                exportOptions: {
-			                    columns: [ 0, 1, 2]
-			                }
-		                },
-	                    {
-			                extend: 'print',
-			                exportOptions: {
-			                    columns: [ 0, 1, 2]
-			                }
-		                },
-	                    {
-			                extend: 'pdfHtml5',
-			                exportOptions: {
-			                    columns: [ 0, 1, 2]
-							}
-						}] 
-                });
+			//Datatable datatable-isRelatedTo
+			var table = $('#datatable-isRelatedTo').DataTable({
+				lengthChange: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PRODUCT_EDIT') or is_granted('ROLE_PRODUCT_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable datatable-isRelatedTo
 
-                table.buttons().container()
-                    .appendTo('#datatable-buttons_wrapper .col-md-6:eq(0)');
-            });
-    </script>
-    
+			//Datatable datatable-ownershipInfos
+			var table = $('#datatable-ownershipInfos').DataTable({
+				lengthChange: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable datatable-ownershipInfos
+
+			//Datatable review
+			var table = $('#datatable-review').DataTable({
+				lengthChange: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PRODUCT_EDIT') or is_granted('ROLE_PRODUCT_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable review
+
+			//Datatable Logs
+			var table = $('#datatable-logs').DataTable({
+				lengthChange: false,
+				pageLength: 10,
+				columnDefs: [
+					{
+						orderable: false,
+						targets: 0
+					}
+				],
+				order: [[ 2, "desc" ]],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable logs
+
+			$(document).on('click', 'a[href^="#"]', function (event) {
+				event.preventDefault();
+
+				$('html, body').animate({
+					scrollTop: $($.attr(this, 'href')).offset().top - 20
+				}, 800);
+			});
+
+		});
+	</script>
+
+	<script language="JavaScript">jQuery ( document ).ready ( function($) {
+
+			var hash= window.location.hash
+
+			if ( hash == '' || hash == '#' || hash == undefined ) return false;
+
+			var target = $(hash);
+
+			headerHeight = 120;
+
+			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+
+			if (target.length) {
+				$('html,body').stop().animate({
+					scrollTop: target.offset().top - 20 //offsets for fixed header
+				}, 0);
+			}
+		} );
+	</script>
+
+	<script>
+		function display() {
+			var x = document.getElementById("myFile").name;
+			alert("The name of the file button is: " + x);
+		}
+	</script>
 {% endblock %}

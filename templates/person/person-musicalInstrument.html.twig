@@ -1,0 +1,5 @@
+{%if data.musicalInstrument is not empty %}
+	<h4>{{data.musicalInstrument.musicalInstrument}}</h4>
+{% else %}
+	<div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
+{% endif %}

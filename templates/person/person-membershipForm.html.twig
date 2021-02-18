@@ -1,0 +1,67 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+
+	{{ form_start(form) }}
+
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			{% if 'create' in app.request.uri  %}
+				<h3>{% trans %}Membership_add{% endtrans %}</h3>
+			{% endif %}
+			{% if 'edit' in app.request.uri  %}
+				<h3>{% trans %}Membership_edit{% endtrans %}</h3>
+			{% endif %}
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group float-right">
+				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+				<a href="{{ path('person_id', {'id': id}) }}#membership" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+			</div>
+		</div>
+	</div>
+	<!-- End Page header -->
+
+	<!-- Content -->
+	<div class="card card-height">
+		<div class="card-body">
+	    
+			<div class="row">
+				<div class="col-6">
+					{{ form_label(form.startDate) }}
+					{{ form_widget(form.startDate, {'id': 'datepicker-autoclose1'}) }}
+				</div>
+
+				<div class="col-6">
+				   {{ form_label(form.endDate) }}
+				   {{ form_widget(form.endDate, {'id': 'datepicker-autoclose2'}) }}
+				</div>
+			</div>
+
+		{{ form_end(form) }}
+		</div>
+    </div>
+	<!-- End Content -->
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+
+    <script type="text/javascript">
+        jQuery('#datepicker-autoclose1').datepicker({
+	        	format: 'dd-mm-yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
+        jQuery('#datepicker-autoclose2').datepicker({
+	        	format: 'dd-mm-yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
+    </script>
+    
+{% endblock %}

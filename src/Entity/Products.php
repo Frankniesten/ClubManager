@@ -3,17 +3,20 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
  * @Gedmo\Loggable
+ * @Vich\Uploadable
  */
 class Products
 {
@@ -103,12 +106,23 @@ class Products
      */
     private $identifier;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $additionalProperty;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="products")
+     */
+    private $image;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
         $this->isRelatedTo = new ArrayCollection();
         $this->products = new ArrayCollection();
         $this->ownershipInfos = new ArrayCollection();
+        $this->image = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -176,12 +190,12 @@ class Products
         return $this;
     }
 
-    public function getPurchaseDate(): ?\DateTimeInterface
+    public function getPurchaseDate(): ?DateTimeInterface
     {
         return $this->purchaseDate;
     }
 
-    public function setPurchaseDate(?\DateTimeInterface $purchaseDate): self
+    public function setPurchaseDate(?DateTimeInterface $purchaseDate): self
     {
         $this->purchaseDate = $purchaseDate;
 
@@ -348,6 +362,49 @@ class Products
     public function setIdentifier(?string $identifier): self
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    public function getAdditionalProperty(): ?string
+    {
+        return $this->additionalProperty;
+    }
+
+    public function setAdditionalProperty(?string $additionalProperty): self
+    {
+        $this->additionalProperty = $additionalProperty;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImage(): Collection
+    {
+        return $this->image;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->image->contains($image)) {
+            $this->image[] = $image;
+            $image->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->image->contains($image)) {
+            $this->image->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getProducts() === $this) {
+                $image->setProducts(null);
+            }
+        }
 
         return $this;
     }

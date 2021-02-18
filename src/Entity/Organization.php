@@ -119,12 +119,12 @@ class Organization
     private $review;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Education", mappedBy="organization", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Education", mappedBy="organization")
      */
     private $education;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="organizations", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="organizations")
      */
     private $employee;
 
