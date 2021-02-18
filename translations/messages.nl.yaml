@@ -249,8 +249,8 @@ Years: Jaren
 displayName: Schermnaam
 eventStatus: Status
 flash_message_create: is aangemaakt!
-flash_message_delete: is verwijders!
-flash_message_edit: zijn verwijders!
+flash_message_delete: is verwijderd!
+flash_message_edit: is bijgewerkt!
 flash_message_edit_relatedProducts: gerelateerde producten zijn bijgewerkt!
 flash_message_upload: is toegevoegd!
 orders_edit: Order bewerken
