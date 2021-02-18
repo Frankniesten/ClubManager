@@ -18,33 +18,29 @@
             {% if is_granted('ROLE_PERSON_VIEW') %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle
-                        {% if app.request.attributes.get('_route') in [
-                        'person',
-                        'organization',
-                        'program_memberships'
-                    ] %}active{% endif %}"
+                        {% if  'person' in app.request.get('_route')%}active{% endif %}
+                        {% if  'organization' in app.request.get('_route')%}active{% endif %}
+                        {% if  'program_memberships' in app.request.get('_route')%}active{% endif %}"
                        href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Navbar_relations{% endtrans %}<span class="sr-only">(current)</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item {{ app.request.get('_route') == 'person' ? 'active' }}" href="{{ path('person') }}">{% trans %}Navbar_person{% endtrans %}</a>
-                        <a class="dropdown-item {{ app.request.get('_route') == 'organization' ? 'active' }}" href="{{ path('organization') }}">Organizations</a>
+                        <a class="dropdown-item {% if  'person' in app.request.get('_route')%}active{% endif %}" href="{{ path('person') }}">{% trans %}Navbar_person{% endtrans %}</a>
+                        <a class="dropdown-item {% if  'organization' in app.request.get('_route')%}active{% endif %}" href="{{ path('organization') }}">{% trans %}Navbar_organizations{% endtrans %}</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item {{ app.request.get('_route') == 'program_memberships' ? 'active' }}" href="{{ path('program_memberships') }}">{% trans %}Navbar_roles{% endtrans %}</a>
+                        <a class="dropdown-item " href="{{ path('program_memberships') }}">{% trans %}Navbar_roles{% endtrans %}</a>
                     </div>
                 </li>
             {% endif %}
             {% if is_granted('ROLE_EVENT_VIEW') %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle
-                {% if app.request.attributes.get('_route') in [
-                    'event',
-                    'postaladdress',
-                ] %}active{% endif %}"
+                    {% if  'event' in app.request.get('_route')%}active{% endif %}
+                    {% if  'postaladdress' in app.request.get('_route')%}active{% endif %}"
                    href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-calendar"></i> {% trans %}Event{% endtrans %}<span class="sr-only">(current)</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item {{ app.request.get('_route') == 'event' ? 'active' }}" href="{{ path('event') }}">{% trans %}Navbar_calendar{% endtrans %}</a>
-                    <a class="dropdown-item {{ app.request.get('_route') == 'postaladdress' ? 'active' }}" href="{{ path('postaladdress') }}">{% trans %}Navbar_venue{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'event' in app.request.get('_route')%}active{% endif %}" href="{{ path('event') }}">{% trans %}Navbar_calendar{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'postaladdress' in app.request.get('_route')%}active{% endif %}" href="{{ path('postaladdress') }}">{% trans %}Navbar_venue{% endtrans %}</a>
                 </div>
             </li>
 
@@ -58,48 +54,41 @@
             {% if is_granted('ROLE_SERVICES_VIEW') %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle
-                    {% if app.request.attributes.get('_route') in [
-                    'service',
-                    '',
-                ] %}active{% endif %}"
+                    {% if  'service' in app.request.get('_route')%}active{% endif %}
+                    {% if  'order' in app.request.get('_route')%}active{% endif %}"
                    href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-cash-multiple"></i> {% trans %}Revenue{% endtrans %}<span class="sr-only">(current)</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item {{ app.request.get('_route') == 'service' ? 'active' }}" href="{{ path('service') }}">{% trans %}Services{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'service' in app.request.get('_route')%}active{% endif %}" href="{{ path('service') }}">{% trans %}Services{% endtrans %}</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item {{ app.request.get('_route') == 'order' ? 'active' }}" href="{{ path('order') }}">{% trans %}Navbar_orders{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'order' in app.request.get('_route')%}active{% endif %}" href="{{ path('order') }}">{% trans %}Navbar_orders{% endtrans %}</a>
                 </div>
             </li>
             {% endif %}
             {% if is_granted('ROLE_STATISTICS_VIEW') %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle
-                {% if app.request.attributes.get('_route') in [
-                    'statistics',
-                ] %}active{% endif %}"
+                {% if  'statistics' in app.request.get('_route')%}active{% endif %}"
                    href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-chart-bell-curve-cumulative"></i> {% trans %}Navbar_statistics{% endtrans %}<span class="sr-only">(current)</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item {{ app.request.get('_route') == 'statistics' ? 'active' }}" href="{{ path('statistics_club') }}">{% trans %}Navbar_club{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'statistics' in app.request.get('_route')%}active{% endif %}" href="{{ path('statistics_club') }}">{% trans %}Navbar_club{% endtrans %}</a>
                 </div>
             </li>
             {% endif %}
             {% if is_granted('ROLE_SETTINGS_VIEW') %}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle
-                    {% if app.request.attributes.get('_route') in [
-                    'users',
-                    'category',
-                    'musical_instrument',
-
-                ] %}active{% endif %}"
+                    {% if  'user' in app.request.get('_route')%}active{% endif %}
+                    {% if  'category' in app.request.get('_route')%}active{% endif %}
+                    {% if  'musical_instrument' in app.request.get('_route')%}active{% endif %}"
                    href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-settings"></i> {% trans %}Navbar_settings{% endtrans %}<span class="sr-only">(current)</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item {{ app.request.get('_route') == 'users' ? 'active' }}" href="{{ path('users') }}">{% trans %}Navbar_users{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'user' in app.request.get('_route')%}active{% endif %}" href="{{ path('users') }}">{% trans %}Navbar_users{% endtrans %}</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item {{ app.request.get('_route') == 'category' ? 'active' }}" href="{{ path('category') }}">{% trans %}Navbar_categories{% endtrans %}</a>
-                    <a class="dropdown-item {{ app.request.get('_route') == 'musical_instrument' ? 'active' }}" href="{{ path('musical_instrument') }}">{% trans %}Navbar_musicalInstrument{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'category' in app.request.get('_route')%}active{% endif %}" href="{{ path('category') }}">{% trans %}Navbar_categories{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'musical_instrument' in app.request.get('_route')%}active{% endif %}" href="{{ path('musical_instrument') }}">{% trans %}Navbar_musicalInstrument{% endtrans %}</a>
                 </div>
             </li>
             {% endif %}
