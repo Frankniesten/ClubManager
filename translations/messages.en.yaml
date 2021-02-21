@@ -270,3 +270,5 @@ BankAccount_edit: Edit bank account
 Consumer name: Consumer name
 Consumer account: IBAN
 Consumer bic: BIC
+Add_offer: Add offer
+Payment gateway: Payment gateway

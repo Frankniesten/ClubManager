@@ -270,3 +270,5 @@ BankAccount_edit: Bankrekening bewerken
 Consumer name: Naam consument
 Consumer account: IBAN
 Consumer bic: BIC
+Add_offer: Aanbod toevoegen
+Payment gateway: Betaal providor

@@ -49,7 +49,7 @@ class OrderController extends AbstractController
             $em->flush();
             $id = $data->getId();
 
-            $this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_create'));
+            $this->addFlash('success', $translator->trans('order').' #'.$id. ' ' . $translator->trans('flash_message_create'));
 
             return $this->redirectToRoute('order_view', array('id' => $id));
         }

@@ -31,7 +31,9 @@ class ServiceFormType extends AbstractType
 						],
 	    		 'choices'  => array(
 			        'Regular' => 'Regular',
-			        'Webshop' => 'Webshop')])
+                    'Webshop' => 'Webshop',
+                    'Payment gateway' => 'Payment gateway'
+                     )])
 			->add('category', EntityType::class, array(
 					    'class' => Category::class,
 					    'query_builder' => function (EntityRepository $er) {
