@@ -188,7 +188,7 @@ Related product: Gerelateerd product
 RelatedProducts: Gerelateerde producten
 Remaining attendee capacity: Resterende bezoekerscapaciteit
 Reorder: Herordenen
-Revenue: Inkomsten
+Revenue: Financiën
 Review aspect: Titel
 Review body: Notitie
 Review: Notitie
@@ -264,3 +264,9 @@ Event_list: Evenententen lijst
 Organization_list: Organisaties lijst
 Product_list: Bezittingen lijst
 Order_list: Order lijst
+Navbar_bankAccount: Bankrekeningen
+BankAccount_add: Bankrekening toevoegen
+BankAccount_edit: Bankrekening bewerken
+Consumer name: Naam consument
+Consumer account: IBAN
+Consumer bic: BIC

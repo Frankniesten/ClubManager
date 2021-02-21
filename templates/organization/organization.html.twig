@@ -5,6 +5,13 @@
 		<a class="nav-link" href="#info"><i class="mdi mdi-factory"></i> {% trans %}Organization_nav_organization_information{% endtrans %}</a>
 	</li>
 	<li class="nav-item">
+		<a class="nav-link" href="#bankAccount"><i class="mdi mdi-bank"></i> {% trans %}Navbar_bankAccount{% endtrans %}
+			{%if data.bankAccounts is not empty %}
+				<span class="badge badge-primary float-right">{{ data.bankAccounts|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
 		<a class="nav-link" href="#employee"><i class="mdi mdi-account-tie"></i> {% trans %}Employees{% endtrans %}
 			{%if data.employee is not empty %}
 				<span class="badge badge-primary float-right">{{ data.employee|length }}</span>
@@ -81,6 +88,22 @@
 	</div>
 	<!-- End Personal info -->
 	<br>
+	<!-- Bank Account -->
+	<div class="card">
+		<div class="card-header" id="bankAccount">
+			<span class="align-middle">
+						<i class="mdi mdi-bank"></i> {% trans %}Navbar_bankAccount{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+					<a class="btn btn-primary btn-sm float-right" href="{{ path('bank_account_create') }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('organization/organization-bankaccount.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	<!-- End Bank Account -->
 
 	<!-- Employees -->
 	<div class="card">

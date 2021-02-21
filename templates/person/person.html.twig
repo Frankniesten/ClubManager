@@ -5,6 +5,14 @@
 		<a class="nav-link" href="#info"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Person_nav_personal_information{% endtrans %}</a>
 	</li>
 
+	<li class="nav-item">
+		<a class="nav-link" href="#bankAccount"><i class="mdi mdi-bank"></i> {% trans %}Navbar_bankAccount{% endtrans %}
+			{%if data.bankAccounts is not empty %}
+				<span class="badge badge-primary float-right">{{ data.bankAccounts|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+
 	{% if data.category.id == 1 or data.alumni == true  %}
 		<li class="nav-item">
 			<a class="nav-link" href="#membership"><i class="mdi mdi-account-star-outline"></i> {% trans %}Person_nav_membership{% endtrans %}
@@ -137,6 +145,23 @@
 	</div>
 	<!-- End Personal info -->
 	<br>
+
+	<!-- Bank Account -->
+	<div class="card">
+		<div class="card-header" id="bankAccount">
+			<span class="align-middle">
+						<i class="mdi mdi-bank"></i> {% trans %}Navbar_bankAccount{% endtrans %}
+						{% if is_granted('ROLE_PERSON_EDIT') %}
+							<a class="btn btn-primary btn-sm float-right" href="{{ path('bank_account_create') }}" role="button"><i class="mdi mdi-pencil"></i></a>
+						{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('person/person-bankaccount.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	<!-- End Bank Account -->
 
 	{% if data.category.id == 1 or data.alumni == true  %}
 	<!-- Membership -->

@@ -149,7 +149,6 @@ class PersonController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/person/{id}/delete", name="person_delete")
      * @IsGranted("ROLE_PERSON_DELETE")

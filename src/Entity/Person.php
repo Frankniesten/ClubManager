@@ -195,6 +195,11 @@ class Person
      */
     private $sponsor;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BankAccount::class, mappedBy="person")
+     */
+    private $bankAccounts;
+
 
     public function __construct()
     {
@@ -210,6 +215,7 @@ class Person
         $this->attendee = new ArrayCollection();
         $this->contributor = new ArrayCollection();
         $this->sponsor = new ArrayCollection();
+        $this->bankAccounts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -735,6 +741,36 @@ class Person
     {
         if ($this->sponsor->contains($sponsor)) {
             $this->sponsor->removeElement($sponsor);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BankAccount[]
+     */
+    public function getBankAccounts(): Collection
+    {
+        return $this->bankAccounts;
+    }
+
+    public function addBankAccount(BankAccount $bankAccount): self
+    {
+        if (!$this->bankAccounts->contains($bankAccount)) {
+            $this->bankAccounts[] = $bankAccount;
+            $bankAccount->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBankAccount(BankAccount $bankAccount): self
+    {
+        if ($this->bankAccounts->removeElement($bankAccount)) {
+            // set the owning side to null (unless already changed)
+            if ($bankAccount->getPerson() === $this) {
+                $bankAccount->setPerson(null);
+            }
         }
 
         return $this;

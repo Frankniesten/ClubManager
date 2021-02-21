@@ -264,3 +264,9 @@ Event_list: Event list
 Organization_list: Organization list
 Product_list: Inventory list
 Order_list: Order list
+Navbar_bankAccount: Bank accounts
+BankAccount_add: Add Bank Account
+BankAccount_edit: Edit bank account
+Consumer name: Consumer name
+Consumer account: IBAN
+Consumer bic: BIC

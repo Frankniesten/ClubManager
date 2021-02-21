@@ -138,6 +138,11 @@ class Organization
      */
     private $customer;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BankAccount::class, mappedBy="organization")
+     */
+    private $bankAccounts;
+
 
     public function __construct()
     {
@@ -147,6 +152,7 @@ class Organization
         $this->employee = new ArrayCollection();
         $this->owns = new ArrayCollection();
         $this->customer = new ArrayCollection();
+        $this->bankAccounts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -466,6 +472,36 @@ class Organization
             // set the owning side to null (unless already changed)
             if ($customer->getOrganization() === $this) {
                 $customer->setOrganization(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BankAccount[]
+     */
+    public function getBankAccounts(): Collection
+    {
+        return $this->bankAccounts;
+    }
+
+    public function addBankAccount(BankAccount $bankAccount): self
+    {
+        if (!$this->bankAccounts->contains($bankAccount)) {
+            $this->bankAccounts[] = $bankAccount;
+            $bankAccount->setOrganization($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBankAccount(BankAccount $bankAccount): self
+    {
+        if ($this->bankAccounts->removeElement($bankAccount)) {
+            // set the owning side to null (unless already changed)
+            if ($bankAccount->getOrganization() === $this) {
+                $bankAccount->setOrganization(null);
             }
         }
 

@@ -134,7 +134,17 @@
 				lengthChange: false,
 				pageLength: 50,
 
-				order: [[2, "desc"]],
+				{% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
 				buttons: [
 					{
 						extend: 'csv',
