@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\BankAccountRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
@@ -15,6 +16,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 /**
  * @ApiResource()
  * @ApiFilter(PropertyFilter::class, arguments={"parameterName": "properties", "overrideDefaultProperties": false, "whitelist": null})
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "consumerAccount": "exact"})
  * @ORM\Entity(repositoryClass=BankAccountRepository::class)
  * @Gedmo\Loggable
  */
