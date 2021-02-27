@@ -65,6 +65,7 @@
 						<div class="modal-body">
 							<ul>
 								<li><b>{% trans %}Date{% endtrans %}:</b> {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}</li>
+								<li><b>{% trans %}Description{% endtrans %}:</b> {{ donations.description }}</li>
 								<li><b>{% trans %}Amount{% endtrans %}:</b> {{ donations.amount }}</li>
 								<li><b>{% trans %}Currency{% endtrans %}:</b> {{ donations.currency }}</li>
 								<li><b>{% trans %}Transaction id{% endtrans %}:</b> {{ donations.transactionId }}</li>

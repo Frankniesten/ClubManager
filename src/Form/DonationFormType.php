@@ -6,7 +6,6 @@ use App\Entity\BankAccount;
 use App\Entity\Donation;
 use App\Entity\Organization;
 use App\Entity\Person;
-
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
