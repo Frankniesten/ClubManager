@@ -97,9 +97,9 @@ class DonationFormType extends AbstractType
                     },
                     'choice_label' => function (BankAccount $bankAccount) {
                         return
-                        $bankAccount->getPerson()->getFamilyName(). ', ' .
-                        $bankAccount->getPerson()->getGivenName(). ' ' .
-                        $bankAccount->getPerson()->getAdditionalName(). ' : '.
+                        //$bankAccount->getPerson()->getFamilyName(). ', ' .
+                        //$bankAccount->getPerson()->getGivenName(). ' ' .
+                        //$bankAccount->getPerson()->getAdditionalName(). ' : '.
                         $bankAccount->getConsumerAccount();
                     },
                     'required' => false,

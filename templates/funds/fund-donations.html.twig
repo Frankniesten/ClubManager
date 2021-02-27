@@ -47,7 +47,7 @@
 					€{{ donations.amount }}
 				</td>
 			    <td>
-					<a href="{{ path('bank_account', {'id': data.id}) }}">{{ donations.bankAccount.person.familyName }}, {{donations.bankAccount.person.givenName }} {{ donations.bankAccount.person.additionalName }}</a>
+					<a href="{{ path('bank_account', {'id': data.id}) }}">{{ donations.bankAccount.consumerAccount }}</a>
 				</td>
 			</tr>
 
@@ -57,7 +57,7 @@
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">{% trans %}Donation{% endtrans %}: {{ donations.bankAccount.person.familyName }}, {{donations.bankAccount.person.givenName }} {{ donations.bankAccount.person.additionalName }} - {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}</h5>
+							<h5 class="modal-title">{% trans %}Donation{% endtrans %}: {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
