@@ -1,0 +1,154 @@
+{% extends 'base_content_sidebar.html.twig' %}
+
+
+{% block sidebar %}
+    <li class="nav-item">
+        <a class="nav-link" href="#info"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Fund info{% endtrans %}</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#donations"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Donations{% endtrans %}</a>
+    </li>
+
+{% endblock %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            <h3>
+                {{ data.fundName }}
+            </h3>
+        </div>
+
+
+        <div class="p-2">
+            <div class="btn-group btn-group-sm">
+                {% if is_granted('ROLE_SERVICES_VIEW') %}
+                    <a class="btn btn-primary" href="{{ path('funds') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+
+                {% if is_granted('ROLE_SERVICES_DELETE') %}
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('funds_delete', {'id': data.id}) }}"
+                           onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.fundName }}');"><i
+                                    class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Fund info -->
+    <div class="card">
+        <div class="card-header" id="info">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Fund info{% endtrans %}
+			</span>
+            {% if is_granted('ROLE_SERVICES_EDIT') %}
+                <a class="btn btn-primary btn-sm float-right" href="{{ path('funds_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+            {{ include('funds/fund-info.html.twig', { 'data': data }) }}
+        </div>
+        <div class="card-footer text-muted small">
+            <i class="mdi mdi-account"></i>&nbsp;&nbsp; {{ data.updatedBy }}&nbsp;&nbsp;|&nbsp;&nbsp;
+            <i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ data.updatedAt |date("d-m-Y  - H:i")}}
+        </div>
+    </div>
+    <br>
+    <!-- End Fund info -->
+
+    <!-- Donations -->
+    <div class="card">
+        <div class="card-header" id="info">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Donations{% endtrans %}
+			</span>
+            {% if is_granted('ROLE_SERVICES_CREATE') %}
+                <a class="btn btn-primary btn-sm float-right" href="{{ path('funds_donation_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+            {{ include('funds/fund-donations.html.twig', { 'data': data }) }}
+        </div>
+    </div>
+    <!-- End Donations -->
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var table = $('#datatable-donations').DataTable({
+                lengthChange: false,
+                pageLength: 50,
+                {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                columnDefs: [
+                    {"orderable": false, "targets": 0}
+                ],
+                order: [[1, "asc"]],
+                {%  else %}
+                columnDefs: [
+                    {"orderable": true, "targets": 0}
+                ],
+                order: [[0, "asc"]],
+                {%  endif %}
+                buttons: [
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                            columns: [1, 2, 3, 4, 5, 6]
+                            {%  else %}
+                            columns: [0, 1, 2, 3, 4, 5]
+                            {% endif %}
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                            columns: [1, 2, 3, 4, 5, 6]
+                            {%  else %}
+                            columns: [0, 1, 2, 3, 4, 5]
+                            {% endif %}
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: '{{ club_name }} - {% trans %}Donations{% endtrans %} - v{{ "now"|date("m-d-y") }}',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+                            columns: [1, 2, 3, 4, 5, 6]
+                            {%  else %}
+                            columns: [0, 1, 2, 3, 4, 5]
+                            {% endif %}
+                        }
+                    }],
+                {% if app.request.getLocale() == 'nl' %}
+                language: {
+                    url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+                },
+                {%  endif %}
+                initComplete: function () {
+                    setTimeout( function () {
+                        table.buttons().container().appendTo( '#datatable-buttons_wrapper .col-md-6:eq(0)' );
+                    }, 10 );
+                }
+            });
+        });
+    </script>
+{% endblock %}

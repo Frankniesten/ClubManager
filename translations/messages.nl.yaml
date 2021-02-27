@@ -240,7 +240,7 @@ Vat i d: BTW nummer
 Venue: Locatie
 Venue_add: Locatie toevoegen
 Venues: locaties
-View: View
+View: Bekijk
 Waiting for payment: Wachtend op betaling
 Warning: 'Waarschuwing:'
 Webshop: Webshop
@@ -272,3 +272,18 @@ Consumer account: IBAN
 Consumer bic: BIC
 Add_offer: Aanbod toevoegen
 Payment gateway: Betaal providor
+Funds: Donaties
+Funds_add: Donaties toevoegen
+Fund name: Naam
+Order id: Externe order ID
+Donations: Donaties
+Count: Aantal
+Fund info: Donatie info
+Donation: Donatie
+Donation date: Donatie datum
+Amount: Bedrag
+Currency: Valuta
+Transaction id: Transactie ID
+Payment method: Betaal methode
+Url: Url
+Bank account: Bankrekening

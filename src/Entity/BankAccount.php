@@ -6,6 +6,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\BankAccountRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use Gedmo\Blameable\Traits\BlameableEntity;
@@ -59,6 +61,16 @@ class BankAccount
      * @ORM\ManyToOne(targetEntity=Organization::class, inversedBy="bankAccounts")
      */
     private $organization;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Donation::class, mappedBy="bankAccount")
+     */
+    private $donations;
+
+    public function __construct()
+    {
+        $this->donations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +133,36 @@ class BankAccount
     public function setOrganization(?Organization $organization): self
     {
         $this->organization = $organization;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Donation[]
+     */
+    public function getDonations(): Collection
+    {
+        return $this->donations;
+    }
+
+    public function addDonation(Donation $donation): self
+    {
+        if (!$this->donations->contains($donation)) {
+            $this->donations[] = $donation;
+            $donation->setBankAccount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDonation(Donation $donation): self
+    {
+        if ($this->donations->removeElement($donation)) {
+            // set the owning side to null (unless already changed)
+            if ($donation->getBankAccount() === $this) {
+                $donation->setBankAccount(null);
+            }
+        }
 
         return $this;
     }

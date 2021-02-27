@@ -272,3 +272,18 @@ Consumer account: IBAN
 Consumer bic: BIC
 Add_offer: Add offer
 Payment gateway: Payment gateway
+Funds: Funds
+Funds_add: Add funds
+Fund name: Name
+Order id: External Order Id
+Donations: Donations
+Count: Count
+Fund info: Fund info
+Donation: Donation
+Donation date: Donation date
+Amount: Amount
+Currency: Currency
+Transaction id: Transaction id
+Payment method: Payment method
+Url: Url
+Bank account: Bank account

@@ -62,6 +62,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item {% if  'service' in app.request.get('_route')%}active{% endif %}" href="{{ path('service') }}">{% trans %}Services{% endtrans %}</a>
+                    <a class="dropdown-item {% if  'funds' in app.request.get('_route')%}active{% endif %}" href="{{ path('funds') }}">{% trans %}Funds{% endtrans %}</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item {% if  'order' in app.request.get('_route')%}active{% endif %}" href="{{ path('order') }}">{% trans %}Navbar_orders{% endtrans %}</a>
                 </div>

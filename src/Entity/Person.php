@@ -200,6 +200,11 @@ class Person
      */
     private $bankAccounts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Donation::class, mappedBy="Person")
+     */
+    private $donations;
+
 
     public function __construct()
     {
@@ -216,6 +221,7 @@ class Person
         $this->contributor = new ArrayCollection();
         $this->sponsor = new ArrayCollection();
         $this->bankAccounts = new ArrayCollection();
+        $this->donations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -770,6 +776,36 @@ class Person
             // set the owning side to null (unless already changed)
             if ($bankAccount->getPerson() === $this) {
                 $bankAccount->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Donation[]
+     */
+    public function getDonations(): Collection
+    {
+        return $this->donations;
+    }
+
+    public function addDonation(Donation $donation): self
+    {
+        if (!$this->donations->contains($donation)) {
+            $this->donations[] = $donation;
+            $donation->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDonation(Donation $donation): self
+    {
+        if ($this->donations->removeElement($donation)) {
+            // set the owning side to null (unless already changed)
+            if ($donation->getPerson() === $this) {
+                $donation->setPerson(null);
             }
         }
 
