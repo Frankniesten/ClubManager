@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\DonationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Blameable\Traits\BlameableEntity;
@@ -11,6 +13,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ApiResource()
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "consumerAccount": "exact"})
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "transactionId": "exact", "orderId": "exact"})
  * @ORM\Entity(repositoryClass=DonationRepository::class)
  * @Gedmo\Loggable
  */

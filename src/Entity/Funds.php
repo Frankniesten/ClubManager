@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\FundsRepository;
@@ -17,8 +18,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass=FundsRepository::class)
- * @ApiFilter(SearchFilter::class, properties={"id": "exact", "OrderId": "exact"})
- * @ApiFilter(PropertyFilter::class, arguments={"parameterName": "properties", "overrideDefaultProperties": false, "whitelist": null})
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "fundId": "exact", "fundName": "exact"})
  * @Gedmo\Loggable
  */
 class Funds
