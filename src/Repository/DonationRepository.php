@@ -19,22 +19,17 @@ class DonationRepository extends ServiceEntityRepository
         parent::__construct($registry, Donation::class);
     }
 
-    // /**
-    //  * @return Donation[] Returns an array of Donation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+
+    public function findByFund($value)
     {
         return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
+            ->andWhere('d.orderId = :val')
             ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('d.donationDate', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Donation
