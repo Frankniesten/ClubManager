@@ -6,6 +6,7 @@
 				{% if is_granted('ROLE_SERVICES_EDIT') %}
 				<th width="20px"></th>
 				{% endif %}
+				<th class="desktop">{% trans %}Donation{% endtrans %}</th>
                 <th class="desktop">{% trans %}Date{% endtrans %}</th>
                 <th class="desktop">{% trans %}Amount{% endtrans %}</th>
 				<th class="desktop">{% trans %}Consumer name{% endtrans %}</th>
@@ -38,10 +39,13 @@
 
 				</td>
 				{% endif %}
-			    <td>
+				<td>
 					<a data-toggle="modal" href=".modal-{{ loop.index }}" aria-expanded="false">
-						{{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}
+					#{{ donations.id }}
 					</a>
+				</td>
+				<td>
+						{{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}
 			    </td>	
 			    <td>
 					€{{ donations.amount }}
@@ -57,7 +61,7 @@
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">{% trans %}Donation{% endtrans %}: {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}</h5>
+							<h5 class="modal-title">{% trans %}Donation{% endtrans %}: #{{ donations.id }}</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -66,10 +70,16 @@
 							<ul>
 								<li><b>{% trans %}Date{% endtrans %}:</b> {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}</li>
 								<li><b>{% trans %}Description{% endtrans %}:</b> {{ donations.description }}</li>
-								<li><b>{% trans %}Amount{% endtrans %}:</b> {{ donations.amount }}</li>
-								<li><b>{% trans %}Currency{% endtrans %}:</b> {{ donations.currency }}</li>
 								<li><b>{% trans %}Transaction id{% endtrans %}:</b> {{ donations.transactionId }}</li>
+								<br>
+								<li><b>{% trans %}Amount{% endtrans %}:</b> €{{ donations.amount }}</li>
+								<li><b>{% trans %}Currency{% endtrans %}:</b> {{ donations.currency }}</li>
 								<li><b>{% trans %}Payment method{% endtrans %}:</b> {{ donations.paymentMethod }}</li>
+								<br>
+								<li><b>{% trans %}Consumer name{% endtrans %}:</b> {{ donations.bankAccount.consumerName }}</li>
+								<li><b>{% trans %}Consumer account{% endtrans %}:</b> {{ donations.bankAccount.consumerAccount }}</li>
+								<li><b>{% trans %}Consumer bic{% endtrans %}:</b> {{ donations.bankAccount.consumerBic }}</li>
+								<br>
 								<li><b>{% trans %}Url{% endtrans %}:</b> <a href="{{ donations.url }}" target="_blank">{{ donations.url }}</a></li>
 							</ul>
 						</div>
