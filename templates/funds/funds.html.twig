@@ -27,7 +27,7 @@
                         <th width="20px"></th>
                     {% endif %}
                     <th class="all">{% trans %}Fund name{% endtrans %}</th>
-                    <th class="desktop">{% trans %}OrderId{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Order id{% endtrans %}</th>
                     <th class="desktop">{% trans %}Donations{% endtrans %}</th>
                 </tr>
                 </thead>
@@ -64,7 +64,7 @@
                         <td>
                             {{ data.fundId }}
                         </td>
-                        <td><span class="badge badge-primary">{% trans %}View{% endtrans %} {{ data.donations|length }} {% trans %}Donations{% endtrans %}</span>
+                        <td><span class="badge badge-primary">{{ data.donations|length }} {% trans %}Donations{% endtrans %}</span>
                         </td>
                     </tr>
                 {% endfor %}
