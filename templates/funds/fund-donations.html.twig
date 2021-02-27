@@ -8,7 +8,7 @@
 				{% endif %}
                 <th class="desktop">{% trans %}Date{% endtrans %}</th>
                 <th class="desktop">{% trans %}Amount{% endtrans %}</th>
-				<th class="desktop">{% trans %}Bank account{% endtrans %}</th>
+				<th class="desktop">{% trans %}Consumer name{% endtrans %}</th>
             </tr>
         </thead>
 
@@ -47,7 +47,7 @@
 					€{{ donations.amount }}
 				</td>
 			    <td>
-					<a href="{{ path('bank_account', {'id': data.id}) }}">{{ donations.bankAccount.consumerAccount }}</a>
+					{{ donations.bankAccount.consumerName }} ({{ donations.bankAccount.consumerAccount }})
 				</td>
 			</tr>
 

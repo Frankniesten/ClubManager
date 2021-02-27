@@ -34,6 +34,11 @@ class DonationFormType extends AbstractType
                     'required' => true
                 ]
             )
+            ->add('description', TextType::class,
+                [
+                    'required' => false
+                ]
+            )
             ->add('currency', CurrencyType::class,
                 [
                     'required' => true,
