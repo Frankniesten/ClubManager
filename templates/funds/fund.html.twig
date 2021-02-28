@@ -174,7 +174,7 @@
     <script language = "javascript">
         $(document).ready(function(event){
             $.ajax({
-                url:        '/statistics/donations/3',
+                url:        '/statistics/donations/{{ data.id }}',
                 type:       'POST',
                 dataType:   'json',
                 async:      true,
@@ -182,7 +182,7 @@
                 success: function(data, status) {
 
                     console.log(data);
-                    
+
                     var chart = [];
 
                     for (i = 0; i < data.length; i++) {
@@ -201,6 +201,7 @@
                         xkey: 'date',
                         ykeys: ['amount'],
                         labels: ['amount'],
+                        preUnits: '€',
                         xLabels: 'day',
                         hideHover: 'true',
                         resize: 'true'

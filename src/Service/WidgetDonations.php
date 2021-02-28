@@ -45,6 +45,9 @@ class WidgetDonations extends AbstractController
             $convert[$i]['amount'] = $value;
             $i++;
         }
+
+
+
 		return $convert;
 	}
 }
