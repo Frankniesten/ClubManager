@@ -51,7 +51,7 @@
 					€{{ donations.amount }}
 				</td>
 			    <td>
-					{{ donations.bankAccount.consumerName }} ({{ donations.bankAccount.consumerAccount }})
+
 				</td>
 			</tr>
 
@@ -76,9 +76,7 @@
 								<li><b>{% trans %}Currency{% endtrans %}:</b> {{ donations.currency }}</li>
 								<li><b>{% trans %}Payment method{% endtrans %}:</b> {{ donations.paymentMethod }}</li>
 								<br>
-								<li><b>{% trans %}Consumer name{% endtrans %}:</b> {{ donations.bankAccount.consumerName }}</li>
-								<li><b>{% trans %}Consumer account{% endtrans %}:</b> {{ donations.bankAccount.consumerAccount }}</li>
-								<li><b>{% trans %}Consumer bic{% endtrans %}:</b> {{ donations.bankAccount.consumerBic }}</li>
+
 								<br>
 								<li><b>{% trans %}Url{% endtrans %}:</b> <a href="{{ donations.url }}" target="_blank">{{ donations.url }}</a></li>
 							</ul>

@@ -181,9 +181,8 @@
 
                 success: function(data, status) {
 
-                    console.log(data);
-
                     var chart = [];
+
                     for (i = 0; i < data.length; i++) {
 
                         dat = {};
@@ -192,15 +191,15 @@
                         chart.push(dat);
                     }
 
+                    console.log(chart);
 
-
-                    new Morris.Bar({
+                    new Morris.Line({
                         element: 'donations-chart',
                         data: chart,
                         xkey: 'date',
                         ykeys: ['amount'],
-                        barColors: ['#08194f', "#35b8e0"],
                         labels: ['amount'],
+                        xLabels: 'day',
                         hideHover: 'true',
                         resize: 'true'
                     });
