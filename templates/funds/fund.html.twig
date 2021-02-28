@@ -7,11 +7,11 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#donations"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Donations{% endtrans %}</a>
+        <a class="nav-link" href="#statistics"><i class="mdi mdi-chart-bar"></i> {% trans %}Statistics{% endtrans %}</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="#statistics"><i class="mdi mdi-chart-bar"></i> {% trans %}Statistics{% endtrans %}</a>
+        <a class="nav-link" href="#donations"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Donations{% endtrans %}</a>
     </li>
 
 {% endblock %}
@@ -69,6 +69,21 @@
     <br>
     <!-- End Fund info -->
 
+    <!-- Statistics -->
+    <div class="card">
+        <div class="card-header" id="statistics">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Statistics{% endtrans %}
+			</span>
+        </div>
+
+        <div class="card-body">
+            {{ include('funds/fund-statistics.html.twig', { 'data': data }) }}
+        </div>
+    </div>
+    <br>
+    <!-- End Statistics -->
+
     <!-- Donations -->
     <div class="card">
         <div class="card-header" id="donations">
@@ -84,22 +99,9 @@
             {{ include('funds/fund-donations.html.twig', { 'data': data }) }}
         </div>
     </div>
-    <br>
+
     <!-- End Donations -->
 
-    <!-- Statistics -->
-    <div class="card">
-        <div class="card-header" id="statistics">
-			<span class="align-middle">
-				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Statistics{% endtrans %}
-			</span>
-        </div>
-
-        <div class="card-body">
-            {{ include('funds/fund-statistics.html.twig', { 'data': data }) }}
-        </div>
-    </div>
-    <!-- End Statistics -->
 {% endblock %}
 
 {% block javascripts %}
@@ -174,15 +176,12 @@
     <script language = "javascript">
         $(document).ready(function(event){
             $.ajax({
-                url:        '/statistics/donations/{{ data.id }}',
+                url:        '/statistics/donations/{{ data.id }}/income',
                 type:       'POST',
                 dataType:   'json',
                 async:      true,
 
                 success: function(data, status) {
-
-                    console.log(data);
-
                     var chart = [];
 
                     for (i = 0; i < data.length; i++) {
@@ -192,11 +191,47 @@
                         dat.amount = data[i].amount;
                         chart.push(dat);
                     }
-
-                    console.log(chart);
-
                     new Morris.Line({
                         element: 'donations-chart',
+                        data: chart,
+                        xkey: 'date',
+                        ykeys: ['amount'],
+                        labels: ['amount'],
+                        preUnits: '€',
+                        xLabels: 'day',
+                        hideHover: 'true',
+                        resize: 'true'
+                    });
+                },
+
+                error : function(xhr, textStatus, errorThrown) {
+                    console.log('Ajax request failed');
+                }
+
+            });
+        });
+    </script>
+
+    <script language = "javascript">
+        $(document).ready(function(event){
+            $.ajax({
+                url:        '/statistics/donations/{{ data.id }}/cumulative',
+                type:       'POST',
+                dataType:   'json',
+                async:      true,
+
+                success: function(data, status) {
+                    var chart = [];
+
+                    for (i = 0; i < data.length; i++) {
+
+                        dat = {};
+                        dat.date = data[i].date;
+                        dat.amount = data[i].amount;
+                        chart.push(dat);
+                    }
+                    new Morris.Bar({
+                        element: 'donations-chart-2',
                         data: chart,
                         xkey: 'date',
                         ykeys: ['amount'],

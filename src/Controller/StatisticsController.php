@@ -9,6 +9,7 @@ use App\Service\WidgetTotalItems;
 use App\Service\WidgetAgeBuildUp;
 use App\Service\WidgetJubilee;
 use App\Service\WidgetDonations;
+use App\Service\WidgetDonationsCumulative;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -77,11 +78,24 @@ class StatisticsController extends AbstractController
     }
 
     /**
-     * @Route("/statistics/donations/{id}")
+     * @Route("/statistics/donations/{id}/income")
      */
-    public function StatsDonations(Request $request, $id, WidgetDonations $donations) {
+    public function StatsDonationsIncome(Request $request, $id, WidgetDonations $donations) {
 
         $data = $donations->WidgetDonations($id);
+
+        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
+            $jsonData = $data;
+            return new JsonResponse($jsonData);
+        }
+    }
+
+    /**
+     * @Route("/statistics/donations/{id}/cumulative")
+     */
+    public function StatsDonationsCumulative(Request $request, $id, WidgetDonationsCumulative $donationsCumulative) {
+
+        $data = $donationsCumulative->WidgetDonationsCumulative($id);
 
         if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
             $jsonData = $data;
