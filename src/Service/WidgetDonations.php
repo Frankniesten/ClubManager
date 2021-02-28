@@ -24,8 +24,16 @@ class WidgetDonations extends AbstractController
             $date = $value->getDonationDate();
             $date = $date->format('d-m-Y');
 
+
+
+
             $donations[$key]['date'] = $date;
             $donations[$key]['amount'] = $value->getAmount();
+
+            //Haal de gegevens op.
+            //Check of de datum al bestaat.
+            //Indien ja tel de waarde erbij op
+            //Indien nee creeer een nieuwe waarde.
         }
 
 		return $donations;
