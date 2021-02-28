@@ -181,6 +181,8 @@
 
                 success: function(data, status) {
 
+                    console.log(data);
+                    
                     var chart = [];
 
                     for (i = 0; i < data.length; i++) {
@@ -204,7 +206,6 @@
                         resize: 'true'
                     });
                 },
-
 
                 error : function(xhr, textStatus, errorThrown) {
                     console.log('Ajax request failed');
