@@ -131,6 +131,6 @@ class FundsController extends AbstractController
 
         $this->addFlash('warning', $data->getFundName(). ' ' . $translator->trans('flash_message_delete'));
 
-        return $this->redirectToRoute('order');
+        return $this->redirectToRoute('funds');
     }
 }

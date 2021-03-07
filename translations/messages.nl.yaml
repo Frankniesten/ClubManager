@@ -274,7 +274,7 @@ Add_offer: Aanbod toevoegen
 Payment gateway: Betaal providor
 Funds: Donaties
 Funds_add: Donaties toevoegen
-Fund name: Naam
+Fund name: Donatiedoel
 Order id: Externe order ID
 Donations: Donaties
 Count: Aantal
@@ -289,3 +289,19 @@ Url: Url
 Bank account: Bankrekening
 Income per day: Inkomsten per dag
 Income cumulative: Inkomsten cumulatief
+Fund id: Unieke id betaalprovidor
+fundId help: Bij gebruik van betaalprovidor. Vul de id in die de betaalprovidor gebruikt voor de donaties bij dit donatiedoel.
+transaction: Overschrijving
+ideal: iDEAL
+creditcard: Credit card
+bancontact: Bancontact
+kbc: KBC/CBC Payment Button
+belfius: Belfius Pay Button
+help-dontation-url: Url van transactie bij betaalprovidor.
+help-dontation-transactionId: Id van transactie bij betaalprovidor.
+Download as Pdf: Pdf downloaden
+Invoice-number: Factuurnummer
+Invoice-date: Factuurdatum
+Already paid: Reeds betaald
+Vat: Btw
+

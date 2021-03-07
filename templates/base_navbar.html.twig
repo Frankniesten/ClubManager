@@ -57,6 +57,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle
                     {% if  'service' in app.request.get('_route')%}active{% endif %}
+                    {% if  'funds' in app.request.get('_route')%}active{% endif %}
                     {% if  'order' in app.request.get('_route')%}active{% endif %}"
                    href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-cash-multiple"></i> {% trans %}Revenue{% endtrans %}<span class="sr-only">(current)</span>
                 </a>

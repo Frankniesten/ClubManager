@@ -86,6 +86,11 @@ class Donation
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $donationStatus;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -219,6 +224,18 @@ class Donation
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDonationStatus(): ?string
+    {
+        return $this->donationStatus;
+    }
+
+    public function setDonationStatus(?string $donationStatus): self
+    {
+        $this->donationStatus = $donationStatus;
 
         return $this;
     }

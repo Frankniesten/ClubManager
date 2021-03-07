@@ -8,6 +8,7 @@ use App\Entity\Organization;
 use App\Entity\Person;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -25,7 +26,8 @@ class DonationFormType extends AbstractType
         $builder
             ->add('transactionId', TextType::class,
                 [
-                    'required' => false
+                    'required' => false,
+                    'help' => 'help-dontation-transactionId'
                 ]
             )
             ->add('amount', MoneyType::class,
@@ -55,9 +57,22 @@ class DonationFormType extends AbstractType
             ->add('url', UrlType::class,
                 [
                     'required' => false,
+                    'help' => 'help-dontation-url'
                 ]
             )
-            ->add('paymentMethod')
+            ->add('paymentMethod', ChoiceType::class,
+                [
+                    'required' => false,
+                    'attr' => ['class' => 'select2'],
+                    'placeholder' => 'Select...',
+                    'choices'  => array(
+                        'transaction' => 'transaction',
+                        'ideal' => 'ideal',
+                        'creditcard' => 'creditcard',
+                        'bancontact' => 'bancontact',
+                        'kbc' => 'kbc',
+                        'belfius' => 'belfius')
+                ])
             ->add('person', EntityType::class, array(
                 'class' => Person::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -91,6 +106,19 @@ class DonationFormType extends AbstractType
                     [
                         'class' => 'select2'
                     ]
+            ))
+            ->add('donationStatus', ChoiceType::class, array(
+                'choices'  => array(
+                    'In progress' => 'In progress',
+                    'Finished' => 'Finished',
+                    'Canceled' => 'Canceled',
+                    'On hold' => 'On hold',
+                    'Refunded' => 'Refunded',
+                    'Waiting for payment' => 'Waiting for payment'),
+                'placeholder' => 'Select...',
+                'attr' => [
+                    'class' => 'select2'
+                ]
             ))
             ->add('bankAccount', EntityType::class,
                 [

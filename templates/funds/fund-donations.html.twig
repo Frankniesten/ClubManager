@@ -7,9 +7,13 @@
 				<th width="20px"></th>
 				{% endif %}
 				<th class="desktop">{% trans %}Donation{% endtrans %}</th>
-                <th class="desktop">{% trans %}Date{% endtrans %}</th>
+				<th class="desktop">{% trans %}Date{% endtrans %}</th>
+				<th class="desktop">{% trans %}Transaction id{% endtrans %}</th>
                 <th class="desktop">{% trans %}Amount{% endtrans %}</th>
 				<th class="desktop">{% trans %}Consumer name{% endtrans %}</th>
+				<th class="desktop">{% trans %}Bank account{% endtrans %}</th>
+				<th class="desktop">{% trans %}Status{% endtrans %}</th>
+
             </tr>
         </thead>
 
@@ -24,11 +28,11 @@
 						<button type="button" class="btn btn-primary btn-xs dropdown-toggle"
 								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
 						<div class="dropdown-menu">
-							{% if is_granted('ROLE_PERSON_EDIT') %}
+							{% if is_granted('ROLE_SERVICES_EDIT') %}
 								<a class="dropdown-item" href="{{ path('funds_donation_edit', {'id': data.id, 'donationId': donations.id}) }}"><i
 											class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
 							{% endif %}
-							{% if is_granted('ROLE_PERSON_DELETE') %}
+							{% if is_granted('ROLE_SERVICES_DELETE') %}
 								<a class="dropdown-item" href="{{ path('funds_donation_delete', {'id': data.id, 'donationId': donations.id}) }}"
 								   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}');"><i
 											class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
@@ -40,51 +44,48 @@
 				</td>
 				{% endif %}
 				<td>
-					<a data-toggle="modal" href=".modal-{{ loop.index }}" aria-expanded="false">
-					#{{ donations.id }}
-					</a>
+					<a href="{{ path('funds_donation_view', {'id': data.id, 'donationId': donations.id}) }}">#{{ donations.id }}</a>
 				</td>
+				<td data-order="{{ donations.donationDate | date('Y/m/d') }}">
+					{{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}
+			    </td>
 				<td>
-						{{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}
-			    </td>	
+					<a href="{{ donations.url }}" target="_blank">{{ donations.transactionId }}</a>
+				</td>
 			    <td>
 					€{{ donations.amount }}
 				</td>
 			    <td>
-
+					{% if donations.bankAccount is not empty %}
+						<a href="">{{ donations.bankAccount.consumerName }}</a>
+					{% endif %}
+				</td>
+				<td>
+					{% if donations.bankAccount is not empty %}
+						{{ donations.bankAccount.consumerAccount }}
+					{% endif %}
+				</td>
+				<td>
+					{% if donations.donationStatus == "In progress" %}
+						<span class="badge badge-info">{{ donations.donationStatus }}</span>
+					{% endif %}
+					{% if donations.donationStatus == "Finished" %}
+						<span class="badge badge-success">{{ donations.donationStatus }}</span>
+					{% endif %}
+					{% if donations.donationStatus == "Canceled" %}
+						<span class="badge badge-secondary">{{ donations.donationStatus }}</span>
+					{% endif %}
+					{% if donations.donationStatus == "On hold" %}
+						<span class="badge badge-danger">{{ donations.donationStatus }}</span>
+					{% endif %}
+					{% if donations.donationStatus == "Refunded" %}
+						<span class="badge badge-secondary">{{ donations.donationStatus }}</span>
+					{% endif %}
+					{% if donations.donationStatus == "Waiting for payment" %}
+						<span class="badge badge-primary">{{ donations.donationStatus }}</span>
+					{% endif %}
 				</td>
 			</tr>
-
-
-			<!--  Modal -->
-			<div class="modal fade modal-{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">{% trans %}Donation{% endtrans %}: #{{ donations.id }}</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<ul>
-								<li><b>{% trans %}Date{% endtrans %}:</b> {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}</li>
-								<li><b>{% trans %}Description{% endtrans %}:</b> {{ donations.description }}</li>
-								<li><b>{% trans %}Transaction id{% endtrans %}:</b> {{ donations.transactionId }}</li>
-								<br>
-								<li><b>{% trans %}Amount{% endtrans %}:</b> €{{ donations.amount }}</li>
-								<li><b>{% trans %}Currency{% endtrans %}:</b> {{ donations.currency }}</li>
-								<li><b>{% trans %}Payment method{% endtrans %}:</b> {{ donations.paymentMethod }}</li>
-								<br>
-
-								<br>
-								<li><b>{% trans %}Url{% endtrans %}:</b> <a href="{{ donations.url }}" target="_blank">{{ donations.url }}</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- End Modal -->
 		{% endfor %}
         
         </tbody>

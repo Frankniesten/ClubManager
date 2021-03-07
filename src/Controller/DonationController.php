@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Donation;
 use App\Entity\Funds;
+use App\Entity\Organization;
 use App\Form\DonationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -39,21 +40,71 @@ class DonationController extends AbstractController
             $em->persist($donation);
             $em->persist($data);
             $em->flush();
+            $donationId = $donation->getId();
 
             $this->addFlash('success', $translator->trans('Donation').' '.$translator->trans('flash_message_create'));
-            return $this->redirectToRoute('funds_view', array('id' => $id, '_fragment' => 'order'));
+            return $this->redirectToRoute('funds_donation_view', array('id' => $id, 'donationId' => $donationId, '_fragment' => 'order'));
         }
 
         return $this->render('funds/funds-donationForm.html.twig', [
             'data' => $data,
             'form' => $form->createView(),
+            'id' => $donationId,
+        ]);
+    }
+
+    /**
+     * @Route("/funds/{id}/donation/{donationId}", name="funds_donation_view")
+     * @IsGranted("ROLE_SERVICES_VIEW")
+     */
+    public function view(EntityManagerInterface $em, Request $request, $id, $donationId, TranslatorInterface $translator)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository(Donation::class)->find($donationId);
+
+
+
+
+        if (!$data) {
+            throw $this->createNotFoundException();
+        }
+
+
+
+        return $this->render('funds/funds-donation.html.twig', [
+            'data' => $data,
+            'club_name' => getenv('CLUB_NAME'),
+            'id' => $id,
+        ]);
+    }
+
+    /**
+     * @Route("/funds/{id}/donation/{donationId}/invoice", name="funds_donation_invoice")
+     * @IsGranted("ROLE_SERVICES_VIEW")
+     */
+    public function invoice(EntityManagerInterface $em, Request $request, $id, $donationId, TranslatorInterface $translator)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository(Donation::class)->find($donationId);
+
+        //$em = $this->getDoctrine()->getManager();
+        $organization = $em->getRepository(Organization::class)->find(1);
+
+
+        if (!$data) {
+            throw $this->createNotFoundException();
+        }
+        return $this->render('funds/funds-donation-invoice.html.twig', [
+            'data' => $data,
+            'organization' => $organization,
+            'club_name' => getenv('CLUB_NAME'),
             'id' => $id,
         ]);
     }
 
     /**
      * @Route("/funds/{id}/donation/{donationId}/edit", name="funds_donation_edit")
-     * @IsGranted("ROLE_SERVICES_CREATE")
+     * @IsGranted("ROLE_SERVICES_EDIT")
      */
     public function edit(EntityManagerInterface $em, Request $request, $id, $donationId, TranslatorInterface $translator)
     {
@@ -75,15 +126,16 @@ class DonationController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($donation);
             $em->flush();
+            $donationId = $donation->getId();
 
             $this->addFlash('success', $translator->trans('Donation').' '.$translator->trans('flash_message_edit'));
-            return $this->redirectToRoute('funds_view', array('id' => $id, '_fragment' => 'order'));
+            return $this->redirectToRoute('funds_donation_view', array('id' => $id, 'donationId' => $donationId, '_fragment' => 'order'));
         }
 
         return $this->render('funds/funds-donationForm.html.twig', [
             'data' => $data,
             'form' => $form->createView(),
-            'id' => $id,
+            'id' => $donationId,
         ]);
     }
 

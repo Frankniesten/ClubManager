@@ -1,0 +1,121 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+
+    <! -- https://pspdfkit.com/blog/2019/html-to-pdf-in-javascript/ -->
+    <script>
+        function generatePDF() {
+            // Choose the element that our invoice is rendered in.
+            const element = document.getElementById("invoice");
+            // Choose the element and save the PDF for our user.
+
+            var opt = {
+                filename: 'Factuur-D{{ data.id }}.pdf',
+                margin:       10,
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2"></div>
+        <div class="p-2">
+            <button class="btn btn-primary btn-sm float-right" onclick="generatePDF()">{% trans %}Download as Pdf{% endtrans %}</button>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+
+    <!-- Content -->
+    <div class="card">
+        <div id="invoice" class="card-body" align="center">
+
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <img src="{{ asset('logo.png') }}" style="width:100%; max-width:100px;" align="left">
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm" align="left">
+                        <p>{{ organization.legalName }}<br>
+                            {{ organization.postOfficeBoxNumber }}<br>
+                            {{ organization.postalCode }} {{ organization.addressLocality }}<br><br>
+                            {{ organization.email }}<br><br>
+                            KvK {{ organization.leiCode }}<br>
+                            {% for data in organization.bankAccounts %}
+                            IBAN {{ data.consumerAccount }}<br>
+                            {%  endfor %}
+                        </p>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm" align="left">
+                        <h2>{% trans %}Invoice{% endtrans %}</h2>
+                        <b>{% trans %}Invoice-number{% endtrans %}:</b> D{{ data.id }}<br>
+                        <b>{% trans %}Invoice-date{% endtrans %}:</b> {{ data.donationDate | date('d-m-Y') }}
+
+                        {% if data.donationStatus == "Finished" %}
+                            <br>
+                            <br>
+                            <span class="badge badge-success">{% trans %}Already paid{% endtrans %}</span>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm" align="left">
+                        {% set excl = data.amount/121*21 %}
+                        <table class="table">
+                            <thead class="thead-light">
+                            <tr align="left">
+                                <th>{% trans %}Description{% endtrans %}</th>
+                                <th>{% trans %}Amount{% endtrans %}</th>
+                                <th>{% trans %}Vat{% endtrans %}</th>
+                                <th>{% trans %}Total{% endtrans %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Donatie {{ data.orderId.fundName }}</td>
+                                <td>€{{data.amount-excl|round(2, 'common') }}</td>
+                                <td>21%</td>
+                                <td>€{{data.amount }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+

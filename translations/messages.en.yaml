@@ -289,3 +289,18 @@ Url: Url
 Bank account: Bank account
 Income per day: Income per day
 Income cumulative: Income cumulative`
+Fund id: External id paymant service
+fundId help: Use the id thats used by the payment service.
+transaction: Transaction
+ideal: iDEAL
+creditcard: Credit card
+bancontact: Bancontact
+kbc: KBC/CBC Payment Button
+belfius: Belfius Pay Button
+help-dontation-url: Url form payment service
+help-dontation-transactionId: Transaction Id payment service.
+Download as Pdf: Download as Pdf
+Invoice-number: Invoice number
+Invoice-date: Invoice date
+Already paid: Already paid
+Vat: Vat
