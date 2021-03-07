@@ -76,6 +76,7 @@ class PersonRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
         	->select('p')
+            ->andWhere('p.alumni = 0')
             ->andWhere('
             	p.membershipYears = 5 OR 
             	p.membershipYears = 10 OR 
