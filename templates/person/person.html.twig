@@ -68,6 +68,15 @@
 		</a>
 	</li>
 	{% endif %}
+	{% if is_granted('ROLE_SERVICES_VIEW') %}
+		<li class="nav-item">
+			<a class="nav-link" href="#donations"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Donations{% endtrans %}
+				{%if data.donations is not empty %}
+					<span class="badge badge-primary float-right">{{ data.donations|length }}</span>
+				{% endif %}
+			</a>
+		</li>
+	{% endif %}
 	<li class="nav-item">
 		<a class="nav-link" href="#memberOf"><i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
 		{%if data.memberOf is not empty %}
@@ -290,6 +299,22 @@
 	{% endif %}
 	<!-- End Orders -->
 
+	<!-- Donations -->
+	{% if is_granted('ROLE_SERVICES_VIEW') %}
+		<div class="card">
+			<div class="card-header" id="donations">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Donations{% endtrans %}
+			</span>
+			</div>
+			<div class="card-body">
+				{{ include('person/person-donations.html.twig', { 'data': data }) }}
+			</div>
+		</div>
+		<br>
+	{% endif %}
+	<!-- End Donations -->
+
 
 	<!-- memberOf -->
 	<div class="card">
@@ -489,6 +514,30 @@
 				{%  endif %}
 			});
 			// End datatable orders
+
+			//Datatable donations
+			var table = $('#datatable-donations').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[2, "desc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "desc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable donations
             
             //Datatable memberOF
             var table = $('#datatable-memberOf').DataTable({

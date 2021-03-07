@@ -49,7 +49,7 @@ class DonationController extends AbstractController
         return $this->render('funds/funds-donationForm.html.twig', [
             'data' => $data,
             'form' => $form->createView(),
-            'id' => $donationId,
+            'id' => $id,
         ]);
     }
 
