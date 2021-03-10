@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Person;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
+
 
 /**
  * @method Person|null find($id, $lockMode = null, $lockVersion = null)
@@ -128,6 +128,22 @@ class PersonRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+
+    // /**
+    //  * @return Person[] Returns an array of Person objects in specific role.
+    //  */
+    public function findByTag($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.tag', 'i')
+            ->andWhere('i.tag = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }
 

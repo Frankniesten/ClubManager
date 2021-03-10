@@ -304,4 +304,6 @@ Invoice-number: Factuurnummer
 Invoice-date: Factuurdatum
 Already paid: Reeds betaald
 Vat: Btw
-
+Tag: Tag
+Tag_add: Tag toevoegen
+Tag_add_persons: Personen toevoegen aan tag

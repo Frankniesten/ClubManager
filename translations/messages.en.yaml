@@ -304,3 +304,7 @@ Invoice-number: Invoice number
 Invoice-date: Invoice date
 Already paid: Already paid
 Vat: Vat
+Tag: Tag
+Tags: Tags
+Tag_add: Add tag
+Tag_add_persons: Add people to tag

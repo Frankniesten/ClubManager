@@ -23,6 +23,7 @@ class PersonController extends AbstractController
     {
         $query = null;
         $roles = null;
+        $tags = null;
 
         //Check memberOf query:
         if ($query = $request->query->get('category')) {
@@ -52,6 +53,12 @@ class PersonController extends AbstractController
             $data = $em->getRepository(Person::class)->findByMemberOfProgramName($roles);
         }
 
+        //Check for tags query:
+        if ($tags = $request->query->get('tags')) {
+            $em = $this->getDoctrine()->getManager();
+            $data = $em->getRepository(Person::class)->findByTag($tags);
+        }
+
         $em = $this->getDoctrine()->getManager();
         $category = $em->getRepository(Category::class)->findCategoryType('person');
 
@@ -60,7 +67,8 @@ class PersonController extends AbstractController
             'club_name' => getenv('CLUB_NAME'),
             'category' => $category,
             'query' => $query,
-            'roles' => $roles
+            'roles' => $roles,
+            'tags' => $tags
         ]);
     }
 

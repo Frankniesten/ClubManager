@@ -21,7 +21,8 @@
                         {% if  'person' in app.request.get('_route')%}active{% endif %}
                         {% if  'organization' in app.request.get('_route')%}active{% endif %}
                         {% if  'program_memberships' in app.request.get('_route')%}active{% endif %}
-                        {% if  'bank_account' in app.request.get('_route')%}active{% endif %}"
+                        {% if  'bank_account' in app.request.get('_route')%}active{% endif %}
+                        {% if  'tag' in app.request.get('_route')%}active{% endif %}"
                        href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Navbar_relations{% endtrans %}<span class="sr-only">(current)</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -30,6 +31,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item {% if  'bank_account' in app.request.get('_route')%}active{% endif %}" href="{{ path('bank_account') }}">{% trans %}Navbar_bankAccount{% endtrans %}</a>
                         <a class="dropdown-item {% if  'program_memberships' in app.request.get('_route')%}active{% endif %}" href="{{ path('program_memberships') }}">{% trans %}Navbar_roles{% endtrans %}</a>
+                        <a class="dropdown-item {% if  'tag' in app.request.get('_route')%}active{% endif %}" href="{{ path('tag') }}">{% trans %}Tags{% endtrans %}</a>
                     </div>
                 </li>
             {% endif %}

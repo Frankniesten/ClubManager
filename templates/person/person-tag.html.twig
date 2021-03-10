@@ -1,0 +1,14 @@
+{%if data.tag is not empty %}
+
+
+
+        {% for tag in data.tag %}
+            <span class="badge badge-primary">{{ tag.tag }}</span>
+        {% endfor %}
+
+
+
+{% else %}
+    <div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
+{% endif %}
+

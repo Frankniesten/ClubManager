@@ -205,6 +205,11 @@ class Person
      */
     private $donations;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="people")
+     */
+    private $tag;
+
 
     public function __construct()
     {
@@ -222,6 +227,7 @@ class Person
         $this->sponsor = new ArrayCollection();
         $this->bankAccounts = new ArrayCollection();
         $this->donations = new ArrayCollection();
+        $this->tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -808,6 +814,30 @@ class Person
                 $donation->setPerson(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTag(): Collection
+    {
+        return $this->tag;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tag->contains($tag)) {
+            $this->tag[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tag->removeElement($tag);
 
         return $this;
     }

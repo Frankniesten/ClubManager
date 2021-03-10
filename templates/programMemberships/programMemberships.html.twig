@@ -44,7 +44,7 @@
                                 <div class="dropdown-menu">
                                     {% if is_granted('ROLE_PERSON_EDIT')%}
                                     <a class="dropdown-item" href="{{ path('program_membership_add', {'id': data.id}) }}"><i
-                                                class="mdi mdi-plus"></i> {% trans %}Add{% endtrans %} {% trans %}Persons{% endtrans %}</a>
+                                                class="mdi mdi-plus"></i> {% trans %}Person_add{% endtrans %}</a>
                                     {% endif %}
                                     {% if is_granted('ROLE_PERSON_EDIT')%}
                                     <a class="dropdown-item" href="{{ path('program_membership_edit', {'id': data.id}) }}"><i
