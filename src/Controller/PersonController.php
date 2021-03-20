@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Person;
+use App\Form\MyProfileFormType;
 use App\Form\PersonFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -175,5 +176,45 @@ class PersonController extends AbstractController
         $this->addFlash('warning', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_delete'));
 
         return $this->redirectToRoute('person');
+    }
+
+
+    /**
+     * @Route("/myprofile/edit", name="myprofile_edit")
+     * @IsGranted("ROLE_PERSON_EDIT")
+     */
+    public function editProfile(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $user = $this->getUser();
+
+        $id=$user->getPerson();
+
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository(Person::class)->find($id);
+
+        if (!$data) {
+            throw $this->createNotFoundException();
+        }
+
+        $form = $this->createForm(MyProfileFormType::class, $data);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
+
+            $em->persist($data);
+            $em->flush();
+
+            $this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_edit'));
+
+            return $this->redirectToRoute('dashboard');
+        }
+
+        return $this->render('person/person-myProfile.html.twig', [
+            'form' => $form->createView(),
+            'data' => $data
+        ]);
     }
 }

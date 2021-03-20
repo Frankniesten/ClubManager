@@ -1970,7 +1970,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-xs {
-    padding: 0.05rem 0.35rem;
+    padding: 0.15rem 0.35rem;
     font-size: 0.8rem;
     line-height: 1.5;
     border-radius: 0.2rem;
@@ -8818,4 +8818,69 @@ label.required:after {
 }
 .image-container .btn2:hover {
     background-color: red;
+}
+
+/* CSS - Mijn Fontys Leeromgeving - Tiles */
+
+/* Fontys - Colors */
+.mfl-primary {
+
+    background-color: #08194f;
+}
+
+
+
+.mfl-grey {
+    background-color: ##5a6268;
+}
+
+/* SQUARE TILE */
+
+.mfl-tile {
+    width: 94px;
+    height: 94px;
+    color: white;
+    display: block;
+    float: left;
+    border-radius: 0px;
+    margin-left: 0px;
+    margin-right:3px;
+    margin-top: 0px;
+    margin-bottom:3px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.mfl-tile:hover {
+    outline: #5a6268 solid 0px !important;
+    color: white !important;
+    background: #5a6268 !important;
+}
+
+.mfl-tile .icon {
+    position: absolute;
+    color: white;
+    width: 64px;
+    height: 64px;
+    font-size: 36px;
+    top: 50%;
+    margin-top: -25px;
+    left: 50%;
+    margin-left: -32px;
+    text-align: center;
+}
+
+.mfl-tile .tile-label {
+    position: absolute;
+    color: white;
+    bottom: 0;
+    left: 2px;
+    padding: 3px;
+    z-index: 999;
+    font-size: 12px;
 }
