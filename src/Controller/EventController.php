@@ -108,10 +108,10 @@ class EventController extends AbstractController
             }
         }
 
-
-
-
-
+        else {
+            $em = $this->getDoctrine()->getManager();
+            $data = $em->getRepository(Category::class)->findAll();
+        }
 
         return $this->render('event/event-feed.html.twig', [
             'data' => $data,
