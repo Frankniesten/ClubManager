@@ -88,11 +88,45 @@ class EventController extends AbstractController
      */
     public function feed(EntityManagerInterface $em, Request $request)
     {
-        $data = $this->getDoctrine()
-            ->getRepository(Event::class)
-            ->findAll();
+        $data = array();
+
+        if ($search = $request->query->get('search'))
+        {
+            $category = explode("-", $search);
+            array_pop($category);
+
+            dump($category);
+
+
+            foreach ($category as $key => $value) {
+
+                $feed = $this->getDoctrine()
+                    ->getRepository(Event::class)
+                    ->findByFeed($value);
+
+                $data = array_merge($data, $feed);
+            }
+        }
+
+
+
+
+
 
         return $this->render('event/event-feed.html.twig', [
+            'data' => $data,
+        ]);
+    }
+
+    /**
+     * @Route("/event/feed/config", name="event_feed_config")
+     */
+    public function feedConfig(EntityManagerInterface $em, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = $em->getRepository(Category::class)->findCategoryType('event');
+dump($data);
+        return $this->render('event/event-feed-config.html.twig', [
             'data' => $data,
         ]);
     }
@@ -236,4 +270,5 @@ class EventController extends AbstractController
         $this->addFlash('warning', $data->getAbout() .' '. $translator->trans('flash_message_delete'));
         return $this->redirectToRoute('event');
 	}
+
 }
