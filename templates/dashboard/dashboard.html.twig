@@ -25,9 +25,7 @@
                 <div class="card-header" id="statistics">
                     <span class="align-middle">
                         <i class="mdi mdi-account-card-details-outline"></i> {% trans %}My profile{% endtrans %}
-                        {% if is_granted('ROLE_PERSON_EDIT') %}
                             <a class="btn btn-primary btn-xs float-right" href="{{ path('myprofile_edit') }}" role="button"><i class="mdi mdi-pencil"></i></a>
-                        {% endif %}
                     </span>
                 </div>
 
@@ -118,6 +116,7 @@
                 <div class="card-header" id="statistics">
 			<span class="align-middle">
 				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Activities for the next 14 days{% endtrans %}
+                   
 			</span>
                 </div>
 
@@ -147,7 +146,7 @@
                                         {% if event.eventStatus == 'Tentative'  %}
                                             <span class="badge badge-secondary">{% trans %}Tentative{% endtrans %}</span>
                                         {% endif %}
-                                        {% if event.eventStatus == 'Canceled'  %}
+                                        {% if event.eventStatus == 'Cancelled'  %}
                                             <span class="badge badge-danger">{% trans %}Canceled{% endtrans %}</span>
                                         {% endif %}
                                     </td>
