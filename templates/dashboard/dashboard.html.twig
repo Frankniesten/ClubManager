@@ -5,13 +5,13 @@
     <!-- Page header -->
     <div class="d-flex justify-content-between flex-row">
         <div class="p-2">
-            {% if (date().timestamp|date("H:i") < "12") %}
+            {% if (date().timestamp|date("H:i") >= "06" and date().timestamp|date("H:i") < "12") %}
                 <h3>{% trans %}Good morning{% endtrans %} {{ app.user.person.givenName }}</h3>
             {% elseif (date().timestamp|date("H:i") >= "12" and date().timestamp|date("H:i") < "17")  %}
                 <h3>{% trans %}Good afternoon{% endtrans %} {{ app.user.person.givenName }}</h3>
-            {% elseif (date().timestamp|date("H:i") >= "17" and date().timestamp|date("H:i") < "23")  %}
+            {% elseif (date().timestamp|date("H:i") >= "17" and date().timestamp|date("H:i") < "00")  %}
                 <h3>{% trans %}Good evening{% endtrans %} {{ app.user.person.givenName }}</h3>
-            {% elseif (date().timestamp|date("H:i") > "23")  %}
+            {% elseif (date().timestamp|date("H:i") >= "00" and date().timestamp|date("H:i") < "06") %}
                 <h3>{% trans %}Good night{% endtrans %} {{ app.user.person.givenName }}</h3>
             {% endif %}
         </div>
@@ -116,7 +116,7 @@
                 <div class="card-header" id="statistics">
 			<span class="align-middle">
 				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Activities for the next 14 days{% endtrans %}
-                   
+
 			</span>
                 </div>
 
