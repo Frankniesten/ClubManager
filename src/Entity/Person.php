@@ -210,6 +210,12 @@ class Person
      */
     private $tag;
 
+    /**
+     * @Gedmo\Versioned
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $deathDate;
+
 
     public function __construct()
     {
@@ -838,6 +844,18 @@ class Person
     public function removeTag(Tag $tag): self
     {
         $this->tag->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getDeathDate(): ?\DateTimeInterface
+    {
+        return $this->deathDate;
+    }
+
+    public function setDeathDate(?\DateTimeInterface $deathDate): self
+    {
+        $this->deathDate = $deathDate;
 
         return $this;
     }

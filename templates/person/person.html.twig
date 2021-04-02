@@ -109,10 +109,16 @@
 		<div class="p-2">
 			<h3>
 				{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}
-
-				<span class="badge badge-primary">{{ data.category.name }}</span>
+				{% if data.deathDate == true  %}
+					<span class="badge badge-secondary">{{ data.category.name }}</span>
+				{%  else %}
+					<span class="badge badge-primary">{{ data.category.name }}</span>
+				{% endif %}
 				{% if data.alumni == true  %}
-					<span class="badge badge-success">Oud Lid</span>
+					<span class="badge badge-success">{% trans %}Alumnus{% endtrans %}</span>
+				{% endif %}
+				{% if data.deathDate == true  %}
+					<span class="badge badge-warning">{% trans %}Passed away{% endtrans %}</span>
 				{% endif %}
 			</h3>
 		</div>
@@ -129,10 +135,9 @@
 					<span class="sr-only">Toggle Dropdown</span>
 				</button>
 				<div class="dropdown-menu">
-
 					<a class="dropdown-item" href="{{ path('person_delete', {'id': data.id}) }}"
 					   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}');"><i
-								class="mdi mdi-delete text-danger"></i> Verwijderen</a>
+								class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
 				</div>
 			{% endif %}
 			</div>
@@ -146,7 +151,7 @@
 			<span class="align-middle">
 				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Person_nav_personal_information{% endtrans %}
 			</span>
-			{% if is_granted('ROLE_PERSON_EDIT') %}
+			{% if is_granted('ROLE_PERSON_EDIT') and data.deathDate == false %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			{% endif %}
 		</div>
@@ -167,7 +172,7 @@
 		<div class="card-header" id="bankAccount">
 			<span class="align-middle">
 						<i class="mdi mdi-bank"></i> {% trans %}Navbar_bankAccount{% endtrans %}
-						{% if is_granted('ROLE_PERSON_EDIT') %}
+						{% if is_granted('ROLE_PERSON_EDIT') and data.deathDate == false %}
 							<a class="btn btn-primary btn-sm float-right" href="{{ path('bank_account_create') }}" role="button"><i class="mdi mdi-pencil"></i></a>
 						{% endif %}
 			</span>
@@ -186,8 +191,20 @@
 			<span class="align-middle">
 				<i class="mdi mdi-account-star-outline"></i> {% trans %}Person_nav_membership{% endtrans %}
 			</span>
-			{% if is_granted('ROLE_PERSON_CREATE') %}
-				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+			{% if is_granted('ROLE_PERSON_CREATE') and data.deathDate == false %}
+
+				{% set button = false %}
+				{% for membership in data.membership %}
+
+					{% if membership.endDate is null %}
+						{% set button = false %}
+					{% else %}
+						{% set button = true %}
+					{% endif %}
+				{% endfor %}
+				{% if button == true %}
+					<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% endif %}
 			{% endif %}
 		</div>
 		<div class="card-body">
@@ -203,7 +220,7 @@
 			<span class="align-middle">
 						<i class="mdi mdi-bugle"></i> {% trans %}Person_nav_musicalInstrument{% endtrans %}
 			</span>
-		{% if is_granted('ROLE_PERSON_EDIT') %}
+		{% if is_granted('ROLE_PERSON_EDIT') and data.deathDate == false %}
 			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_musicalInstrument', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 		{% endif %}
 		</div>
@@ -220,7 +237,7 @@
 			<span class="align-middle">
 				<i class="mdi mdi-school-outline"></i> {% trans %}Person_nav_education{% endtrans %}
 			</span>
-		{% if is_granted('ROLE_PERSON_CREATE') %}
+		{% if is_granted('ROLE_PERSON_CREATE') and data.deathDate == false %}
 			<a class="btn btn-primary btn-sm float-right" href="{{ path('person_education_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 		{% endif %}
 		</div>
@@ -236,7 +253,7 @@
 		<div class="card-header" id="parents">
 			<span class="align-middle">
 				<i class="mdi mdi-account-supervisor"></i> {% trans %}Person_nav_parents{% endtrans %}
-		{% if is_granted('ROLE_PERSON_EDIT') %}
+		{% if is_granted('ROLE_PERSON_EDIT') and data.deathDate == false %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_parents_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 		{% endif %}
 			</span>
@@ -254,7 +271,7 @@
 		<div class="card-header" id="organizations">
 			<span class="align-middle">
 				<i class="mdi mdi-autorenew"></i> {% trans %}Organizations{% endtrans %}
-			{% if is_granted('ROLE_PERSON_EDIT') %}
+			{% if is_granted('ROLE_PERSON_EDIT') and data.deathDate == false %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'person_organization_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			{% endif %}
 			</span>
@@ -273,7 +290,7 @@
 		<div class="card-header" id="owns">
 			<span class="align-middle">
 				<i class="mdi mdi-autorenew"></i> {% trans %}Product_lease_lend{% endtrans %}
-			{% if is_granted('ROLE_PRODUCT_CREATE') %}
+			{% if is_granted('ROLE_PRODUCT_CREATE') and data.deathDate == false %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'owns_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			{% endif %}
 			</span>
@@ -293,7 +310,7 @@
 		<div class="card-header" id="order">
 			<span class="align-middle">
 				<i class="mdi mdi-cart-arrow-down"></i> {% trans %}Orders{% endtrans %}
-			{% if is_granted('ROLE_SERVICES_CREATE') %}
+			{% if is_granted('ROLE_SERVICES_CREATE') and data.deathDate == false %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_order_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 			{% endif %}
 			</span>
@@ -328,7 +345,7 @@
 		<div class="card-header" id="memberOf">
 			<span class="align-middle">
 				<i class="mdi mdi-bookmark-multiple-outline"></i> {% trans %}ProgramMemberships{% endtrans %}
-			{% if is_granted('ROLE_PERSON_EDIT') %}
+			{% if is_granted('ROLE_PERSON_EDIT') and data.deathDate == false %}
 				<a class="btn btn-primary btn-sm float-right" href="{{ path('person_memberOf', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 			{% endif %}
 			</span>
@@ -345,7 +362,7 @@
 		<div class="card-header" id="tag">
 			<span class="align-middle">
 				<i class="mdi mdi-tag-multiple"></i> {% trans %}Tags{% endtrans %}
-				{% if is_granted('ROLE_PERSON_EDIT') %}
+				{% if is_granted('ROLE_PERSON_EDIT') and data.deathDate == false %}
 					<a class="btn btn-primary btn-sm float-right" href="{{ path('person_tag', { 'id': data.id }) }}" role="button"><i class="mdi mdi-pencil"></i></a>
 				{% endif %}
 			</span>

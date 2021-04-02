@@ -27,6 +27,7 @@ class PersonRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.category = :val')
+            ->andWhere('p.deathDate is NULL')
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
             ->getQuery()
@@ -42,6 +43,7 @@ class PersonRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
         	->select('count(p.id)')
             ->andWhere('p.category = :val')
+            ->andWhere('p.deathDate is NULL')
             ->setParameter('val', $value)
             ->getQuery()
             ->getSingleScalarResult()
@@ -61,6 +63,7 @@ class PersonRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
         	->select('p')
             ->Where('dayofyear(p.birthDate) >= :CurrentDayOfYear AND dayofyear(p.birthDate) <= :TwoWeeksDayOfYear')
+            ->andWhere('p.deathDate is NULL')
             ->setParameter('CurrentDayOfYear', $TwoWeeksBeforeDayOfYear)
             ->setParameter('TwoWeeksDayOfYear', $TwoWeeksDayOfYear)
             ->orderBy('month(p.birthDate)', 'ASC')
@@ -77,6 +80,7 @@ class PersonRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
         	->select('p')
             ->andWhere('p.alumni = 0')
+            ->andWhere('p.deathDate is NULL')
             ->andWhere('
             	p.membershipYears = 5 OR 
             	p.membershipYears = 10 OR 
@@ -107,6 +111,7 @@ class PersonRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
         	->innerJoin('p.memberOf', 'i')
             ->andWhere('i.id = :val')
+            ->andWhere('p.deathDate is NULL')
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
             ->getQuery()
@@ -123,6 +128,7 @@ class PersonRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
         	->innerJoin('p.memberOf', 'i')
             ->andWhere('i.programName = :val')
+            ->andWhere('p.deathDate is NULL')
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
             ->getQuery()
@@ -139,6 +145,7 @@ class PersonRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->innerJoin('p.tag', 'i')
             ->andWhere('i.tag = :val')
+            ->andWhere('p.deathDate is NULL')
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
             ->getQuery()

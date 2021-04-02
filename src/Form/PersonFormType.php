@@ -38,6 +38,14 @@ class PersonFormType extends AbstractType
 	    			'html5' => false, 
 	    			'format' => 'dd-MM-yyyy'
 	    		])
+            ->add('deathDate', DateType::class,
+                [
+                    'required' => false,
+                    'widget' => 'single_text',
+                    'html5' => false,
+                    'format' => 'dd-MM-yyyy',
+                    'help' => 'DeathDate warning'
+                ])
 	    	->add('gender', ChoiceType::class, 
 	    		[
 	    			'required' => false, 

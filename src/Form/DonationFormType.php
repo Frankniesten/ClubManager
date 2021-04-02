@@ -76,7 +76,8 @@ class DonationFormType extends AbstractType
             ->add('person', EntityType::class, array(
                 'class' => Person::class,
                 'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u');
+                    return $er->createQueryBuilder('u')
+                        ->andWhere('u.deathDate is NULL');
                 },
                 'choice_label' => function (Person $person) { return
                     $person->getFamilyName(). ', ' .

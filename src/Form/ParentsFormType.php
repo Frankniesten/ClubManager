@@ -21,6 +21,7 @@ class ParentsFormType extends AbstractType
 					    'query_builder' => function (EntityRepository $er) {
 					        return $er->createQueryBuilder('u')
 					        ->where('u.id != :selfId')
+                            ->andWhere('u.deathDate is NULL')
 					        ->orderBy('u.familyName', 'ASC')
 					        ->setParameter('selfId', $this->personId);
 					    },

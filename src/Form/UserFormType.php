@@ -21,7 +21,7 @@ class UserFormType extends AbstractType
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
                     ->leftJoin('p.user', 'u')
-                        ->where('u.id IS NULL AND p.email IS NOT NULL')
+                    ->where('u.id IS NULL AND p.email IS NOT NULL')
                     ->orderBy('p.familyName', 'ASC');
                     },
                 'placeholder' => 'Select...',

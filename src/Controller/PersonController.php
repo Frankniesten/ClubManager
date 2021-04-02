@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\Service\PassedAway;
 
 class PersonController extends AbstractController
 {
@@ -118,6 +119,7 @@ class PersonController extends AbstractController
         $log = $em->find('App\Entity\Person', $id);
         $logs = $repo->getLogEntries($log);
 
+        dump($data);
         return $this->render('person/person.html.twig', [
             'data' => $data,
             'logs' => $logs
@@ -128,7 +130,7 @@ class PersonController extends AbstractController
      * @Route("/person/{id}/edit", name="person_edit")
      * @IsGranted("ROLE_PERSON_EDIT")
      */
-    public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
+    public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator, PassedAway $passedAway)
     {
         $em = $this->getDoctrine()->getManager();
         $data = $em->getRepository(Person::class)->find($id);
@@ -147,8 +149,12 @@ class PersonController extends AbstractController
             $em->persist($data);
             $em->flush();
 
-            $this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_edit'));
+            if ($data->getDeathDate() != null ) {
 
+                $passedAway->processPassedAway($id);
+            }
+
+            $this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_edit'));
             return $this->redirectToRoute('person_id', array('id' => $id));
         }
 
@@ -206,6 +212,8 @@ class PersonController extends AbstractController
 
             $em->persist($data);
             $em->flush();
+
+
 
             $this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_edit'));
 

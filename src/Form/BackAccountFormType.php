@@ -36,6 +36,7 @@ class BackAccountFormType extends AbstractType
                 'class' => Person::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('u')
+                        ->andWhere('u.deathDate is NULL')
                         ->orderBy('u.familyName', 'ASC');
                 },
                 'choice_label' => function (Person $person) { return
