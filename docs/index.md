@@ -6,10 +6,10 @@ Ledenbestand, relatiebestand, inventaris, evenementen, donaties, producten en di
 Daarnaast zijn er diverse statistieken beschikbaar om inzicht te geven in de data.
 
 
-###Technisch beheer
+### Technisch beheer
 - [Requirements](requirements.md)
 
-###Gebruik
+### Gebruik
 - Dashboard
 - [Relaties](relaties.md)
     
