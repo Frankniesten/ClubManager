@@ -23,6 +23,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @Gedmo\Loggable
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class User implements UserInterface
 {
@@ -37,6 +38,13 @@ class User implements UserInterface
             'message' => 'This user already exists!',
         ]));
     }
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * @ORM\Id()

@@ -23,13 +23,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ApiFilter(SearchFilter::class, properties={"id": "exact", "category": "exact"})
  * @ApiFilter(PropertyFilter::class, arguments={"parameterName": "properties", "overrideDefaultProperties": false, "whitelist": null})
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @Gedmo\Loggable
  */
 class Event
 {
 	use TimestampableEntity;
 	use BlameableEntity;
-	
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

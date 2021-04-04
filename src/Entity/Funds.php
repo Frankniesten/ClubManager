@@ -18,11 +18,19 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ORM\Entity(repositoryClass=FundsRepository::class)
  * @ApiFilter(SearchFilter::class, properties={"id": "exact", "fundId": "exact", "fundName": "exact"})
  * @Gedmo\Loggable
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Funds
 {
     use TimestampableEntity;
     use BlameableEntity;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * @ORM\Id
