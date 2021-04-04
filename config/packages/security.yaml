@@ -42,7 +42,7 @@ security:
         - { path: ^/saml/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/saml/metadata, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api, roles: ROLE_ADMIN }
-        - { path: ^/events/feed, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/event/feed, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }
         
 

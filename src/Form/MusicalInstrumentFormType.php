@@ -15,7 +15,7 @@ class MusicalInstrumentFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
-	    	->add('musicalInstrument', TextType::class, ['label' => 'Muziekinstrument', 'required' => true]); 
+	    	->add('musicalInstrument', TextType::class, ['required' => true]);
 	} 
 	
 	public function configureOptions(OptionsResolver $resolver)

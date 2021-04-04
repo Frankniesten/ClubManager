@@ -1,0 +1,52 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            {% if 'create' in app.request.uri  %}
+                <h3>{% trans %}Add{% endtrans %} {% trans %}Image{% endtrans %}</h3>
+            {% endif %}
+            {% if 'edit' in app.request.uri  %}
+                <h3>{% trans %}Edit{% endtrans %} {% trans %}Image{% endtrans %}</h3>
+            {% endif %}
+        </div>
+
+        <div class="p-2">
+            <div class="btn-group float-right">
+
+                    <a href="{{ path('product_id', {'id': id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Content -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-sm-4">
+                <div class="col-sm">
+                    <form action="{{ path('image_dropzone', {'id': id}) }}" method="POST" enctype="multipart/form-data" id="recommendationDiv" class="dropzone"></form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+        Dropzone.options.recommendationDiv = {
+            acceptedFiles: 'image/*'
+        };
+    </script>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+
+	{{ form_start(form) }}
+
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			{% if 'create' in app.request.uri  %}
+				<h3>{% trans %}Organization_add{% endtrans %}</h3>
+			{% endif %}
+			{% if 'edit' in app.request.uri  %}
+				<h3>{{ data.legalName }} - {% trans %}Edit{% endtrans %}</h3>
+			{% endif %}
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group float-right">
+				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+				{% if 'create' in app.request.uri  %}
+					<a href="{{ path('organization') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+				{% if 'edit' in app.request.uri  %}
+					<a href="{{ path('organization_id', {'id': data.id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- End Page header -->
+
+	<!-- Content -->
+	<div class="card">
+		<div class="card-body">
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.legalName) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.description) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.email) }}
+				</div>
+
+				<div class="col-sm">
+					{{ form_row(form.url) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.telephone) }}
+				</div>
+
+				<div class="col-sm">
+					{{ form_row(form.telephone_2) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.streetAddress) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.postOfficeBoxNumber) }}
+				</div>
+
+				<div class="col-sm">
+					{{ form_row(form.postalCode) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.addressLocality) }}
+				</div>
+				<div class="col-sm">
+					{{ form_row(form.addressCountry) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.leiCode) }}
+				</div>
+				<div class="col-sm">
+					{{ form_row(form.vatID) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.category) }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+{{ parent() }}
+       
+	<script>
+	    $(document).ready(function(){
+	        $('.select2').select2({
+		  theme: "bootstrap4",
+		  width: '100%'
+			});
+	    });
+	</script>
+
+{% endblock %}

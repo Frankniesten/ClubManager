@@ -35,6 +35,20 @@ class EventRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    // /**
+    //  * @return Person[] Returns an array of Event objects in specific category
+    //  */
+    public function findByFeed($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.category', 'i')
+            ->Where('i.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     
     
     

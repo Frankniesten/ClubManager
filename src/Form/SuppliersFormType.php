@@ -8,7 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Doctrine\ORM\EntityRepository;
 
 class SuppliersFormType extends AbstractType
@@ -27,7 +26,6 @@ class SuppliersFormType extends AbstractType
 						    
 						    },
 					    'required' => false,
-					    'label' => 'Leveranciers',
 					    'multiple' => true 
 					));
 	}
@@ -39,5 +37,3 @@ class SuppliersFormType extends AbstractType
         ]);
     }
 }
-
-

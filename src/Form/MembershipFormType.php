@@ -13,8 +13,8 @@ class MembershipFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
-	    	->add('startDate', DateType::class, ['label' => 'Datum aanvang lidmaatschap', 'required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-	    	->add('endDate', DateType::class, ['label' => 'Datum beëindiging lidmaatschap (optioneel)', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy']); 
+	    	->add('startDate', DateType::class, ['required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
+	    	->add('endDate', DateType::class, ['required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy']);
 	}
 
 	public function configureOptions(OptionsResolver $resolver)

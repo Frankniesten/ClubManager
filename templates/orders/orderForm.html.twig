@@ -1,226 +1,183 @@
-{% extends 'base.html.twig' %}
+{% import _self as formMacros %}
 
-{% block title %}<i class="mdi mdi-account-multiple"></i> Personen{% endblock %}
+{% macro printOrderItemRow(form) %}
 
-{% block stylesheets %}
+    <div class="order-item">
+        <div class="row  mb-sm-2">
+            <div class="col-sm-9 align-self-end">
+                {{ form_widget(form.orderedItem) }}
+            </div>
+            <div class="col-sm-2 align-self-end">
+                {{ form_widget(form.orderQuantity) }}
+            </div>
+            <div class="col-sm-1 align-self-end">
+                <a href="#" class="js-remove-orderItem btn btn-primary ">
+                    <i class="mdi mdi-trash-can"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
-	<link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}"  rel="stylesheet" type="text/css" />
-	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
-	<link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-	<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
-	
-	{{ parent() }}
-	        
-{% endblock %}
+{% endmacro %}
+
+{% extends 'base_content_full_width.html.twig' %}
+
 
 {% block body %}
 
- 	{{ form_start(form) }}
-	<div class="row align-items-center">
-        <div class="col">
-	       	
-	       	{% if 'create' in app.request.uri  %}
-	       		<h2>Order toevoegen</h2>
-	        {% endif %}
-	        {% if 'edit' in app.request.uri  %}
-	       		<h2>Order bewerken</h2>
-	        {% endif %}
-	        
+    {{ form_start(form) }}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            {% if 'create' in app.request.uri  %}
+                <h3>{% trans %}Orders_add{% endtrans %}</h3>
+            {% endif %}
+            {% if 'edit' in app.request.uri  %}
+                <h3>{% trans %}Orders_edit{% endtrans %}</h3>
+            {% endif %}
         </div>
-        
-        <div class="col-4  ">
-	        <div class="btn-group float-right">
-	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-	        	{% if 'create' in app.request.uri  %}
-	       			<a href="{{ path('app_person_customer', {'id': data.id }) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-		   		{% endif %}
-		   		{% if 'edit' in app.request.uri  %}
-	       			<a href="{{ path('app_order', {'id': id, 'orderID': data.id }) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-		   		{% endif %}
-				
-	        </div>
+
+        <div class="p-2">
+            <div class="btn-group float-right">
+                <button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+                <a href="{{ path('order') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+            </div>
         </div>
-        
-	</div>
-	
-	<!-- Order details -->
-	<div id="accordion">
-		<div class="card">
-	        <div class="card-header" id="headingOne">
-	            <h4 class="m-0">
-	                <a href="#collapseOne" class="text-dark" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
-	                    Ordergegevens
-	                </a>
-	            </h4>
-	        </div>
-	
-	        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-	            <div class="card-body">
-	            
-		            <h4>Orderdatum</h4>
-		            <div class="row">
-				        <div class="col-6">
-							{{ form_widget(form.orderDate, {'id': 'datepicker-autoclose1'}) }}
-				        </div>
-				    </div>
-					<br>
-					<h4>Orderstatus</h4>
-		            <div class="row">
-				        <div class="col-6">
-							{{ form_widget(form.orderStatus) }}
-				        </div>
-				    </div>
-					<br>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Content -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.orderDate, {'id': 'datepicker-autoclose1'}) }}
+                </div>
+
+                <div class="col">
+                    {{ form_row(form.orderStatus) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.person) }}
+                </div>
+            </div>
+
+            <div class="order-item">
+                <div class="row  mb-sm-2">
+                    <div class="col-sm-9">
+                        Item<span style="color: red">*</span>
+                    </div>
+                    <div class="col-sm-3">
+                        aantal<span style="color: red">*</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="orderItem_wrapper" data-prototype="{{ formMacros.printOrderItemRow(form.orderItem.vars.prototype)|e('html_attr') }}" data-index="{{ form.orderItem|length }}">
+
+                {% for form in form.orderItem %}
+                    {{ formMacros.printOrderItemRow(form) }}
+                {% endfor %}
+
+                <a href="#" class="js-genus-scientist-add btn btn-primary">
+                    <i class="mdi mdi-plus"></i>Add Order Item
+                </a>
+            </div>
+        </div>
+    </div>
+    {{ form_widget(form.orderItem) }}
+
+    {{ form_end(form) }}
 
 
-	            	<h4>Ordergegevens</h4>
-	            	<p>
-	            	
-	            	{% if 'create' in app.request.uri  %}
-	            		
-	            		{%if data.familyName is not empty %}
-			       			{{ data.familyName }}, {{data.givenName }} {{ data.additionalName }}<br>
-			       		{% else %}
-			       			-
-			       		{% endif %}
-			       		
-			       		{%if data.streetAddress is not empty %}	
-				   			{{ data.streetAddress }}<br>
-				   		{% else %}
-			       			-
-				   		{% endif %}
-				   		
-				   		{%if data.postalCode is not empty %}
-				   			{{ data.postalCode }}, {{ data.addressLocality }}
-						{% endif %}
-						
-			        {% endif %}
-			        {% if 'edit' in app.request.uri  %}
-			        	{%if data.person.familyName is not empty %}
-			       			{{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}<br>
-			       		{% else %}
-			       			-
-			       		{% endif %}
-			       		
-			       		{%if data.person.streetAddress is not empty %}	
-				   			{{ data.person.streetAddress }}<br>
-				   		{% else %}
-			       			-
-				   		{% endif %}
-				   		
-				   		{%if data.person.postalCode is not empty %}
-				   			{{ data.person.postalCode }}, {{ data.person.addressLocality }}
-						{% endif %}
-						
-			        {% endif %}
-	            	
-	            	</p>
-	            	
+    <!-- End Content -->
 
-	            	<h4>Email</h4>
-	            	{% if 'create' in app.request.uri  %}
-	            		{%if data.email is not empty %}
-			       			{{ data.email }}<br>
-			       		{% else %}
-			       			-
-			       		{% endif %}
-			        {% endif %}
-			        
-			        {% if 'edit' in app.request.uri  %}
-			        	{%if data.person.email is not empty %}
-			       			{{ data.person.email }}<br>
-			       		{% else %}
-			       			-
-			       		{% endif %}
-			        {% endif %}
-	            		
-	            </div>
-	        </div>
-	    </div>
-	</div>
-	<br>
-	
-	{{ form_end(form) }}
+
 
 {% endblock %}
 
 
 {% block javascripts %}
 
-	{{ parent() }}
-	
-	<!--form wysiwig js-->
-	<script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('assets/plugins/jquery-quicksearch/jquery.quicksearch.js') }}"></script>
-    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    {{ parent() }}
 
-    <script type="text/javascript">
-        jQuery('#datepicker-autoclose1').datepicker({
-	        	format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: true
-            });
-    </script>
-    
-     <script type="text/javascript">
-        jQuery('#datepicker-autoclose2').datepicker({
-	        	format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: false
-            });
-    </script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
 
+    <script language="JavaScript">
 
-    <script type="text/javascript">
-        jQuery(document).ready(function() {
-	        
-	        // Select2
-            $(".select2").select2();
+        (function ($) {
+            $(document).ready(function() {
 
-            $(".select2-limiting").select2({
-                maximumSelectionLength: 2
-            });
-
-                //advance multiselect start
-                $('#my_multi_select1').multiSelect({
-                    selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
-                    selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
-                    afterInit: function (ms) {
-                        var that = this,
-                                $selectableSearch = that.$selectableUl.prev(),
-                                $selectionSearch = that.$selectionUl.prev(),
-                                selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
-                                selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
-
-                        that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
-                                .on('keydown', function (e) {
-                                    if (e.which === 40) {
-                                        that.$selectableUl.focus();
-                                        return false;
-                                    }
-                                });
-
-                        that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
-                                .on('keydown', function (e) {
-                                    if (e.which == 40) {
-                                        that.$selectionUl.focus();
-                                        return false;
-                                    }
-                                });
-                    },
-                    afterSelect: function () {
-                        this.qs1.cache();
-                        this.qs2.cache();
-                    },
-                    afterDeselect: function () {
-                        this.qs1.cache();
-                        this.qs2.cache();
-                    }
+                $('.select2').select2({
+                    theme: "bootstrap4",
+                    width: '100%'
                 });
 
-                
+                var $wrapper = $('.orderItem_wrapper');
 
-            });    </script>
-    
+                $wrapper.on('click', '.js-remove-orderItem', function(e) {
+
+                    e.preventDefault();
+
+                    $(this).closest('.order-item')
+                        .fadeOut()
+                        .remove();
+                });
+
+                $wrapper.on('click', '.js-genus-scientist-add', function(e) {
+                    e.preventDefault();
+
+                    // Get the data-prototype explained earlier
+                    var prototype = $wrapper.data('prototype');
+
+                    // get the new index
+                    var index = $wrapper.data('index');
+
+                    // Replace '__name__' in the prototype's HTML to
+                    // instead be a number based on how many items we have
+                    var newForm = prototype.replace(/__name__/g, index);
+
+                    // increase the index with one for the next item
+                    $wrapper.data('index', index + 1);
+
+                    // Display the form in the page before the "new" link
+                    $(this).before(newForm);
+
+                    dropdown();
+
+                });
+            });
+        })(jQuery);
+
+        function dropdown(){
+            $('.select2').select2({
+                theme: "bootstrap4",
+                width: '100%'
+            });
+        };
+
+    </script>
+
+    <script type="text/javascript">
+
+        jQuery('#datepicker-autoclose1').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            todayHighlight: true
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+        $('.select3').select2({
+        theme: "bootstrap4",
+        width: '100%'
+        });
+        });
+    </script>
+
 {% endblock %}

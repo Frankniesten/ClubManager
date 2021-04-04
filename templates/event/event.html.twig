@@ -1,0 +1,503 @@
+{% extends 'base_content_sidebar.html.twig' %}
+
+{% block sidebar %}
+	<li class="nav-item">
+		<a class="nav-link" href="#about"><i class="mdi mdi-calendar"></i> {% trans %}About{% endtrans %}</a>
+	</li>
+
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<li class="nav-item">
+		<a class="nav-link" href="#organizer"><i class="mdi mdi-developer-board"></i> {% trans %}Organizer{% endtrans %}
+			{%if data.organizer is not empty %}
+				<span class="badge badge-primary float-right">{{ data.organizer|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<li class="nav-item">
+		<a class="nav-link" href="#performer"><i class="mdi mdi-drama-masks"></i> {% trans %}Performer{% endtrans %}
+			{%if data.performer is not empty %}
+				<span class="badge badge-primary float-right">{{ data.performer|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<li class="nav-item">
+		<a class="nav-link" href="#suppliers"><i class="mdi mdi-truck"></i> {% trans %}Suppliers{% endtrans %}
+			{%if data.suppliers is not empty %}
+				<span class="badge badge-primary float-right">{{ data.suppliers|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<li class="nav-item">
+		<a class="nav-link" href="#sponsor"><i class="mdi mdi-gift"></i> {% trans %}Sponsor{% endtrans %}
+			{%if data.sponsor is not empty %}
+				<span class="badge badge-primary float-right">{{ data.sponsor|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<li class="nav-item">
+		<a class="nav-link" href="#contributor"><i class="mdi mdi-hand"></i> {% trans %}Contributor{% endtrans %}
+			{%if data.contributor is not empty %}
+				<span class="badge badge-primary float-right">{{ data.contributor|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	{% endif %}
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<li class="nav-item">
+		<a class="nav-link" href="#attendee"><i class="mdi mdi-account-group"></i> {% trans %}Attendee{% endtrans %}
+			{%if data.attendee is not empty %}
+				<span class="badge badge-primary float-right">{{ data.attendee|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	{% endif %}
+
+	<li class="nav-item">
+		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+			{%if data.review is not empty %}
+				<span class="badge badge-primary float-right">{{ data.review|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+
+
+	<li class="nav-item">
+		<a class="nav-link" href="#history"><i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}</a>
+	</li>
+{% endblock %}
+
+{% block body %}
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			<h3>
+				{{ data.about }}
+				{% for data in data.category %}
+					<span class="badge badge-primary">{{ data.name }}</span>
+				{% endfor %}
+			</h3>
+		</div>
+
+
+		<div class="p-2">
+			<div class="btn-group btn-group-sm">
+				{% if is_granted('ROLE_EVENT_VIEW') %}
+					<a class="btn btn-primary" href="{{ path('event') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+
+				{% if is_granted('ROLE_EVENT_DELETE') %}
+				<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span class="sr-only">Toggle Dropdown</span>
+				</button>
+				<div class="dropdown-menu">
+
+						<a class="dropdown-item" href="{{ path('event_delete', {'id': data.id}) }}"
+						   onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.about }}');"><i
+									class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<!-- End Page header -->
+
+	<!-- About -->
+	<div class="card">
+		<div class="card-header" id="about">
+			<span class="align-middle">
+				<i class="mdi mdi-calendar"></i> {% trans %}Person_nav_personal_information{% endtrans %}
+			</span>
+			{% if is_granted('ROLE_EVENT_EDIT') %}
+			<a class="btn btn-primary btn-sm float-right" href="{{ path('event_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+			{%  endif %}
+		</div>
+
+		<div class="card-body">
+			{{ include('event/event-info.html.twig', { 'data': data }) }}
+		</div>
+		<div class="card-footer text-muted small">
+			<i class="mdi mdi-account"></i>&nbsp;&nbsp; {{ data.updatedBy }}&nbsp;&nbsp;|&nbsp;&nbsp;
+			<i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ data.updatedAt |date("d-m-Y  - H:i")}}
+		</div>
+	</div>
+	<!-- End Personal info -->
+	<br>
+	<!-- Organizer -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<div class="card">
+		<div class="card-header" id="organizer">
+			<span class="align-middle">
+				<i class="mdi mdi-developer-board"></i> {% trans %}Organizer{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'organizer_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{%  endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('event/event-organizer.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	<!-- End Organizer -->
+
+	<!-- Performer -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<div class="card">
+		<div class="card-header" id="performer">
+			<span class="align-middle">
+				<i class="mdi mdi-drama-masks"></i> {% trans %}Performer{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'performer_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('event/event-performer.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	<!-- End Performer -->
+
+	<!-- Supplier -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<div class="card">
+		<div class="card-header" id="suppliers">
+			<span class="align-middle">
+				<i class="mdi mdi-truck"></i> {% trans %}Suppliers{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'suppliers_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{%  endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('event/event-suppliers.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	<!-- End Supplier -->
+
+	<!-- Sponsor -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<div class="card">
+		<div class="card-header" id="sponsor">
+			<span class="align-middle">
+				<i class="mdi mdi-gift"></i> {% trans %}Sponsor{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'sponsor_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{%  endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('event/event-sponsor.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	<!-- End Sponsor -->
+
+	<!-- Contributor -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<div class="card">
+		<div class="card-header" id="contributor">
+			<span class="align-middle">
+				<i class="mdi mdi-hand"></i> {% trans %}Contributor{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'contributor_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('event/event-contributor.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	<!-- End Contributor -->
+
+	<!-- Attendee -->
+	{% if is_granted('ROLE_PERSON_VIEW') or is_granted('ROLE_PERSON_CREATE') or is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_EDIT') %}
+	<div class="card">
+		<div class="card-header" id="attendee">
+			<span class="align-middle">
+				<i class="mdi mdi-account-group"></i> {% trans %}Attendee{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'attendee_edit', {'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{%  endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('event/event-attendee.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	<!-- End Attendee -->
+
+	<!-- Review -->
+	<div class="card">
+		<div class="card-header" id="review">
+			<span class="align-middle">
+				<i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
+				{% if is_granted('ROLE_EVENT_EDIT') %}
+				<a class="btn btn-primary btn-sm float-right" href="{{ path( 'review_create', {'entity': 'event', 'id': data.id} ) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
+				{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('global/review.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<!-- End Review -->
+	<br>
+
+	<!-- Log -->
+	<div class="card">
+		<div class="card-header" id="history">
+			<span class="align-middle">
+				<i class="mdi mdi-history"></i> {% trans %}Log{% endtrans %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('global/logs.html.twig', { 'data': logs }) }}
+		</div>
+	</div>
+	<!-- End Log -->
+
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ parent() }}
+
+	<script type="text/javascript">
+		$(document).ready(function () {
+
+			//Datatable organizer
+			var table = $('#datatable-organizer').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable organizer
+
+			//Datatable performer
+			var table = $('#datatable-performer').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable performer
+
+			//Datatable suppliers
+			var table = $('#datatable-suppliers').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable suppliers
+
+			//Datatable sponsor
+			var table = $('#datatable-sponsor').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable sponsor
+
+			//Datatable contributor
+			var table = $('#datatable-contributor').DataTable({
+				lengthChange: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable contributor
+
+			//Datatable attendee
+			var table = $('#datatable-attendee').DataTable({
+				lengthChange: false,
+				bFilter: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[0, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable attendee
+
+
+			//Datatable review
+			var table = $('#datatable-review').DataTable({
+				lengthChange: false,
+				pageLength: 10,
+				{% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
+				columnDefs: [
+					{"orderable": false, "targets": 0}
+				],
+				order: [[2, "asc"]],
+				{%  else %}
+				columnDefs: [
+					{"orderable": true, "targets": 0}
+				],
+				order: [[1, "asc"]],
+				{%  endif %}
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable review
+
+			//Datatable Logs
+			var table = $('#datatable-logs').DataTable({
+				lengthChange: false,
+				pageLength: 10,
+				columnDefs: [
+					{
+						orderable: false,
+						targets: 0
+					}
+				],
+				order: [[ 2, "desc" ]],
+				{% if app.request.getLocale() == 'nl' %}
+				language: {
+					url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+				},
+				{%  endif %}
+			});
+			// End datatable logs
+
+			$(document).on('click', 'a[href^="#"]', function (event) {
+				event.preventDefault();
+
+				$('html, body').animate({
+					scrollTop: $($.attr(this, 'href')).offset().top - 20
+				}, 800);
+			});
+
+		});
+	</script>
+
+	<script language="JavaScript">jQuery ( document ).ready ( function($) {
+
+			var hash= window.location.hash
+
+			if ( hash == '' || hash == '#' || hash == undefined ) return false;
+
+			var target = $(hash);
+
+			headerHeight = 120;
+
+			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+
+			if (target.length) {
+				$('html,body').stop().animate({
+					scrollTop: target.offset().top - 20 //offsets for fixed header
+				}, 0);
+			}
+		} );
+	</script>
+{% endblock %}

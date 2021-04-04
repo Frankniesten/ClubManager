@@ -1,108 +1,138 @@
-<div class="row align-items-center">
-	<div class="col">
-	    <h3>Orders</h3>
-    </div>
-        
-    <div class="col-4  ">
-	    <div class="btn-group float-right">
-	    	{% if is_granted('ROLE_SERVICES_CREATE') %}
-	    		<a href="{{ path( 'app_order_create', {'entity': 'person', 'id': data.id} ) }}" class="btn btn-trans btn-sm btn-purple waves-effect"><i class="fa fa-plus"></i></a>
-	    	{% endif %}
-	    </div>
-    </div>
-        
-</div>
-{%if data.customer is not empty %}
-<table class="table table-bordered table-striped">   
-    <tbody>
-        <thead>
-            <tr>
-            	<td><b>Order</b></td>
-            	<td><b>Datum</b></td>
-            	<td><b>Orderstatus</b></td>
-            	<td><b>Artikel</b></td>
-            	<td><b>Totaal</b></td>
-        	</tr>
-        </thead>
-    {% for customer in data.customer %}
-        <tr>
-            <td>
-            	<a href="{{ path('app_order', {'id': data.id, 'orderID': customer.id }) }}">#{{customer.id}}</a>
-            	 
-            	 
-            	 <!-- Dropdown -->
-		    	{% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
-			    <div class="dropdown pull-right">
-                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-                        <i class="mdi mdi-dots-horizontal"></i>
-                    </a>
-                    
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <!-- item-->
-                        {% if is_granted('ROLE_SERVICES_EDIT') %}
-                        <a href="{{ path('app_order_edit', { 'id': data.id, 'orderID': customer.id}) }}" class="dropdown-item"><i class="mdi mdi-pencil"></i> Bewerken</a>
-                        {% endif %}
-                        <!-- item-->
-                        {% if is_granted('ROLE_SERVICES_DELETE') %}
-                        <a href="{{ path('app_order_delete', { 'id': data.id, 'orderID': customer.id}) }}" class="dropdown-item"><i class="mdi mdi-delete text-danger"></i> Verwijderen</a>
-                        {% endif %}
-                    </div>
+{% extends 'base_content_sidebar.html.twig' %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+{% block body %}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            <h3>
+                {% trans %}OrderDetails{% endtrans %} #{{ data.id }} - {{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}
+            </h3>
+        </div>
+
+        <div class="p-2">
+            <div class="btn-group btn-group-sm">
+                {% if is_granted('ROLE_SERVICES_VIEW') %}
+                    <a class="btn btn-primary" href="{{ path('order') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+
+                {% if is_granted('ROLE_SERVICES_DELETE') %}
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+
+                        <a class="dropdown-item" href="{{ path('order_delete', {'id': data.id}) }}"
+                           onclick="return confirm('{% trans %}Delete_message{% endtrans %} #{{ data.id }}');"><i
+                                    class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
                 </div>
                 {% endif %}
-                <!-- End Dropdown -->
-            </td>
-            	
-            <td>
-				{{ customer.orderDate ? customer.orderDate|date('d-m-Y') }}
-            </td>
-            <td>
-            	{% if customer.orderStatus == "In behandeling" %}
-            		<span class="badge badge-pink">{{ customer.orderStatus }}</span>
-            	{% endif %}
-            	{% if customer.orderStatus == "Afgerond" %}
-            		<span class="badge badge-purple">{{ customer.orderStatus }}</span>
-            	{% endif %}
-            	{% if customer.orderStatus == "Geannuleerd" %}
-            		<span class="badge badge-secondary">{{ customer.orderStatus }}</span>
-            	{% endif %}
-            	{% if customer.orderStatus == "In de wacht" %}
-            		<span class="badge badge-pink">{{ customer.orderStatus }}</span>
-            	{% endif %}
-            	{% if customer.orderStatus == "Terugbetaald" %}
-            		<span class="badge badge-secondary">{{ customer.orderStatus }}</span>
-            	{% endif %}
-            	{% if customer.orderStatus == "Wachtend op betaling" %}
-            		<span class="badge badge-pink">{{ customer.orderStatus }}</span>
-            	{% endif %}
-            </td>
-            <td>
-				{% for details in customer.orderItem %}
-            		
-            		<li>
-            			{{ details.orderedItem.alternateName }}
-            		</li>
-            	{% endfor %}            
-            </td>
-            
-            <td>
-            	{% set totalPrice = 0 %}
-            	
-            	{% for details in customer.orderItem %}
-            		
-            		
-            		{% set price = details.orderedItem.price %}
-            		{% set quantity = details.orderQuantity|number_format %}
-            		{% set itemPrice = price * quantity %}
-            		
-            		{% set totalPrice = totalPrice + itemPrice %} 
+            </div>
+        </div>
+    </div>
+    <!-- End Page header -->
 
-            	{% endfor %}
-            	€ {{ totalPrice|number_format(2, '.','') }}
-            			
-            </td>
-        </tr>
-    {% endfor %} 
-   
-    </tbody>
-</table>
-{% endif %} 
+    <!-- Order -->
+    <div class="card">
+
+        <div class="card-header" id="info">
+			<span class="align-middle">
+				<i class="mdi mdi-cart"></i> {% trans %}OrderDetails{% endtrans %}
+			</span>
+            {% if is_granted('ROLE_SERVICES_EDIT') %}
+            <a class="btn btn-primary btn-sm float-right" href="{{ path('order_edit', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <b>{% trans %}OrderId{% endtrans %}:</b> {{ data.id }}<br>
+                <b>{% trans %}Date{% endtrans %}Datum:</b> {{ data.orderDate ? data.orderDate|date('d-m-Y') }}<br>
+                <b>{% trans %}OrderStatus{% endtrans %}</b>
+                    {% if data.orderStatus == "In progress" %}
+                        <span class="badge badge-info">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "Finished" %}
+                        <span class="badge badge-success">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "Canceled" %}
+                        <span class="badge badge-secondary">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "On hold" %}
+                        <span class="badge badge-danger">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "Refunded" %}
+                        <span class="badge badge-secondary">{{ data.orderStatus }}</span>
+                    {% endif %}
+                    {% if data.orderStatus == "Waiting for payment" %}
+                        <span class="badge badge-primary">{{ data.orderStatus }}</span>
+                    {% endif %}<br>
+                <b>{% trans %}Customer{% endtrans %}:</b>
+                    {%if data.person.familyName is not empty %}
+                        {{ data.person.familyName }}, {{data.person.givenName }} {{ data.person.additionalName }}
+                    {% else %}
+                        -
+                    {% endif %}
+            </p>
+
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table m-t-30">
+                            <thead>
+                            <tr><th>#</th>
+                                <th>{% trans %}Item{% endtrans %}</th>
+                                <th>{% trans %}Quantity{% endtrans %}</th>
+                                <th>{% trans %}UnitCost{% endtrans %}</th>
+                                <th>{% trans %}Total{% endtrans %}</th>
+                            </tr></thead>
+                            <tbody>
+                            {% set totalPrice = 0 %}
+                            {% for data in data.orderItem %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ data.orderedItem.alternateName}}</td>
+                                <td>{{ data.orderQuantity }}</td>
+                                <td>{{ data.orderedItem.price }}</td>
+                                <td>
+                                    {% set price = data.orderedItem.price %}
+                                    {% set quantity = data.orderQuantity %}
+                                    {% set itemPrice = price * quantity %}
+
+                                    € {{ itemPrice|number_format(2, '.','') }}
+
+                                    {% set totalPrice = totalPrice + itemPrice %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            <thead>
+                            <tr><th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Subtotaal</th>
+                                <th>
+                                    € {{ totalPrice|number_format(2, '.','') }}
+                                </th>
+                            </tr></thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- End Order -->
+
+
+
+{% endblock %}

@@ -1,0 +1,19 @@
+<table class="table table-bordered table-striped">
+    <tbody>
+    <tr>
+        <td width="20%"><b>{% trans %}Service{% endtrans %}</b></td>
+        <td width="70%">{{ data.serviceType }}</td>
+    </tr>
+    <tr>
+        <td><b>{% trans %}Description{% endtrans %}</b></td>
+        <td>{{ data.description }}</td>
+    </tr>
+    <tr>
+        <td>
+            <b>{% trans %}Channel{% endtrans %}</b></td>
+        <td>
+            {{ data.availableChannel }}
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -8,7 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Doctrine\ORM\EntityRepository;
 
 class EmployeeFormType extends AbstractType
@@ -20,7 +19,8 @@ class EmployeeFormType extends AbstractType
 	    	->add('employee', EntityType::class, array(
 					    'class' => Person::class,
 					    'query_builder' => function (EntityRepository $er) {
-					        return $er->createQueryBuilder('u');
+					        return $er->createQueryBuilder('u')
+                                ->andWhere('u.deathDate is NULL');
 					    },
 					    'choice_label' => function (Person $person) { return
 						    $person->getFamilyName(). ', ' .
@@ -29,8 +29,7 @@ class EmployeeFormType extends AbstractType
 						    
 						    },
 					    'required' => false,
-					    'label' => 'Medewerker(s)',
-					    'multiple' => true 
+					    'multiple' => true
 					));
 	
 	}

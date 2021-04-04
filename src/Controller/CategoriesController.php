@@ -8,17 +8,17 @@ use App\Form\CategoryFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class CategoriesController extends AbstractController
 {
 
 	/**
-     * @Route("/settings/categorys", name="app_settings_categorys")
+     * @Route("/settings/category", name="category")
      * @IsGranted("ROLE_SETTINGS_VIEW")
      */
 	public function list(SessionInterface $session, EntityManagerInterface $em, Request $request)
@@ -66,21 +66,21 @@ class CategoriesController extends AbstractController
      * @Route("/settings/category/create", name="category_create")
      * @IsGranted("ROLE_SETTINGS_CREATE")
      */
-	public function new(EntityManagerInterface $em, Request $request)
+	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
 		$form = $this->createForm(CategoryFormType::class);
 		
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
-			
-			$category = $form->getData();
+
+            $data = $form->getData();
 		 
-			$em->persist($category);
+			$em->persist($data);
 			$em->flush();
-           
-			$this->addFlash('success', 'Category: '.$category->getName().' is toegevoegd!');
+
+            $this->addFlash('success', $data->getName() . ' ' . $translator->trans('flash_message_create'));
 			
-			return $this->redirectToRoute('app_settings_categorys');			
+			return $this->redirectToRoute('category');
 		}
 		
 		return $this->render('categories/CategoryForm.html.twig', [
@@ -92,33 +92,33 @@ class CategoriesController extends AbstractController
      * @Route("/settings/category/{id}/edit", name="category_edit")
      * @IsGranted("ROLE_SETTINGS_EDIT")
      */
-	public function edit(EntityManagerInterface $em, Request $request, $id)
+	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$category = $em->getRepository(Category::class)->find($id);
+        $data = $em->getRepository(Category::class)->find($id);
 		
-		if (!$category) {
-        	throw $this->createNotFoundException('The product does not exist');
+		if (!$data) {
+        	throw $this->createNotFoundException();
     	} 
 		        
-		$form = $this->createForm(CategoryFormType::class, $category);
+		$form = $this->createForm(CategoryFormType::class, $data);
 		
 		$form->handleRequest($request);
 		if ($form->isSubmitted() && $form->isValid()) {
+
+            $data = $form->getData();
 			
-			$category = $form->getData();
-			
-			$em->persist($category);
+			$em->persist($data);
 			$em->flush();
-           
-			$this->addFlash('success', 'Category: '.$category->getName().' is bijgewerkt!');
+
+            $this->addFlash('success', $data->getName() . ' ' . $translator->trans('flash_message_edit'));
 			
-			return $this->redirectToRoute('app_settings_categorys');			
+			return $this->redirectToRoute('category');
 		}
 		
 		return $this->render('categories/CategoryForm.html.twig', [
         	'form' => $form->createView(),
-        	'data' => $category
+        	'data' => $data
 		]);
 	}
 	
@@ -126,20 +126,20 @@ class CategoriesController extends AbstractController
      * @Route("/settings/category/{id}/delete", name="category_delete")
      * @IsGranted("ROLE_SETTINGS_DELETE")
      */
-	public function del(EntityManagerInterface $em, Request $request, $id)
+	public function del(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$category = $em->getRepository(Category::class)->find($id);
+        $data = $em->getRepository(Category::class)->find($id);
 		
-		if (!$category) {
-        	throw $this->createNotFoundException('The product does not exist');
+		if (!$data) {
+        	throw $this->createNotFoundException();
     	}    
 
-			$em->remove($category);
+			$em->remove($data);
 			$em->flush();
-           
-			$this->addFlash('warning', 'De category is verwijderd!');
+
+        $this->addFlash('warning', $data->getName() . ' ' . $translator->trans('flash_message_delete'));
 			
-			return $this->redirectToRoute('app_settings_categorys');			
+			return $this->redirectToRoute('category');
 	}
 }

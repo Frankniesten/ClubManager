@@ -1,0 +1,14 @@
+vich_uploader:
+    db_driver: orm
+    twig: true            # set to false to disable twig integration
+    form: true            # set to false to disable form integration
+
+    mappings:
+        product_image:
+            uri_prefix: /images/product
+            upload_destination: '%kernel.project_dir%/public/images/product'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true

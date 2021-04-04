@@ -8,6 +8,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -118,37 +119,37 @@ class Event
     private $review;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization")
      * @ORM\JoinTable(name="event_organizers")
      */
     private $organizer;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization")
      * @ORM\JoinTable(name="event_performer")
      */
     private $performer;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Organization", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organization")
      * @ORM\JoinTable(name="event_supplier")
      */
     private $suppliers;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true, inversedBy="sponsor")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="sponsor")
      * @ORM\JoinTable(name="event_sponsor")
      */
     private $sponsor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Person", orphanRemoval=true, inversedBy="contributor")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Person", inversedBy="contributor")
      * @ORM\JoinTable(name="event_contributor")
      */
     private $contributor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\person", orphanRemoval=true, inversedBy="attendee")
+     * @ORM\ManyToMany(targetEntity="App\Entity\person", inversedBy="attendee")
      * @ORM\JoinTable(name="event_attendee")
      */
     private $attendee;
@@ -194,12 +195,12 @@ class Event
         return $this;
     }
 
-    public function getDoorTime(): ?\DateTimeInterface
+    public function getDoorTime(): ?DateTimeInterface
     {
         return $this->doorTime;
     }
 
-    public function setDoorTime(\DateTimeInterface $doorTime = null): self
+    public function setDoorTime(DateTimeInterface $doorTime = null): self
     {
         $this->doorTime = $doorTime;
 
@@ -254,24 +255,24 @@ class Event
         return $this;
     }
 
-    public function getStartTime(): ?\DateTimeInterface
+    public function getStartTime(): ?DateTimeInterface
     {
         return $this->startTime;
     }
 
-    public function setStartTime(\DateTimeInterface $startTime): self
+    public function setStartTime(DateTimeInterface $startTime): self
     {
         $this->startTime = $startTime;
 
         return $this;
     }
 
-    public function getEndTime(): ?\DateTimeInterface
+    public function getEndTime(): ?DateTimeInterface
     {
         return $this->endTime;
     }
 
-    public function setEndTime(\DateTimeInterface $endTime): self
+    public function setEndTime(DateTimeInterface $endTime): self
     {
         $this->endTime = $endTime;
 
@@ -290,24 +291,24 @@ class Event
         return $this;
     }
 
-    public function getStartDate(): ?\DateTimeInterface
+    public function getStartDate(): ?DateTimeInterface
     {
         return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeInterface $startDate): self
+    public function setStartDate(DateTimeInterface $startDate): self
     {
         $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getEndDate(): ?\DateTimeInterface
+    public function getEndDate(): ?DateTimeInterface
     {
         return $this->endDate;
     }
 
-    public function setEndDate(?\DateTimeInterface $endDate): self
+    public function setEndDate(?DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
 

@@ -2,46 +2,49 @@
 	
 namespace App\Form;
 
-use App\Entity\Service;
 use App\Entity\Offer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 
 class OfferFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
-	    	->add('alternateName', TextType::class, ['label' => 'Naam aanbod', 'required' => true])
-	    	->add('price', MoneyType::class, ['label' => 'Prijs', 'required' => true, 'grouping' => false])
-	    	->add('inventoryLevel', TextType::class, ['label' => 'Voorraadstatus', 'required' => false])
+	    	->add('alternateName', TextType::class, ['required' => true])
+	    	->add('price', MoneyType::class, ['required' => true, 'grouping' => false])
+	    	->add('inventoryLevel', IntegerType::class, ['required' => false])
 	    	->add('availability', ChoiceType::class, [
-	    		'label' => 'Voorraad', 
 	    		'required' => true,
-	    		'placeholder' => 'Selecteer...',
+	    		'placeholder' => 'Select...',
 	    		'attr' => [
 							'class' => 'select2'
 						],
 	    		 'choices'  => array(
-			        'Voorraad' => 'Voorraad',
-			        'Uitverkocht' => 'Uitverkocht',
-			        'Nabestelling' => 'Nabestelling')])
-			->add('validFrom', DateType::class, ['label' => 'Aanbod beschikbaar (van / tot)', 'required' => true, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-			->add('validThrough', DateType::class, ['label' => 'Aanbod beschikbaar (van / tot)', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-			->add('availabilityStarts', DateType::class, ['label' => 'Product beschikbaar (van / tot)', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-			->add('availabilityEnds', DateType::class, ['label' => 'Product beschikbaar (van / tot)', 'required' => false, 'widget' => 'single_text', 'html5' => false, 'format' => 'dd-MM-yyyy'])
-			
-	    	
+			        'In stock' => 'In stock',
+			        'Out of stock' => 'Out of stock',
+			        'Reorder' => 'Reorder')])
+			->add('availabilityStarts', DateType::class, [
+			    'required' => true,
+                'widget' => 'single_text',
+                'html5' => false,
+                'format' => 'dd-MM-yyyy',
+                'help' => 'AvailabilityStarts-help'
+            ])
+			->add('availabilityEnds', DateType::class, [
+			    'required' => true,
+                'widget' => 'single_text',
+                'html5' => false,
+                'format' => 'dd-MM-yyyy'
+            ])
 	    	;
-	
 	} 
 	
 	public function configureOptions(OptionsResolver $resolver)
@@ -51,4 +54,3 @@ class OfferFormType extends AbstractType
         ]);
     }
 }
-

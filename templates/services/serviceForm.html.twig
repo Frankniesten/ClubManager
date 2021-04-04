@@ -1,103 +1,76 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}<i class="mdi mdi mdi-cart"></i> Producten{% endblock %}
-
-{% block stylesheets %}
-	
-	
-	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
-	<link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-	
-	{{ parent() }}
-	        
-{% endblock %}
+{% extends 'base_content_full_width.html.twig' %}
 
 {% block body %}
 
- 	{{ form_start(form) }}
-	<div class="row align-items-center">
-        <div class="col">
-	        {% if 'create' in app.request.uri  %}
-	       		<h2>Service Toevoegen</h2>
-	        {% endif %}
-	        {% if 'edit' in app.request.uri  %}
-	       		<h2>{{ data.serviceType }} - bewerken</h2>
-	        {% endif %}
-        </div>
-        
-        <div class="col-4  ">
-	        <div class="btn-group float-right">
-	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-	        	
-	        	{% if 'create' in app.request.uri  %}
-	       			<a href="{{ path('app_services') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-		        {% endif %}
-		        {% if 'edit' in app.request.uri  %}
-		       		<a href="{{ path('app_services', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-		        {% endif %}
-	        	
-	        </div>
-        </div>
-        
+	{{ form_start(form) }}
+
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			{% if 'create' in app.request.uri  %}
+				<h3>{% trans %}Service_add{% endtrans %}</h3>
+			{% endif %}
+			{% if 'edit' in app.request.uri  %}
+				<h3>{{ data.serviceType }} - {% trans %}Edit{% endtrans %}</h3>
+			{% endif %}
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group float-right">
+				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+				{% if 'create' in app.request.uri  %}
+					<a href="{{ path('service') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+				{% if 'edit' in app.request.uri  %}
+					<a href="{{ path('service_id', {'id': data.id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+			</div>
+		</div>
 	</div>
-	
-    <!-- Card Box -->
-    <div class="card-box table-responsive">
-        <div class="row">
-	        <div class="col-12">
-				{{ form_label(form.serviceType) }}
-				{{ form_errors(form.serviceType) }}
-				{{ form_widget(form.serviceType) }}
-	        </div>
- 		</div>
-	    <br>
-	    <div class="row">
-	        <div class="col-12">
-				{{ form_label(form.description) }}
-				{{ form_errors(form.description) }}
-				{{ form_widget(form.description) }}
-	        </div>
- 		</div>
-	    <br>
-	     <div class="row">
-	        <div class="col-12">
-				{{ form_label(form.availableChannel) }}
-				{{ form_errors(form.availableChannel) }}
-				{{ form_widget(form.availableChannel) }}
-	        </div>
- 		</div>
-	    <br>
-		{{ form_end(form) }}        
-    </div>      
+	<!-- End Page header -->
+
+	<!-- Content -->
+	<div class="card">
+		<div class="card-body">
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.serviceType) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.description) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.availableChannel) }}
+				</div>
+
+				<div class="col-sm">
+					{{ form_row(form.category) }}
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ form_end(form) }}
 
 {% endblock %}
 
 {% block javascripts %}
 
 	{{ parent() }}
-	
-	<!--form wysiwig js-->
-    <script src="{{ asset('assets/plugins/tinymce/tinymce.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
-    <script type="text/javascript">
-        jQuery('#datepicker-autoclose1').datepicker({
-	        	format: 'yyyy-mm-dd',
-                autoclose: true,
-                todayHighlight: true
-            });
-        jQuery('#datepicker-autoclose2').datepicker({
-	        	format: 'yyyy-mm-dd',
-                autoclose: true,
-                todayHighlight: true
-            });
-    </script>
-    
-    <script>
-	    $(document).ready(function(){
-	        $('.select2').select2();
-	    });
+	<script>
+		$(document).ready(function(){
+			$('.select2').select2({
+				theme: "bootstrap4",
+				width: '100%'
+			});
+		});
 	</script>
-    
+
 {% endblock %}

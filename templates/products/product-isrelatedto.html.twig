@@ -1,0 +1,55 @@
+{%if data.isRelatedTo is not empty %}
+    <!--Table -->
+    <table id="datatable-isRelatedTo" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            {% if is_granted('ROLE_PRODUCT_EDIT') %}
+                <th width="20px"></th>
+            {%  endif %}
+            <th class="all">{% trans %}Product{% endtrans %}</th>
+            <th class="desktop">{% trans %}Model{% endtrans %}</th>
+            <th class="desktop">{% trans %}Manufacturer{% endtrans %}</th>
+            <th class="desktop">{% trans %}Product i d{% endtrans %}</th>
+            <th class="desktop">{% trans %}AssetTag{% endtrans %}</th>
+            <th class="desktop">{% trans %}Loan{% endtrans %}</th>
+            <th class="desktop">{% trans %}Category{% endtrans %}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        {% for data in data.isRelatedTo %}
+            <tr>
+                {% if is_granted('ROLE_PRODUCT_EDIT') %}
+                <td align="center">
+                    <!-- Dropdown menu -->
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ path('product_isRelatedTo_edit', {'id': id} )}}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                        </div>
+                    </div>
+                    <!-- End dropdown menu -->
+                </td>
+                {%  endif %}
+                <td>
+                    <a href="{{ path('product_id', {'id': data.id}) }}">{{ data.name }}</a>
+                </td>
+                <td>{{ data.model }}</td>
+                <td>{{ data.manufacturer }}</td>
+                <td>{{ data.productID }}</td>
+                <td>{{ data.identifier }}</td>
+                <td>
+                    {% if data.loan == true  %}
+                        <span class="badge badge-secondary">{% trans %}On loan{% endtrans %}</span>
+                    {% endif %}
+                </td>
+                <td><span class="badge badge-primary">{{ data.category.name }}</span></td></td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% else %}
+    <div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
+{% endif %}

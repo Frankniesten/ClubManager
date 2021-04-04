@@ -1,130 +1,130 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}<i class="mdi mdi-wrench"></i> Inventaris{% endblock %}
-
-{% block stylesheets %}
-	
-	
-	<link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css"/>
-	<link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
-	<link href="{{ asset('assets/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css"/>
-	
-	{{ parent() }}      
-{% endblock %}
-
+{% extends 'base_content_full_width.html.twig' %}
 
 {% block body %}
 
- 	{{ form_start(form) }}
-	<div class="row align-items-center">
-        <div class="col">
-	        {% if 'create' in app.request.uri  %}
-	       		<h2>Item toevoegen</h2>
-	        {% endif %}
-	        {% if 'edit' in app.request.uri  %}
-	       		<h2>{{ data.name }} - bewerken</h2>
-	        {% endif %}
-        </div>
-        
-        <div class="col-4  ">
-	        <div class="btn-group float-right">
-	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-	        	
-	        	{% if 'create' in app.request.uri  %}
-	       			<a href="{{ path('app_products') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-		        {% endif %}
-		        {% if 'edit' in app.request.uri  %}
-		       		<a href="{{ path('app_product', {'id': data.id}) }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-		        {% endif %}
-	        	
-	        </div>
-        </div>
-        
-	</div>
-	
-    <!-- Card Box -->
-    <div class="card-box table-responsive">
-        <div class="row">
-	        <div class="col-12">
-				{{ form_label(form.name) }}
-				{{ form_errors(form.name) }}
-				{{ form_widget(form.name) }}
-	        </div>
- 		</div>
-	    <br>
-	    <div class="row">
-	        <div class="col-12">
-				{{ form_label(form.description) }}
-				{{ form_errors(form.description) }}
-				{{ form_widget(form.description) }}
-	        </div>
- 		</div>
-	    <br>
-	    <div class="row">
-	        <div class="col-6">
-				{{ form_label(form.model) }}
-				{{ form_errors(form.model) }}
-				{{ form_widget(form.model) }}
-	        </div>
-	        
-	        <div class="col-6">
-		       {{ form_label(form.productID) }}
-			   {{ form_errors(form.productID) }}
-			   {{ form_widget(form.productID) }}
-	        </div>
-	    </div>
-	    <br>
-	    <div class="row">
-	        <div class="col-6">
-				{{ form_label(form.manufacturer) }}
-				{{ form_errors(form.manufacturer) }}
-				{{ form_widget(form.manufacturer) }}
-	        </div>
-	        
-	        <div class="col-6">
-		       {{ form_label(form.purchaseDate) }}
-			   {{ form_errors(form.purchaseDate) }}
-			   {{ form_widget(form.purchaseDate, {'id': 'datepicker-autoclose1'}) }}	        
+	{{ form_start(form) }}
+
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			{% if 'create' in app.request.uri  %}
+				<h3>{% trans %}Asset_Add{% endtrans %}</h3>
+			{% endif %}
+			{% if 'edit' in app.request.uri  %}
+				<h3>{{ data.name }} - {% trans %}Edit{% endtrans %}</h3>
+			{% endif %}
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group float-right">
+				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+				{% if 'create' in app.request.uri  %}
+					<a href="{{ path('product') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+				{% if 'edit' in app.request.uri  %}
+					<a href="{{ path('product_id', {'id': data.id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
 			</div>
-	    </div>
-	    <br>
+		</div>
+	</div>
+	<!-- End Page header -->
+
+	<!-- Content -->
+	<div class="card">
+		<div class="card-body">
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.name) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.description) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.uniqueProduct) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.model) }}
+				</div>
+
+				<div class="col-sm">
+					{{ form_row(form.productID) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.manufacturer) }}
+				</div>
+
+				<div class="col-sm">
+					{{ form_row(form.purchaseDate, {'id': 'datepicker-autoclose'}) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.manufacturer) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.identifier) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.additionalProperty) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.category) }}
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	{{ form_end(form) }}
 
 
-		{{ form_end(form) }}        
-    </div>      
+
+
 
 {% endblock %}
 
 {% block javascripts %}
-
-	<script type="text/javascript" src="{{ asset('assets/plugins/switchery/switchery.min.js') }}"></script>
 	
 	{{ parent() }}
-	
-	<!--form wysiwig js-->
-    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
-    <script type="text/javascript">
-        jQuery('#datepicker-autoclose1').datepicker({
-	        	format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: true
-            });
-        jQuery('#datepicker-autoclose2').datepicker({
-	        	format: 'dd-mm-yyyy',
-                autoclose: true,
-                todayHighlight: true
-            });
-    </script>
-    
-    <script>
-	    $(document).ready(function(){
-	        $('.select2').select2();
-	    });
+	<script>
+		$(document).ready(function(){
+		$('.select2').select2({
+		theme: "bootstrap4",
+		width: '100%'
+		});
+		});
 	</script>
-    
-    
-    
-    
+
+	<script type="text/javascript">
+		jQuery('#datepicker-autoclose').datepicker({
+			format: 'dd-mm-yyyy',
+			autoclose: true,
+			todayHighlight: true
+		});
+	</script>
+
 {% endblock %}

@@ -21,13 +21,12 @@ class MusicalInstrumentAddFormType extends AbstractType
 					    'query_builder' => function (EntityRepository $er) {
 					        return $er->createQueryBuilder('u');
 					    },
-					    'placeholder' => 'Selecteer...',
+					    'placeholder' => 'Select...',
 					    'choice_label' => 'musicalInstrument',
 					    'attr' => [
 							'class' => 'select2'
 						],
-					    'required' => false,
-					    'label' => 'Muziekinstrument'
+					    'required' => false
 					));
 	}
 

@@ -21,19 +21,19 @@ class ServiceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 	    $builder
-	    	->add('serviceType', TextType::class, ['label' => 'Productnaam', 'required' => true])
-	    	->add('description', TextType::class, ['label' => 'Omschrijving', 'required' => false])
+	    	->add('serviceType', TextType::class, ['required' => true])
+	    	->add('description', TextType::class, ['required' => false])
 	    	->add('availableChannel', ChoiceType::class, [
-	    		'label' => 'Communicatie Kanaal', 
 	    		'required' => false,
-	    		'placeholder' => 'Selecteer...',
+	    		'placeholder' => 'Select...',
 	    		'attr' => [
 							'class' => 'select2'
 						],
 	    		 'choices'  => array(
-			        'Regulier' => 'Regulier',
-			        'Mail' => 'Mail',
-			        'Webshop' => 'Webshop')])
+			        'Regular' => 'Regular',
+                    'Webshop' => 'Webshop',
+                    'Payment gateway' => 'Payment gateway'
+                     )])
 			->add('category', EntityType::class, array(
 					    'class' => Category::class,
 					    'query_builder' => function (EntityRepository $er) {
@@ -44,7 +44,7 @@ class ServiceFormType extends AbstractType
 					    },
 					    'choice_label' => 'name',
 					    'required' => true,
-					    'placeholder' => 'Selecteer...',
+					    'placeholder' => 'Select...',
 					    'attr' => [
 							'class' => 'select2'
 						]

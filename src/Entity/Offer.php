@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -146,48 +147,48 @@ class Offer
         return $this;
     }
 
-    public function getValidFrom(): ?\DateTimeInterface
+    public function getValidFrom(): ?DateTimeInterface
     {
         return $this->validFrom;
     }
 
-    public function setValidFrom(?\DateTimeInterface $validFrom): self
+    public function setValidFrom(?DateTimeInterface $validFrom): self
     {
         $this->validFrom = $validFrom;
 
         return $this;
     }
 
-    public function getValidThrough(): ?\DateTimeInterface
+    public function getValidThrough(): ?DateTimeInterface
     {
         return $this->validThrough;
     }
 
-    public function setValidThrough(?\DateTimeInterface $validThrough): self
+    public function setValidThrough(?DateTimeInterface $validThrough): self
     {
         $this->validThrough = $validThrough;
 
         return $this;
     }
 
-    public function getAvailabilityEnds(): ?\DateTimeInterface
+    public function getAvailabilityEnds(): ?DateTimeInterface
     {
         return $this->availabilityEnds;
     }
 
-    public function setAvailabilityEnds(?\DateTimeInterface $availabilityEnds): self
+    public function setAvailabilityEnds(?DateTimeInterface $availabilityEnds): self
     {
         $this->availabilityEnds = $availabilityEnds;
 
         return $this;
     }
 
-    public function getAvailabilityStarts(): ?\DateTimeInterface
+    public function getAvailabilityStarts(): ?DateTimeInterface
     {
         return $this->availabilityStarts;
     }
 
-    public function setAvailabilityStarts(?\DateTimeInterface $availabilityStarts): self
+    public function setAvailabilityStarts(?DateTimeInterface $availabilityStarts): self
     {
         $this->availabilityStarts = $availabilityStarts;
 

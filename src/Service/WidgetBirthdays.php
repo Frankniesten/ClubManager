@@ -4,7 +4,6 @@
 namespace App\Service;
 
 use App\Entity\Person;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WidgetBirthdays extends AbstractController

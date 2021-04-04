@@ -1,0 +1,209 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            {% if 'create' in app.request.uri  %}
+                <h3>{% trans %}Event_add{% endtrans %}</h3>
+            {% endif %}
+            {% if 'edit' in app.request.uri  %}
+                <h3>{{ data.about }}</h3>
+            {% endif %}
+        </div>
+
+        <div class="p-2">
+            <div class="btn-group float-right">
+                <button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+                {% if 'create' in app.request.uri  %}
+                    <a href="{{ path('event') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+                {% if 'edit' in app.request.uri  %}
+                    <a href="{{ path('event_id', {'id': data.id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+                {% if 'copy' in app.request.uri  %}
+                    <a href="{{ path('event') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Content -->
+    <div class="card">
+        <div class="card-body">
+
+            <div class="row mb-sm-4">
+                <div class="col-sm">
+                    {{ form_row(form.about) }}
+                </div>
+            </div>
+
+            <div class="row mb-sm-4">
+                <div class="col-sm">
+                    {{ form_row(form.description) }}
+                </div>
+            </div>
+
+            <div class="row mb-sm-4">
+                <div class="col-sm">
+                    {{ form_row(form.category) }}
+                </div>
+            </div>
+
+            <div class="row mb-sm-4">
+                <div class="col-sm">
+                    {{ form_label(form.startDate) }}
+                    <div class="input-daterange input-group" id="date-range">
+                        {{ form_widget(form.startDate) }}
+                        {{ form_widget(form.endDate) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-sm-4">
+                <div class="col-sm">
+                    {{ form_row(form.doorTime, {'id': 'timepicker2'}) }}
+                </div>
+
+                <div class="col-sm">
+                    {{ form_row(form.startTime, {'id': 'timepicker3'}) }}
+                </div>
+
+                <div class="col-sm">
+                    {{ form_row(form.endTime, {'id': 'timepicker4'}) }}
+                </div>
+            </div>
+
+            <div class="row mb-sm-4">
+                <div class="col-sm ">
+                    {{ form_row(form.eventStatus) }}
+                </div>
+            </div>
+
+            <div class="row mb-sm-4">
+                <div class="col-sm ">
+                    {{ form_row(form.location) }}
+                </div>
+            </div>
+
+            <div class="row mb-sm-4">
+                <div class="col-sm ">
+                    {{ form_row(form.isAccessibleForFree) }}
+                </div>
+            </div>
+
+            <div class="row mb-sm-4">
+                <div class="col-sm">
+                    {{ form_row(form.maximumAttendeeCapacity) }}
+                </div>
+
+                <div class="col-sm">
+                    {{ form_row(form.remainingAttendeeCapacity) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+
+            //advance multiselect start
+            $('#my_multi_select3').multiSelect({
+                selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+                selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+                afterInit: function (ms) {
+                    var that = this,
+                        $selectableSearch = that.$selectableUl.prev(),
+                        $selectionSearch = that.$selectionUl.prev(),
+                        selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                        selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+                    that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                        .on('keydown', function (e) {
+                            if (e.which === 40) {
+                                that.$selectableUl.focus();
+                                return false;
+                            }
+                        });
+
+                    that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                        .on('keydown', function (e) {
+                            if (e.which == 40) {
+                                that.$selectionUl.focus();
+                                return false;
+                            }
+                        });
+                },
+                afterSelect: function () {
+                    this.qs1.cache();
+                    this.qs2.cache();
+                },
+                afterDeselect: function () {
+                    this.qs1.cache();
+                    this.qs2.cache();
+                }
+            });
+
+            // Select2
+            $(".select2").select2({
+                theme: "bootstrap4"
+            });
+
+            $(".select2-limiting").select2({
+                theme: "bootstrap4",
+                maximumSelectionLength: 2
+            });
+
+        });
+
+        jQuery('#date-range').datepicker({
+            format: 'dd-mm-yyyy',
+            clearBtn: true,
+            toggleActive: true
+        });
+        jQuery('#date-range2').datepicker({
+            format: 'dd-mm-yyyy',
+            clearBtn: true,
+            toggleActive: true
+        });
+
+        jQuery('#timepicker2').timepicker({
+            showMeridian : false,
+            icons: {
+                up: 'mdi mdi-chevron-up',
+                down: 'mdi mdi-chevron-down'
+            },
+            defaultTime: false
+        });
+
+        jQuery('#timepicker3').timepicker({
+            showMeridian : false,
+            icons: {
+                up: 'mdi mdi-chevron-up',
+                down: 'mdi mdi-chevron-down'
+            }
+        });
+
+        jQuery('#timepicker4').timepicker({
+            showMeridian : false,
+            icons: {
+                up: 'mdi mdi-chevron-up',
+                down: 'mdi mdi-chevron-down'
+            }
+        });
+    </script>
+
+{% endblock %}

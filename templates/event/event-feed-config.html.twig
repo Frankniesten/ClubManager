@@ -1,0 +1,92 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            <h3>{% trans %}Event feed{% endtrans %}</h3>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Profile -->
+    <div class="row">
+        <div class="col-sm">
+            <div class="card">
+                <div class="card-header" id="statistics">
+                    <span class="align-middle">
+                        <i class="mdi mdi-account-card-details-outline"></i> {% trans %}Event feed{% endtrans %}
+                    </span>
+                </div>
+
+                <div class="card-body">
+                    <p>
+                        Uitleg over de feed.
+                    </p>
+                    <p>
+                        Selecteer welke eventcategorien je wilt syncen.
+                    </p>
+
+                    {% for category in data %}
+                         <input type="checkbox" id="myCheck_{{ category.id }}" onclick="myFunction()"> {{ category.name }}<br>
+                    {% endfor %}
+
+                    <br>
+                    <p id="text" style="display:none"></p>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+<script>
+    function myFunction() {
+
+        var url = '{{ url('event_feed') }}?search=';
+
+        // Get the value of the checkboxes:
+        {% for category in data %}
+            var checkBox_{{ category.id }} = document.getElementById("myCheck_{{ category.id }}");
+            var tmp = {{ category.id }};
+
+            if ( checkBox_{{ category.id }}.checked == true )
+            {
+                url = url+tmp+"-";
+            }
+
+
+
+        {% endfor %}
+
+
+
+        // Get the output text
+        {% for category in data %}
+            var text = document.getElementById("text");
+        {% endfor %}
+
+        var test = {% for category in data %}checkBox_{{ category.id }}{% if not loop.last %}+{% endif %}{% endfor %};
+        // If the checkbox is checked, display the output text
+       if ({% for category in data %}checkBox_{{ category.id }}.checked == true {% if not loop.last %}|| {% endif %}{% endfor %})
+       {
+           text.style.display = "block";
+           document.getElementById("text").innerHTML = url;
+       }
+       else {
+           text.style.display = "none";
+       }
+    }
+
+</script>
+
+{% endblock %}

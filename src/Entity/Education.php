@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\Blameable\Traits\BlameableEntity;
@@ -35,7 +36,7 @@ class Education
      * @ORM\Column(type="date", nullable=true)
      * @Gedmo\Versioned
      */
-    private $dataAchieved;
+    private $dateAchieved;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="education")
@@ -66,15 +67,13 @@ class Education
         return $this;
     }
 
-    public function getDataAchieved(): ?\DateTimeInterface
+    public function getDateAchieved(): ?\DateTimeInterface
     {
-        return $this->dataAchieved;
+        return $this->dateAchieved;
     }
-
-    public function setDataAchieved(?\DateTimeInterface $dataAchieved): self
+    public function setDateAchieved(?\DateTimeInterface $dateAchieved): self
     {
-        $this->dataAchieved = $dataAchieved;
-
+        $this->dateAchieved = $dateAchieved;
         return $this;
     }
 

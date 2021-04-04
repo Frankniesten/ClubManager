@@ -4,6 +4,7 @@
 namespace App\Service;
 
 use App\Entity\Products;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -21,7 +22,7 @@ class ProductsOnLoan extends AbstractController
 			
 			foreach ($value->getOwnershipInfos() as $k => $v)
 			{
-				if ( $v->getOwnedFrom() > new \DateTime()) {
+				if ( $v->getOwnedFrom() > new DateTime()) {
 					
 					$loan = false;
 					break;
@@ -35,7 +36,7 @@ class ProductsOnLoan extends AbstractController
 					}
 					else
 					{
-						if ( $v->getOwnedTrough() > new \DateTime()) 
+						if ( $v->getOwnedTrough() > new DateTime())
 						{
 							$loan = true;
 						}
@@ -69,7 +70,7 @@ class ProductsOnLoan extends AbstractController
 			
 			foreach ($product->getOwnershipInfos() as $k => $v)
 			{
-				if ( $v->getOwnedFrom() > new \DateTime()) {
+				if ( $v->getOwnedFrom() > new DateTime()) {
 					
 					$loan = false;
 					break;
@@ -83,7 +84,7 @@ class ProductsOnLoan extends AbstractController
 					}
 					else
 					{
-						if ( $v->getOwnedTrough() > new \DateTime()) 
+						if ( $v->getOwnedTrough() > new DateTime())
 						{
 							$loan = true;
 						}

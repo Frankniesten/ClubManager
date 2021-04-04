@@ -1,0 +1,171 @@
+{% extends 'base_content_sidebar.html.twig' %}
+
+
+{% block sidebar %}
+    <li class="nav-item">
+        <a class="nav-link" href="#info"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Fund info{% endtrans %}</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ path('funds_donation_invoice', {'id': id, 'donationId': data.id}) }}" target="_blank"><i class="mdi mdi-receipt"></i> {% trans %}Invoice{% endtrans %}</a>
+    </li>
+{% endblock %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            <h3>
+                #{{ data.id }}
+            </h3>
+        </div>
+
+
+        <div class="p-2">
+            <div class="btn-group btn-group-sm">
+                {% if is_granted('ROLE_SERVICES_VIEW') %}
+                    <a class="btn btn-primary" href="{{ path('funds_view', {'id': id }) }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+
+                {% if is_granted('ROLE_SERVICES_DELETE') %}
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('funds_donation_delete', {'id': id, 'donationId': data.id}) }}"
+                           onclick="return confirm('{% trans %}Delete_message{% endtrans %} #{{ data.id }}');"><i
+                                    class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Fund info -->
+    <div class="card">
+        <div class="card-header" id="info">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Fund info{% endtrans %}
+			</span>
+            {% if is_granted('ROLE_SERVICES_EDIT') %}
+                <a class="btn btn-primary btn-sm float-right" href="{{ path('funds_donation_edit', {'id': id, 'donationId': data.id}) }}" role="button"><i class="mdi mdi-pencil"></i></a>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+            <table class="table table-bordered table-striped">
+                <tbody>
+                <tr>
+                    <td width="20%"><b>{% trans %}Donation{% endtrans %}</b></td>
+                    <td width="70%">#{{ data.id }}</td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Fund name{% endtrans %}</b></td>
+                    <td>
+                        {{ data.orderId.fundName }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Description{% endtrans %}</b></td>
+                    <td>
+                        {{ data.description }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Amount{% endtrans %}</b></td>
+                    <td>
+                       €{{ data.amount }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Date{% endtrans %}</b></td>
+                    <td>
+                        {{ data.donationDate | date('d-m-Y') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Fund id{% endtrans %}</b></td>
+                    <td>
+                        {{ data.transactionId }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Payment method{% endtrans %}</b></td>
+                    <td>
+                        {{ data.paymentMethod }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Consumer name{% endtrans %}</b></td>
+                    <td>
+                        {% if data.bankAccount is not empty %}
+                            <a href="">{{ data.bankAccount.consumerName }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Consumer account{% endtrans %}</b></td>
+                    <td>
+                        {% if data.bankAccount is not empty %}
+                            <a href="">{{ data.bankAccount.consumerAccount }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Person{% endtrans %}</b></td>
+                    <td>
+                        {% if data.person is not empty %}
+                            <a href="{{ path('person_id', { 'id': data.person.id }) }}">{{ data.person.familyName }}, {{ data.person.givenName }} {{ data.person.additionalName }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Organization{% endtrans %}</b></td>
+                    <td>
+                        {% if data.organization is not empty %}
+                            <a href="{{ path('organization_id', { 'id': data.organization.id }) }}">{{ data.organization.legalName }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>{% trans %}Status{% endtrans %}</b></td>
+                    <td>
+                        {% if data.donationStatus == "In progress" %}
+                            <span class="badge badge-info">{{ data.donationStatus }}</span>
+                        {% endif %}
+                        {% if data.donationStatus == "Finished" %}
+                            <span class="badge badge-success">{{ data.donationStatus }}</span>
+                        {% endif %}
+                        {% if data.donationStatus == "Canceled" %}
+                            <span class="badge badge-secondary">{{ data.donationStatus }}</span>
+                        {% endif %}
+                        {% if data.donationStatus == "On hold" %}
+                            <span class="badge badge-danger">{{ data.donationStatus }}</span>
+                        {% endif %}
+                        {% if data.donationStatus == "Refunded" %}
+                            <span class="badge badge-secondary">{{ data.donationStatus }}</span>
+                        {% endif %}
+                        {% if data.donationStatus == "Waiting for payment" %}
+                            <span class="badge badge-primary">{{ data.donationStatus }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer text-muted small">
+            <i class="mdi mdi-account"></i>&nbsp;&nbsp; {{ data.updatedBy }}&nbsp;&nbsp;|&nbsp;&nbsp;
+            <i class="mdi mdi-calendar"></i>&nbsp;&nbsp; {{ data.updatedAt |date("d-m-Y  - H:i")}}
+        </div>
+    </div>
+    <!-- End Fund info -->
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+{% endblock %}

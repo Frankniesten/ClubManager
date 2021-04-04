@@ -6,9 +6,8 @@
 	
 	use App\Entity\Membership;
 	use App\Entity\Person;
-	use Doctrine\ORM\EntityManagerInterface;
 	use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-	use Symfony\Component\Validator\Constraints\DateTime;
+
 	
 	class MembershipYears extends AbstractController
 	{

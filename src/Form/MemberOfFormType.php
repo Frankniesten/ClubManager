@@ -8,7 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Doctrine\ORM\EntityRepository;
 
 class MemberOfFormType extends AbstractType
@@ -23,7 +22,6 @@ class MemberOfFormType extends AbstractType
 					    },
 					    'choice_label' => 'programName',
 					    'required' => false,
-					    'label' => 'Rol(len)',
 					    'multiple' => true
 					));
 	}

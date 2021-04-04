@@ -7,14 +7,14 @@ use App\Form\MusicalInstrumentFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
- 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 class MusicalInstrumentsController extends AbstractController
 {
 	/**
-     * @Route("/settings/musicalinstruments", name="musical_instruments")
+     * @Route("/settings/musicalinstrument", name="musical_instrument")
      * @IsGranted("ROLE_SETTINGS_VIEW")
      */
 	public function list(EntityManagerInterface $em, Request $request)
@@ -22,34 +22,30 @@ class MusicalInstrumentsController extends AbstractController
 		$musicalInstrument = $this->getDoctrine()
         ->getRepository(MusicalInstrument::class)
         ->findAll();
-		
-				
+
 		return $this->render('musical_instruments/musicalInstruments.html.twig', [
         	'data' => $musicalInstrument
 		]);
 	}
 		
-		
 	/**
-     * @Route("/settings/musicalinstrument/create", name="musical_instrument")
+     * @Route("/settings/musicalinstrument/create", name="musical_instrument_create")
      * @IsGranted("ROLE_SETTINGS_CREATE")
      */
-	public function new(EntityManagerInterface $em, Request $request)
+	public function new(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
 	{
-		
 		$form = $this->createForm(MusicalInstrumentFormType::class);
-		
 		$form->handleRequest($request);
+
 		if ($form->isSubmitted() && $form->isValid()) {
-			
-			$musicalInstrument = $form->getData();
+
+            $data = $form->getData();
 						
-			$em->persist($musicalInstrument);
+			$em->persist($data);
 			$em->flush();
-           
-			$this->addFlash('success', 'Muziekinstrument: '.$musicalInstrument->getMusicalInstrument().' is toegevoegd!');
-			
-			return $this->redirectToRoute('app_settings_musical_instruments');			
+
+            $this->addFlash('success', $data->getMusicalInstrument()  . ' ' . $translator->trans('flash_message_create'));
+			return $this->redirectToRoute('musical_instrument');
 		}
 		
 		return $this->render('musical_instruments/musicalInstrumentsForm.html.twig', [
@@ -58,60 +54,56 @@ class MusicalInstrumentsController extends AbstractController
 	}
 	
 	/**
-     * @Route("/settings/musicalinstrument/{id}/edit", name="musical_instrument")
+     * @Route("/settings/musicalinstrument/{id}/edit", name="musical_instrument_edit")
      * @IsGranted("ROLE_SETTINGS_EDIT")
      */
-	public function edit(EntityManagerInterface $em, Request $request, $id)
+	public function edit(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$musicalInstrument = $em->getRepository(MusicalInstrument::class)->find($id);
+        $data = $em->getRepository(MusicalInstrument::class)->find($id);
 		
-		if (!$musicalInstrument) {
-        	throw $this->createNotFoundException('The product does not exist');
+		if (!$data) {
+        	throw $this->createNotFoundException();
     	}
-		        
         
-		$form = $this->createForm(MusicalInstrumentFormType::class, $musicalInstrument);
-		
+		$form = $this->createForm(MusicalInstrumentFormType::class, $data);
 		$form->handleRequest($request);
+
 		if ($form->isSubmitted() && $form->isValid()) {
-			
-			$musicalInstrument = $form->getData();
-			
-			$em->persist($musicalInstrument);
+
+            $data = $form->getData();
+			$em->persist($data);
 			$em->flush();
-           
-			$this->addFlash('success', 'Muziekinstrument: '.$musicalInstrument->getMusicalInstrument().' is bijgewerkt!');
+
+            $this->addFlash('success', $data->getMusicalInstrument()  . ' ' . $translator->trans('flash_message_edit'));
 			
-			return $this->redirectToRoute('app_settings_musical_instruments');			
+			return $this->redirectToRoute('musical_instrument');
 		}
 		
 		return $this->render('musical_instruments/musicalInstrumentsForm.html.twig', [
         	'form' => $form->createView(),
-        	'data' => $musicalInstrument
+        	'data' => $data
 		]);
 	}
 	
 	/**
-     * @Route("/settings/musicalinstrument/{id}/delete", name="musical_instrument")
+     * @Route("/settings/musicalinstrument/{id}/delete", name="musical_instrument_delete")
      * @IsGranted("ROLE_SETTINGS_DELETE")
      */
-	public function del(EntityManagerInterface $em, Request $request, $id)
+	public function del(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$musicalInstrument = $em->getRepository(MusicalInstrument::class)->find($id);
+        $data = $em->getRepository(MusicalInstrument::class)->find($id);
 		
-		if (!$musicalInstrument) {
-        	throw $this->createNotFoundException('The product does not exist');
+		if (!$data) {
+        	throw $this->createNotFoundException();
     	}
 
-			$em->remove($musicalInstrument);
+			$em->remove($data);
 			$em->flush();
-           
-			$this->addFlash('warning', 'Het muziekinstrument is verwijderd!');
+
+        $this->addFlash('warning', $data->getMusicalInstrument()  . ' ' . $translator->trans('flash_message_delete'));
 			
-			return $this->redirectToRoute('app_settings_musical_instruments');			
+			return $this->redirectToRoute('musical_instrument');
 	}
-
-
 }

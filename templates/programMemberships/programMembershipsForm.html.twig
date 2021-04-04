@@ -1,37 +1,52 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}<i class="mdi mdi-tag-multiple"></i> Instellingen > Rollen{% endblock %}
-
+{% extends 'base_content_full_width.html.twig' %}
 
 {% block body %}
 
- 	{{ form_start(form) }}
-	<div class="row align-items-center">
-        <div class="col">
-	        {% if 'create' in app.request.uri  %}
-	       		<h2>Rol Toevoegen</h2>
-	        {% endif %}
-	        {% if 'edit' in app.request.uri  %}
-	       		<h2>{{ data.programName }} - bewerken</h2>
-	        {% endif %}
-        </div>
-        
-        <div class="col-4  ">
-	        <div class="btn-group float-right">
-	        	<button type="submit" class="btn btn-purple waves-effect"><i class="fa fa-save"></i>  Opslaan</button>
-				<a href="{{ path('app_program_memberships') }}" class="btn btn-purple waves-effect"><i class="fa fa-times"></i>  Sluiten</a>
-	        </div>
-        </div>
-        
+	{{ form_start(form) }}
+
+	<!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			{% if 'create' in app.request.uri  %}
+				<h3>{% trans %}Role_add{% endtrans %}</h3>
+			{% endif %}
+			{% if 'edit' in app.request.uri  %}
+				<h3>{{ data.programName }} - {% trans %}Edit{% endtrans %}</h3>
+			{% endif %}
+		</div>
+
+		<div class="p-2">
+			<div class="btn-group float-right">
+				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
+				{% if 'create' in app.request.uri  %}
+					<a href="{{ path('program_memberships') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+				{% if 'edit' in app.request.uri  %}
+					<a href="{{ path('program_memberships') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+				{% endif %}
+			</div>
+		</div>
 	</div>
-	
-    <!-- Card Box -->
-    <div class="card-box table-responsive">
-        
-		{{ form_widget(form) }}
-		
-		{{ form_end(form) }}
-            
-    </div>      
+	<!-- End Page header -->
+
+	<!-- Content -->
+	<div class="card">
+		<div class="card-body">
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.programName) }}
+				</div>
+			</div>
+
+			<div class="row mb-sm-4">
+				<div class="col-sm">
+					{{ form_row(form.description) }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{ form_end(form) }}
 
 {% endblock %}

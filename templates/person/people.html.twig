@@ -1,0 +1,194 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% set pdfCat = '' %}
+
+{% block body %}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2"><h3>{% trans %}Navbar_person{% endtrans %}</h3></div>
+        <div class="p-2">
+            {% if is_granted('ROLE_PERSON_CREATE') %}
+                <a class="btn btn-primary btn-sm float-right" href="{{ path('person_create') }}" role="button"><i class="mdi mdi-plus"></i> {% trans %}Person_add{% endtrans %}</a>
+            {% endif %}
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!--Tabs -->
+    <nav>
+        <div class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-item nav-link {% if query == 'all' or query == null %}active {% endif %}"
+                   href="{{ path('person', {'category': 'all'} ) }}">{% trans %}Person_nav_all{% endtrans %}</a>
+            </li>
+
+            {% for data in category %}
+            <li class="nav-item">
+                <a class="nav-item nav-link {% if query == data.id %}active {% endif %}"
+                   href="{{ path('person', {'category': data.id}) }}">{{ data.name }}</a>
+            </li>
+            {% endfor %}
+
+        </div>
+    </nav>
+    <!-- End tabs -->
+
+    <!-- Content -->
+    <div class="card">
+        <div class="card-body">
+
+
+            <!--Table -->
+            <table id="datatable-buttons" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+                        <th width="20px"></th>
+                    {% endif %}
+                    <th class="all">{% trans %}Name{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Email{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Telephone{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Telephone 2{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Address{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Category{% endtrans %}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for data in data %}
+                    <tr>
+                        {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+                        <td align="center">
+                            <!-- Dropdown menu -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary btn-xs dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu">
+                                    {% if is_granted('ROLE_PERSON_EDIT') %}
+                                    <a class="dropdown-item" href="{{ path('person_edit', {'id': data.id}) }}"><i
+                                                class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_PERSON_DELETE') %}
+                                    <a class="dropdown-item" href="{{ path('person_delete', {'id': data.id}) }}"
+                                       onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}');"><i
+                                                class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- End dropdown menu -->
+                        </td>
+                        {% endif %}
+
+                        <td>
+                            <a href="{{ path('person_id', {'id': data.id}) }}"> {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}</a>
+                        </td>
+
+                        <td>
+                            {{ data.email }}
+                            {%if data.email is not empty %}
+                            <a href="mailto:{{ data.email }}"></href><i class="mdi mdi-email-send text-primary" style="font-size: large; line-height: 1.3;"></i></a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ data.telephone }}
+                        </td>
+                        <td>
+                            {{ data.telephone2 }}
+                        </td>
+                        <td>
+                            {{ data.streetAddress }}{% if data.streetAddress != null %},{% endif %} {{ data.addressLocality }}
+                        </td>
+
+                        <td>
+                            <span class="badge badge-primary">{{ data.category.name }}</span>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    {% for data in category %}
+        {% if query == data.id %}
+            {% set pdfCat = data.name %}
+        {% endif %}
+    {% endfor %}
+    {% if query == 'all' or query == null %}
+        {% set pdfCat = 'Alles' %}
+    {% endif %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var table = $('#datatable-buttons').DataTable({
+                lengthChange: false,
+                pageLength: 50,
+                {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+                columnDefs: [
+                    {"orderable": false, "targets": 0}
+                ],
+                order: [[1, "asc"]],
+                {%  else %}
+                columnDefs: [
+                    {"orderable": true, "targets": 0}
+                ],
+                order: [[0, "asc"]],
+                {%  endif %}
+                buttons: [
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+                            columns: [1, 2, 3, 4, 5, 6]
+                            {%  else %}
+                            columns: [0, 1, 2, 3, 4, 5]
+                            {% endif %}
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+                            columns: [1, 2, 3, 4, 5, 6]
+                            {%  else %}
+                            columns: [0, 1, 2, 3, 4, 5]
+                            {% endif %}
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: '{{ club_name }} - {% trans %}Person_list{% endtrans %} ({% trans %}Category{% endtrans %} {{ pdfCat }}) - v{{ "now"|date("m-d-y") }}',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+                            columns: [1, 2, 3, 4, 5, 6]
+                            {%  else %}
+                            columns: [0, 1, 2, 3, 4, 5]
+                            {% endif %}
+                        }
+                    }],
+                {% if app.request.getLocale() == 'nl' %}
+                language: {
+                    url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+                },
+                {%  endif %}
+                initComplete: function () {
+                    setTimeout( function () {
+                        table.buttons().container().appendTo( '#datatable-buttons_wrapper .col-md-6:eq(0)' );
+                    }, 10 );
+                }
+            });
+        });
+    </script>
+{% endblock %}

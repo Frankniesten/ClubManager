@@ -1,0 +1,139 @@
+{% extends 'base_content_sidebar.html.twig' %}
+
+{% block sidebar %}
+    <li class="nav-item">
+		<a class="nav-link" href="#build-up"><i class="mdi mdi-chart-bar"></i> {% trans %}Age-build-up{% endtrans %}</a>
+	</li>
+    <li class="nav-item">
+        <a class="nav-link" href="#jubilee"><i class="mdi mdi-certificate"></i> {% trans %}Jubilee{% endtrans %}</a>
+    </li>
+
+{% endblock %}
+
+{% block body %}
+    <!-- Page header -->
+	<div class="d-flex justify-content-between flex-row">
+		<div class="p-2">
+			<h3>
+                {% trans %}Club statistics{% endtrans %}
+			</h3>
+		</div>
+	</div>
+	<!-- End Page header -->
+
+    <!-- Age build up -->
+    <div class="card">
+        <div class="card-header" id="build-up">
+            <i class="mdi mdi-chart-bar"></i> {% trans %}Age-build-up{% endtrans %}
+        </div>
+
+        <div class="card-body">
+            <div id="age-build-up" style="height: 250px;"></div>
+        </div>
+    </div>
+    <!-- End Age build up -->
+    <br>
+    <!-- Jubilee -->
+    {% if is_granted('ROLE_PERSON_VIEW') %}
+    <div class="card">
+        <div class="card-header" id="jubilee">
+            <i class="mdi mdi-certificate"></i> {% trans %}Jubilee{% endtrans %}
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-striped">
+                <tbody id = "student"></tbody>
+            </table>
+
+        </div>
+    </div>
+    {% endif %}
+    <!-- End Jubilee -->
+
+{%  endblock %}
+
+{% block javascripts %}
+
+
+    {{ parent() }}
+
+    <script language = "javascript">
+        $(document).ready(function(event){
+            $.ajax({
+                url:        '/statistics/relations/age-build-up',
+                type:       'POST',
+                dataType:   'json',
+                async:      true,
+
+                success: function(data, status) {
+
+                    var chart = [];
+                    for (i = 0; i < data.length; i++) {
+
+                        dat = {};
+                        dat.y = data[i].name;
+                        dat.a = data[i].count;
+                        chart.push(dat);
+                    }
+
+                    new Morris.Bar({
+                        element: 'age-build-up',
+                        data: chart,
+                        xkey: 'y',
+                        ykeys: 'a',
+                        barColors: ['#08194f', "#35b8e0"],
+                        labels: ['leden'],
+                        hideHover: 'true',
+                        resize: 'true'
+                    });
+                },
+                error : function(xhr, textStatus, errorThrown) {
+                    console.log('Ajax request failed');
+                }
+            });
+        });
+    </script>
+
+    <script language = "javascript">
+        $(document).ready(function(event){
+            $.ajax({
+                url:        '/statistics/jubilee',
+                type:       'POST',
+                dataType:   'json',
+                async:      true,
+
+                success: function(data, status) {
+
+                console.log(data);
+
+                var e = $('<tr><th>{% trans %}Name{% endtrans %}</th><th>{% trans %}Years{% endtrans %}</th></tr>');
+                $('#student').html('');
+                $('#student').append(e);
+
+                for(i = 0; i < data.length; i++) {
+
+                    student = data[i];
+                    var e = $('<tr><td id = "name"></td><td id = "years"></td></tr>');
+
+                    $('#name', e).html(student['name']);
+                    $('#years', e).html(student['membershipYears']);
+                    $('#student').append(e);
+                }
+
+                },
+                error : function(xhr, textStatus, errorThrown) {
+                    console.log('Ajax request failed');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function display() {
+            var x = document.getElementById("myFile").name;
+            alert("The name of the file button is: " + x);
+        }
+    </script>
+
+{% endblock %}
