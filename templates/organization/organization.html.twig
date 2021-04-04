@@ -5,13 +5,28 @@
 		<a class="nav-link" href="#info"><i class="mdi mdi-factory"></i> {% trans %}Organization_nav_organization_information{% endtrans %}</a>
 	</li>
 	<li class="nav-item">
+		<a class="nav-link" href="#bankAccount"><i class="mdi mdi-bank"></i> {% trans %}Navbar_bankAccount{% endtrans %}
+			{%if data.bankAccounts is not empty %}
+				<span class="badge badge-primary float-right">{{ data.bankAccounts|length }}</span>
+			{% endif %}
+		</a>
+	</li>
+	<li class="nav-item">
 		<a class="nav-link" href="#employee"><i class="mdi mdi-account-tie"></i> {% trans %}Employees{% endtrans %}
 			{%if data.employee is not empty %}
 				<span class="badge badge-primary float-right">{{ data.employee|length }}</span>
 			{% endif %}
 		</a>
 	</li>
-
+	{% if is_granted('ROLE_SERVICES_VIEW') %}
+		<li class="nav-item">
+			<a class="nav-link" href="#donations"><i class="mdi mdi-account-card-details-outline"></i> {% trans %}Donations{% endtrans %}
+				{%if data.donations is not empty %}
+					<span class="badge badge-primary float-right">{{ data.donations|length }}</span>
+				{% endif %}
+			</a>
+		</li>
+	{% endif %}
 	<li class="nav-item">
 		<a class="nav-link" href="#review"><i class="mdi mdi-tooltip-outline"></i> {% trans %}Reviews{% endtrans %}
 			{%if data.review is not empty %}
@@ -81,6 +96,22 @@
 	</div>
 	<!-- End Personal info -->
 	<br>
+	<!-- Bank Account -->
+	<div class="card">
+		<div class="card-header" id="bankAccount">
+			<span class="align-middle">
+						<i class="mdi mdi-bank"></i> {% trans %}Navbar_bankAccount{% endtrans %}
+				{% if is_granted('ROLE_PERSON_EDIT') %}
+					<a class="btn btn-primary btn-sm float-right" href="{{ path('bank_account_create') }}" role="button"><i class="mdi mdi-pencil"></i></a>
+				{% endif %}
+			</span>
+		</div>
+		<div class="card-body">
+			{{ include('organization/organization-bankaccount.html.twig', { 'data': data }) }}
+		</div>
+	</div>
+	<br>
+	<!-- End Bank Account -->
 
 	<!-- Employees -->
 	<div class="card">
@@ -98,6 +129,21 @@
 	</div>
 	<!-- End Employees -->
 	<br>
+	<!-- Donations -->
+	{% if is_granted('ROLE_SERVICES_VIEW') %}
+		<div class="card">
+			<div class="card-header" id="donations">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Donations{% endtrans %}
+			</span>
+			</div>
+			<div class="card-body">
+				{{ include('organization/organization-donations.html.twig', { 'data': data }) }}
+			</div>
+		</div>
+		<br>
+	{% endif %}
+	<!-- End Donations -->
 
 	<!-- Review -->
 	<div class="card">

@@ -16,21 +16,21 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OrderController extends AbstractController
 {
-	/**
- * @Route("/order", name="order")
- * @IsGranted("ROLE_SERVICES_VIEW")
- */
-    public function list(EntityManagerInterface $em, Request $request)
-    {
-        $orders = $this->getDoctrine()
-            ->getRepository(Orders::class)
-            ->findAll();
+    /**
+     * @Route("/order", name="order")
+     * @IsGranted("ROLE_SERVICES_VIEW")
+     */
+        public function list(EntityManagerInterface $em, Request $request)
+        {
+            $orders = $this->getDoctrine()
+                ->getRepository(Orders::class)
+                ->findAll();
 
-        return $this->render('orders/orders.html.twig', [
-            'data' => $orders,
-            'club_name' => getenv('CLUB_NAME'),
-        ]);
-    }
+            return $this->render('orders/orders.html.twig', [
+                'data' => $orders,
+                'club_name' => getenv('CLUB_NAME'),
+            ]);
+        }
 
     /**
      * @Route("/order/create", name="order_create")
@@ -49,7 +49,7 @@ class OrderController extends AbstractController
             $em->flush();
             $id = $data->getId();
 
-            //$this->addFlash('success', $data->getFamilyName() . ', ' . $data->getGivenName() . ' ' . $data->getAdditionalName() . ' ' . $translator->trans('flash_message_create'));
+            $this->addFlash('success', $translator->trans('order').' #'.$id. ' ' . $translator->trans('flash_message_create'));
 
             return $this->redirectToRoute('order_view', array('id' => $id));
         }

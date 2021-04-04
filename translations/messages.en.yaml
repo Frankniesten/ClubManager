@@ -20,7 +20,7 @@ AvailabilityStarts-help: The beginning of the availability of service.
 Available channel: The service is available via the communication channel
 Birth date: Birthdate
 Calendar_nav_all: All Events
-Canceled: Canceled
+Canceled: Cancelled
 Categorie_add: Add categorie
 Category: Category
 Category_nav_all: All categories
@@ -264,3 +264,58 @@ Event_list: Event list
 Organization_list: Organization list
 Product_list: Inventory list
 Order_list: Order list
+Navbar_bankAccount: Bank accounts
+BankAccount_add: Add Bank Account
+BankAccount_edit: Edit bank account
+Consumer name: Consumer name
+Consumer account: IBAN
+Consumer bic: BIC
+Add_offer: Add offer
+Payment gateway: Payment gateway
+Funds: Funds
+Funds_add: Add funds
+Fund name: Name
+Order id: External Order Id
+Donations: Donations
+Count: Count
+Fund info: Fund info
+Donation: Donation
+Donation date: Donation date
+Amount: Amount
+Currency: Currency
+Transaction id: Transaction id
+Payment method: Payment method
+Url: Url
+Bank account: Bank account
+Income per day: Income per day
+Income cumulative: Income cumulative`
+Fund id: External id paymant service
+fundId help: Use the id thats used by the payment service.
+transaction: Transaction
+ideal: iDEAL
+creditcard: Credit card
+bancontact: Bancontact
+kbc: KBC/CBC Payment Button
+belfius: Belfius Pay Button
+help-dontation-url: Url form payment service
+help-dontation-transactionId: Transaction Id payment service.
+Download as Pdf: Download as Pdf
+Invoice-number: Invoice number
+Invoice-date: Invoice date
+Already paid: Already paid
+Vat: Vat
+Tag: Tag
+Tag_add: Add tag
+Tag_add_persons: Add people to tag
+My profile: My profile
+Applications: Applications
+Good morning: Good morning
+Good afternoon: Good afternoon
+Good evening: Good evening
+Good night: Good night
+Activities for the next 14 days: Activities for the next 14 days
+Death date: Death date
+Passed away: Passed away
+Alumnus: Alumnus
+DeathDate warning: 'WARNING: when setting the date of death, this person will be locked. This cannot be reversed.'
+Support: Support

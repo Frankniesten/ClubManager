@@ -188,7 +188,7 @@ Related product: Gerelateerd product
 RelatedProducts: Gerelateerde producten
 Remaining attendee capacity: Resterende bezoekerscapaciteit
 Reorder: Herordenen
-Revenue: Inkomsten
+Revenue: Financiën
 Review aspect: Titel
 Review body: Notitie
 Review: Notitie
@@ -240,7 +240,7 @@ Vat i d: BTW nummer
 Venue: Locatie
 Venue_add: Locatie toevoegen
 Venues: locaties
-View: View
+View: Bekijk
 Waiting for payment: Wachtend op betaling
 Warning: 'Waarschuwing:'
 Webshop: Webshop
@@ -264,3 +264,58 @@ Event_list: Evenententen lijst
 Organization_list: Organisaties lijst
 Product_list: Bezittingen lijst
 Order_list: Order lijst
+Navbar_bankAccount: Bankrekeningen
+BankAccount_add: Bankrekening toevoegen
+BankAccount_edit: Bankrekening bewerken
+Consumer name: Naam consument
+Consumer account: IBAN
+Consumer bic: BIC
+Add_offer: Aanbod toevoegen
+Payment gateway: Betaal providor
+Funds: Donaties
+Funds_add: Donatiedoel toevoegen
+Fund name: Donatiedoel
+Order id: Externe order ID
+Donations: Donaties
+Count: Aantal
+Fund info: Donatie info
+Donation: Donatie
+Donation date: Donatie datum
+Amount: Bedrag
+Currency: Valuta
+Transaction id: Transactie ID
+Payment method: Betaal methode
+Url: Url
+Bank account: Bankrekening
+Income per day: Inkomsten per dag
+Income cumulative: Inkomsten cumulatief
+Fund id: Unieke id betaalprovidor
+fundId help: Bij gebruik van betaalprovidor. Vul de id in die de betaalprovidor gebruikt voor de donaties bij dit donatiedoel.
+transaction: Overschrijving
+ideal: iDEAL
+creditcard: Credit card
+bancontact: Bancontact
+kbc: KBC/CBC Payment Button
+belfius: Belfius Pay Button
+help-dontation-url: Url van transactie bij betaalprovidor.
+help-dontation-transactionId: Id van transactie bij betaalprovidor.
+Download as Pdf: Pdf downloaden
+Invoice-number: Factuurnummer
+Invoice-date: Factuurdatum
+Already paid: Reeds betaald
+Vat: Btw
+Tag: Tag
+Tag_add: Tag toevoegen
+Tag_add_persons: Personen toevoegen aan tag
+My profile: Mijn gegevens
+Applications: Applicaties
+Good morning: Goedemorgen
+Good afternoon: Goedemiddag
+Good evening: Goedenavond
+Good night: Goedenacht
+Activities for the next 14 days: Activiteiten voor de komende 14 dagen
+Death date: Datum van overlijden
+Passed away: Overleden
+Alumnus: Alumnus
+DeathDate warning: 'LET OP: bij het instellen van de overlijdensdatum wordt deze relatie vergrendeld. Dit is niet ongedaan te maken.'
+Support: Help

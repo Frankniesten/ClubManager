@@ -195,6 +195,27 @@ class Person
      */
     private $sponsor;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BankAccount::class, mappedBy="person")
+     */
+    private $bankAccounts;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Donation::class, mappedBy="Person")
+     */
+    private $donations;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Tag::class, inversedBy="people")
+     */
+    private $tag;
+
+    /**
+     * @Gedmo\Versioned
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $deathDate;
+
 
     public function __construct()
     {
@@ -210,6 +231,9 @@ class Person
         $this->attendee = new ArrayCollection();
         $this->contributor = new ArrayCollection();
         $this->sponsor = new ArrayCollection();
+        $this->bankAccounts = new ArrayCollection();
+        $this->donations = new ArrayCollection();
+        $this->tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -736,6 +760,102 @@ class Person
         if ($this->sponsor->contains($sponsor)) {
             $this->sponsor->removeElement($sponsor);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BankAccount[]
+     */
+    public function getBankAccounts(): Collection
+    {
+        return $this->bankAccounts;
+    }
+
+    public function addBankAccount(BankAccount $bankAccount): self
+    {
+        if (!$this->bankAccounts->contains($bankAccount)) {
+            $this->bankAccounts[] = $bankAccount;
+            $bankAccount->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBankAccount(BankAccount $bankAccount): self
+    {
+        if ($this->bankAccounts->removeElement($bankAccount)) {
+            // set the owning side to null (unless already changed)
+            if ($bankAccount->getPerson() === $this) {
+                $bankAccount->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Donation[]
+     */
+    public function getDonations(): Collection
+    {
+        return $this->donations;
+    }
+
+    public function addDonation(Donation $donation): self
+    {
+        if (!$this->donations->contains($donation)) {
+            $this->donations[] = $donation;
+            $donation->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDonation(Donation $donation): self
+    {
+        if ($this->donations->removeElement($donation)) {
+            // set the owning side to null (unless already changed)
+            if ($donation->getPerson() === $this) {
+                $donation->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTag(): Collection
+    {
+        return $this->tag;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tag->contains($tag)) {
+            $this->tag[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        $this->tag->removeElement($tag);
+
+        return $this;
+    }
+
+    public function getDeathDate(): ?\DateTimeInterface
+    {
+        return $this->deathDate;
+    }
+
+    public function setDeathDate(?\DateTimeInterface $deathDate): self
+    {
+        $this->deathDate = $deathDate;
 
         return $this;
     }

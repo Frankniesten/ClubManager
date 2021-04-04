@@ -1,0 +1,100 @@
+{%if data.donations is not empty %}
+    <!--Table -->
+    <table id="datatable-donations" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                <th width="20px"></th>
+            {% endif %}
+            <th>{% trans %}Donation{% endtrans %}</th>
+            <th class="desktop">{% trans %}Date{% endtrans %}</th>
+            <th class="desktop">{% trans %}Fund name{% endtrans %}</th>
+            <th class="desktop">{% trans %}Transaction id{% endtrans %}</th>
+            <th class="desktop">{% trans %}Amount{% endtrans %}</th>
+            <th class="desktop">{% trans %}Status{% endtrans %}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% set totalAmount = 0 %}
+
+        {% for donations in data.donations %}
+
+
+            {% set amount = donations.amount %}
+
+            {% if donations.donationStatus == "Finished" %}
+                {% set totalAmount = totalAmount + amount %}
+            {%  endif %}
+
+
+            <tr>
+                {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                    <td align="center">
+                        <!-- Dropdown menu -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu">
+                                {% if is_granted('ROLE_PERSON_EDIT') %}
+                                    <a class="dropdown-item" href="{{ path('funds_donation_edit', {'id': donations.orderId.id, 'donationId': donations.id}) }}"><i class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                                {% endif %}
+                                {% if is_granted('ROLE_PERSON_DELETE') %}
+                                    <a class="dropdown-item" href="" onclick="return confirm('{% trans %}Delete_message{%  endtrans %} ');"><i class="mdi mdi-delete text-danger" ></i> {% trans %}Delete{% endtrans %}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <!-- End dropdown menu -->
+                    </td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('funds_donation_view', {'id': donations.orderId.id, 'donationId': donations.id}) }}">#{{ donations.id }}</a>
+                </td>
+                <td data-order="{{ donations.donationDate | date('Y/m/d') }}">
+                    {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}
+                </td>
+                <td>
+                    <a href="{{ path('funds_view', {'id': donations.orderId.id}) }}">{{ donations.orderId.fundName }}</a>
+                </td>
+                <td>
+                    <a href="{{ donations.url }}" target="_blank">{{ donations.transactionId }}</a>
+                </td>
+                <td>
+                    €{{ donations.amount|round(2, 'common') }}
+                </td>
+                <td>
+                    {% if donations.donationStatus == "In progress" %}
+                        <span class="badge badge-info">{{ donations.donationStatus }}</span>
+                    {% endif %}
+                    {% if donations.donationStatus == "Finished" %}
+                        <span class="badge badge-success">{{ donations.donationStatus }}</span>
+                    {% endif %}
+                    {% if donations.donationStatus == "Canceled" %}
+                        <span class="badge badge-secondary">{{ donations.donationStatus }}</span>
+                    {% endif %}
+                    {% if donations.donationStatus == "On hold" %}
+                        <span class="badge badge-danger">{{ donations.donationStatus }}</span>
+                    {% endif %}
+                    {% if donations.donationStatus == "Refunded" %}
+                        <span class="badge badge-secondary">{{ donations.donationStatus }}</span>
+                    {% endif %}
+                    {% if donations.donationStatus == "Waiting for payment" %}
+                        <span class="badge badge-primary">{{ donations.donationStatus }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><b>{% trans %}Total{% endtrans %}</b></td>
+                <td><b>€{{ totalAmount|round(2, 'common') }}</b></td>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>
+{% else %}
+    <div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
+{% endif %}

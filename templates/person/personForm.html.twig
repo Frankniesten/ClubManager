@@ -51,7 +51,7 @@
 		        <div class="col-sm">
 					{{ form_row(form.birthDate, {'id': 'datepicker-autoclose'}) }}
 		        </div>
-		        
+
 		        <div class="col-sm">
 				   {{ form_row(form.gender) }}
 		        </div>
@@ -105,7 +105,26 @@
 			    </div>
 		    </div>
 
+
+			<p>
+				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+					<i
+							class="mdi mdi-arrow-collapse-down"></i> Advanced
+				</button>
+			</p>
+			<div class="collapse" id="collapseExample">
+				<div class="card bg-warning card-body">
+					<div class="col-sm">
+						{{ form_row(form.deathDate, {'id': 'datepicker-autoclose2'}) }}
+
+
+					</div>
+				</div>
+			</div>
+
 		</div>
+
+
 	</div>
 
 {{ form_end(form) }} 
@@ -134,5 +153,13 @@
                 todayHighlight: true
             });
     </script>
+
+	<script type="text/javascript">
+		jQuery('#datepicker-autoclose2').datepicker({
+			format: 'dd-mm-yyyy',
+			autoclose: true,
+			todayHighlight: true
+		});
+	</script>
     
 {% endblock %}

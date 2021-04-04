@@ -65,7 +65,7 @@ class EventFormType extends AbstractType
 	    		 'choices'  => array(
 			        'Confirmed' => 'Confirmed',
 			        'Tentative' => 'Tentative',
-			        'Canceled' => 'Canceled')
+			        'Cancelled' => 'Cancelled')
             ])
 			->add('isAccessibleForFree', CheckboxType::class, [
 			    'required' => false,

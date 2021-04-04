@@ -12,6 +12,15 @@
             </tr>
         </thead>
 
+		<tfoot>
+		<tr>
+			<th></th>
+			<th></th>
+			<th>{% trans %}Total{% endtrans %}</th>
+			<th>{{ data.membershipYears }}</th>
+		</tr>
+		</tfoot>
+
         <tbody>
         
         {% for membership in data.membership %}
@@ -46,15 +55,6 @@
 				</td>
 			</tr>
 		{% endfor %}
-		
-			<tr>
-			{% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
-	            <td></td>
-			{% endif %}
-	            <td></td>
-	            <td><b>{% trans %}Total{% endtrans %}</b></td>
-	            <td><b>{{ data.membershipYears }}</b></td>
-	        </tr>
         </tbody>
     </table>
 {% else %}

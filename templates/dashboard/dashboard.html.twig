@@ -1,25 +1,170 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_content_full_width.html.twig' %}
 
 {% block body %}
-    <h3>{% trans %}navbar_dashboard{% endtrans %}</h3>
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            {% if (date().timestamp|date("H:i") >= "06" and date().timestamp|date("H:i") < "12") %}
+                <h3>{% trans %}Good morning{% endtrans %} {{ app.user.person.givenName }}</h3>
+            {% elseif (date().timestamp|date("H:i") >= "12" and date().timestamp|date("H:i") < "17")  %}
+                <h3>{% trans %}Good afternoon{% endtrans %} {{ app.user.person.givenName }}</h3>
+            {% elseif (date().timestamp|date("H:i") >= "17" and date().timestamp|date("H:i") < "23:59")  %}
+                <h3>{% trans %}Good evening{% endtrans %} {{ app.user.person.givenName }}</h3>
+            {% elseif (date().timestamp|date("H:i") >= "00" and date().timestamp|date("H:i") < "06") %}
+                <h3>{% trans %}Good night{% endtrans %} {{ app.user.person.givenName }}</h3>
+            {% endif %}
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Profile -->
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header" id="statistics">
+                    <span class="align-middle">
+                        <i class="mdi mdi-account-card-details-outline"></i> {% trans %}My profile{% endtrans %}
+                            <a class="btn btn-primary btn-xs float-right" href="{{ path('myprofile_edit') }}" role="button"><i class="mdi mdi-pencil"></i></a>
+                    </span>
+                </div>
+
+                <div class="card-body">
+                    <h5>{{ profile.givenName }} {{ profile.additionalName }} {{ profile.familyName }}</h5>
+                    <br>
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                        <tr>
+                            <td><b>{% trans %}Birth date{% endtrans %}</b></td>
+                            <td>{{ profile.birthDate ? profile.birthDate | date('d-m-Y') }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>{% trans %}Gender{% endtrans %}</b></td>
+                            <td>
+                                {% if profile.gender == "Male" %}
+                                    {% trans %}Male{% endtrans %}
+                                {% elseif profile.gender == "Female"%}
+                                    {% trans %}Female{% endtrans %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>{% trans %}Email{% endtrans %}</b></td>
+                            <td>{{profile.email}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>{% trans %}Telephone{% endtrans %}</b></td>
+                            <td>{{profile.telephone}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>{% trans %}Telephone 2{% endtrans %}</b></td>
+                            <td>{{profile.telephone2}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><b>{% trans %}Street address{% endtrans %}</b></td>
+                            <td>{{profile.streetAddress}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>{% trans %}Postal code{% endtrans %}</b></td>
+                            <td>{{profile.postalCode}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>{% trans %}Address locality{% endtrans %}</b></td>
+                            <td>{{profile.addressLocality}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>{% trans %}Address country{% endtrans %}</b></td>
+                            <td>
+                                {%if profile.addressCountry is not empty %}
+                                    {{profile.addressCountry|country_name }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header" id="statistics">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Applications{% endtrans %}
+			</span>
+                </div>
+
+                <div class="card-body">
+                    <!-- Drive -->
+                    <a href="https://drive.sintgabriel.nl" title="Drive" target="_blank" class="mfl-tile mfl-primary">
+                        <span class="icon mdi mdi-cloud-outline"></span>
+                        <span class="tile-label">Drive</span>
+                    </a>
+
+                    <!-- Email -->
+                    <a href="https://email.sintgabriel.nl" title="Email" target="_blank" class="mfl-tile mfl-primary">
+                        <span class="icon mdi mdi-email"></span>
+                        <span class="tile-label">Email</span>
+                    </a>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header" id="statistics">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Activities for the next 14 days{% endtrans %}
+
+			</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="card-body">
+                        <table id="datatable" class="table table-striped table-bordered" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th class="all">{% trans %}About{% endtrans %}</th>
+                                <th class="desktop">{% trans %}Date{% endtrans %}</th>
+                                <th class="desktop">{% trans %}Time{% endtrans %}</th>
+                                <th class="desktop">{% trans %}Location{% endtrans %}</th>
+                                <th class="desktop">{% trans %}eventStatus{% endtrans %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for event in events %}
+                                <tr>
+                                    <td><a href="{{ path('event_id', {'id': event.id}) }}">{{ event.about|truncate(25) }}</a></td>
+                                    <td>{{ event.startDate | date('d-m-Y') }}</td>
+                                    <td>{{ event.startTime | date('H:i') }} - {{ event.endTime | date('H:i') }}</td>
+                                    <td>{{ event.location.venue }}</td>
+                                    <td>
+                                        {% if event.eventStatus == 'Confirmed'  %}
+                                            <span class="badge badge-success">{% trans %}Confirmed{% endtrans %}</span>
+                                        {% endif %}
+                                        {% if event.eventStatus == 'Tentative'  %}
+                                            <span class="badge badge-secondary">{% trans %}Tentative{% endtrans %}</span>
+                                        {% endif %}
+                                        {% if event.eventStatus == 'Cancelled'  %}
+                                            <span class="badge badge-danger">{% trans %}Canceled{% endtrans %}</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
 
 {% endblock %}
 
 {% block javascripts %}
 
-	{{ parent() }}
-	
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var table = $('#profiletable-buttons').dataTable({
-                lengthChange: false,
-                "pageLength": 50,
-                "columnDefs": [
-				    { "orderable": true, "targets": 0 }
-				  ],
-                "order": [[ 1, "asc" ]],
-            });
-        });
-    </script>
-    
+    {{ parent() }}
+
 {% endblock %}

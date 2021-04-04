@@ -7,7 +7,7 @@
 	<div class="d-flex justify-content-between flex-row">
 		<div class="p-2">
 			{% if 'create' in app.request.uri  %}
-				<h3>{% trans %}add_person{% endtrans %}</h3>
+				<h3>{% trans %}Add_offer{% endtrans %}</h3>
 			{% endif %}
 			{% if 'edit' in app.request.uri  %}
 				<h3>{{ data.alternateName }} - {% trans %}Edit{% endtrans %}</h3>
@@ -18,7 +18,7 @@
 			<div class="btn-group float-right">
 				<button type="submit" class="btn btn-primary btn-sm"><i class="mdi mdi-content-save"></i> {% trans %}Save{% endtrans %}</button>
 				{% if 'create' in app.request.uri  %}
-					<a href="{{ path('service') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
+					<a href="{{ path('service_id', {'id': id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
 				{% endif %}
 				{% if 'edit' in app.request.uri  %}
 					<a href="{{ path('service_id', {'id': id}) }}" class="btn btn-primary btn-sm"><i class="mdi mdi-close"></i> {% trans %}Close{% endtrans %}</a>
