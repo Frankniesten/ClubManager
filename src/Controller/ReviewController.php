@@ -97,7 +97,6 @@ class ReviewController extends AbstractController
 
 	/**
 	* @Route("/{entity}/{id}/review/{reviewID}/edit", name="review_edit")
-	* @IsGranted("ROLE_REVIEW_EDIT")
 	*/
 	public function edit(EntityManagerInterface $em, Request $request, $entity, $id, $reviewID, TranslatorInterface $translator)
 	{
