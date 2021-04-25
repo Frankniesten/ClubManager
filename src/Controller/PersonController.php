@@ -119,7 +119,6 @@ class PersonController extends AbstractController
         $log = $em->find('App\Entity\Person', $id);
         $logs = $repo->getLogEntries($log);
 
-        dump($data);
         return $this->render('person/person.html.twig', [
             'data' => $data,
             'logs' => $logs
