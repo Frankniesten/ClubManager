@@ -8,8 +8,8 @@
 				{% endif %}
 				<th class="all">{% trans %}Donation{% endtrans %}</th>
 				<th class="desktop">{% trans %}Date{% endtrans %}</th>
-				<th class="desktop">{% trans %}Transaction id{% endtrans %}</th>
                 <th class="desktop">{% trans %}Amount{% endtrans %}</th>
+				<th class="desktop">{% trans %}Donor{% endtrans %}</th>
 				<th class="all">{% trans %}Consumer name{% endtrans %}</th>
 				<th class="desktop">{% trans %}Bank account{% endtrans %}</th>
 				<th class="desktop">{% trans %}Status{% endtrans %}</th>
@@ -49,11 +49,16 @@
 				<td data-order="{{ donations.donationDate | date('Y/m/d') }}">
 					{{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}
 			    </td>
-				<td>
-					<a href="{{ donations.url }}" target="_blank">{{ donations.transactionId }}</a>
-				</td>
 			    <td>
 					€{{ donations.amount }}
+				</td>
+				<td>
+					{% if donations.person is not empty %}
+						<a href="{{ path('person_id', { 'id': donations.person.id }) }}">{{ donations.person.familyName }}, {{ donations.person.givenName }} {{ donations.person.additionalName }}</a>
+					{% endif %}
+					{% if donations.organization is not empty %}
+						<a href="{{ path('organization_id', { 'id': donations.organization.id }) }}">{{ donations.organization.legalName }}</a>
+					{% endif %}
 				</td>
 			    <td>
 					{% if donations.bankAccount is not empty %}
