@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Serializer\Filter\PropertyFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,14 +16,24 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\ProgramMembershipRepository")
+ * @ApiFilter(DateFilter::class, properties={"createdAt", "updatedAt", "deletedAt": "EXCLUDE_NULL" })
+ * @ApiFilter(PropertyFilter::class, arguments={"parameterName": "properties", "overrideDefaultProperties": false, "whitelist": null})
  * @Gedmo\Loggable
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class ProgramMembership
 {
 	
 	use TimestampableEntity;
 	use BlameableEntity;
-	
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

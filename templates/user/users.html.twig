@@ -29,6 +29,7 @@
 					<th class="all">{% trans %}Person{% endtrans %}</th>
 					<th class="desktop">{% trans %}username{% endtrans %}</th>
 					<th class="desktop">{% trans %}displayName{% endtrans %}</th>
+					<th class="desktop">{% trans %}Permissions{% endtrans %}</th>
 				</tr>
 				</thead>
 
@@ -67,6 +68,204 @@
 						</td>
 						<td>
 							{{ data.displayName }}
+						</td>
+						<td>
+							{% set ROLE_PERSON_VIEW = false %}
+							{% set ROLE_PERSON_EDIT = false %}
+							{% set ROLE_PERSON_CREATE = false %}
+							{% set ROLE_PERSON_DELETE = false %}
+							{% set ROLE_EVENT_VIEW = false %}
+							{% set ROLE_EVENT_EDIT = false %}
+							{% set ROLE_EVENT_CREATE = false %}
+							{% set ROLE_EVENT_DELETE = false %}
+							{% set ROLE_PRODUCT_VIEW = false %}
+							{% set ROLE_PRODUCT_CREATE = false %}
+							{% set ROLE_PRODUCT_EDIT = false %}
+							{% set ROLE_PRODUCT_DELETE = false %}
+							{% set ROLE_SERVICES_VIEW = false %}
+							{% set ROLE_SERVICES_EDIT = false %}
+							{% set ROLE_SERVICES_CREATE = false %}
+							{% set ROLE_SERVICES_DELETE = false %}
+							{% set ROLE_SETTINGS_VIEW = false %}
+							{% set ROLE_SETTINGS_EDIT = false %}
+							{% set ROLE_SETTINGS_CREATE = false %}
+							{% set ROLE_SETTINGS_DELETE = false %}
+							{% set ROLE_DASHBOARD_VIEW = false %}
+							{% set ROLE_STATISTICS_VIEW = false %}
+							{% set ROLE_USER = false %}
+
+
+							{% for role in data.roles %}
+
+								{% if role == 'ROLE_PERSON_VIEW' %}
+									{% set ROLE_PERSON_VIEW = true %}
+								{% endif %}
+								{% if role == 'ROLE_PERSON_EDIT' %}
+									{% set ROLE_PERSON_EDIT = true %}
+								{% endif %}
+								{% if role == 'ROLE_PERSON_CREATE' %}
+									{% set ROLE_PERSON_CREATE = true %}
+								{% endif %}
+								{% if role == 'ROLE_PERSON_DELETE' %}
+									{% set ROLE_PERSON_DELETE = true %}
+								{% endif %}
+
+								{% if role == 'ROLE_EVENT_VIEW' %}
+									{% set ROLE_EVENT_VIEW = true %}
+								{% endif %}
+								{% if role == 'ROLE_EVENT_EDIT' %}
+									{% set ROLE_EVENT_EDIT = true %}
+								{% endif %}
+								{% if role == 'ROLE_EVENT_CREATE' %}
+									{% set ROLE_EVENT_CREATE = true %}
+								{% endif %}
+								{% if role == 'ROLE_EVENT_DELETE' %}
+									{% set ROLE_EVENT_DELETE = true %}
+								{% endif %}
+
+								{% if role == 'ROLE_PRODUCT_VIEW' %}
+									{% set ROLE_PRODUCT_VIEW = true %}
+								{% endif %}
+								{% if role == 'ROLE_PRODUCT_CREATE' %}
+									{% set ROLE_PRODUCT_CREATE = true %}
+								{% endif %}
+								{% if role == 'ROLE_PRODUCT_EDIT' %}
+									{% set ROLE_PRODUCT_EDIT = true %}
+								{% endif %}
+								{% if role == 'ROLE_PRODUCT_DELETE' %}
+									{% set ROLE_PRODUCT_DELETE = true %}
+								{% endif %}
+
+								{% if role == 'ROLE_SERVICES_VIEW' %}
+									{% set ROLE_SERVICES_VIEW = true %}
+								{% endif %}
+								{% if role == 'ROLE_SERVICES_EDIT' %}
+									{% set ROLE_SERVICES_EDIT = true %}
+								{% endif %}
+								{% if role == 'ROLE_SERVICES_CREATE' %}
+									{% set ROLE_SERVICES_CREATE = true %}
+								{% endif %}
+								{% if role == 'ROLE_SERVICES_DELETE' %}
+									{% set ROLE_SERVICES_DELETE = true %}
+								{% endif %}
+
+								{% if role == 'ROLE_SETTINGS_VIEW' %}
+									{% set ROLE_SETTINGS_VIEW = true %}
+								{% endif %}
+								{% if role == 'ROLE_SETTINGS_EDIT' %}
+									{% set ROLE_SETTINGS_EDIT = true %}
+								{% endif %}
+								{% if role == 'ROLE_SETTINGS_CREATE' %}
+									{% set ROLE_SETTINGS_CREATE = true %}
+								{% endif %}
+								{% if role == 'ROLE_SETTINGS_DELETE' %}
+									{% set ROLE_SETTINGS_DELETE = true %}
+								{% endif %}
+
+								{% if role == 'ROLE_DASHBOARD_VIEW' %}
+									{% set ROLE_DASHBOARD_VIEW = true %}
+								{% endif %}
+								{% if role == 'ROLE_STATISTICS_VIEW' %}
+									{% set ROLE_STATISTICS_VIEW = true %}
+								{% endif %}
+
+								{% if role == 'ROLE_USER' %}
+									{% set ROLE_USER = true %}
+								{% endif %}
+
+							{% endfor %}
+
+
+							{% if ROLE_PERSON_VIEW is defined  %}
+
+							{% endif %}
+
+							<div class="container">
+								<div class="row">
+									<div class="col">
+										{% trans %}Navbar_dashboard{% endtrans %}
+									</div>
+									<div class="col">
+										<i class="mdi mdi-folder-information {% if ROLE_DASHBOARD_VIEW == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col">
+										{% trans %}Navbar_relations{% endtrans %}
+									</div>
+									<div class="col">
+											<i class="mdi mdi-folder-information {% if ROLE_PERSON_VIEW == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+											<i class="mdi mdi-folder-plus {% if ROLE_PERSON_CREATE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+											<i class="mdi mdi-folder-edit {% if ROLE_PERSON_EDIT == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+											<i class="mdi mdi-folder-remove {% if ROLE_PERSON_DELETE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									</div>
+								</div>
+
+							<div class="row">
+								<div class="col">
+									{% trans %}Event{% endtrans %}
+								</div>
+								<div class="col">
+									<i class="mdi mdi-folder-information {% if ROLE_EVENT_VIEW == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-plus {% if ROLE_EVENT_CREATE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-edit {% if ROLE_EVENT_EDIT == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-remove {% if ROLE_EVENT_DELETE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									{% trans %}Navbar_products{% endtrans %}
+								</div>
+								<div class="col">
+									<i class="mdi mdi-folder-information {% if ROLE_PRODUCT_VIEW == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-plus {% if ROLE_PRODUCT_CREATE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-edit {% if ROLE_PRODUCT_EDIT == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-remove {% if ROLE_PRODUCT_DELETE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									{% trans %}Revenue{% endtrans %}
+								</div>
+								<div class="col">
+									<i class="mdi mdi-folder-information {% if ROLE_SERVICES_VIEW == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-plus {% if ROLE_SERVICES_CREATE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-edit {% if ROLE_SERVICES_EDIT == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-remove {% if ROLE_SERVICES_DELETE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									{% trans %}Navbar_statistics{% endtrans %}
+								</div>
+								<div class="col">
+									<i class="mdi mdi-folder-information {% if ROLE_STATISTICS_VIEW == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col">
+									{% trans %}Navbar_settings{% endtrans %}
+								</div>
+								<div class="col">
+									<i class="mdi mdi-folder-information {% if ROLE_SETTINGS_VIEW == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-plus {% if ROLE_SETTINGS_CREATE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-edit {% if ROLE_SETTINGS_EDIT == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+									<i class="mdi mdi-folder-remove {% if ROLE_SETTINGS_DELETE == true %} text-primary {% else %} text-secondary {% endif %}"></i>
+								</div>
+							</div>
+
+		</div>
+
+
+
+
+
+
 						</td>
 					</tr>
 				{% endfor %}

@@ -17,12 +17,20 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass="App\Repository\ProductsRepository")
  * @Gedmo\Loggable
  * @Vich\Uploadable
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Products
 {
 	use TimestampableEntity;
 	use BlameableEntity;
-	
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

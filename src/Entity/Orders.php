@@ -15,12 +15,20 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\OrdersRepository")
  * @Gedmo\Loggable
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Orders
 {
 	use TimestampableEntity;
 	use BlameableEntity;
-	
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

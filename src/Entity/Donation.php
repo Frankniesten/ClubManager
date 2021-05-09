@@ -17,11 +17,19 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * @ApiFilter(SearchFilter::class, properties={"id": "exact", "transactionId": "exact", "orderId": "exact"})
  * @ORM\Entity(repositoryClass=DonationRepository::class)
  * @Gedmo\Loggable
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Donation
 {
     use TimestampableEntity;
     use BlameableEntity;
+
+    /**
+     * @var \DateTime $deletedAt
+     *
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+     */
+    private $deletedAt;
 
     /**
      * @ORM\Id
