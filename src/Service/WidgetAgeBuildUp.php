@@ -40,6 +40,10 @@ class WidgetAgeBuildUp extends AbstractController
         {
 
             $birthdate = $value->getBirthDate();
+            if ($birthdate == NULL) {
+                continue;
+            }
+
             $birthdate = $birthdate->format('Y');
 
 
