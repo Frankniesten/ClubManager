@@ -186,7 +186,7 @@ class PersonController extends AbstractController
 
     /**
      * @Route("/myprofile/edit", name="myprofile_edit")
-     * @IsGranted("ROLE_PERSON_EDIT")
+     * @IsGranted("ROLE_DASHBOARD_VIEW")
      */
     public function editProfile(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
     {
