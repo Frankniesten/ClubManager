@@ -124,6 +124,11 @@ class Products
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $url;
+
     public function __construct()
     {
         $this->review = new ArrayCollection();
@@ -413,6 +418,18 @@ class Products
                 $image->setProducts(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }

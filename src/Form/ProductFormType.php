@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Products;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -27,6 +28,7 @@ class ProductFormType extends AbstractType
 			->add('uniqueProduct', CheckboxType::class, ['required' => false, 'attr' => ['data-plugin' => 'switchery']])
 			->add('identifier', TextType::class, ['required' => false])
             ->add('additionalProperty', TextType::class, ['required' => false])
+            ->add('url', UrlType::class, ['required' => false])
 			->add('category', EntityType::class, array(
 					    'class' => Category::class,
 					    'query_builder' => function (EntityRepository $er) {

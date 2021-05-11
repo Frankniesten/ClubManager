@@ -34,6 +34,10 @@
         <td>{{data.additionalProperty}}</td>
     </tr>
     <tr>
+        <td><b>{% trans %}Url{% endtrans %}</b></td>
+        <td><a href="{{data.url}}" target="_blank">{{data.url}}</a></td>
+    </tr>
+    <tr>
         <td><b>{% trans %}Type{% endtrans %}</b></td>
         <td>
             {% if data.uniqueProduct == true  %}

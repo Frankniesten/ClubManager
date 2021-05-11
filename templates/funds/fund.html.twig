@@ -111,7 +111,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-            var table = $('#datatable-donations').DataTable({
+            var table = $('#datatable-donation').DataTable({
                 lengthChange: false,
                 pageLength: 50,
                 {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
@@ -125,14 +125,15 @@
                 ],
                 order: [[1, "desc"]],
                 {%  endif %}
+
                 buttons: [
                     {
                         extend: 'csv',
                         exportOptions: {
                             {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
-                            columns: [1, 2, 3, 4, 5, 6]
+                            columns: [1, 2, 3, 4, 5, 6,7]
                             {%  else %}
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5,6]
                             {% endif %}
                         }
                     },
@@ -140,9 +141,9 @@
                         extend: 'print',
                         exportOptions: {
                             {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
-                            columns: [1, 2, 3, 4, 5, 6]
+                            columns: [1, 2, 3, 4, 5, 6, 7]
                             {%  else %}
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                             {% endif %}
                         }
                     },
@@ -153,9 +154,9 @@
                         pageSize: 'A4',
                         exportOptions: {
                             {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
-                            columns: [1, 2, 3, 4, 5, 6]
+                            columns: [1, 2, 3, 4, 5, 6, 7]
                             {%  else %}
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [0, 1, 2, 3, 4, 5, 6]
                             {% endif %}
                         }
                     }],
