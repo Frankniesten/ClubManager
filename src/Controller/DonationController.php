@@ -8,6 +8,7 @@ use App\Entity\Organization;
 use App\Form\DonationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -15,6 +16,22 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DonationController extends AbstractController
 {
+    /**
+     * @Route("/donation", name="donations")
+     * @IsGranted("ROLE_SERVICES_VIEW")
+     */
+    public function donations(): Response
+    {
+        $data = $this->getDoctrine()
+            ->getRepository(Donation::class)
+            ->findAll();
+
+        return $this->render('donation/donations.html.twig', [
+            'data' => $data,
+            'club_name' => getenv('CLUB_NAME'),
+        ]);
+    }
+
     /**
      * @Route("/funds/{id}/donation/create", name="funds_donation_create")
      * @IsGranted("ROLE_SERVICES_CREATE")
@@ -62,14 +79,9 @@ class DonationController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $data = $em->getRepository(Donation::class)->find($donationId);
 
-
-
-
         if (!$data) {
             throw $this->createNotFoundException();
         }
-
-
 
         return $this->render('funds/funds-donation.html.twig', [
             'data' => $data,

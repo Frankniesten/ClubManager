@@ -149,7 +149,7 @@
                     },
                     {
                         extend: 'pdfHtml5',
-                        title: '{{ club_name }} - {% trans %}Donations{% endtrans %} - v{{ "now"|date("m-d-y") }}',
+                        title: '{{ club_name }} - {% trans %}Donations{% endtrans %} {{ data.fundName }} - v{{ "now"|date("m-d-y") }}',
                         orientation: 'landscape',
                         pageSize: 'A4',
                         exportOptions: {
@@ -167,7 +167,7 @@
                 {%  endif %}
                 initComplete: function () {
                     setTimeout( function () {
-                        table.buttons().container().appendTo( '#datatable-buttons_wrapper .col-md-6:eq(0)' );
+                        table.buttons().container().appendTo( '#datatable-donation_wrapper .col-md-6:eq(0)' );
                     }, 10 );
                 }
             });

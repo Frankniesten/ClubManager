@@ -1,0 +1,189 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2"><h3>{% trans %}Donations{% endtrans %}</h3></div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Content -->
+    <div class="card">
+        <div class="card-body">
+
+            <!--Table -->
+            <table id="datatable-donation" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    {% if is_granted('ROLE_SERVICES_EDIT') %}
+                        <th width="20px"></th>
+                    {% endif %}
+                    <th class="all">{% trans %}Donation{% endtrans %}</th>
+                    <th class="all">{% trans %}Fund name{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Date{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Amount{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Donor{% endtrans %}</th>
+                    <th class="all">{% trans %}Consumer name{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Bank account{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Status{% endtrans %}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for donations in data %}
+                    <tr>
+                        {% if is_granted('ROLE_SERVICES_EDIT') %}
+                            <td align="center">
+                                <!-- Dropdown menu -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-xs dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                    <div class="dropdown-menu">
+                                        {% if is_granted('ROLE_SERVICES_EDIT') %}
+                                            <a class="dropdown-item" href=""><i
+                                                        class="mdi mdi-pencil"></i> {% trans %}Edit{% endtrans %}</a>
+                                        {% endif %}
+                                        {% if is_granted('ROLE_SERVICES_DELETE') %}
+                                            <a class="dropdown-item" href=""
+                                               onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}');"><i
+                                                        class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!-- End dropdown menu -->
+
+                            </td>
+                        {% endif %}
+                        <td>
+                            <a href="{{ path('funds_donation_view', {'id': donations.orderId.id, 'donationId': donations.id}) }}">#{{ donations.id }}</a>
+                        </td>
+                        <td>
+                            {{ donations.orderId.fundName }}
+                        </td>
+                        <td data-order="{{ donations.donationDate | date('Y/m/d') }}">
+                            {{ donations.donationDate ? donations.donationDate | date('d-m-Y') }}
+                        </td>
+                        <td>
+                            €{{ donations.amount }}
+                        </td>
+                        <td>
+                            {% if donations.person is not empty %}
+                                <a href="{{ path('person_id', { 'id': donations.person.id }) }}">{{ donations.person.familyName }}, {{ donations.person.givenName }} {{ donations.person.additionalName }}</a>
+                            {% endif %}
+                            {% if donations.organization is not empty %}
+                                <a href="{{ path('organization_id', { 'id': donations.organization.id }) }}">{{ donations.organization.legalName }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if donations.bankAccount is not empty %}
+                                <a href="">{{ donations.bankAccount.consumerName }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if donations.bankAccount is not empty %}
+                                {{ donations.bankAccount.consumerAccount }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if donations.donationStatus == "In progress" %}
+                                <span class="badge badge-info">{{ donations.donationStatus }}</span>
+                            {% endif %}
+                            {% if donations.donationStatus == "Finished" %}
+                                <span class="badge badge-success">{{ donations.donationStatus }}</span>
+                            {% endif %}
+                            {% if donations.donationStatus == "Canceled" %}
+                                <span class="badge badge-secondary">{{ donations.donationStatus }}</span>
+                            {% endif %}
+                            {% if donations.donationStatus == "On hold" %}
+                                <span class="badge badge-danger">{{ donations.donationStatus }}</span>
+                            {% endif %}
+                            {% if donations.donationStatus == "Refunded" %}
+                                <span class="badge badge-secondary">{{ donations.donationStatus }}</span>
+                            {% endif %}
+                            {% if donations.donationStatus == "Waiting for payment" %}
+                                <span class="badge badge-primary">{{ donations.donationStatus }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var table = $('#datatable-donation').DataTable({
+                lengthChange: false,
+                pageLength: 50,
+
+                {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                columnDefs: [
+                    {"orderable": false, "targets": 0}
+                ],
+                order: [[1, "asc"]],
+                {%  else %}
+                columnDefs: [
+                    {"orderable": true, "targets": 0}
+                ],
+                order: [[0, "asc"]],
+                {%  endif %}
+                buttons: [
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                            {%  else %}
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                            {% endif %}
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                            {%  else %}
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                            {% endif %}
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        title: '{{ club_name }} - {% trans %}Donations{% endtrans %} - v{{ "now"|date("m-d-y") }}',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        exportOptions: {
+                            {% if is_granted('ROLE_SERVICES_EDIT') or is_granted('ROLE_SERVICES_DELETE') %}
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                            {%  else %}
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                            {% endif %}
+                        }
+                    }],
+                {% if app.request.getLocale() == 'nl' %}
+                language: {
+                    url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+                },
+                {%  endif %}
+                initComplete: function () {
+                    setTimeout( function () {
+                        table.buttons().container().appendTo( '#datatable-donation_wrapper .col-md-6:eq(0)' );
+                    }, 10 );
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Donation;
 use App\Entity\Funds;
 use App\Form\FundsFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -133,4 +134,5 @@ class FundsController extends AbstractController
 
         return $this->redirectToRoute('funds');
     }
+
 }
