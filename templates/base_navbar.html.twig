@@ -97,11 +97,10 @@
                     <a class="dropdown-item {% if  'musical_instrument' in app.request.get('_route')%}active{% endif %}" href="{{ path('musical_instrument') }}">{% trans %}Navbar_musicalInstrument{% endtrans %}</a>
                 </div>
             </li>
-
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="https://frankniesten.github.io/ClubManager/" target="_blank"><i class="mdi mdi-help-circle"></i> {% trans %}Support{% endtrans %}</a>
             </li>
-            {% endif %}
         </ul>
     </div>
 </nav>
