@@ -76,7 +76,7 @@ class ProductsController extends AbstractController
 
             $this->addFlash('success', $data->getName() . ' ' . $translator->trans('flash_message_create'));
 
-            return $this->redirectToRoute('product', array('id' => $id));
+            return $this->redirectToRoute('product_id', array('id' => $id));
         }
 
         return $this->render('products/productForm.html.twig', [
@@ -138,7 +138,7 @@ class ProductsController extends AbstractController
 
             $this->addFlash('success', $data->getName() . ' ' . $translator->trans('flash_message_edit'));
 			
-			return $this->redirectToRoute('product', array('id' => $id));
+			return $this->redirectToRoute('product_id', array('id' => $id));
 		}
 		
 		return $this->render('products/productForm.html.twig', [
