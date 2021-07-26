@@ -41,7 +41,11 @@ class UserController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid()) {
 
             $data = $form->getData();
-            $data->setUsername(strtolower($data->getPerson()->getGivenName().$data->getPerson()->getFamilyName()));
+
+            $username = strtolower($data->getPerson()->getGivenName().$data->getPerson()->getFamilyName());
+            $username = str_replace(" ", "-", $username);
+
+            $data->setUsername($username);
             $data->setDisplayName($data->getPerson()->getFamilyName().', '.$data->getPerson()->getGivenName().' '.$data->getPerson()->getAdditionalName());
 			
 			$em->persist($data);

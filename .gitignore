@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env
 /.env.local
@@ -15,11 +14,6 @@
 .phpunit
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-
-###> symfony/web-server-bundle ###
-/.web-server-pid
-###< symfony/web-server-bundle ###
-
 ###> friendsofphp/php-cs-fixer ###
 /.php_cs
 /.php_cs.cache
@@ -30,3 +24,8 @@
 ###< liip/imagine-bundle ###
 /public/images/product/*
 .env
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###

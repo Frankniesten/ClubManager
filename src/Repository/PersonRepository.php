@@ -4,7 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Person;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\Persistence\ManagerRegistry;
+
 
 
 /**
@@ -15,7 +16,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class PersonRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Person::class);
     }
@@ -146,6 +147,21 @@ class PersonRepository extends ServiceEntityRepository
             ->innerJoin('p.tag', 'i')
             ->andWhere('i.tag = :val')
             ->andWhere('p.deathDate is NULL')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    // /**
+    //  * @return Person[] Returns an array of children.
+    //  */
+    public function findChildren($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.parents', 'i')
+            ->andWhere('i.id = :val')
             ->setParameter('val', $value)
             ->orderBy('p.id', 'ASC')
             ->getQuery()

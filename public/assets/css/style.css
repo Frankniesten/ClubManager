@@ -1942,7 +1942,7 @@ fieldset:disabled a.btn {
 
 .btn-link:hover {
     color: #4f4f4f;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .btn-link:focus, .btn-link.focus {
@@ -1974,6 +1974,13 @@ fieldset:disabled a.btn {
     font-size: 0.8rem;
     line-height: 1.5;
     border-radius: 0.2rem;
+}
+
+.btn-ms {
+    padding: 0px;
+    font-size: 1rem;
+    line-height: 1;
+    border: 0px;
 }
 
 .btn-block {

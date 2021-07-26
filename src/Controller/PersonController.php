@@ -185,22 +185,20 @@ class PersonController extends AbstractController
 
 
     /**
-     * @Route("/myprofile/edit", name="myprofile_edit")
+     * @Route("/myprofile/{id}/edit", name="myprofile_edit")
      * @IsGranted("ROLE_DASHBOARD_VIEW")
      */
-    public function editProfile(EntityManagerInterface $em, Request $request, TranslatorInterface $translator)
+    public function editProfile(EntityManagerInterface $em, Request $request, $id, TranslatorInterface $translator)
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $user = $this->getUser();
-
-        $id=$user->getPerson();
-
         $em = $this->getDoctrine()->getManager();
         $data = $em->getRepository(Person::class)->find($id);
 
         if (!$data) {
             throw $this->createNotFoundException();
         }
+
+        //Check if editor has the right permissions.
+        $this->denyAccessUnlessGranted('edit', $data);
 
         $form = $this->createForm(MyProfileFormType::class, $data);
 

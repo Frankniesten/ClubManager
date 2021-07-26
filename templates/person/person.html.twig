@@ -193,7 +193,8 @@
 			</span>
 			{% if is_granted('ROLE_PERSON_CREATE') and data.deathDate == false %}
 
-				{% set button = false %}
+				{% set button = true %}
+
 				{% for membership in data.membership %}
 
 					{% if membership.endDate is null %}
@@ -201,7 +202,9 @@
 					{% else %}
 						{% set button = true %}
 					{% endif %}
+
 				{% endfor %}
+
 				{% if button == true %}
 					<a class="btn btn-primary btn-sm float-right" href="{{ path('person_membership_create', {'id': data.id}) }}" role="button"><i class="mdi mdi-pencil-plus"></i></a>
 				{% endif %}

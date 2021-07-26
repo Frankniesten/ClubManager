@@ -24,7 +24,9 @@ class DonationRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('d')
             ->andWhere('d.orderId = :val')
+            ->andWhere('d.donationStatus = :status')
             ->setParameter('val', $value)
+            ->setParameter('status', 'Finished')
             ->orderBy('d.donationDate', 'ASC')
             ->getQuery()
             ->getResult()
