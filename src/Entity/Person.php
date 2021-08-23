@@ -882,7 +882,7 @@ class Person
     /**
      * @return Collection|Presence[]
      */
-    public function getPresences(): ?Collection
+    public function getPresences(): Collection
     {
         return $this->presences;
     }
