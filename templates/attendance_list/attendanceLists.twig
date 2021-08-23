@@ -1,0 +1,151 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2"><h3>{% trans %}AttendeeLists{% endtrans %}</h3></div>
+        <div class="p-2">
+            {% if is_granted('ROLE_EVENT_CREATE') %}
+                <a class="btn btn-primary btn-sm float-right" href="{{ path('attendance_list_create') }}" role="button"><i class="mdi mdi-plus"></i> {% trans %}List_add{% endtrans %}</a>
+            {% endif %}
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Content -->
+    <div class="card">
+        <div class="card-body">
+
+
+            <!--Table -->
+            <table id="datatable-buttons" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    {% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
+                        <th width="20px"></th>
+                    {% endif %}
+                    <th class="all">{% trans %}List name{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Event{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Date{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Program membership{% endtrans %}</th>
+                    <th class="desktop">{% trans %}Statistics{% endtrans %}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {% for data in data %}
+
+                    {% set aanwezig = 0 %}
+                    {% set afgemeld = 0 %}
+                    {% set afwezig = 0 %}
+
+
+                    {% for data in data.presence %}
+
+                        {%  if data.status == 1 %}
+                            {% set aanwezig = aanwezig + 1 %}
+                        {%  endif %}
+
+                        {%  if data.status == 2 %}
+                            {% set afgemeld = afgemeld + 1 %}
+                        {%  endif %}
+
+                        {%  if data.status == 3 %}
+                            {% set afwezig = afwezig + 1 %}
+                        {%  endif %}
+
+                    {% endfor %}
+
+                    {% set percentage = (aanwezig / data.presence | length) * 100 %}
+
+                    <tr>
+                        {% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
+                            <td align="center">
+                                <!-- Dropdown menu -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-xs dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                    <div class="dropdown-menu">
+                                        {% if is_granted('ROLE_EVENT_DELETE') %}
+                                            <a class="dropdown-item" href="{{ path('attendance_list_delete', {'id': data.id }) }}"
+                                               onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.listName }}');"><i
+                                                        class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!-- End dropdown menu -->
+                            </td>
+                        {% endif %}
+
+                        <td>
+                            {% set total = aanwezig+afgemeld+afwezig %}
+
+                            {% if  data.presence | length != total %}
+                                <i class="mdi mdi-alert-circle-outline text-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Lijst is niet volledig ingevuld!"></i>
+                            {% else %}
+                                <i class="mdi mdi-check-circle-outline text-success"></i>
+                            {%  endif %}
+                            <a href="{{ path('attendance_list_id', {'id': data.id }) }}">{{ data.listName }}</a>
+                        </td>
+                        <td>
+                            {{ data.event.about }}
+                        </td>
+                        <td data-order="{{ data.event.startDate | date('Y/m/d') }}">
+                            {{ data.event.startDate | date('d-m-Y')  }}
+                        </td>
+                        <td>
+                            {{ data.programMembership.programName }}
+                        </td>
+                        <td>
+                            <span class="badge badge-primary">{{ percentage | round (1, 'common')}}% {% trans %}Present{% endtrans %}</span>
+                            <span class="badge badge-secondary">{{ aanwezig }} {% trans %}Present{% endtrans %}</span>
+                            <span class="badge badge-secondary">{{ afgemeld }} {% trans %}Signed off{% endtrans %}</span>
+                            <span class="badge badge-secondary">{{ afwezig }} {% trans %}Absent{% endtrans %}</span>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var table = $('#datatable-buttons').DataTable({
+                lengthChange: false,
+                pageLength: 50,
+                {% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
+                columnDefs: [
+                    {"orderable": false, "targets": 0}
+                ],
+                order: [[3, "desc"]],
+                {%  else %}
+                columnDefs: [
+                    {"orderable": true, "targets": 0}
+                ],
+                order: [[2, "desc"]],
+                {%  endif %}
+
+                {% if app.request.getLocale() == 'nl' %}
+                language: {
+                    url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+                },
+                {%  endif %}
+                initComplete: function () {
+                    setTimeout( function () {
+                        table.buttons().container().appendTo( '#datatable-buttons_wrapper .col-md-6:eq(0)' );
+                    }, 10 );
+                }
+            });
+        });
+    </script>
+{% endblock %}
