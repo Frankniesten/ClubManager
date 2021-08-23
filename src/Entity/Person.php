@@ -229,6 +229,11 @@ class Person
      */
     private $deathDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Presence::class, mappedBy="person")
+     */
+    private $presences;
+
 
     public function __construct()
     {
@@ -247,6 +252,7 @@ class Person
         $this->bankAccounts = new ArrayCollection();
         $this->donations = new ArrayCollection();
         $this->tag = new ArrayCollection();
+        $this->presences = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -869,6 +875,36 @@ class Person
     public function setDeathDate(?\DateTimeInterface $deathDate): self
     {
         $this->deathDate = $deathDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Presence[]
+     */
+    public function getPresences(): Collection
+    {
+        return $this->presences;
+    }
+
+    public function addPresence(Presence $presence): self
+    {
+        if (!$this->presences->contains($presence)) {
+            $this->presences[] = $presence;
+            $presence->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresence(Presence $presence): self
+    {
+        if ($this->presences->removeElement($presence)) {
+            // set the owning side to null (unless already changed)
+            if ($presence->getPerson() === $this) {
+                $presence->setPerson(null);
+            }
+        }
 
         return $this;
     }

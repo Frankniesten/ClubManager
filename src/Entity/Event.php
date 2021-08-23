@@ -162,6 +162,11 @@ class Event
      */
     private $attendee;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AttendanceList::class, mappedBy="Event")
+     */
+    private $attendanceLists;
+
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -172,6 +177,7 @@ class Event
         $this->sponsor = new ArrayCollection();
         $this->contributor = new ArrayCollection();
         $this->attendee = new ArrayCollection();
+        $this->attendanceLists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -531,6 +537,36 @@ class Event
     {
         if ($this->attendee->contains($attendee)) {
             $this->attendee->removeElement($attendee);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AttendanceList[]
+     */
+    public function getAttendanceLists(): Collection
+    {
+        return $this->attendanceLists;
+    }
+
+    public function addAttendanceList(AttendanceList $attendanceList): self
+    {
+        if (!$this->attendanceLists->contains($attendanceList)) {
+            $this->attendanceLists[] = $attendanceList;
+            $attendanceList->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttendanceList(AttendanceList $attendanceList): self
+    {
+        if ($this->attendanceLists->removeElement($attendanceList)) {
+            // set the owning side to null (unless already changed)
+            if ($attendanceList->getEvent() === $this) {
+                $attendanceList->setEvent(null);
+            }
         }
 
         return $this;

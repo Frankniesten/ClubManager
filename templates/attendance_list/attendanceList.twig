@@ -1,0 +1,133 @@
+{% extends 'base_content_full_width.html.twig' %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="d-flex justify-content-between flex-row">
+        <div class="p-2">
+            <h3>
+                {{ data.listName }}
+            </h3>
+        </div>
+
+
+        <div class="p-2">
+            <div class="btn-group btn-group-sm">
+                {% if is_granted('ROLE_SERVICES_VIEW') %}
+                    <a class="btn btn-primary" href="{{ path('attendance_list') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
+                {% endif %}
+
+                {% if is_granted('ROLE_SERVICES_DELETE') %}
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="{{ path('attendance_list_delete', {'id': data.id }) }}"
+                           onclick="return confirm('{% trans %}Delete_message{% endtrans %} {{ data.listName }}');"><i
+                                    class="mdi mdi-delete text-danger"></i> {% trans %}Delete{% endtrans %}</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- End Page header -->
+
+    <!-- Presence -->
+    <div class="card">
+        <div class="card-header" id="presence">
+			<span class="align-middle">
+				<i class="mdi mdi-account-card-details-outline"></i> {% trans %}Presence{% endtrans %}
+			</span>
+        </div>
+
+        <div class="card-body">
+            {{ include('attendance_list/presence.html.twig', { 'data': data }) }}
+        </div>
+    </div>
+
+    <!-- End Presence -->
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+    <script language = "javascript">
+    //Datatable donations
+    var table = $('#datatable-presence').DataTable({
+    lengthChange: false,
+    bFilter: false,
+    pageLength: 50,
+        columnDefs: [
+        {"orderable": true, "targets": 0},
+        {"orderable": false, "targets": 1},
+
+        ],
+        order: [[0, "asc"]],
+
+
+        {% if app.request.getLocale() == 'nl' %}
+        language: {
+        url: "{{ asset('assets/plugins/datatables/nl_NL.json') }}"
+        },
+    {%  endif %}
+    });
+    // End datatable donations
+    </script>
+
+    <script language = "javascript">
+
+        function setPresence(presenceId, status, current)
+        {
+            //Remove all button status:
+
+            var element = document.getElementById(presenceId+'-1');
+            //(".btn-group > .btn").removeClass("active");
+            element.classList.remove("active");
+
+            var element = document.getElementById(presenceId+'-2');
+            //(".btn-group > .btn").removeClass("active");
+            element.classList.remove("active");
+
+            var element = document.getElementById(presenceId+'-3');
+            //(".btn-group > .btn").removeClass("active");
+            element.classList.remove("active");
+
+            //Set the new button status
+            var element2 = document.getElementById(presenceId+'-'+status);
+            element2.classList.add("active");
+
+            //Post status to controller.
+            $.ajax({
+                type: "POST",
+                url: "/attendance-list/presence/"+presenceId,
+                data: {
+                    presenceId: presenceId,
+                    status: status
+                },
+                dataType:   'json',
+                async:      true,
+
+                success: function(data, status) {
+
+                    console.log(status);
+
+                    var element = document.getElementById(presenceId+'-check');
+                    element.classList.remove("mdi-alert-circle-outline");
+                    element.classList.remove("text-danger");
+                    element.classList.add("mdi-check-circle-outline");
+                    element.classList.add("text-success");
+                },
+
+                error : function(xhr, textStatus, errorThrown) {
+                    console.log('Ajax request failed');
+                }
+
+            })
+        }
+    </script>
+
+
+
+
+{% endblock %}

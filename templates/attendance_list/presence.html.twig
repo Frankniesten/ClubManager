@@ -1,0 +1,42 @@
+{%if data.presence is not empty %}
+
+    <!--Table -->
+    <table id="datatable-presence" class="table table-striped table-bordered display responsive" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+            <th class="all">{% trans %}Person{% endtrans %}</th>
+            <th width="50%" class="all">{% trans %}Presence{% endtrans %}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for presence in data.presence %}
+        <tr>
+            <td>
+                {% if presence.status is null %}
+                    <i id="{{ presence.id }}-check" class="mdi mdi-alert-circle-outline text-danger"></i>
+                {% else %}
+                    <i id="{{ presence.id }}-check" class="mdi mdi-check-circle-outline text-success"></i>
+                {% endif %}
+
+                {{ presence.person.familyName }}, {{ presence.person.givenName }} {{ presence.person.additionalName }}
+            </td>
+
+            <td>
+                <div class="btn-group btn-group-sm" role="group" id="group-{{ data.id }}"aria-label="Basic example">
+                    <button type="button" id='{{ presence.id }}-1' onclick='setPresence({{presence.id}}, 1, {{ presence.status }})' class="btn btn-outline-secondary
+                        {% if presence.status == 1 %}active{%  endif %}"><i class="mdi mdi-account-check"></i> <div class="d-none d-lg-block float-right">{% trans %}Present{% endtrans %}</div></button>
+                    <button type="button" id='{{ presence.id }}-2' onclick='setPresence({{presence.id}}, 2, {{ presence.status }})' class="btn btn-outline-secondary
+                        {% if presence.status == 2 %}active{%  endif %}"><i class="mdi mdi-account-question"></i> <div class="d-none d-lg-block float-right">{% trans %}Signed off{% endtrans %}</div></button>
+                    <button type="button" id='{{ presence.id }}-3' onclick='setPresence({{presence.id}}, 3, {{ presence.status }})' class="btn btn-outline-secondary
+                        {% if presence.status == 3 %}active{%  endif %}"><i class="mdi mdi-account-remove"></i> <div class="d-none d-lg-block float-right">{% trans %}Absent{% endtrans %}</div></button>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+    <div class="text-muted">{% trans %}Not_applicable{% endtrans %}</div>
+{% endif %}

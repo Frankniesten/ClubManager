@@ -58,9 +58,15 @@ class ProgramMembership
      */
     private $people;
 
+    /**
+     * @ORM\OneToMany(targetEntity=AttendanceList::class, mappedBy="programMembership")
+     */
+    private $attendanceLists;
+
     public function __construct()
     {
         $this->people = new ArrayCollection();
+        $this->attendanceLists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -115,6 +121,36 @@ class ProgramMembership
         if ($this->people->contains($person)) {
             $this->people->removeElement($person);
             $person->removeMemberOf($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|AttendanceList[]
+     */
+    public function getAttendanceLists(): Collection
+    {
+        return $this->attendanceLists;
+    }
+
+    public function addAttendanceList(AttendanceList $attendanceList): self
+    {
+        if (!$this->attendanceLists->contains($attendanceList)) {
+            $this->attendanceLists[] = $attendanceList;
+            $attendanceList->setProgramMembership($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttendanceList(AttendanceList $attendanceList): self
+    {
+        if ($this->attendanceLists->removeElement($attendanceList)) {
+            // set the owning side to null (unless already changed)
+            if ($attendanceList->getProgramMembership() === $this) {
+                $attendanceList->setProgramMembership(null);
+            }
         }
 
         return $this;
