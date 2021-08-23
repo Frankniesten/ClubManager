@@ -12,11 +12,11 @@
 
         <div class="p-2">
             <div class="btn-group btn-group-sm">
-                {% if is_granted('ROLE_SERVICES_VIEW') %}
+                {% if is_granted('ROLE_EVENT_VIEW') %}
                     <a class="btn btn-primary" href="{{ path('attendance_list') }}" role="button"><i class="mdi mdi-window-close"></i> {% trans %}Close{% endtrans %}</a>
                 {% endif %}
 
-                {% if is_granted('ROLE_SERVICES_DELETE') %}
+                {% if is_granted('ROLE_EVENT_DELETE') %}
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>

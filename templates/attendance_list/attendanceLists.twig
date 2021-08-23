@@ -3,7 +3,7 @@
 {% block body %}
     <!-- Page header -->
     <div class="d-flex justify-content-between flex-row">
-        <div class="p-2"><h3>{% trans %}Navbar_person{% endtrans %}</h3></div>
+        <div class="p-2"><h3>{% trans %}AttendeeLists{% endtrans %}</h3></div>
         <div class="p-2">
             {% if is_granted('ROLE_EVENT_CREATE') %}
                 <a class="btn btn-primary btn-sm float-right" href="{{ path('attendance_list_create') }}" role="button"><i class="mdi mdi-plus"></i> {% trans %}List_add{% endtrans %}</a>
@@ -123,7 +123,7 @@
             var table = $('#datatable-buttons').DataTable({
                 lengthChange: false,
                 pageLength: 50,
-                {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
+                {% if is_granted('ROLE_EVENT_EDIT') or is_granted('ROLE_EVENT_DELETE') %}
                 columnDefs: [
                     {"orderable": false, "targets": 0}
                 ],
