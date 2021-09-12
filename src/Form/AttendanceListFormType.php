@@ -24,7 +24,7 @@ class AttendanceListFormType extends AbstractType
                         ->andWhere('u.startDate >= :today')
                         ->andWhere('u.eventStatus >= :Confirmed')
                         ->andWhere( 'a.Event IS NULL' )
-                        ->setParameter('today', new \DateTime())
+                        ->setParameter('today', date_format(new \DateTime(), 'Y-m-d'))
                         ->setParameter('Confirmed', 'Confirmed')
                         ->orderBy('u.startDate', 'ASC');
                 },

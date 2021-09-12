@@ -31,7 +31,7 @@ class EventController extends AbstractController
 	    }
 	    else 
 	    {
-		    $startDate = $session->get('startDate', new DateTime());
+		    $startDate = $session->get('startDate', date_format(new \DateTime(), 'Y-m-d'));
 	    }
 	    
 	    //Check endDate:       
@@ -41,7 +41,7 @@ class EventController extends AbstractController
 	    }
 	    else 
 	    {
-		    $endDate = $session->get('endDate', new DateTime('+1 year'));
+		    $endDate = $session->get('endDate', date_format(new \DateTime('+1 year'), 'Y-m-d'));
 	    }
 	    
 	    //Check categorie:       
