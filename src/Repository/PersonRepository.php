@@ -89,14 +89,18 @@ class PersonRepository extends ServiceEntityRepository
             	p.membershipYears = 20 OR
             	p.membershipYears = 25 OR
             	p.membershipYears = 30 OR
+            	p.membershipYears = 35 OR
             	p.membershipYears = 40 OR
+            	p.membershipYears = 45 OR
             	p.membershipYears = 50 OR
+            	p.membershipYears = 55 OR
             	p.membershipYears = 60 OR
             	p.membershipYears = 65 OR
             	p.membershipYears = 70 OR
             	p.membershipYears = 75 OR
             	p.membershipYears = 80 OR
-            	p.membershipYears = 85
+            	p.membershipYears = 85 OR
+            	p.membershipYears = 90
             ')
             ->orderBy('p.membershipYears', 'ASC')
             ->getQuery()
