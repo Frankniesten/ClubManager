@@ -335,3 +335,9 @@ Presence: Presence
 Present: Present
 Signed off: Signed off
 Absent: Absent
+GivenName: Given name
+AdditionalName: Additional name
+FamilyName: Family name
+streetAddress: Street
+PostalCode: Zip code
+AddressLocality: City

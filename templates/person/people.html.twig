@@ -47,10 +47,16 @@
                         <th width="20px"></th>
                     {% endif %}
                     <th class="all">{% trans %}Name{% endtrans %}</th>
+                    <th class="all">{% trans %}GivenName{% endtrans %}</th>
+                    <th class="all">{% trans %}AdditionalName{% endtrans %}</th>
+                    <th class="all">{% trans %}FamilyName{% endtrans %}</th>
                     <th class="desktop">{% trans %}Email{% endtrans %}</th>
                     <th class="desktop">{% trans %}Telephone{% endtrans %}</th>
                     <th class="desktop">{% trans %}Telephone 2{% endtrans %}</th>
                     <th class="desktop">{% trans %}Address{% endtrans %}</th>
+                    <th class="desktop">{% trans %}streetAddress{% endtrans %}</th>
+                    <th class="desktop">{% trans %}PostalCode{% endtrans %}</th>
+                    <th class="desktop">{% trans %}AddressLocality{% endtrans %}</th>
                     <th class="desktop">{% trans %}Category{% endtrans %}</th>
                 </tr>
                 </thead>
@@ -84,6 +90,15 @@
                         <td>
                             <a href="{{ path('person_id', {'id': data.id}) }}"> {{ data.familyName }}, {{ data.givenName }} {{ data.additionalName }}</a>
                         </td>
+                        <td>
+                            {{  data.givenName }}
+                        </td>
+                        <td>
+                            {{ data.additionalName }}
+                        </td>
+                        <td>
+                            {{ data.familyName }}
+                        </td>
 
                         <td>
                             {{ data.email }}
@@ -99,6 +114,15 @@
                         </td>
                         <td>
                             {{ data.streetAddress }}{% if data.streetAddress != null %},{% endif %} {{ data.addressLocality }}
+                        </td>
+                        <td>
+                            {{ data.streetAddress }}
+                        </td>
+                        <td>
+                            {{ data.postalCode }}
+                        </td>
+                        <td>
+                            {{ data.addressLocality }}
                         </td>
 
                         <td>
@@ -135,12 +159,26 @@
                 pageLength: 50,
                 {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
                 columnDefs: [
-                    {"orderable": false, "targets": 0}
+                    {
+                        "orderable": false, "targets": 0
+                    },
+                    {
+                        "targets": [ 2,3,4,9,10,11 ],
+                        "visible": false,
+                        "searchable": false
+                    }
                 ],
                 order: [[1, "asc"]],
                 {%  else %}
                 columnDefs: [
-                    {"orderable": true, "targets": 0}
+                    {
+                        "orderable": true, "targets": 0
+                    },
+                    {
+                        "targets": [ 1,2,3,8,9,10 ],
+                        "visible": false,
+                        "searchable": false
+                    }
                 ],
                 order: [[0, "asc"]],
                 {%  endif %}
@@ -149,9 +187,9 @@
                         extend: 'csv',
                         exportOptions: {
                             {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
-                            columns: [1, 2, 3, 4, 5, 6]
+                            columns: [2, 3, 4, 5, 6, 7, 9, 10, 11]
                             {%  else %}
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [1, 2, 3, 4, 5, 6, 8, 9, 10]
                             {% endif %}
                         }
                     },
@@ -159,9 +197,9 @@
                         extend: 'print',
                         exportOptions: {
                             {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
-                            columns: [1, 2, 3, 4, 5, 6]
+                            columns: [2, 3, 4, 5, 6, 7, 9, 10, 11]
                             {%  else %}
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [1, 2, 3, 4, 5, 6, 8, 9, 10]
                             {% endif %}
                         }
                     },
@@ -172,9 +210,9 @@
                         pageSize: 'A4',
                         exportOptions: {
                             {% if is_granted('ROLE_PERSON_EDIT') or is_granted('ROLE_PERSON_DELETE') %}
-                            columns: [1, 2, 3, 4, 5, 6]
+                            columns: [2, 3, 4, 5, 6, 7, 9, 10, 11]
                             {%  else %}
-                            columns: [0, 1, 2, 3, 4, 5]
+                            columns: [1, 2, 3, 4, 5, 6, 8, 9, 10]
                             {% endif %}
                         }
                     }],

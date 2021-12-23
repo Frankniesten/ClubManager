@@ -333,3 +333,9 @@ Presence: Aanwezigheid
 Present: Aanwezig
 Signed off: Afgemeld
 Absent: Afwezig
+GivenName: Voornaam
+AdditionalName: Tussenvoegsel
+FamilyName: Achternaam
+streetAddress: Adres
+PostalCode: Postcode
+AddressLocality: Woonplaats
